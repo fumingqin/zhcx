@@ -1,8 +1,0 @@
-
-uni-button:after {
-	border: unset
-}
-button::after {
-	border: none;
-}
-

@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "uni-popup": "/pages_BCFW/components/BCFW/uni-popup/uni-popup",
-    "mx-date-picker": "/pages_BCFW/components/BCFW/mx-datepicker/mx-datepicker"
-  }
-}

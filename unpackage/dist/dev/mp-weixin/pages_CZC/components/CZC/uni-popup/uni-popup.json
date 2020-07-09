@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "uni-transition": "/pages_CZC/components/CZC/uni-transition/uni-transition"
-  }
-}

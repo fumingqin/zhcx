@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "uni-transition": "/pages_BCFW/components/BCFW/uni-transition/uni-transition"
-  }
-}

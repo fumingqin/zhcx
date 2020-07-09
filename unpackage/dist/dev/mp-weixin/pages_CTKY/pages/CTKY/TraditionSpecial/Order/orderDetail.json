@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "订单详情",
-  "usingComponents": {
-    "tki-qrcode": "/pages_CTKY/components/CTKY/tki-qrcode/tki-qrcode"
-  }
-}

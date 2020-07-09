@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "uni-calendar-item": "/pages_LYFW/components/LYFW/scenicSpotTickets/uni-calendar/uni-calendar-item"
-  }
-}

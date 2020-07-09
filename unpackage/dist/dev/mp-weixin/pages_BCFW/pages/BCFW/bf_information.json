@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "用车信息",
-  "usingComponents": {
-    "uni-popup": "/pages_BCFW/components/BCFW/uni-popup/uni-popup"
-  }
-}
