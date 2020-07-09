@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "填写订单",
+  "usingComponents": {
+    "uni-popup": "/pages_LYFW/components/LYFW/scenicSpotTickets/uni-popup/uni-popup",
+    "uni-calendar": "/pages_LYFW/components/LYFW/scenicSpotTickets/uni-calendar/uni-calendar"
+  }
+}

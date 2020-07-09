@@ -1,0 +1,236 @@
+{
+  "pages": [
+    "pages/Home/init",
+    "pages/Home/guidePage",
+    "pages/Home/zy_zhcx",
+    "pages/Home/ChooseSite",
+    "pages/Home/wxAuthorize",
+    "pages/GRZX/user",
+    "pages/GRZX/userLogin",
+    "pages/GRZX/wxLogin",
+    "pages/GRZX/passengerInfo",
+    "pages/GRZX/addPassenger",
+    "pages/GRZX/addFreeChildren",
+    "pages/GRZX/notice",
+    "pages/order/OrderList",
+    "pages/order/OrderDetail",
+    "pages/order/SpecialLineDetail",
+    "pages/order/DownWindCarDetail",
+    "pages/order/complaint",
+    "pages/Home/InformationDetails",
+    "pages/Home/MapIndex",
+    "pages/Home/MapSearch",
+    "pages/Home/serve"
+  ],
+  "subPackages": [
+    {
+      "root": "pages_CTKY/",
+      "pages": [
+        "pages/CTKY/SpecialBus/Home/specialBusHome",
+        "pages/CTKY/SpecialBus/Home/specialLinePicker",
+        "pages/CTKY/SpecialBus/Home/specialReserve",
+        "pages/CTKY/SpecialBus/ScheduleLineList/specialBusLineList",
+        "pages/CTKY/SpecialBus/ScheduleLineList/specialBusTakeOrder",
+        "pages/CTKY/SpecialBus/stationPicker/specialBusStationPicker",
+        "pages/CTKY/SpecialBus/specialBusOrderPayment/specialBusOrderPayment",
+        "pages/CTKY/TraditionSpecial/Home/ctkyIndex",
+        "pages/CTKY/TraditionSpecial/stationPicker/homeSattionPick",
+        "pages/CTKY/TraditionSpecial/Order/selectTickets",
+        "pages/CTKY/TraditionSpecial/Order/scheduleDetails",
+        "pages/CTKY/TraditionSpecial/seatSelection",
+        "pages/CTKY/TraditionSpecial/Order/oederList",
+        "pages/CTKY/TraditionSpecial/Order/orderDetail",
+        "pages/CTKY/TraditionSpecial/issueView",
+        "pages/CTKY/TraditionSpecial/MapMark/traditionCarMark",
+        "pages/CTKY/TraditionSpecial/MapMark/specialMark",
+        "pages/CTKY/TraditionSpecial/MapMark/checkBusLocation",
+        "pages/CTKY/TraditionSpecial/PayMent/orderPayment",
+        "pages/CTKY/TraditionSpecial/stationPicker/selectStation",
+        "pages/CTKY/TraditionSpecial/PayMent/CTKYPaySuccess",
+        "pages/CTKY/TraditionSpecial/PayMent/CTKYPayFail"
+      ]
+    },
+    {
+      "root": "pages_CZC/",
+      "pages": [
+        "pages/CZC/Index",
+        "pages/CZC/CallAndDrive",
+        "pages/CZC/PrivateTaxi",
+        "pages/CZC/WaitTakeOrder",
+        "pages/CZC/PriceDetail",
+        "pages/CZC/PaymentSuccess",
+        "pages/CZC/PaymentFail",
+        "pages/CZC/PrivateTaxiPayment",
+        "pages/CZC/PrivatePaySuccess",
+        "pages/CZC/TaxiPayment",
+        "pages/CZC/DownwindCar",
+        "pages/CZC/DownWindCarOrder",
+        "pages/CZC/DownWindCarPay",
+        "pages/CZC/TripShare"
+      ]
+    },
+    {
+      "root": "pages_GJCX/",
+      "pages": [
+        "pages/GJCX/busH5"
+      ]
+    },
+    {
+      "root": "pages_BCFW/",
+      "pages": [
+        "pages/BCFW/bf_chartered",
+        "pages/BCFW/bf_choice",
+        "pages/BCFW/bf_information",
+        "pages/BCFW/bf_choiceVehicleType",
+        "pages/BCFW/bf_charterMap",
+        "pages/BCFW/BCsuccessfulPayment",
+        "pages/BCFW/charteredBusPayment"
+      ]
+    },
+    {
+      "root": "pages_LYFW/",
+      "pages": [
+        "pages/LYFW/currency/imglist",
+        "pages/LYFW/currency/imgPreview",
+        "pages/LYFW/currency/imglist2",
+        "pages/LYFW/currency/imglist3",
+        "pages/LYFW/currency/imgPreview2",
+        "pages/LYFW/currency/imgPreview3",
+        "pages/LYFW/currency/travelDetails",
+        "pages/LYFW/currency/ho_zhly",
+        "pages/LYFW/groupTour/groupTourList",
+        "pages/LYFW/groupTour/viewMore",
+        "pages/LYFW/independentTravel/it_list",
+        "pages/LYFW/scenicSpotTickets/ticketsList",
+        "pages/LYFW/scenicSpotTickets/ticketsDetails",
+        "pages/LYFW/scenicSpotTickets/selectivePayment",
+        "pages/LYFW/scenicSpotTickets/successfulPayment",
+        "pages/LYFW/scenicSpotTickets/orderAdd",
+        "pages/LYFW/scenicSpotTickets/orderDetails",
+        "pages/LYFW/tourismProducts/tp_ticketsList",
+        "pages/LYFW/tourismProducts/tp_ticketsDetails",
+        "pages/LYFW/tourismProducts/tp_selectivePayment",
+        "pages/LYFW/tourismProducts/tp_successfulPayment",
+        "pages/LYFW/tourismProducts/tp_orderAdd",
+        "pages/LYFW/tourismProducts/tp_orderDetails",
+        "pages/LYFW/tourismProducts/tp_chooseShuttle",
+        "pages/LYFW/tourismProducts/tp_chooseShuttle2"
+      ]
+    },
+    {
+      "root": "pages_GRZX/",
+      "pages": [
+        "pages/GRZX/personal",
+        "pages/GRZX/address",
+        "pages/GRZX/set",
+        "pages/GRZX/addAddress",
+        "pages/GRZX/aboutApp",
+        "pages/GRZX/coupon",
+        "pages/GRZX/myNews",
+        "pages/GRZX/infoList",
+        "pages/GRZX/collection",
+        "pages/GRZX/history",
+        "pages/GRZX/detailTweet",
+        "pages/GRZX/feedback",
+        "pages/GRZX/pictureList",
+        "pages/GRZX/printDetails",
+        "pages/GRZX/printSubmit",
+        "pages/GRZX/printRoute",
+        "pages/GRZX/printSite",
+        "pages/GRZX/gz_complaintList",
+        "pages/GRZX/gz_complaintContent",
+        "pages/GRZX/gz_complaintsPage",
+        "pages/GRZX/gz_complaintText",
+        "pages/GRZX/realName",
+        "pages/GRZX/uploadPhoto",
+        "pages/GRZX/replacePhoneNum",
+        "pages/GRZX/verificateName",
+        "pages/GRZX/newPhone",
+        "pages/GRZX/privacyService"
+      ]
+    },
+    {
+      "root": "pages_DDQC/",
+      "pages": [
+        "pages/GRZY/zy_homepage",
+        "pages/GRZY/zy_expenseDetails",
+        "pages/GRZY/combo",
+        "pages/GRZY/topUp",
+        "pages/GRZY/wallet",
+        "pages/GRZY/zy_details",
+        "pages/RentBike/RentBikeHome",
+        "pages/RentBike/unLockView",
+        "pages/RentBike/Riding",
+        "pages/GRZY/zy_information",
+        "pages/GRZY/zy_faultReport",
+        "pages/GRZY/zy_newsScreening",
+        "pages/RentBike/Payment",
+        "pages/GRZY/zy_QRcode",
+        "pages/GRZY/zy_commuterCard",
+        "pages/GRZY/zy_topUpRecord",
+        "pages/GRZY/newsDetail",
+        "pages/GRZY/refundRecord",
+        "pages/Bus/BusSeach",
+        "pages/RentBike/BillingRule",
+        "pages/Bus/TicketPurchase"
+      ]
+    },
+    {
+      "root": "pages_JCYY/",
+      "pages": [
+        "pages/JCYY/theDay"
+      ]
+    },
+    {
+      "root": "pages_XQZX/",
+      "pages": [
+        "pages/XQZX/districtLine"
+      ]
+    },
+    {
+      "root": "pages_CCT/",
+      "pages": [
+        "pages/CCT/villageBus"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#333333",
+    "selectedColor": "#FC4646",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/Home/zy_zhcx",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/GRZX/notice",
+        "text": "通知"
+      },
+      {
+        "pagePath": "pages/Home/serve",
+        "text": "服务"
+      },
+      {
+        "pagePath": "pages/order/OrderList",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/GRZX/user",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "usingComponents": {}
+}

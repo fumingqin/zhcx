@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "uni-calendar": "/pages_LYFW/components/LYFW/scenicSpotTickets/uni-calendar/uni-calendar"
+  }
+}

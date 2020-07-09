@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "提交列表",
+  "usingComponents": {
+    "q-s-tabs": "/pages_GRZX/components/GRZX/independentTravel/QS-tabs/QS-tabs"
+  }
+}

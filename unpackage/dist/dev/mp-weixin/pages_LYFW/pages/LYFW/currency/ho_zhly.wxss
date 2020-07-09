@@ -1,0 +1,385 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+page {
+  background-color: #f6f6f6;
+}
+.zl_topPicture {
+  width: 750rpx;
+  height: 406rpx;
+}
+.zl_topPicture .zl_image {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.zl_topPicture .zl_image image {
+  width: 100%;
+  height: 100%;
+}
+.zl_click {
+  position: absolute;
+  background: white;
+  z-index: 2;
+  width: 708rpx;
+  height: 178rpx;
+  top: 355rpx;
+  box-shadow: 0px 6px 20px 0px rgba(231, 231, 231, 0.53);
+  border-radius: 12px;
+  margin: 0 20rpx;
+}
+.zl_click .zl_topClick {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.zl_click .zl_topClick .zl_independentTravel {
+  width: 25%;
+  height: 178rpx;
+  text-align: center;
+}
+.zl_click .zl_topClick .zl_independentTravel .zl_itImage {
+  width: 44rpx;
+  height: 44rpx;
+  margin-top: 47rpx;
+}
+.zl_click .zl_topClick .zl_independentTravel .zl_itText {
+  font-size: 26rpx;
+  color: FF333333;
+  display: block;
+  line-height: 50rpx;
+}
+.zl_click .zl_topClick .zl_groupTour {
+  width: 25%;
+  height: 178rpx;
+  text-align: center;
+}
+.zl_click .zl_topClick .zl_groupTour .zl_gtImage {
+  width: 53rpx;
+  height: 44rpx;
+  margin-top: 47rpx;
+}
+.zl_click .zl_topClick .zl_groupTour .zl_gtText {
+  font-size: 26rpx;
+  color: FF333333;
+  display: block;
+  line-height: 50rpx;
+}
+.zl_click .zl_topClick .zl_admissionTicket {
+  width: 25%;
+  height: 178rpx;
+  text-align: center;
+}
+.zl_click .zl_topClick .zl_admissionTicket .zl_atImage {
+  width: 48rpx;
+  height: 35rpx;
+  margin-top: 53rpx;
+}
+.zl_click .zl_topClick .zl_admissionTicket .zl_atText {
+  font-size: 26rpx;
+  color: FF333333;
+  display: block;
+  line-height: 61rpx;
+}
+.zl_click .zl_topClick .zl_commodity {
+  width: 25%;
+  height: 178rpx;
+  text-align: center;
+}
+.zl_click .zl_topClick .zl_commodity .zl_coImage {
+  width: 42rpx;
+  height: 41rpx;
+  margin-top: 50rpx;
+}
+.zl_click .zl_topClick .zl_commodity .zl_coText {
+  font-size: 26rpx;
+  color: FF333333;
+  display: block;
+  line-height: 50rpx;
+}
+.notice {
+  background: #fff;
+  margin-top: 147rpx;
+}
+.notice .zl_content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.notice .zl_content .zl_noImage {
+  width: 146rpx;
+  height: 83rpx;
+  margin: 47rpx 0rpx;
+  margin-left: 31rpx;
+}
+.notice .zl_content .zl_noContent .zl_noText {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 26rpx;
+  color: #333333;
+  margin-top: 35rpx;
+  margin-left: 55rpx;
+}
+.notice .zl_content .zl_noContent .zl_label {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  margin-left: 45rpx;
+  margin-top: 27rpx;
+}
+.notice .zl_content .zl_noContent .zl_label .la_label {
+  margin-right: 10rpx;
+}
+.notice .zl_content .zl_noContent .zl_label .la_label .la_background {
+  background-color: #e2f1fa;
+  border-radius: 20px;
+  font-size: 24rpx;
+  color: #7fbbe1;
+  padding: 9rpx 20rpx;
+}
+.zl_recommend {
+  background: #fff;
+  margin-top: 147rpx;
+  padding: 0 31rpx;
+}
+.zl_recommend .zl_reContent {
+  position: relative;
+  padding-top: 40rpx;
+}
+.zl_recommend .zl_reContent .zl_reTitle {
+  font-size: 32rpx;
+  color: #333333;
+  font-weight: bold;
+}
+.zl_recommend .zl_reContent .zl_reMore {
+  position: absolute;
+  padding-right: 31rpx;
+  padding: 4rpx 0;
+  right: 0;
+  font-size: 24rpx;
+  color: #5E5E60;
+}
+.zl_recommend .zl_reContent2 {
+  padding-top: 42rpx;
+  padding-bottom: 40rpx;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage1 .ct_content1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  position: relative;
+  margin-right: 10rpx;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage1 .ct_content1 .ct_image1 {
+  width: 454rpx;
+  height: 207rpx;
+  overflow: hidden;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage1 .ct_content1 .ct_text1 {
+  position: absolute;
+  font-size: 22rpx;
+  bottom: 0;
+  padding: 11rpx 15rpx;
+  color: #fff;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage1 .ct_content2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  position: relative;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage1 .ct_content2 .ct_image2 {
+  width: 222rpx;
+  height: 207rpx;
+  overflow: hidden;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage1 .ct_content2 .ct_text2 {
+  position: absolute;
+  font-size: 22rpx;
+  bottom: 0;
+  padding: 11rpx 15rpx;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  margin-top: 20rpx;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage2 .ct_content3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  position: relative;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage2 .ct_content3 .ct_image3 {
+  width: 222rpx;
+  height: 207rpx;
+  overflow: hidden;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage2 .ct_content3 .ct_text3 {
+  position: absolute;
+  font-size: 22rpx;
+  bottom: 0;
+  padding: 11rpx 15rpx;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage2 .ct_content4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  position: relative;
+  margin-left: 10rpx;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage2 .ct_content4 .ct_image4 {
+  width: 222rpx;
+  height: 207rpx;
+  overflow: hidden;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage2 .ct_content4 .ct_text4 {
+  position: absolute;
+  font-size: 22rpx;
+  bottom: 0;
+  padding: 11rpx 15rpx;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage2 .ct_content5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  position: relative;
+  margin-left: 10rpx;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage2 .ct_content5 .ct_image5 {
+  width: 222rpx;
+  height: 207rpx;
+  overflow: hidden;
+}
+.zl_recommend .zl_reContent2 .zl_contentImage2 .ct_content5 .ct_text5 {
+  position: absolute;
+  font-size: 22rpx;
+  bottom: 0;
+  padding: 11rpx 15rpx;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/* 南平周边-样式*/
+.guess-section {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  padding: 0 30rpx;
+  background: #fff;
+}
+.guess-section .guess-item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  width: 48%;
+  padding-bottom: 40rpx;
+}
+.guess-section .guess-item:nth-child(2n+1) {
+  margin-right: 4%;
+}
+.guess-section .image-wrapper {
+  width: 100%;
+  height: 360rpx;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.guess-section .image-wrapper image {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+.guess-section .title {
+  font-size: 32rpx;
+  color: #333;
+  line-height: 72rpx;
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 160px;
+}
+.guess-section .Portrait {
+  width: 40rpx;
+  height: 40rpx;
+  opacity: 1;
+}
+.guess-section .price {
+  position: relative;
+  font-size: 26rpx;
+  color: #666;
+  left: 54rpx;
+  top: 32rpx;
+  max-width: 5;
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 76px;
+  margin-top: -80rpx;
+}
+.guess-section .price-zan {
+  font-size: 24rpx;
+  color: #666;
+  float: right;
+  margin-top: 3rpx;
+}
+/*通用字体样式*/
+.titNp {
+  margin-top: 20rpx;
+  padding: 32rpx;
+  color: #333333;
+  font-size: 34rpx;
+  font-weight: bold;
+  background: #fff;
+}
+

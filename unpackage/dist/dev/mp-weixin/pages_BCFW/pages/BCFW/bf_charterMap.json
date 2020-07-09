@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-icons": "/pages_BCFW/components/BCFW/uni-icons/uni-icons",
+    "uni-popup": "/pages_BCFW/components/BCFW/uni-popup/uni-popup"
+  }
+}

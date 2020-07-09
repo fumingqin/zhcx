@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "uni-popup": "/pages_DDQC/components/GRZY/uni-popup/uni-popup",
+    "uni-icons": "/components/Order/uni-icons/uni-icons",
+    "uni-rate": "/components/Order/StarJudge/uni-rate/uni-rate"
+  }
+}

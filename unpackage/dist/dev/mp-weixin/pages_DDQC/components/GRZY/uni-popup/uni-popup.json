@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "uni-transition": "/pages_DDQC/components/GRZY/uni-transition/uni-transition"
+  }
+}

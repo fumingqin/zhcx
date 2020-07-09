@@ -1,0 +1,9 @@
+{
+  "backgroundColor": "#F1F1F1",
+  "navigationBarBackgroundColor": "#FC4646",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "班次详情",
+  "usingComponents": {
+    "popup": "/pages_CTKY/components/CTKY/uni-popup/uni-popup"
+  }
+}

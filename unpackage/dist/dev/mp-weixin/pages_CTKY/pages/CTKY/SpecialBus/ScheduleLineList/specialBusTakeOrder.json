@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "popup": "/pages_CTKY/components/CTKY/uni-popup/uni-popup"
+  }
+}

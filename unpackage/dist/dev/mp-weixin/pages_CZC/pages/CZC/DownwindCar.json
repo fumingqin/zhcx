@@ -1,0 +1,9 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "uni-icons": "/pages_CZC/components/CZC/uni-icons/uni-icons",
+    "uni-segmented-control": "/pages_CZC/components/CZC/uni-segmented-control/uni-segmented-control",
+    "h-time-picker": "/pages_CZC/components/CZC/h-timePicker/h-timePicker",
+    "uni-popup": "/pages_CZC/components/CZC/uni-popup/uni-popup"
+  }
+}

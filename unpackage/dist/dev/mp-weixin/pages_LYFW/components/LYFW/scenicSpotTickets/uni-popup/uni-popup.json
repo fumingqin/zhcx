@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "uni-transition": "/pages_LYFW/components/LYFW/scenicSpotTickets/uni-transition/uni-transition"
+  }
+}

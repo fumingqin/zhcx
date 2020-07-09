@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "客运",
+  "usingComponents": {
+    "mx-date-picker": "/pages_CTKY/components/CTKY/mx-datepicker/mx-datepicker"
+  }
+}

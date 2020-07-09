@@ -1,0 +1,1 @@
+<view class="content"><view style="font-size:40rpx;margin:30rpx 0;font-weight:bold;width:700rpx;text-align:center;">{{Title}}</view><view style="width:700rpx;font-size:32rpx;"><rich-text nodes="{{contentHTML}}"></rich-text></view></view>

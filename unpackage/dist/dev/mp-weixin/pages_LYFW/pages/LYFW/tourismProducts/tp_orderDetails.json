@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "订单详情",
+  "usingComponents": {
+    "uni-popup": "/pages_LYFW/components/LYFW/scenicSpotTickets/uni-popup/uni-popup"
+  }
+}

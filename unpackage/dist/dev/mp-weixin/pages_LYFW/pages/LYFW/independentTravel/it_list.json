@@ -1,0 +1,9 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "自由行",
+  "usingComponents": {
+    "city-select": "/components/HOME/uni-location/linzq-citySelect/linzq-citySelect",
+    "popup-layer": "/components/HOME/uni-location/popup-layer/popup-layer",
+    "q-s-tabs": "/pages_LYFW/components/LYFW/independentTravel/QS-tabs/QS-tabs"
+  }
+}

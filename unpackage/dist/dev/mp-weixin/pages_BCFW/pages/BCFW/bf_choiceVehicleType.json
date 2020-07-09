@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "选择车型",
+  "usingComponents": {
+    "uni-popup": "/pages_BCFW/components/BCFW/uni-popup/uni-popup"
+  }
+}

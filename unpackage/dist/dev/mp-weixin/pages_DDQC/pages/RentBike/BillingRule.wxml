@@ -1,0 +1,1 @@
+<view><view style="width:700rpx;font-size:32rpx;"><rich-text nodes="{{consultingService.Body}}"></rich-text></view></view>
