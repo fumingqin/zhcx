@@ -6,7 +6,8 @@
 				<image :src="item.ImageURL" mode="aspectFill" />
 			</swiper-item>
 		</swiper>
-
+		<!-- app -->
+		<!-- #ifdef APP-PLUS -->
 		<swiper class="zl_swi " circular @change="swiperChange">
 			<swiper-item class="swiItem" style="display: flex;align-items: center;" v-for="(item,index) in swiperItem" :key="index">
 				<!-- 	<swiper-item class="swiItem" style="display: flex;align-items: center;">
@@ -28,7 +29,58 @@
 				</view>
 			</swiper-item>
 		</swiper>
-
+		<!-- #endif -->
+		
+		<!-- h5 -->
+		<!-- #ifdef H5 -->
+		<swiper class="zl_swi " circular @change="swiperChange">
+			<swiper-item class="swiItem" style="display: flex;align-items: center;" v-for="(item,index) in swiperItem" :key="index">
+				<!-- 	<swiper-item class="swiItem" style="display: flex;align-items: center;">
+				<view style="display: flex;justify-content: space-around;align-items: center;"> -->
+				<view style="display: flex;width: 25%;justify-content: center;margin-bottom: 12upx;" v-for="(ArrItem,index1) in item.ItemArr" :key="index1">
+					<view style="display: flex;justify-content: center;flex-direction: column;align-items: center;" @click="TitleJump(ArrItem.IsUse,ArrItem.clickURL)">
+						<image v-if="ArrItem.ItemTitle =='达达骑车'" style="width: 90upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='公交刷码'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='达达钱包'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='公交查询'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='车票订购'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='包车服务'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='景区门票'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='旅游产品'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='预约检测'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='自由行'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<text class="itemText">{{ArrItem.ItemTitle}}</text>
+					</view>
+				</view>
+			</swiper-item>
+		</swiper>
+		<!-- #endif -->
+		
+		<!-- 微信 -->
+		<!-- #ifdef MP-WEIXIN -->
+		<swiper class="zl_swi " circular @change="swiperChange">
+			<swiper-item class="swiItem" style="display: flex;align-items: center;" v-for="(item,index) in swiperItem" :key="index">
+				<!-- 	<swiper-item class="swiItem" style="display: flex;align-items: center;">
+				<view style="display: flex;justify-content: space-around;align-items: center;"> -->
+				<view style="display: flex;width: 25%;justify-content: center;margin-bottom: 12upx;" v-for="(ArrItem,index1) in item.ItemArr" :key="index1">
+					<view style="display: flex;justify-content: center;flex-direction: column;align-items: center;" @click="TitleJump(ArrItem.IsUse,ArrItem.clickURL)">
+						<image v-if="ArrItem.ItemTitle =='达达骑车'" style="width: 90upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='公交刷码'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='达达钱包'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='公交查询'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='车票订购'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='包车服务'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='景区门票'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='旅游产品'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='预约检测'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<image v-if="ArrItem.ItemTitle =='自由行'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+						<text class="itemText">{{ArrItem.ItemTitle}}</text>
+					</view>
+				</view>
+			</swiper-item>
+		</swiper>
+		<!-- #endif -->
+		
 		<!-- 自定义swiper指示器 -->
 		<view class="dots">
 			<block v-for="(item,index) in swiperItem.length" :key="item">
@@ -282,7 +334,7 @@
 			}
 		},
 		onLoad() {
-			var a = this.$oSit.Interface.address.Url;
+			var a = this.$oSit.Interface.address.Url;	
 			console.log(a)
 			var that = this;
 			// #ifdef APP-PLUS
