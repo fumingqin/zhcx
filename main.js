@@ -14,17 +14,14 @@ import oSit from 'common/overallSituation.js' //全局js文件
 
 Vue.config.productionTip = false
 
-// Vue.prototype.$store=store;  //登录
 Vue.prototype.$oSit=oSit;  //全局文件
-Vue.prototype.$Czc=Czc;  //登录
+Vue.prototype.$Czc=Czc;  //出租车
 Vue.prototype.$GrzxInter=GrzxInter;  //个人中心
 Vue.prototype.$ChangeImage=ChangeImage; //更换图片
 App.mpType = 'app'
 
 
 const app = new Vue({
-	// store,	//登录
-	GrzxInter,//个人中心
     ...App
 })
 
