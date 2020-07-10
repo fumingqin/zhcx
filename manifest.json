@@ -51,7 +51,8 @@
                     "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
-                ]
+                ],
+                "autoSdkPermissions" : false
             },
             /* ios打包配置 */
             "ios" : {
@@ -207,7 +208,7 @@
         "title" : "泉运出行综合平台",
         "domain" : "http://zntc.145u.net",
         "router" : {
-            "base" : "/h5/"
+            "base" : "/h55/"
         },
         "devServer" : {
             "https" : false,
