@@ -1,3 +1,9 @@
-.a{
+/* 红色按钮 */
+.btn_background{
 	background: #007AFF;
+}
+
+/* 白色字体 */
+.btn_fontColor{
+	color: #FFFFFF;
 }
