@@ -145,7 +145,7 @@
 				</view>
 		</view>
 		<view class="cl_bottom"></view>
-		<view class="tjButton" @click="jump">前往投诉</view>
+		<view class="tjButton btn_background btn_fontColor" @click="jump">前往投诉</view>
 	</view>
 </template>
 
@@ -589,9 +589,9 @@
 		padding: 24upx 0;
 		border-radius: 64upx;
 		margin: 0 40upx;
-		background: #1EA2FF;
+		// background: #1EA2FF;
 		text-align: center;
-		color: #FFFFFF;
+		// color: #FFFFFF;
 		font-size: 38upx;
 		font-weight: 400;
 		box-shadow: 0px 0.2px 0px #aaa;

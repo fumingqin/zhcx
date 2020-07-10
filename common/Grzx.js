@@ -7,7 +7,8 @@
 	const Url = 'http://zntc.145u.net'; //http请求
 // #endif
 // #ifndef H5
-	const Url = 'http://36.250.234.10:60039';
+	const Url = 'http://36.250.234.10:60039';//接口地址
+	// const Url = 'https://zntc.145u.net';//综合出行接口地址
 // #endif
 
 // #ifdef APP-PLUS
@@ -15,8 +16,25 @@
 // const ddtUrl='http://111.231.109.113:8004' //达达通接口地址
 const ddtUrl='http://36.250.234.10:60040' //达达通接口地址
 
+const appConfig={
+	wxConfig:{
+		name:'小程序的Appid',
+		wxAppId:'wx37b8f978e30050e4',
+	},
+	H5Config:{
+		name:'公众号的Appid和App秘钥',
+		H5AppId:'wx0ddb1b8b3ed8ee80',
+		H5AppSecre:'9091290458d85ff3a014198275d1d6d5',
+	}
+}
 
 const Interface={
+	getWxUserinfo:{
+		value:'http://27.148.155.9:9056/CTKY/getWxUserinfo',
+		name:'公众号获取OpenID',
+		method:'POST',
+		pages: [],
+	},
 	login:{
 		value:Url+'/api/person/login',
 		name:'用户登录',
@@ -175,6 +193,10 @@ const Interface={
 const MainPackage='/pages/GRZX';   //主包
 const SubPackage='/pages_GRZX/pages/GRZX'; //分包
 const Route={
+	home:{
+		url:'/pages/Home/zy_zhcx',
+		name:'首页',
+	},
 	//主包里页面的路径
 	addPassenger:{
 		url:MainPackage+'/addPassenger',
@@ -290,5 +312,6 @@ const GetImage={
 export default {
 	Interface,
 	Route,
-	GetImage
+	GetImage,
+	appConfig
 }

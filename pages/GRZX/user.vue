@@ -291,10 +291,10 @@
 						} else {
 							//未绑定手机号
 							//#ifdef H5
-							uni.showToast({
-								title: "请绑定手机号，请返回至首页",
-								icon: 'none'
-							})
+							// uni.showToast({
+							// 	title: "请绑定手机号，请返回至首页",
+							// 	icon: 'none'
+							// })
 							//#endif
 						}
 					},
@@ -307,7 +307,6 @@
 			
 			//-------------------------------------根据id获取实名信息----------------------------------
 			checkIDRealName(id) {
-				// console.log(id,'checkRealName')
 				var that = this;
 				uni.request({
 					url: that.$GrzxInter.Interface.GetUserByUserID.value,

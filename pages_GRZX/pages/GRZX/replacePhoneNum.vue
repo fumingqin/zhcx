@@ -11,7 +11,7 @@
 		<view class="itemClass">
 			<view class="codeClass3" @click="getCodeClick">{{textCode}}</view>
 		</view>
-		<view class="btnClass" @click="submitClick">验&nbsp;证</view>
+		<view class="btnClass btn_background btn_fontColor" @click="submitClick">验&nbsp;证</view>
 		<!-- <view class="cancellationClass" @click="cancellationClick">无法收到验证码，请点击此处</view> -->
 	</view>
 </template>
@@ -211,10 +211,8 @@
 		width: 90%;
 		text-align: center;
 		margin-left: 5%;
-		color: #FFFFFF;
 		padding: 20upx 0;
 		font-size: 32upx;
-		background-color: #ff0000;
 		border-radius: 100upx;
 	}
 	.cancellationClass{

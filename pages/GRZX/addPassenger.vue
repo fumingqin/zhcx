@@ -139,8 +139,8 @@
 					</checkbox-group>
 				</view>
 			</view> -->
-			<button  class="btndelete" @click="resetClick">重置</button>
-			<button form-type="submit" class="btnsubmit">保存</button>		
+			<button  class="btndelete btn_GRZX_CZ" @click="resetClick">重置</button>
+			<button form-type="submit" class="btnsubmit btn_background btn_fontColor">保存</button>		
 		</form>
 		<view class="title">
 			<image src="../../static/GRZX/btnReturn.png" class="returnClass" @click="returnClick"></image>
@@ -832,8 +832,6 @@
 	.btndelete{	//重置
 		width: 40%;
 		height: 108upx;
-		background-color: #FFFFFF;
-		color: #F75674;
 		position: fixed;
 		bottom: 0upx;
 		left: 0%;
@@ -845,8 +843,6 @@
 	.btnsubmit{		//保存
 		width: 60%;
 		height: 108upx;
-		background-color: #FC4B4B;
-		color: #FFFFFF;
 		position: fixed;
 		bottom: 0upx;
 		left: 40%;

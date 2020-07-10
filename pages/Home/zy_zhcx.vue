@@ -667,7 +667,8 @@
 			//获取openid
 			getCode() {
 				let that = this;
-				let Appid = "wxef946aa6ab5788a3"; //appid
+				let Appid = that.$GrzxInter.appConfig.H5Config.H5AppId; //H5AppId
+				let AppSecre = that.$GrzxInter.appConfig.H5Config.H5AppSecre; //H5AppSecre
 				let code = this.getUrlParam('code'); //是否存在code
 				console.log(code);
 				let local = "http://zntc.145u.net/#/";
@@ -682,12 +683,14 @@
 				} else {
 					// 存在则通过code传向后台调用接口返回微信的个人信息
 					uni.request({
-						url: 'http://27.148.155.9:9056/CTKY/getWxUserinfo?code=' + code + '&Appid=' + Appid +
-							'&Appsecret=6db2b79e1669f727c246d9c8ae928ecf',
+						url:that.$GrzxInter.Interface.getWxUserinfo.value+'?code='+ code
+						+ '&Appid=' + Appid + '&Appsecret='+AppSecre,
+						// url：: 'http://27.148.155.9:9056/CTKY/getWxUserinfo?code=' + code + '&Appid=' + Appid +
+						// 	'&Appsecret='+AppSecre,
 						header: {
 							'content-type': 'application/x-www-form-urlencoded'
 						},
-						method: 'POST',
+						method:that.$GrzxInter.Interface.getWxUserinfo.method,
 						success(res) {
 							console.log(res, "res")
 							if (res.data.openid != "" && res.data.openid != null) {
@@ -698,7 +701,6 @@
 							console.log(openid, "openid")
 							if (openid != "" && openid != null && openid != undefined) {
 								uni.request({
-									//url:'http://zntc.145u.net/api/person/changeInfo',
 									url: that.$GrzxInter.Interface.GetUserInfoByOpenId_wx.value,
 									data: {
 										openId_wx: openid,
