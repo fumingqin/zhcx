@@ -1,6 +1,6 @@
 <script>
 	// #ifdef APP-PLUS
-	const jyJPush = uni.requireNativePlugin('JY-JPush');
+	// const jyJPush = uni.requireNativePlugin('JY-JPush');
 	// #endif
 	import $DDTInterface from '@/common/DDT.js'
 	import homeJS from 'common/Home.js';
@@ -173,9 +173,9 @@
 				return;
 			}
 			// #ifdef APP-PLUS
-			that.setJYJPushAlias(userInfo.phoneNumber);
-			that.addJYJPushReceiveOpenNotificationListener();
-			that.addJYJPushReceiveNotificationListener();
+			// that.setJYJPushAlias(userInfo.phoneNumber);
+			// that.addJYJPushReceiveOpenNotificationListener();
+			// that.addJYJPushReceiveNotificationListener();
 			// #endif
 		},
 		onHide: function() {

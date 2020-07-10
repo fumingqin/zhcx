@@ -50,7 +50,7 @@
 						<view>A6</view>
 					</view>
 					<view style="display: flex;flex-direction: column;text-align: center;margin-top: 39upx;">
-						<image src="../../../static/CTKY/unSeat.png" style="width:61.6upx ;height: 71.9upx;margin-left: 18upx;margin-right: 18upx;"></image>
+						<image src="../../../static/ZXGP/unSeat.png" style="width:61.6upx ;height: 71.9upx;margin-left: 18upx;margin-right: 18upx;"></image>
 						<view>B6</view>
 					</view>
 					<view style="display: flex;flex-direction: column;text-align: center;margin-top: 39upx;width:61.6upx ;height: 71.9upx;margin-left: 18upx;margin-right: 18upx;">
@@ -162,7 +162,7 @@
 					<view style="display: flex;flex-direction: column;text-align: center;margin-top: 39upx;width:61.6upx ;height: 71.9upx;margin-left: 18upx;margin-right: 18upx;">
 					</view>
 					<view style="display: flex;flex-direction: column;text-align: center;margin-top: 39upx;">
-						<image src="../../../static/CTKY/Seat.png" style="width:61.6upx ;height: 71.9upx;margin-left: 18upx;margin-right: 18upx;"></image>
+						<image src="../../../static/ZXGP/Seat.png" style="width:61.6upx ;height: 71.9upx;margin-left: 18upx;margin-right: 18upx;"></image>
 						<view>驾驶座</view>
 					</view>
 					<text>窗</text>
