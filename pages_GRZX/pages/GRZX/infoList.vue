@@ -13,7 +13,6 @@
 					<view class="typeClass">{{item.userType}}</view>
 					<text style="font-size: 24upx;color: #2C2D2D;line-height: 57upx;margin-left: 20upx;">{{item.userauditState}}</text>
 					<text v-if="item.userDefault==true" class="fontClass" style="width: 80upx;">本人</text>
-					<!-- <text v-if="item.userEmergencyContact==true" class="fontClass" style="width: 80upx;">联系人</text> -->
 				</view>
 				<view class="btnRight">
 					<image src="../../static/GRZX/btnRight.png" style="width: 100%;height: 100%;"></image>
@@ -21,14 +20,13 @@
 			</view>
 		</view>
 		<view v-if="type==1 && state==1" class="btnBox">
-			<button type="warn" @click="addPassenger" class="btnAdd">+添加乘客</button>
+			<button @click="addPassenger" class="btnAdd btn_background btn_fontColor">+添加乘客</button>
 		</view>	
 		
 		<view v-if="type==1 && state==2" class="mt">
 			<view class="boxClass" v-for="(item, index) in passengerList" :key="index" @click="selete(item)">  <!--个人中心页面进入 -->
 				<view class="nameClass">{{item.userName}}</view>
 				<view class="sexClass">{{item.userSex}}</view>
-				<!-- <view class="typeClass">{{item.userType}}</view> -->
 				<view class="codeClass fontStyle">身份证</view>
 				<view class="codeNumClass fontStyle">{{item.userCodeNum}}</view>
 				<view class="phoneClass fontStyle">联系电话</view>
@@ -37,7 +35,6 @@
 					<view class="typeClass">{{item.userType}}</view>
 					<text style="font-size: 24upx;color: #2C2D2D;line-height: 57upx;margin-left: 20upx;">{{item.userauditState}}</text>
 					<text v-if="item.userDefault==true" class="fontClass" style="width: 80upx;">本人</text>
-					<!-- <text v-if="item.userEmergencyContact==true" class="fontClass" style="width: 80upx;">联系人</text> -->
 				</view>
 				<view v-if="item.deleteIndex==0" class="btnCheck"> 
 					<image src="../../static/GRZX/btnUncheck.png" style="width: 100%;height: 100%;"></image>
@@ -48,7 +45,7 @@
 			</view>
 		</view>
 		<view v-if="type==1 && state==2" class="btnBox">
-			<button type="warn" @click="deletePassenger" class="btnAdd">删除</button>
+			<button @click="deletePassenger" class="btnAdd btn_background btn_fontColor">删除</button>
 		</view>
 		
 		<!-- <view v-if="type==1" class="navClass" >
@@ -78,7 +75,7 @@
 			</view>
 		</view>	
 		<view v-if="type==2 && state==1" class="btnBox"> 
-			<button type="warn" @click="addAddress" class="btnAdd">+添加邮寄地址</button>
+			<button @click="addAddress" class="btnAdd btn_background btn_fontColor">+添加邮寄地址</button>
 		</view>	
 		
 		<view v-if="type==2 && state==2" class="m-l">
@@ -101,7 +98,7 @@
 			</view>
 		</view>	
 		<view v-if="type==2 && state==2" class="btnBox">
-			<button type="warn" @click="deleteAddress" class="btnAdd">删除</button>
+			<button @click="deleteAddress" class="btnAdd btn_background btn_fontColor">删除</button>
 		</view>
 		<view v-if="type==2" class="navClass" >
 			<view class="passengerClass2" @click="passengerClick"><text class="textClass">常用出行人</text></view>
@@ -128,14 +125,20 @@
 	export default {
 	    data() {
 	        return {
-				type:'1',
-				state:'1', //1管理， 2完成
-				passengerList:[],
-				addressList:[],
-				userId:'',
+				applyName:'',   //应用名称
+				
+				type:'1',  		//切换tab
+				state:'1',		 //1管理， 2完成
+				passengerList:[], 	//乘客列表
+				addressList:[],		//地址列表
+				
+				userId:'',			//用户信息
 			}
 	    },
 		onLoad(){
+			//加载应用名称
+			this.applyName=this.$oSit.Interface.system.applyName;
+			
 			uni.getStorage({
 				key:'userInfo',
 				fail() {
@@ -146,10 +149,7 @@
 					//#ifdef APP-PLUS
 					setTimeout(function(){
 						uni.navigateTo({	
-							//loginType=1,泉运登录界面
-							//loginType=2,今点通登录界面
-							//loginType=3,武夷股份登录界面
-							url  : '/pages/GRZX/userLogin?loginType=1'
+							url  : '/pages/GRZX/userLogin'
 						}) 
 					},500);
 					// #endif
@@ -190,7 +190,6 @@
 					success(res){
 						that.userId=res.data.userId;
 						uni.request({
-							//url:'http://111.231.109.113:8002/api/person/userInfoList',
 							url:that.$GrzxInter.Interface.userInfoList.value,
 							data:{
 								userId:res.data.userId
@@ -242,25 +241,17 @@
 						})
 					}
 				})
-				// var address=[];
-				// uni.getStorage({
-				// 	key:'addressList',
-				// 	success(res1) {
-				// 		console.log(res1)
-				// 		for(var i=0;i<res1.data.length;i++){
-				// 			address.push(res1.data[i]);
-				// 		}
-				// 	}
-				// })
-				// this.addressList=address;
 			},
+			
 			//---------乘车人管理---------
 			passengerClick(){
 				this.type=1;
 			},
+			
 			addressClick(){
 				this.type=2;
 			},
+			
 			// ---------编辑乘车人---------
 	        editPassenger(e){  
 	        	uni.setStorage({
@@ -268,10 +259,10 @@
 	        		data:e
 	        	})
 	        	uni.navigateTo({
-	        		//url:'/pages/GRZX/addPassenger?type=edit',
 					url:this.$GrzxInter.Route.addPassenger.url+'?type=edit',
 	        	})
 	        },
+			
 			// ---------添加乘车人---------
 			addPassenger(){
 				var that=this;
@@ -286,49 +277,38 @@
 					},
 					success:function(res){
 						uni.navigateTo({
-							// url:'/pages/GRZX/addPassenger?type=ad'
 							url:that.$GrzxInter.Route.addPassenger.url+'?type=ad',
 						})
 					}
 				})
 			},
+			
 			// ---------地址管理---------
 			addAddress(){
 				uni.redirectTo({
-					// url:'/pages/GRZX/addAddress?type=add'
 					url:this.$GrzxInter.Route.addAddress.url+'?type=add',
 				})
 			},
+			
 			// ---------选择地址---------
 			chooseAddress(e){
-				// uni.setStorage({
-				// 	key:'chooseAddress',
-				// 	data:e
-				// })
-				console.log(2222)
 			},
+			
 			// ---------编辑地址---------
 			editAddress(e){   
-			//console.log(3333)
 				uni.setStorage({
 					key:'editAddress',
 					data:e
 				})
 				uni.redirectTo({
-					// url:'/pages/GRZX/addAddress?type=edit',
 					url:this.$GrzxInter.Route.addAddress.url+'?type=edit',
 				})
 			},
+			
 			// ---------删除乘车人信息---------
 			deletePassenger(){ 
 				var data=this.passengerList;
 				var that=this;
-				// uni.removeStorage({
-				//     key: 'passengerList',
-				//     success: function (res) {
-				//         //console.log('success');
-				//     }
-				// });
 				var deleteList=[];
 				for(var i=0;i<data.length;i++){
 					if(data[i].deleteIndex==1){
@@ -344,7 +324,6 @@
 				}else{
 					for(var j=0;j<deleteList.length;j++){
 						uni.request({
-							// url:'http://111.231.109.113:8002/api/person/deletuserInfoList',
 							url:that.$GrzxInter.Interface.deletuserInfoList.value,
 							data:{
 								userId:that.userId,
@@ -352,17 +331,22 @@
 							},
 							method:that.$GrzxInter.Interface.deletuserInfoList.method,
 							success(res) {
-								//console.log(res,"res")
+								if(res.data.status&&res.data.msg=='删除成功'){
+									uni.showToast({
+										title:'删除成功！',
+										icon:'none',
+									})
+								}
 							}
 						})	
 					}
 					this.state=1;
 					uni.redirectTo({
-						// url:'/pages/GRZX/infoList',
 						url:that.$GrzxInter.Route.infoList.url,
 					})
 				}
 			},
+			
 			// ---------删除地址---------
 			deleteAddress(){  //
 				var data=this.addressList;
@@ -389,6 +373,7 @@
 					url:this.$GrzxInter.Route.infoList.url,
 				})
 			},
+			
 			// ---------选中---------
 			selete(e){
 				if(e.deleteIndex==0){
@@ -397,6 +382,7 @@
 					e.deleteIndex=0;
 				}
 			},
+			
 			// ---------返回按钮---------
 			returnClick(){
 				uni.switchTab({
@@ -404,6 +390,7 @@
 					url:this.$GrzxInter.Route.user.url,
 				})
 			},
+			
 			// ---------删除乘车人---------
 			deleteClick(){
 				var that=this;
@@ -420,13 +407,16 @@
 					}
 				})
 			},
+			
 			// ---------完成---------
 			finishClick(){
 				this.state=1;
 			},
+			
 			checkClick(){
 				this.checkState=1;
 			},
+			
 			uncheckClick(){
 				this.checkState=0;
 			},
@@ -595,7 +585,6 @@
 		height: 90upx;
 		line-height: 90upx;
 		border-radius: 12upx;
-		background-color: #FC4646;
 		margin-top: 30upx;
 	}
 	

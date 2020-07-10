@@ -8,7 +8,7 @@
 			<view class="codeClass1">身份证号</view>
 			<input type="idcard" placeholder="请保持与证件号码一致" maxlength="18" class="codeClass2" v-model="idCode" @blur="codeBlur"/>
 		</view>
-		<view class="btnClass" @click="submitClick">验&nbsp;证</view>
+		<view class="btnClass btn_background btn_fontColor" @click="submitClick">验&nbsp;证</view>
 	</view>
 </template>
 
@@ -235,10 +235,8 @@
 		width: 90%;
 		text-align: center;
 		margin-left: 5%;
-		color: #FFFFFF;
 		padding: 20upx 0;
 		font-size: 32upx;
-		background-color: #ff0000;
 		border-radius: 100upx;
 	}
 	.cancellationClass{

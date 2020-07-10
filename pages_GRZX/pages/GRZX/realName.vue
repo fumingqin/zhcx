@@ -29,7 +29,7 @@
 		</view>
 		<!-- 提交按钮 -->
 		<view class="bottomClass">
-			<button type="warn" class="btnClass" @click="submitClick">下一步</button>
+			<button class="btnClass btn_background btn_fontColor" @click="submitClick">下一步</button>
 		</view>
 	</view>
 </template>
