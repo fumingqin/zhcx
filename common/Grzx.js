@@ -29,6 +29,12 @@ const appConfig={
 }
 
 const Interface={
+	getWxUserinfo:{
+		value:'http://27.148.155.9:9056/CTKY/getWxUserinfo',
+		name:'公众号获取OpenID',
+		method:'POST',
+		pages: [],
+	},
 	login:{
 		value:Url+'/api/person/login',
 		name:'用户登录',
