@@ -13,6 +13,20 @@ const Interface = {
 		// #endif
 	},
 	
+	system:{
+		companyName:'XXX公司',
+		applyName:'兴业银行小程序',
+		
+		// #ifdef H5
+			//applyName:'南平综合出行H5',
+		// #endif
+		// #ifdef MP-WEIXIN
+			//applyName:'南平综合出行小程序',
+		// #endif
+		// #ifdef APP-PLUS
+			//applyName:'南平综合出行APP',
+		// #endif
+	}
 }
 
 // 接口声明区

@@ -1813,7 +1813,7 @@
 						icon:'none'
 					})
 					uni.switchTab({
-						url:'../../../../pages/Home/zy_zhcx'
+						url:'/pages/Home/zy_zhcx'
 					})
 					// #endif
 					// #ifdef MP-WEIXIN
@@ -1821,15 +1821,15 @@
 						title: '请允许授权给小程序，即将跳转登录！'
 					})
 					uni.navigateTo({
-						url:'../../../../pages/Home/wxAuthorize'
+						url:'/pages/Home/wxAuthorize'
 					})
 					// #endif
-					// #ifdef APP-NVUE
+					// #ifdef APP-PLUS
 					uni.showToast({
 						title: '未登录账号，即将跳转登录！'
 					})
 					uni.navigateTo({
-						url:'../../../../pages/GRZX/userLogin?urlData=1'
+						url:'/pages/GRZX/userLogin?urlData=1'
 					})
 					// #endif
 				}
@@ -3210,9 +3210,9 @@
 							title: '暂无订单数据，请先登录后查看订单',
 							icon: 'none',
 							success: function() {
-								uni.redirectTo({
-									url: '../GRZX/userLogin?urlData=1'
-								})
+								// uni.redirectTo({
+								// 	url: '../GRZX/userLogin?urlData=1'
+								// })
 							}
 						})
 					}

@@ -1,34 +1,33 @@
 <template>
 	<view class="content">
 		<view class="backImg">
+			<!-- 顶部背景图 -->
 			<image src="../../static/GRZX/backImg.png" class="imgClass"></image>
 			<!-- #ifdef APP-PLUS -->
 			<image src="../../static/GRZX/set.png" class="setClass" @click="navTo('set')"></image>
 			<image src="../../static/GRZX/info.png" class="infoClass" @click="navTo('myNews')"></image>
 			<image src="../../static/GRZX/scan.png" class="scanClass" @click="navTo('scan')"></image>
 			<!-- #endif -->
+			
+			<!-- 个人信息，头像，昵称等等 -->
 			<view class="userInfoClass" @click="checkLogin">
 				<image class="portraitClass" :src="port || '/static/GRZX/missing-face.png'"></image>
 				<view class="usernameClass" style="display: flex;flex-direction: column;">
 					<view><text>{{nickname}}</text></view>
 					<view style="display: flex;align-items: center;" v-if="nickname != '游客'">
-					<!-- <view style="height: 42upx;background-color: #2A954B;display: flex;justify-content:center;align-items: center;" v-if="nickname != '游客'"> -->
 						<image src="../../static/GRZX/huangguan.png" style="width: 20upx;height: 20upx;background-color: #2A954B;padding: 12upx;border-top-left-radius: 8upx;border-bottom-left-radius: 8upx;"></image>
 						<text style="font-size: 20upx;color: #FFFFFF;line-height: 42upx;background-color: #2A954B;padding-right:10upx ;border-top-right-radius: 8upx;border-bottom-right-radius: 8upx;">未实名</text>
-						<!-- <image src="../../static/GRZX/huangguan.png" class="imgTubiao"></image>
-						<text class="fontClass">{{RealNameStatus}}</text> -->
 					</view>
 				</view>
-				<!-- <image src="../../static/GRZX/edit.png" class="editClass"></image> -->
 			</view>
 						
-		
-
+			<!-- 个人主页按钮 -->
 			<view class="grzyClass" @click="checkLogin">
 				<text>个人主页</text>
 				<image src="../../static/GRZX/btnRight_Home.png" class="rightClass"></image>
 			</view>
-
+			
+			<!-- 订单链接按钮 -->
 			<view class="myBox">
 				<view class="collection" @click="orderClick(3)">
 					<image src="../../static/GRZX/tubiao_pay1.png" class="imgStyle1" mode="aspectFill"></image>
@@ -45,67 +44,70 @@
 			</view>
 		</view>
 
+		<!-- 广告 -->
 		<image :src="advert" class="advertClass" lazy-load="true"></image>
 
 		<view class="serviceBox">
 			<text class="moreClass">更多服务</text>
 			<!-- 分割线 -->
 			<view class="lineClass"></view>
-
-			<!-- 第一排 -->
-			<!-- <view class="boxClass">
-				<view class="itemClass" @click="infoClick">
-					<image src="../../static/GRZX/ServiceIcon/tb_XXGL.png" class="XXGLicon"></image>
-					<text class="fontStyle">信息管理</text>
-				</view>
-				<view class="itemClass" @click="pictureClick">
-					<image src="../../static/GRZX/ServiceIcon/tb_ZDPZ.png" class="ZDPZicon"></image>
-					<text class="fontStyle">站点拍照</text>
-				</view>
-				<view class="itemClass" @click="complaintClick">
-					<image src="../../static/GRZX/ServiceIcon/tb_WDTS.png" class="WDTSicon"></image>
-					<text class="fontStyle">我的投诉</text>
-				</view>
-				<view class="itemClass" @click="addContact">
-					<image src="../../static/GRZX/ServiceIcon/tb_JJLXR.png" class="JJLXRicon"></image>
-					<text class="fontStyle">紧急联系人</text>
-				</view>
-			</view> -->
-			<!-- 第二排 -->
-			<view class="boxClass">
-				<view class="itemClass" @click="realName">
-					<image src="../../static/GRZX/ServiceIcon/tb_SMRZ.png" class="SMRZicon"></image>
-					<text class="fontStyle">实名认证</text>
-				</view>
-				<view class="itemClass" @click="replacePhoneNum">
-					<image src="../../static/GRZX/ServiceIcon/tb_GHSJH.png" class="GHSJHicon"></image>
-					<text class="fontStyle">更换手机号</text>
-				</view>
-				<view class="itemClass" @click="phoneClick">
-					<image src="../../static/GRZX/ServiceIcon/tb_DHKF.png" class="DHKFicon"></image>
-					<text class="fontStyle">电话客服</text>
-				</view>
-				<view class="itemClass" @click="feedbackClick">
-					<image src="../../static/GRZX/ServiceIcon/tb_YJFK.png" class="YJFKicon"></image>
-					<text class="fontStyle">意见反馈</text>
+			
+			<!-- ========================更多服务的功能模块============================ -->
+			<view style="display: flex; flex-wrap: wrap;">
+				<view v-for="(item,index) in serviceList" :key="index">
+					<view class="itemClass" @click="infoClick" v-if="item.ItemTitle=='乘客管理'&&item.IsUse">
+						<image :src="item.ImageURL" class="XXGLicon"></image>
+						<text class="fontStyle">{{item.ItemTitle}}</text>
+					</view>
+					<view class="itemClass" @click="pictureClick" v-if="item.ItemTitle=='站点拍照'&&item.IsUse">
+						<image :src="item.ImageURL" class="ZDPZicon"></image>
+						<text class="fontStyle">{{item.ItemTitle}}</text>
+					</view>
+					<view class="itemClass" @click="complaintClick" v-if="item.ItemTitle=='我的投诉'&&item.IsUse">
+						<image :src="item.ImageURL" class="WDTSicon"></image>
+						<text class="fontStyle">{{item.ItemTitle}}</text>
+					</view>
+					<view class="itemClass" @click="addContact" v-if="item.ItemTitle=='紧急联系人'&&item.IsUse">
+						<image :src="item.ImageURL" class="JJLXRicon"></image>
+						<text class="fontStyle">{{item.ItemTitle}}</text>
+					</view>
+					
+					<view class="itemClass" @click="realName" v-if="item.ItemTitle=='实名认证'&&item.IsUse">
+						<image :src="item.ImageURL" class="SMRZicon"></image>
+						<text class="fontStyle">{{item.ItemTitle}}</text>
+					</view>
+					<view class="itemClass" @click="replacePhoneNum" v-if="item.ItemTitle=='更换手机号'&&item.IsUse">
+						<image :src="item.ImageURL" class="GHSJHicon"></image>
+						<text class="fontStyle">{{item.ItemTitle}}</text>
+					</view>
+					<!-- #ifdef H5 -->
+					<view class="itemClass" @click="phoneClick" v-if="item.ItemTitle=='电话客服'&&item.IsUse">
+						<image :src="item.ImageURL" class="DHKFicon"></image>
+						<text class="fontStyle">{{item.ItemTitle}}</text>
+					</view>
+					<!-- #endif -->
+					<view class="itemClass" @click="feedbackClick" v-if="item.ItemTitle=='意见反馈'&&item.IsUse">
+						<image :src="item.ImageURL" class="YJFKicon"></image>
+						<text class="fontStyle">{{item.ItemTitle}}</text>
+					</view>
+					
+					<!-- #ifdef MP-WEIXIN -->
+					<view class="itemClass" style="position: relative;" v-if="item.ItemTitle=='在线客服'&&item.IsUse">
+						<image :src="item.ImageURL" class="ZXKFicon"></image>
+						<button open-type="contact" class="contactClass"></button>
+						<text class="fontStyle">{{item.ItemTitle}}</text>
+					</view>
+					<!-- #endif -->
+					<!-- #ifdef APP-PLUS -->
+					<view class="itemClass" @click="QQClick" v-if="item.ItemTitle=='QQ客服'&&item.IsUse">
+						<image :src="item.ImageURL" class="QQKFicon"></image>
+						<text class="fontStyle">{{item.ItemTitle}}</text>
+					</view>
+					<!-- #endif -->
 				</view>
 			</view>
-			<!-- 第三排 -->
-			<view class="boxClass mb">
-				<!-- #ifdef MP-WEIXIN -->
-				<view class="itemClass" style="position: relative;">
-					<image src="../../static/GRZX/ServiceIcon/tb_ZXKF.png" class="ZXKFicon"></image>
-					<button open-type="contact" class="contactClass"></button>
-					<text class="fontStyle">在线客服</text>
-				</view>
-				<!-- #endif -->
-				<!-- #ifdef APP-PLUS -->
-				<view class="itemClass" @click="QQClick">
-					<image src="../../static/GRZX/ServiceIcon/tb_QQKF.png" class="QQKFicon"></image>
-					<text class="fontStyle">QQ客服</text>
-				</view>
-				<!-- #endif -->
-			</view>
+			<!-- ========================更多服务的功能模块============================ -->
+			
 		</view>
 
 		<!-- 添加紧急联系人弹窗 -->
@@ -130,26 +132,38 @@
 	export default {
 		data() {
 			return {
-				QQ: '',
-				nickname: '',
-				port: '',
-				advert: '',
-				userFeedbackHidden: true,
-				focusType: false,
-				//加载信息
-				userInfo: [],
-				contantPhone: '',
-				userId: '',
-				phoneNumber: '', //客服电话
-				RealNameStatus: '', //是否实名--已实名、未实名、认证中
+				applyName:'',   //应用名称
+				
+				QQ: '', 		//qq客服
+				nickname: '', 	//昵称
+				port: '', 		//头像
+				advert: '', 	//广告
+				userFeedbackHidden: true,  //是否隐藏弹框
+				focusType: false, 		   //是否获取input焦点
+				
+				userInfo: [], 		//用户信息
+				contantPhone: '',	//紧急联系人电话
+				userId: '', 		//用户id
+				phoneNumber: '', 	//客服电话
+				RealNameStatus: '', 	//是否实名--已实名、未实名、认证中
+				
+				serviceList:[], 	//服务功能模块
 			}
 		},
 		onLoad() {
+			//加载应用名称
+			this.applyName=this.$oSit.Interface.system.applyName;
+			
+			//加载广告图片
 			this.loadImg();
+			
+			//加载服务功能模块
+			this.loadServiceList();
 		},
 		onShow() {
 			var that = this;
 			this.loadData();
+			
 			//读取客服热线
 			uni.getStorage({
 				key: 'ConsumerHotline',
@@ -166,6 +180,72 @@
 					that.advert = data.advert;
 				});
 			},
+			
+			// ---------------------------加载服务功能模块----------------------------
+			loadServiceList(){
+				if(this.applyName=="兴业银行小程序"){
+					this.serviceList=[{
+							IsUse: true,
+							clickURL: "",
+							ImageURL: "../../static/GRZX/ServiceIcon/tb_XXGL.png",
+							ItemTitle: "乘客管理"
+						},{
+							IsUse: false,
+							clickURL: "",
+							ImageURL: "../../static/GRZX/ServiceIcon/tb_ZDPZ.png",
+							ItemTitle: "站点拍照"
+						},
+						{
+							IsUse: true,
+							clickURL: "",
+							ImageURL: "../../static/GRZX/ServiceIcon/tb_WDTS.png",
+							ItemTitle: "我的投诉"
+						},
+						{
+							IsUse: false,
+							clickURL: "",
+							ImageURL: "../../static/GRZX/ServiceIcon/tb_JXLXR.png",
+							ItemTitle: "紧急联系人"
+						},
+						{
+							IsUse: false,
+							clickURL: "",
+							ImageURL: "../../static/GRZX/ServiceIcon/tb_SMRZ.png",
+							ItemTitle: "实名认证"
+						},
+						{
+							IsUse: false,
+							clickURL: "",
+							ImageURL: "../../static/GRZX/ServiceIcon/tb_GHSJH.png",
+							ItemTitle: "更换手机号"
+						},
+						{
+							IsUse: true,
+							clickURL: "",
+							ImageURL: "../../static/GRZX/ServiceIcon/tb_DHKF.png",
+							ItemTitle: "电话客服"
+						},
+						{
+							IsUse: true,
+							clickURL: "",
+							ImageURL: "../../static/GRZX/ServiceIcon/tb_YJFK.png",
+							ItemTitle: "意见反馈"
+						},
+						{
+							IsUse: true,
+							clickURL: "",
+							ImageURL: "../../static/GRZX/ServiceIcon/tb_ZXKF.png",
+							ItemTitle: "在线客服"
+						},
+						{
+							IsUse: false,
+							clickURL: "",
+							ImageURL: "../../static/GRZX/ServiceIcon/tb_QQKF.png",
+							ItemTitle: "QQ客服"
+						},]
+				}
+			},
+			
 			// ---------------------------加载数据----------------------------
 			loadData() {
 				var that = this;
@@ -211,16 +291,10 @@
 						} else {
 							//未绑定手机号
 							//#ifdef H5
-							uni.showToast({
-								title: "请绑定手机号，请返回至首页",
-								icon: 'none'
-							})
-							// setTimeout(function(){
-							// 	uni.navigateTo({
-							// 		// url:'/pages/GRZX/wxLogin',
-							// 		url:that.$GrzxInter.Route.wxLogin.url,
-							// 	})
-							// },1000);
+							// uni.showToast({
+							// 	title: "请绑定手机号，请返回至首页",
+							// 	icon: 'none'
+							// })
 							//#endif
 						}
 					},
@@ -230,9 +304,9 @@
 					}
 				})
 			},
+			
 			//-------------------------------------根据id获取实名信息----------------------------------
 			checkIDRealName(id) {
-				// console.log(id,'checkRealName')
 				var that = this;
 				uni.request({
 					url: that.$GrzxInter.Interface.GetUserByUserID.value,
@@ -264,6 +338,7 @@
 					}
 				})
 			},
+			
 			// ---------------------------跳转订单的点击-----------------------
 			orderClick(e) {
 				uni.setStorageSync('currentNum', e)
@@ -271,6 +346,7 @@
 					url: '/pages/order/OrderList',
 				})
 			},
+			
 			// --------------------------设置，通知，扫一扫--------------------
 			navTo(e) {
 				if (e == 'set') {
@@ -295,13 +371,15 @@
 				}
 				// console.log(e)
 			},
-			// ---------------------------信息管理----------------------------
+			
+			// ---------------------------乘客管理----------------------------
 			infoClick() {
 				uni.navigateTo({
 					//url:'/pages/GRZX/infoList',
 					url: this.$GrzxInter.Route.infoList.url,
 				})
 			},
+			
 			//--------------------添加紧急联系人的电话号码--------------------
 			addContact() {
 				var that = this;
@@ -365,6 +443,7 @@
 				this.focusType = false;
 				this.userFeedbackHidden = true;
 			},
+			
 			//------------------------------投诉---------------------------
 			complaintClick() {
 				uni.navigateTo({
@@ -372,6 +451,7 @@
 					url: this.$GrzxInter.Route.complaint.url,
 				})
 			},
+			
 			//------------------------------意见反馈-----------------------
 			feedbackClick() {
 				uni.navigateTo({
@@ -379,6 +459,7 @@
 					url: this.$GrzxInter.Route.feedback.url,
 				})
 			},
+			
 			//-----------------------------拍照返现------------------------
 			pictureClick() {
 				uni.navigateTo({
@@ -386,7 +467,8 @@
 					url: '../../pages_GRZX/pages/GRZX/pictureList',
 				})
 			},
-			// ---------------------------是否登录--------------------------
+			
+			//----------------------------是否登录--------------------------
 			checkLogin() {
 				var that = this;
 				// ---------------APP,WX--------------
@@ -439,6 +521,7 @@
 				}
 				//#endif
 			},
+			
 			// ---------------------------收藏--------------------------
 			collectionClick() {
 				// uni.navigateTo({
@@ -449,6 +532,7 @@
 					icon:'none'
 				})
 			},
+			
 			// ---------------------------历史--------------------------
 			historyClick() {
 				// uni.navigateTo({
@@ -459,6 +543,7 @@
 					icon:'none'
 				})
 			},
+			
 			// ---------------------------电话客服--------------------------
 			phoneClick() {
 				var that = this;
@@ -479,6 +564,7 @@
 				// 	}
 				// })
 			},
+			
 			// ---------------------------QQ客服--------------------------
 			QQClick() {
 				// #ifdef APP-PLUS
@@ -495,6 +581,7 @@
 				})
 				//#endif
 			},
+			
 			// ---------------------------实名认证--------------------------
 			realName() {
 				var that = this;
@@ -511,6 +598,7 @@
 					}
 				})
 			},
+			
 			//-------------------------------------检查是否实名----------------------------------
 			checkRealName() {
 				var that = this;
@@ -541,6 +629,7 @@
 					}
 				})
 			},
+			
 			// ---------------------------更换手机号--------------------------
 			replacePhoneNum() {
 				uni.showToast({
@@ -551,6 +640,7 @@
 				// 	url:this.$GrzxInter.Route.replacePhoneNum.url,
 				// })
 			},
+			
 			//----------------------判断是否为base64格式-------------------
 			isBase64: function(str) {
 				if (str === '' || str.trim() === '') {
@@ -562,11 +652,7 @@
 					return false;
 				}
 			},
-			// login:function(){
-			// 	uni.navigateTo({
-			// 		url:this.$GrzxInter.Route.verificateName.url+'?type=login',
-			// 	})
-			// },
+
 			//----------------------判断是否为数字-----------------------
 			judgeNum: function(val) {
 				var regPos = /^\d+(\.\d+)?$/; //非负浮点数
@@ -577,6 +663,7 @@
 					return false;
 				}
 			},
+			
 		}
 
 	}
@@ -847,7 +934,6 @@
 	}
 
 	.itemClass {
-		width: 25%;
 		// border: 1upx solid black;
 		display: flex;
 		flex-direction: column; //column:纵向排列，row横向排列
@@ -856,69 +942,70 @@
 
 	//图标样式开始
 	//第一排
-	.XXGLicon {
+	.XXGLicon{
 		width: 50upx;
 		height: 54upx;
 		margin: 30upx 60upx 16upx 60upx;
 	}
-
-	.ZDPZicon {
+	
+	.ZDPZicon{
 		width: 48upx;
 		height: 50upx;
-		margin: 30upx 60upx 20upx 60upx;
+		margin: 30upx 61upx 20upx 61upx;
 	}
-
-	.WDTSicon {
+	
+	.WDTSicon{
 		width: 42upx;
 		height: 50upx;
-		margin: 30upx 60upx 20upx 60upx;
+		margin: 30upx 64upx 20upx 64upx;
 	}
-
-	.JJLXRicon {
+	
+	.JJLXRicon{
 		width: 45upx;
 		height: 50upx;
-		margin: 30upx 60upx 20upx 60upx;
+		margin: 30upx 62upx 20upx 63upx;
 	}
-
+	
 	//第二排
-	.SMRZicon {
+	.SMRZicon{
 		width: 44upx;
 		height: 50upx;
-		margin: 30upx 60upx 20upx 60upx;
+		margin: 30upx 63upx 20upx 63upx;
 	}
-
-	.GHSJHicon {
+	
+	.GHSJHicon{
 		width: 38upx;
 		height: 50upx;
-		margin: 30upx 60upx 20upx 60upx;
+		margin: 30upx 66upx 20upx 66upx;
 	}
-
-	.DHKFicon {
+	
+	.DHKFicon{
 		width: 41upx;
 		height: 50upx;
-		margin: 30upx 60upx 20upx 60upx;
+		margin: 30upx 64upx 20upx 65upx;
 	}
-
-	.YJFKicon {
+	
+	.YJFKicon{
 		width: 41upx;
 		height: 50upx;
-		margin: 30upx 60upx 20upx 60upx;
-	}
-
+		margin: 30upx 64upx 20upx 65upx;
+	}   
+	
 	//第三排
-	.QQKFicon {
+	.QQKFicon{
 		width: 43upx;
 		height: 50upx;
-		margin: 30upx 60upx 20upx 60upx;
+		margin: 30upx 63upx 20upx 64upx;
 	}
-
-	.ZXKFicon {
+	
+	.ZXKFicon{
 		width: 45upx;
 		height: 50upx;
-		margin: 30upx 60upx 20upx 60upx;
+		margin: 30upx 62upx 20upx 63upx;
 	}
-
-	//图标样式结束	
+	
+	//图标样式结束
+	
 	.btnClass {
 		width: 11upx;
 		height: 22upx;

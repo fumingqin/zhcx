@@ -2,13 +2,6 @@
 	<view class="all">
 		<!-- #ifdef MP-WEIXIN -->
 		<view>
-			<!-- <view class='header'>
-				<image src='../../static/GRZX/1.png'></image>
-			</view> -->
-			<!-- <view class='content'>
-				<view>申请获取以下权限</view>
-				<text>获得你的公开信息(昵称，头像、地区等)</text>
-			</view> -->
 			<view class="box">
 				<view class="boxClass1">
 					<image src='../../static/GRZX/wxAuthorize1.png' class="imgClass"></image>
@@ -36,9 +29,6 @@
 			<view>
 				<button type='warn' class='returnClass' @click="returnClick">返回首页</button> 
 			</view>
-			<!-- <button @click="btn">
-				还原
-			</button> -->
 		</view>
 		<!-- #endif -->
 	</view>
@@ -115,7 +105,6 @@ export default{
 						},
 						method:$GrzxInter.Interface.GetUserInfoByOpenId_xcx.method,
 						success(res){
-							// console.log(res,'res')
 							setTimeout(function(){
 								uni.hideLoading();
 							},1000);
@@ -136,9 +125,6 @@ export default{
 									icon:'success',
 								})
 								setTimeout(function(){
-									// uni.switchTab({
-									// 	url:'/pages/Home/Index',
-									// })
 									uni.navigateBack();
 								},500);
 							}	
@@ -152,7 +138,7 @@ export default{
 		},
 		getPhoneNumber(e) {  
 			var WXBizDataCrypt = require('@/common/WXBizDataCrypt')
-			var appId = 'wxf64bf945b37a9939';
+			var appId =this.$GrzxInter.appConfig.wxConfig.wxAppId;
 			var encryptedData =e.detail.encryptedData;
 			var iv = e.detail.iv;
 			var pc = new WXBizDataCrypt(appId, this.sessionKey)
@@ -226,7 +212,7 @@ export default{
 		},
 		returnClick(){
 			uni.switchTab({
-				url:'/pages/Home/Index'
+				url:this.$GrzxInter.Route.home.url,
 			})
 		}
 	}	
