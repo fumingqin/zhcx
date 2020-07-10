@@ -1077,6 +1077,98 @@
 					"style": {}
 				}
 			]
+		},
+		
+		//---------------------------------------------第十一个包：专线购票------------------------------------------
+		{
+			"root": "pages_ZXGP/",
+			"pages": [
+				//----------------------------------村村通--------------------------------------------
+				{
+					"path": "pages/ZXGP/SpecialBus/Home/specialBusHome",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/SpecialBus/Home/specialLinePicker",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/SpecialBus/Home/specialReserve",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/SpecialBus/ScheduleLineList/specialBusLineList",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/SpecialBus/ScheduleLineList/specialBusTakeOrder",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/SpecialBus/specialBusOrderPayment/specialBusOrderPayment",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/SpecialBus/stationPicker/specialBusStationPicker",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/Home/ctkyIndex",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/MapMark/checkBusLocation",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/MapMark/specialMark",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/MapMark/traditionCarMark",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/Order/oederList",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/Order/orderDetail",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/Order/scheduleDetails",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/Order/selectTickets",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/PayMent/CTKYPayFail",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/PayMent/CTKYPaySuccess",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/stationPicker/selectStation",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/issueView",
+					"style": {}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/seatSelection",
+					"style": {}
+				}
+			]
 		}
 	],
 
