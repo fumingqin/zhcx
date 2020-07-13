@@ -31,9 +31,9 @@
 					<view style="border-bottom: 1upx solid #dadada;width: 100%;">
 						<text @click="onShowDatePicker('date')" class="dateClass">{{datestring}}    {{Week}}</text>
 					</view>
+					<mx-date-picker :show="showPicker" :type="type" :value="value" :show-tips="true" :begin-text="'入住'" :end-text="'离店'"
+					 :show-seconds="true" @confirm="onSelected" @cancel="onSelected" />
 				</view>
-				<mx-date-picker :show="showPicker" :type="type" :value="value" :show-tips="true" :begin-text="'入住'" :end-text="'离店'"
-				 :show-seconds="true" @confirm="onSelected" @cancel="onSelected" />
 				<view class="queryView">
 					<button class="queryButton" @click="queryClick">查 询</button>
 				</view>
@@ -236,16 +236,9 @@
 				this.showPicker = false;
 				if (e) {
 					// this[this.type] = e.value;
-					this[this.type] = e.value.split('/')[0] + "-" + e.value.split('/')[1] + "-" + e.value.split('/')[2];
+					this[this.type] = e.value;
 					this.datestring = this[this.type];
-					this.queryWeek(e.date.toString().substring(0,3));
-					// console.log(this[this.type]);
-					// console.log(e.date.toString().substring(0,3));
-					// console.log(this.Week);
-					//选择的值
-					console.log('value => ' + e.value);
-					//原始的Date对象
-					console.log('date => ' + e.date);
+					this.queryWeek(e.date.toString().substring(0, 3));
 					this.date = e.value;
 				}
 			},
