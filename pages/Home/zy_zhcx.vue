@@ -1,93 +1,135 @@
 <template>
 	<view>
-		<!-- 轮播图-->
-		<swiper class="swi" circular autoplay style="background-color: #65C36D;">
-			<swiper-item class="swiItem" v-for="(item,index) in homePage" :key="index">
-				<image :src="item.ImageURL" mode="aspectFill" />
-			</swiper-item>
-		</swiper>
-		<!-- app -->
-		<!-- #ifdef APP-PLUS -->
-		<swiper class="zl_swi " circular @change="swiperChange">
-			<swiper-item class="swiItem" style="display: flex;align-items: center;" v-for="(item,index) in swiperItem" :key="index">
-				<!-- 	<swiper-item class="swiItem" style="display: flex;align-items: center;">
-				<view style="display: flex;justify-content: space-around;align-items: center;"> -->
-				<view style="display: flex;width: 25%;justify-content: center;margin-bottom: 12upx;" v-for="(ArrItem,index1) in item.ItemArr" :key="index1">
-					<view style="display: flex;justify-content: center;flex-direction: column;align-items: center;" @click="TitleJump(ArrItem.IsUse,ArrItem.clickURL)">
-						<image v-if="ArrItem.ItemTitle =='达达骑车'" style="width: 90upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='公交刷码'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='达达钱包'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='公交查询'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='车票订购'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='包车服务'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='景区门票'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='旅游产品'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='预约检测'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='自由行'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<text class="itemText">{{ArrItem.ItemTitle}}</text>
+		<view v-if="applyName=='综合出行'" >
+			<!-- 轮播图-->
+			<swiper class="swi" circular autoplay style="background-color: #65C36D;">
+				<swiper-item class="swiItem" v-for="(item,index) in homePage" :key="index">
+					<image :src="item.ImageURL" mode="aspectFill" />
+				</swiper-item>
+			</swiper>
+			<!-- app -->
+			<!-- #ifdef APP-PLUS -->
+			<swiper class="zl_swi " circular @change="swiperChange">
+				<swiper-item class="swiItem" style="display: flex;align-items: center;" v-for="(item,index) in swiperItem" :key="index">
+					<!-- 	<swiper-item class="swiItem" style="display: flex;align-items: center;">
+					<view style="display: flex;justify-content: space-around;align-items: center;"> -->
+					<view style="display: flex;width: 25%;justify-content: center;margin-bottom: 12upx;" v-for="(ArrItem,index1) in item.ItemArr" :key="index1">
+						<view style="display: flex;justify-content: center;flex-direction: column;align-items: center;" @click="TitleJump(ArrItem.IsUse,ArrItem.clickURL)">
+							<image v-if="ArrItem.ItemTitle =='达达骑车'" style="width: 90upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='公交刷码'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='达达钱包'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='公交查询'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='车票订购'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='包车服务'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='景区门票'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='旅游产品'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='预约检测'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='自由行'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<text class="itemText">{{ArrItem.ItemTitle}}</text>
+						</view>
 					</view>
-				</view>
-			</swiper-item>
-		</swiper>
-		<!-- #endif -->
-		
-		<!-- h5 -->
-		<!-- #ifdef H5 -->
-		<swiper class="zl_swi " circular @change="swiperChange">
-			<swiper-item class="swiItem" style="display: flex;align-items: center;" v-for="(item,index) in swiperItem" :key="index">
-				<!-- 	<swiper-item class="swiItem" style="display: flex;align-items: center;">
-				<view style="display: flex;justify-content: space-around;align-items: center;"> -->
-				<view style="display: flex;width: 25%;justify-content: center;margin-bottom: 12upx;" v-for="(ArrItem,index1) in item.ItemArr" :key="index1">
-					<view style="display: flex;justify-content: center;flex-direction: column;align-items: center;" @click="TitleJump(ArrItem.IsUse,ArrItem.clickURL)">
-						<image v-if="ArrItem.ItemTitle =='达达骑车'" style="width: 90upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='公交刷码'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='达达钱包'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='公交查询'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='车票订购'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='包车服务'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='景区门票'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='旅游产品'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='预约检测'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='自由行'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<text class="itemText">{{ArrItem.ItemTitle}}</text>
+				</swiper-item>
+			</swiper>
+			<!-- #endif -->
+			
+			<!-- h5 -->
+			<!-- #ifdef H5 -->
+			<swiper class="zl_swi " circular @change="swiperChange">
+				<swiper-item class="swiItem" style="display: flex;align-items: center;" v-for="(item,index) in swiperItem" :key="index">
+					<!-- 	<swiper-item class="swiItem" style="display: flex;align-items: center;">
+					<view style="display: flex;justify-content: space-around;align-items: center;"> -->
+					<view style="display: flex;width: 25%;justify-content: center;margin-bottom: 12upx;" v-for="(ArrItem,index1) in item.ItemArr" :key="index1">
+						<view style="display: flex;justify-content: center;flex-direction: column;align-items: center;" @click="TitleJump(ArrItem.IsUse,ArrItem.clickURL)">
+							<image v-if="ArrItem.ItemTitle =='达达骑车'" style="width: 90upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='公交刷码'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='达达钱包'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='公交查询'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='车票订购'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='包车服务'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='景区门票'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='旅游产品'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='预约检测'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='自由行'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<text class="itemText">{{ArrItem.ItemTitle}}</text>
+						</view>
 					</view>
-				</view>
-			</swiper-item>
-		</swiper>
-		<!-- #endif -->
-		
-		<!-- 微信 -->
-		<!-- #ifdef MP-WEIXIN -->
-		<swiper class="zl_swi " circular @change="swiperChange">
-			<swiper-item class="swiItem" style="display: flex;align-items: center;" v-for="(item,index) in swiperItem" :key="index">
-				<!-- 	<swiper-item class="swiItem" style="display: flex;align-items: center;">
-				<view style="display: flex;justify-content: space-around;align-items: center;"> -->
-				<view style="display: flex;width: 25%;justify-content: center;margin-bottom: 12upx;" v-for="(ArrItem,index1) in item.ItemArr" :key="index1">
-					<view style="display: flex;justify-content: center;flex-direction: column;align-items: center;" @click="TitleJump(ArrItem.IsUse,ArrItem.clickURL)">
-						<image v-if="ArrItem.ItemTitle =='达达骑车'" style="width: 90upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='公交刷码'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='达达钱包'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='公交查询'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='车票订购'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='包车服务'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='景区门票'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='旅游产品'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='预约检测'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<image v-if="ArrItem.ItemTitle =='自由行'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-						<text class="itemText">{{ArrItem.ItemTitle}}</text>
+				</swiper-item>
+			</swiper>
+			<!-- #endif -->
+			
+			<!-- 微信 -->
+			<!-- #ifdef MP-WEIXIN -->
+			<swiper class="zl_swi " circular @change="swiperChange">
+				<swiper-item class="swiItem" style="display: flex;align-items: center;" v-for="(item,index) in swiperItem" :key="index">
+					<!-- 	<swiper-item class="swiItem" style="display: flex;align-items: center;">
+					<view style="display: flex;justify-content: space-around;align-items: center;"> -->
+					<view style="display: flex;width: 25%;justify-content: center;margin-bottom: 12upx;" v-for="(ArrItem,index1) in item.ItemArr" :key="index1">
+						<view style="display: flex;justify-content: center;flex-direction: column;align-items: center;" @click="TitleJump(ArrItem.IsUse,ArrItem.clickURL)">
+							<image v-if="ArrItem.ItemTitle =='达达骑车'" style="width: 90upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='公交刷码'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='达达钱包'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='公交查询'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='车票订购'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='包车服务'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='景区门票'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='旅游产品'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='预约检测'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='自由行'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<text class="itemText">{{ArrItem.ItemTitle}}</text>
+						</view>
 					</view>
-				</view>
-			</swiper-item>
-		</swiper>
-		<!-- #endif -->
-		
-		<!-- 自定义swiper指示器 -->
-		<view class="dots">
-			<block v-for="(item,index) in swiperItem.length" :key="item">
-				<view class="dot" :class="index==swiperCurrent ? ' active' : ''"></view>
-			</block>
+				</swiper-item>
+			</swiper>
+			<!-- #endif -->
+			
+			<!-- 自定义swiper指示器 -->
+			<view class="dots">
+				<block v-for="(item,index) in swiperItem.length" :key="item">
+					<view class="dot" :class="index==swiperCurrent ? ' active' : ''"></view>
+				</block>
+			</view>
 		</view>
-		</swiper>
+		
+		<view>
+			<view v-if="applyName=='兴业银行小程序'" class="zh_top">
+				<!-- 顶部滑动 -->
+				<view style="position: absolute;width: 46%;top: 50upx;padding: 0 200upx;">
+					<view class="screen">
+						<view class="screenView">
+							<view class="screenText" :class="{current:type2===0}" @click="tabClick(0)">
+								出发
+							</view>
+							<view class="screenText" :class="{current:type2===1}" @click="tabClick(1)">
+								到达
+							</view>
+						</view>
+					</view>
+				</view>
+				<view v-if="type2==0">
+					<!-- 选择路线 -->
+					<view class="top_chooseTheRoute" hover-class="ve_hover" @tap="setOutStationTap">
+						<view class="setOut">{{departure}}</view>
+						<view class="jdticon icon-xia"></view>
+					</view>
+					
+					<!-- 选择时间 -->
+					<view class="top_chooseTime" hover-class="ve_hover" @click="onShowDatePicker('date')">
+						<text class="dateClass">{{datestring}}&nbsp;&nbsp;&nbsp;&nbsp;{{Week}}</text>
+					</view>
+					<mx-date-picker :show="showPicker" :type="type" :value="value" :show-tips="true" :begin-text="'入住'" :end-text="'离店'"
+					 :show-seconds="true" @confirm="onSelected" @cancel="onSelected" />
+				</view>
+				
+				<!-- 按钮 -->
+				<view class="tjButton" @click="jump">查询</view>
+				
+				<!-- 弹框 -->
+				<view class="top_popup">购票须知></view>
+				
+				<image class="top_image" src="../../static/GRZX/ServiceIcon/beijin.png" mode="aspectFit"></image>
+			</view>
+		</view>
+		
 		<!-- 咨询动态 -->
 		<view class="notice">
 			<view class="zl_content">
@@ -108,7 +150,7 @@
 				</view>
 			</view>
 		</view>
-
+		
 		<!-- 旅游推荐 -->
 		<view class="zl_recommend">
 			<view>
@@ -230,6 +272,7 @@
 	import $DDTInterface from '@/common/DDT.js'
 	import $lyfw from '@/common/LYFW/LyfwFmq.js' //引用路径
 	import $Home from '@/common/Home.js' //引用路径
+	import MxDatePicker from "@/components/HOME/mx-datepicker/mx-datepicker.vue";
 	export default {
 		data() {
 			return {
@@ -241,7 +284,6 @@
 				homePage: [{
 					ImageURL: ''
 				}], //轮播图
-				type: 0,
 				Announcement: '', //资讯动态
 				sixPalaceList: [{
 					ticketId: '',
@@ -330,12 +372,23 @@
 							}
 						]
 					}
-				]
+				],
+				applyName:'',
+				type2: 0,
+				departure:'',
+				datestring: '',
+				Week: '',
+				type: 'rangetime',
+				value: '',
+				showPicker: false,
+				date: '',
 			}
 		},
 		onLoad() {
-			var a = this.$oSit.Interface.address.Url;	
-			console.log(a)
+			// var a = this.$oSit.Interface.address.Url;
+			// console.log(a)
+			//加载应用名称
+			this.applyName=this.$oSit.Interface.system.applyName;
 			var that = this;
 			// #ifdef APP-PLUS
 			//获取系统信息
@@ -366,6 +419,11 @@
 			that.GetNews();
 			//获取客服热线
 			that.ConsumerHotline();
+			
+			if(that.departure == '' || that.destination == '') {
+				that.departure = '选择出发专线';
+				that.destination = '选择到达地点';
+			}
 		},
 
 		onShow() {
@@ -380,6 +438,9 @@
 			// #ifdef  H5
 			that.getCode();
 			//#endif
+			
+			//获取当前日期
+			that.getTodayDate();
 		},
 
 		//页面触底
@@ -391,7 +452,8 @@
 		// 	this.getMore();
 		// },
 		components: {
-			uniPopup
+			uniPopup,
+			MxDatePicker,
 		}, //注册为子组件
 		methods: {
 			//--------------轮播图切换修改背景色----------------------------------
@@ -956,6 +1018,94 @@
 				}
 			},
 			//-------------登录过期结束--------------------
+			
+			
+			//-----------------tab事件---------------------------------------
+			tabClick(e) {
+				if (e == 0) {
+					this.type2 = 0;
+				} else if (e == 1) {
+					this.type2 = 1;
+				}
+			},
+			
+			//---------------------------------点击出发专线---------------------------------
+			setOutStationTap(){
+				var that = this;
+				//监听事件,监听下个页面返回的值
+				uni.$on('startstaionChange', function(data) {
+				    // data即为传过来的值，给上车点赋值
+					that.departure = data.data;
+				    //清除监听，不清除会消耗资源
+				    uni.$off('startstaionChange');
+				});
+				uni.navigateTo({
+					//跳转到下个页面的时候加个字段，判断当前点击的是上车点
+					url:'../../pages_ZXGP/pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick?&station=' + 'qidian'
+				})
+			},
+			
+			//---------------------------------获取当前日期---------------------------------
+			getTodayDate() {
+				var date = new Date();
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				var timer = year + '-' + month + '-' + day;
+				this.datestring = timer;
+			},
+			onShowDatePicker(type) { //显示
+				this.type = type;
+				this.showPicker = true;
+				this.value = this[type];
+			
+			},
+			
+			onSelected(e) { //选择
+				this.showPicker = false;
+				if (e) {
+					// this[this.type] = e.value;
+					this[this.type] = e.value.split('/')[0] + "-" + e.value.split('/')[1] + "-" + e.value.split('/')[2];
+					this.datestring = this[this.type];
+					this.queryWeek(e.date.toString().substring(0,3));
+					// console.log(this[this.type]);
+					// console.log(e.date.toString().substring(0,3));
+					// console.log(this.Week);
+					//选择的值
+					console.log('value => ' + e.value);
+					//原始的Date对象
+					console.log('date => ' + e.date);
+					this.date = e.value;
+				}
+			},
+			queryWeek(e) {
+				console.log(e);
+				switch (e) {
+					case "Mon":
+						this.Week='周一';
+						break;
+					case "Tue":
+						this.Week="周二";
+						break;
+					case "Wed":
+						this.Week="周三";
+						break;
+					case "Thu":
+						this.Week="周四";
+						break;
+					case "Fri":
+						this.Week="周五";
+						break;
+					case "Sat":
+						this.Week="周六";
+						break;
+					case "Sun":
+						this.Week="周日";
+						break;
+					default:
+						break;
+				}
+			},
 		},
 	}
 </script>
@@ -1641,5 +1791,166 @@
 			height: 6rpx;
 			background: #65C36D;
 		}
+	}
+	
+	//兴业银行
+	//顶部筛选样式
+	.screen {
+		height: 106upx;
+		position: sticky;
+		top: 0;
+		z-index: 1;
+	
+		.screenView {
+			left: 0;
+			display: flex;
+			width: 100%;
+			height: 87upx;
+			z-index: 10;
+			position: sticky;
+			top: 0;
+			// background-color: #F5F5F5;
+			margin-top: 20upx;
+	
+			.screenText {
+				flex: 1;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+				font-size: 38upx;
+				color: #FFFFFF;
+				position: relative;
+	
+	
+	
+				&.current {
+					color: #FFFFFF;
+					font-size: 38upx;
+					font-weight: bold;
+					// background-color: #FFFFFF;
+	
+					&:after {
+						content: '';
+						position: absolute;
+						left: 50%;
+						bottom: 0;
+						transform: translateX(-50%);
+						width: 70upx;
+						height: 3upx;
+						border-bottom: 4upx solid #FFFFFF;
+					}
+				}
+			}
+		}
+	}
+	
+	//顶部
+	.zh_top{
+		position: relative;
+		width: 100%;
+		height: 100%;
+		
+		//选择路线
+		.top_chooseTheRoute{
+			position: absolute;
+			display: flex;
+			width:560upx;
+			// height:100%;
+			overflow: hidden;
+			left: 6%;
+			padding: 28upx 50upx;
+			border-radius:22upx;
+			background-color: #FFFFFF;
+			z-index: 99;
+			top: 200upx;
+			
+			//出发点
+			.setOut {
+				font-size: 34upx;
+				font-weight: 400;
+				color: #333333;
+				// width: 234upx;
+				left: 0;
+				text-align: left;
+			}
+			
+			.jdticon{
+				position: absolute;
+				right: 0;
+				top: 36upx;
+				height:14px;
+				padding-right: 50upx;
+			}
+		}
+		
+		//选择时间
+		.top_chooseTime{
+			position: absolute;
+			display: flex;
+			width:560upx;
+			// height:100%;
+			overflow: hidden;
+			left: 6%;
+			padding: 28upx 50upx;
+			border-radius:22upx;
+			background-color: #FFFFFF;
+			z-index: 99;
+			top: 332upx;
+			
+			//出发点
+			.dateClass{
+				display: flex;
+				font-size: 34upx;
+				font-weight: 400;
+				color: #333333;
+				// width: 234upx;
+				left: 0;
+				text-align: left;
+			}
+		}
+		
+		.top_image{
+			width: 750upx;
+			height: 712upx;
+			overflow: hidden;
+			margin: 0 auto;
+		}
+	}
+	
+	//点击态
+	.ve_hover{
+		transition: all .3s;//过度
+		border-top-left-radius: 22rpx;
+		border-bottom-left-radius: 22rpx;
+		opacity: 0.9;
+		background: #E4E7ED;
+	}
+	
+	//底部按钮
+	.tjButton {
+		position: absolute;
+		border-radius: 64upx;
+		left: 6%;
+		padding: 28upx 50upx;
+		top: 468upx;
+		width: 560upx;
+		background-color: #FFC462;
+		text-align: center;
+		color: #B56100;
+		font-size: 44upx;
+		font-weight: 400;
+		box-shadow:0px 20px 81px 0px rgba(255,160,32,0.3);
+		z-index: 99;
+	}
+	
+	.top_popup{
+		position: absolute;
+		width: 100%;
+		text-align: center;
+		font-size:32upx;
+		color:#FFFFFF;
+		z-index: 99;
+		top: 620upx;
 	}
 </style>
