@@ -159,7 +159,7 @@
 					uni.showLoading({
 						title:'实名中...'
 					})
-					that.bikeUserVerified(that.name,that.codeNum)
+					// that.bikeUserVerified(that.name,that.codeNum)
 				}
 			},
 			//--------------------自行车用户实名认证-------------------
@@ -181,7 +181,7 @@
 					success(res) {
 						console.log(res)
 						uni.setStorageSync('RealNameInfo',res.data.data)
-						that.GetEnrollment(name,codeNum);
+						// that.GetEnrollment(name,codeNum);
 					},
 					fail(){
 						// that.GetEnrollment(name,codeNum);

@@ -115,7 +115,7 @@
 					uni.showLoading({
 						title:'上传中...'
 					})
-					that.UpdateRealNamePhoto();
+					//that.UpdateRealNamePhoto();
 				}
 			},
 			//--------------------自行车用户上传实名认证照片-------------------
