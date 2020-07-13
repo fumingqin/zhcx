@@ -263,7 +263,7 @@
 								method: that.$GrzxInter.Interface.login.method,
 								success(res) {
 									console.log(res,'res')
-									that.checkIDRealName(res.data.data.userId);
+									// that.checkIDRealName(res.data.data.userId);
 									uni.setStorageSync('userInfo', res.data.data);
 									that.userInfo = res.data.data;
 
@@ -588,7 +588,7 @@
 				uni.getStorage({
 					key: 'userInfo',
 					success(res) {
-						that.checkRealName();
+						// that.checkRealName();
 					},
 					fail() {
 						uni.showToast({

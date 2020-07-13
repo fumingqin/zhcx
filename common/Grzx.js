@@ -13,7 +13,7 @@
 
 // #ifdef APP-PLUS
 // #endif
-const ddtUrl='http://36.250.234.10:60040' //达达通接口地址
+//const ddtUrl='http://36.250.234.10:60040' //达达通接口地址
 
 const appConfig={
 	wxConfig:{
@@ -23,8 +23,12 @@ const appConfig={
 	H5Config:{
 		name:'公众号的Appid和App秘钥',
 		H5AppId:'wx0ddb1b8b3ed8ee80',
-		H5AppSecre:'9091290458d85ff3a014198275d1d6d5',
-	}
+		H5AppSecret:'9091290458d85ff3a014198275d1d6d5',
+	},
+	local:{
+		url:'http://zntc.145u.net/h55/#/',
+		name:'地址',
+	},
 }
 
 const Interface={
@@ -156,36 +160,36 @@ const Interface={
 	},
 	
 	//-----------------------达达通start------------------------
-	RegistUser:{
-		value: ddtUrl + '/api/SmartBikePerson/RegistUser',
-		name:'达达通注册自行车用户',
-		method:'POST',//GET-POST
-		pages:[]
-	},
-	GetUserByUserID:{
-		value: ddtUrl + '/api/SmartBikePerson/GetUserByUserID',
-		name:'通过用户Id获取用户是否实名',
-		method:'POST',//GET-POST
-		pages:[]
-	},
-	UpdateRealNamePhoto:{
-		value: ddtUrl + '/api/SmartBikePerson/UpdateRealNamePhoto',
-		name:'自行车用户上传实名认证照片',
-		method:'POST',//GET-POST
-		pages:[]
-	},
-	UserVerified:{
-		value: ddtUrl + '/api/SmartBikePerson/UserVerified',
-		name:'自行车用户实名认证',
-		method:'POST',//GET-POST
-		pages:[]
-	},
-	GetEnrollment:{
-		value: ddtUrl + '/api/Purse/GetEnrollment',
-		name:'钱包注册新用户',
-		method:'POST',//GET-POST
-		pages:[]
-	},
+	// RegistUser:{
+	// 	value: ddtUrl + '/api/SmartBikePerson/RegistUser',
+	// 	name:'达达通注册自行车用户',
+	// 	method:'POST',//GET-POST
+	// 	pages:[]
+	// },
+	// GetUserByUserID:{
+	// 	value: ddtUrl + '/api/SmartBikePerson/GetUserByUserID',
+	// 	name:'通过用户Id获取用户是否实名',
+	// 	method:'POST',//GET-POST
+	// 	pages:[]
+	// },
+	// UpdateRealNamePhoto:{
+	// 	value: ddtUrl + '/api/SmartBikePerson/UpdateRealNamePhoto',
+	// 	name:'自行车用户上传实名认证照片',
+	// 	method:'POST',//GET-POST
+	// 	pages:[]
+	// },
+	// UserVerified:{
+	// 	value: ddtUrl + '/api/SmartBikePerson/UserVerified',
+	// 	name:'自行车用户实名认证',
+	// 	method:'POST',//GET-POST
+	// 	pages:[]
+	// },
+	// GetEnrollment:{
+	// 	value: ddtUrl + '/api/Purse/GetEnrollment',
+	// 	name:'钱包注册新用户',
+	// 	method:'POST',//GET-POST
+	// 	pages:[]
+	// },
 	//-----------------------达达通end------------------------
 }
 

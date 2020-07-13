@@ -152,7 +152,8 @@
 											// #endif
 											that.LoginLog(res.data.data.userId,res.data.data.phoneNumber);
 											uni.hideLoading();
-											that.registerBike(res.data.data.userId, res.data.data.phoneNumber) //注册自行车用户
+											that.successReturn();//登陆成功后返回
+											//that.registerBike(res.data.data.userId, res.data.data.phoneNumber) //注册自行车用户
 										}
 									})
 								} else {
@@ -170,6 +171,25 @@
 							}
 						})
 					}
+				}
+			},
+			//-------------------------------------登陆成功后返回----------------------------------
+			successReturn(){
+				uni.showToast({
+					title: "登录成功!",
+					icon: "none"
+				})
+				if (that.urlData == 1) {
+					uni.switchTab({ //返回首页
+						url: '/pages/Home/zy_zhcx',
+					})
+				} else if (that.urlData == 2) {
+					uni.switchTab({ //返回订单页
+						url: '/pages/order/OrderList',
+					})
+				} else {
+					console.log("返回上一页")
+					uni.navigateBack(); //返回上一页
 				}
 			},
 			//-------------------------------------用户注册自行车----------------------------------

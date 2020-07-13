@@ -730,10 +730,10 @@
 			getCode() {
 				let that = this;
 				let Appid = that.$GrzxInter.appConfig.H5Config.H5AppId; //H5AppId
-				let AppSecre = that.$GrzxInter.appConfig.H5Config.H5AppSecre; //H5AppSecre
+				let AppSecret = that.$GrzxInter.appConfig.H5Config.H5AppSecret; //H5AppSecre
 				let code = this.getUrlParam('code'); //是否存在code
 				console.log(code);
-				let local = "http://zntc.145u.net/#/";
+				let local = that.$GrzxInter.appConfig.local.url;
 				if (code == null || code === "") {
 					//不存在就打开上面的地址进行授权
 					window.location.href =
@@ -744,9 +744,9 @@
 						"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 				} else {
 					// 存在则通过code传向后台调用接口返回微信的个人信息
-					uni.request({
+					uni.request({ 
 						url:that.$GrzxInter.Interface.getWxUserinfo.value+'?code='+ code
-						+ '&Appid=' + Appid + '&Appsecret='+AppSecre,
+						+ '&Appid=' + Appid + '&Appsecret='+AppSecret,
 						// url：: 'http://27.148.155.9:9056/CTKY/getWxUserinfo?code=' + code + '&Appid=' + Appid +
 						// 	'&Appsecret='+AppSecre,
 						header: {
