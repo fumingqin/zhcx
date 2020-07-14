@@ -15,16 +15,16 @@ const Interface = {
 	
 	system:{
 		companyName:'XXX公司',
-		applyName:'兴业银行小程序',
+		applyName:'南平综合出行',
 		
 		// #ifdef H5
-			//applyName:'南平综合出行H5',
+			openidtype:'公众号',
 		// #endif
 		// #ifdef MP-WEIXIN
-			//applyName:'南平综合出行小程序',
+			openidtype:'小程序',
 		// #endif
 		// #ifdef APP-PLUS
-			//applyName:'南平综合出行APP',
+			openidtype:'APP',
 		// #endif
 	}
 }

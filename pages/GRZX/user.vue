@@ -152,7 +152,7 @@
 		},
 		onLoad() {
 			//加载应用名称
-			this.applyName=this.$oSit.Interface.system.applyName;
+			this.applyName=this.$GrzxInter.systemConfig.applyName;
 			
 			//加载广告图片
 			this.loadImg();
@@ -259,6 +259,8 @@
 								url: that.$GrzxInter.Interface.login.value,
 								data: {
 									phoneNumber: phone,
+									systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+									openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 								},
 								method: that.$GrzxInter.Interface.login.method,
 								success(res) {
@@ -268,8 +270,8 @@
 									that.userInfo = res.data.data;
 
 									if (res.data.data.nickname == "" || res.data.data.nickname == null) {
-										// that.nickname="请输入昵称";
-										that.nickname = res.data.data.phoneNumber;
+										that.nickname="请输入昵称";
+										// that.nickname = res.data.data.phoneNumber;
 									} else {
 										that.nickname = res.data.data.nickname;
 									}
@@ -279,8 +281,7 @@
 											.then(path => {
 												that.port = path;
 											})
-											.catch(error => {
-												// console.error(error)
+											.catch(error => {												
 											})
 									} else {
 										that.port = base64;
@@ -288,14 +289,6 @@
 									that.userId = res.data.data.userId;
 								}
 							})
-						} else {
-							//未绑定手机号
-							//#ifdef H5
-							// uni.showToast({
-							// 	title: "请绑定手机号，请返回至首页",
-							// 	icon: 'none'
-							// })
-							//#endif
 						}
 					},
 					fail() {
@@ -499,7 +492,7 @@
 				//#endif
 				// ---------------H5--------------
 				//#ifdef H5
-				var user1 = uni.getStorageSync('userInfo');
+				var user1 = uni.getStorageSync('userInfo')||'';
 				console.log(user1, "1111")
 				if (user1 == "" || user1 == null || user1.openId_wx == null || user1.openId_wx == "") {
 					console.log(user1, "2222")
@@ -515,7 +508,6 @@
 				} else {
 					console.log(user1, "3333")
 					uni.navigateTo({
-						// url :'/pages/GRZX/personal'
 						url: that.$GrzxInter.Route.personal.url,
 					})
 				}

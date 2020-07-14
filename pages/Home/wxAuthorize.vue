@@ -148,6 +148,8 @@ export default{
 				url:that.$GrzxInter.Interface.login.value,
 				data:{
 					phoneNumber:data.purePhoneNumber,
+					systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+					openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 				},
 				method:that.$GrzxInter.Interface.login.method,
 				success(res1){
@@ -171,6 +173,8 @@ export default{
 								openId_xcx:that.openId_xcx,
 								birthday:res1.data.data.birthday,
 								autograph:res1.data.data.autograph,
+								systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+								openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 							},
 							method:that.$GrzxInter.Interface.changeInfo.method,
 							success(res2){
@@ -190,9 +194,6 @@ export default{
 										})
 										uni.setStorageSync('userInfo',res3.data.data)
 										setTimeout(function(){
-											// uni.switchTab({
-											// 	url:'/pages/Home/Index',
-											// })
 											uni.navigateBack();
 										},500);
 									}
