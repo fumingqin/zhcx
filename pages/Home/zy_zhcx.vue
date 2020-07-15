@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view v-if="applyName=='综合出行'" >
+		<view v-if="applyName=='南平综合出行'">
 			<!-- 轮播图-->
 			<swiper class="swi" circular autoplay style="background-color: #65C36D;">
 				<swiper-item class="swiItem" v-for="(item,index) in homePage" :key="index">
@@ -157,7 +157,7 @@
 				<!-- 弹框 -->
 				<view class="top_popup">购票须知></view>
 				
-				<image class="top_image" src="../../static/GRZX/ServiceIcon/beijin.png" mode="aspectFit"></image>
+				<image class="top_image" src="../../static/GRZX/ServiceIcon/beijin.png" mode="aspectFill"></image>
 			</view>
 		</view>
 		
@@ -1888,7 +1888,7 @@
 			position: absolute;
 			// display: flex;
 			width:342upx;
-			// height:100%;
+			height:86upx;
 			// overflow: hidden;
 			left: 6%;
 			padding: 20upx 28upx;
@@ -1930,7 +1930,7 @@
 			position: absolute;
 			// display: flex;
 			width:192upx;
-			// height:100%;
+			height:86upx;
 			// overflow: hidden;
 			left: 61%;
 			padding: 20upx 28upx;
@@ -1964,7 +1964,7 @@
 			position: absolute;
 			// display: flex;
 			width:192upx;
-			// height:100%;
+			height:86upx;
 			// overflow: hidden;
 			left: 6%;
 			padding: 20upx 28upx;
@@ -1998,7 +1998,7 @@
 			position: absolute;
 			// display: flex;
 			width:342upx;
-			// height:100%;
+			height:86upx;
 			// overflow: hidden;
 			left: 41%;
 			padding: 20upx 28upx;

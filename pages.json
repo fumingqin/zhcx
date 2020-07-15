@@ -167,7 +167,6 @@
 				"navigationBarTitleText": "服务"
 			}
 		}
-		
     ],
 
 	"subPackages": [
@@ -210,7 +209,8 @@
 					"style": {
 						"navigationBarTitleText": "客运"
 					}
-				}, {
+				}
+				, {
 					"path": "pages/CTKY/TraditionSpecial/stationPicker/homeSattionPick",
 					"style": {
 						"navigationBarTitleText": "选择站点"
@@ -1115,6 +1115,12 @@
 				{
 					"path": "pages/ZXGP/TraditionSpecial/Home/ctkyIndex",
 					"style": {}
+				},
+				{
+				    "path" : "pages/ZXGP/TraditionSpecial/Home/zxgpHomePage",
+				    "style" : {
+						"navigationBarTitleText": "专线购票"
+					}
 				},
 				{
 					"path": "pages/ZXGP/TraditionSpecial/MapMark/checkBusLocation",
