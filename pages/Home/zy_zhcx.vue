@@ -794,10 +794,15 @@
 							let openid = uni.getStorageSync('scenicSpotOpenId') || '';
 							console.log(openid, "openid")
 							if (openid != "" && openid != null && openid != undefined) {
+								console.log("访问地址",that.$GrzxInter.Interface.GetUserInfoByOpenId_wx.value)
+								console.log("应用名称",that.$GrzxInter.systemConfig.applyName)
+								console.log("应用类型",that.$GrzxInter.systemConfig.openidtype)
 								uni.request({
 									url: that.$GrzxInter.Interface.GetUserInfoByOpenId_wx.value,
 									data: {
 										openId_wx: openid,
+										systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+										openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 									},
 									method: that.$GrzxInter.Interface.GetUserInfoByOpenId_wx.method,
 									success(res1) {

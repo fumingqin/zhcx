@@ -9,14 +9,13 @@ import $oSit from '@/common/overallSituation.js'
 
 //接口域名
 // #ifdef H5
-	const Url=$oSit.Interface.address;
+	const Url=$oSit.Interface.address.Url;
 // #endif
 // #ifndef H5
-	const Url=$oSit.Interface.address;
+	const Url=$oSit.Interface.address.Url;
 // #endif
 
 const systemConfig={
-	companyName:$oSit.Interface.system.companyName,  //公司名称
 	applyName:$oSit.Interface.system.applyName,		//应用名称
 	openidtype:$oSit.Interface.system.openidtype,	//应用类型：app，小程序，公众号
 }

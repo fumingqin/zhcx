@@ -35,7 +35,6 @@
 </template>
 
 <script>
-	import $GrzxInter from '@/common/Grzx.js'
 export default{
 	data(){
 		return{
@@ -86,11 +85,16 @@ export default{
 		},
 		getOpenID:function(code){
 			var that = this;
+			console.log("访问地址",that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.value)
+			console.log("应用名称",that.$GrzxInter.systemConfig.applyName)
+			console.log("应用类型",that.$GrzxInter.systemConfig.openidtype)
 			uni.request({
-				url:$GrzxInter.Interface.GetOpenId_xcx.value,
-				method: $GrzxInter.Interface.GetOpenId_xcx.method,
+				url:that.$GrzxInter.Interface.GetOpenId_xcx.value,
+				method: that.$GrzxInter.Interface.GetOpenId_xcx.method,
 				data:{
 					code:code,
+					systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+					openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 				},
 				success(logRes){
 					console.log(logRes,'logRes')
@@ -99,11 +103,11 @@ export default{
 					that.sessionKey=logRes.data.data.session_key;
 					that.openId_xcx=logRes.data.data.openid;
 					uni.request({
-						url: $GrzxInter.Interface.GetUserInfoByOpenId_xcx.value,
+						url: that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.value,
 						data:{
 							openId_xcx:openid,
 						},
-						method:$GrzxInter.Interface.GetUserInfoByOpenId_xcx.method,
+						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.method,
 						success(res){
 							setTimeout(function(){
 								uni.hideLoading();
@@ -144,6 +148,8 @@ export default{
 			var pc = new WXBizDataCrypt(appId, this.sessionKey)
 			var data = pc.decryptData(encryptedData , iv)
 			var that=this;
+			
+			
 			uni.request({
 				url:that.$GrzxInter.Interface.login.value,
 				data:{
@@ -160,6 +166,10 @@ export default{
 							icon:'none'
 						})
 					}else{
+						console.log("访问地址",that.$GrzxInter.Interface.changeInfo.value)
+						console.log("电话",res1.data.data.userId)
+						console.log("应用名称",that.$GrzxInter.systemConfig.applyName)
+						console.log("应用类型",that.$GrzxInter.systemConfig.openidtype)
 						uni.request({
 							url:that.$GrzxInter.Interface.changeInfo.value,
 							data:{
@@ -178,7 +188,7 @@ export default{
 							},
 							method:that.$GrzxInter.Interface.changeInfo.method,
 							success(res2){
-								console.log('res2', res2)
+								console.log('修改用户信息', res2)
 								uni.request({
 									url:that.$GrzxInter.Interface.changeInfoPortrait.value,
 									data:{
@@ -187,15 +197,17 @@ export default{
 									},
 									method:that.$GrzxInter.Interface.changeInfoPortrait.method,
 									success(res3) {
-										console.log(res3);
-										uni.showToast({
-											title:'绑定成功！',
-											icon:'success',
-										})
-										uni.setStorageSync('userInfo',res3.data.data)
-										setTimeout(function(){
-											uni.navigateBack();
-										},500);
+										console.log('修改头像',res3);
+										if(res3.data.status){
+											uni.showToast({
+												title:'绑定成功！',
+												icon:'success',
+											})
+											uni.setStorageSync('userInfo',res3.data.data)
+											setTimeout(function(){
+												uni.navigateBack();
+											},500);
+										}
 									}
 								})
 							}
