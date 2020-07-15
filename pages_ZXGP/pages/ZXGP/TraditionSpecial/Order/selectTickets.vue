@@ -123,6 +123,8 @@
 				
 				that.startStation = param.startStation;
 				that.endStation = param.endStation;
+				console.log('起点',that.startStation)
+				console.log('终点',that.endStation)
 				//如果传过来的参数没有时间就获取当前时间
 				if (param.date == 'date') {//二维码扫码进来
 				// #ifdef H5
