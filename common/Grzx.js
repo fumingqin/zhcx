@@ -1,19 +1,25 @@
 /* 接口参数区 */
 // 示例
-
+import $oSit from '@/common/overallSituation.js'
 // const Url='http://zntc.145u.net';
+// const Url = 'http://36.250.234.10:60039';//接口地址
+//const ddtUrl='http://36.250.234.10:60040' //达达通接口地址
+//const Url = 'https://zntc.145u.net:9098';//综合出行接口地址
+//const Url = 'http://zntc.145u.net'; //http请求
+
 //接口域名
 // #ifdef H5
-	const Url = 'http://zntc.145u.net'; //http请求
+	const Url=$oSit.Interface.address;
 // #endif
 // #ifndef H5
-	// const Url = 'http://36.250.234.10:60039';//接口地址
-	const Url = 'https://zntc.145u.net:9098';//综合出行接口地址
+	const Url=$oSit.Interface.address;
 // #endif
 
-// #ifdef APP-PLUS
-// #endif
-//const ddtUrl='http://36.250.234.10:60040' //达达通接口地址
+const systemConfig={
+	companyName:$oSit.Interface.system.companyName,  //公司名称
+	applyName:$oSit.Interface.system.applyName,		//应用名称
+	openidtype:$oSit.Interface.system.openidtype,	//应用类型：app，小程序，公众号
+}
 
 const appConfig={
 	wxConfig:{
@@ -316,5 +322,6 @@ export default {
 	Interface,
 	Route,
 	GetImage,
-	appConfig
+	appConfig,
+	systemConfig
 }

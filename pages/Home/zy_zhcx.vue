@@ -824,7 +824,7 @@
 											})
 										}
 										console.log(openid, 'openid1')
-										if (openid == res1.data.data.openId_wx && openid != "") {
+										if (openid == res1.data.data.openId_wx && openid != ""&&res1.data.status) {
 											uni.setStorageSync('userInfo', res1.data.data)
 										}
 									}
