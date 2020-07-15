@@ -117,17 +117,21 @@
 					})
 				}else if(phone==list.phone&&code==list.code){
 					//调用绑定手机号接口
+					uni.showLoading({
+						mask:true,
+						title:'正在绑定中...'
+					})
 					uni.request({
 						url:that.$GrzxInter.Interface.login.value,
 						data:{
 							phoneNumber:phone,
+							systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+							openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 						},
 						method:that.$GrzxInter.Interface.login.method,
 						success(res1) {
 							console.log(userInfo.headimgurl,'headimgurl')
 							uni.request({
-								//url:'http://zntc.145u.net/api/person/BindPersonInfoOpenID_wxAndPhoneNumber',
-								//url:that.$GrzxInter.Interface.BindPersonInfoOpenID_wxAndPhoneNumber.value,
 								url:that.$GrzxInter.Interface.changeInfo.value,
 								data:{
 									userId:res1.data.data.userId,
@@ -140,6 +144,8 @@
 									openId_xcx:res1.data.data.openId_xcx,
 									birthday:res1.data.data.birthday,
 									autograph:res1.data.data.autograph,
+									systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+									openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 								},
 								method:that.$GrzxInter.Interface.changeInfo.method,
 								success(res) {
@@ -154,6 +160,7 @@
 										success(res3) {
 											console.log(res3);
 											uni.setStorageSync('userInfo',res3.data.data)
+											uni.hideLoading();
 											uni.showToast({
 												title:'绑定成功！',
 												icon:'success',
@@ -161,11 +168,19 @@
 											setTimeout(function(){
 												uni.navigateBack();
 											},500);
+										},
+										fail(err){
+											uni.hideLoading();
 										}
 									})
+								},
+								fail(err){
+									uni.hideLoading();
 								}
 							})
-							
+						},
+						fail(err){
+							uni.hideLoading();
 						}
 					})
 					

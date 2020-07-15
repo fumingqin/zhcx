@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view v-if="applyName=='综合出行'" >
+		<view v-if="applyName=='南平综合出行2'">
 			<!-- 轮播图-->
 			<swiper class="swi" circular autoplay style="background-color: #65C36D;">
 				<swiper-item class="swiItem" v-for="(item,index) in homePage" :key="index">
@@ -91,7 +91,7 @@
 		</view>
 		
 		<view>
-			<view v-if="applyName=='兴业银行小程序'" class="zh_top">
+			<view v-if="applyName=='南平综合出行'" class="zh_top">
 				<!-- 顶部滑动 -->
 				<view style="position: absolute;width: 46%;top: 50upx;padding: 0 200upx;">
 					<view class="screen">
@@ -157,7 +157,7 @@
 				<!-- 弹框 -->
 				<view class="top_popup">购票须知></view>
 				
-				<image class="top_image" src="../../static/GRZX/ServiceIcon/beijin.png" mode="aspectFit"></image>
+				<image class="top_image" src="../../static/GRZX/ServiceIcon/beijin.png" mode="aspectFill"></image>
 			</view>
 		</view>
 		
@@ -454,7 +454,7 @@
 			
 			if(that.departure == '' || that.destination == '') {
 				that.departure = '请选择出发地点';
-				that.destination = '请选择出发地点';
+				that.destination = '延平';
 			}
 		},
 
@@ -824,7 +824,7 @@
 											})
 										}
 										console.log(openid, 'openid1')
-										if (openid == res1.data.data.openId_wx && openid != "") {
+										if (openid == res1.data.data.openId_wx && openid != ""&&res1.data.status) {
 											uni.setStorageSync('userInfo', res1.data.data)
 										}
 									}
@@ -1888,7 +1888,7 @@
 			position: absolute;
 			// display: flex;
 			width:342upx;
-			// height:100%;
+			height:86upx;
 			// overflow: hidden;
 			left: 6%;
 			padding: 20upx 28upx;
@@ -1930,7 +1930,7 @@
 			position: absolute;
 			// display: flex;
 			width:192upx;
-			// height:100%;
+			height:86upx;
 			// overflow: hidden;
 			left: 61%;
 			padding: 20upx 28upx;
@@ -1964,7 +1964,7 @@
 			position: absolute;
 			// display: flex;
 			width:192upx;
-			// height:100%;
+			height:86upx;
 			// overflow: hidden;
 			left: 6%;
 			padding: 20upx 28upx;
@@ -1998,7 +1998,7 @@
 			position: absolute;
 			// display: flex;
 			width:342upx;
-			// height:100%;
+			height:86upx;
 			// overflow: hidden;
 			left: 41%;
 			padding: 20upx 28upx;
