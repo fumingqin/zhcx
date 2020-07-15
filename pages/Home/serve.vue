@@ -1,6 +1,6 @@
 <template>
 	<view class="se_view">
-		<view class="sv_view">
+		<view v-if="applyName=='兴业银行小程序'" class="sv_view">
 			<image class="sv_image" :src="imageIndex[0].imageUrl" lazy-load="true"></image>
 		</view>
 
@@ -13,7 +13,7 @@
 						<image v-if="item.ItemTitle =='公交查询'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='车票订购'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='包车服务'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
-						<image v-if="item.ItemTitle =='检票预约'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
+						<image v-if="item.ItemTitle =='检测预约'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='网络约车'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='公务租车'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='小件快递'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
@@ -243,6 +243,7 @@
 	export default {
 		data() {
 			return {
+				applyName:'',
 				imageIndex: [{
 					imageUrl: '',
 				}], //首页图片
@@ -279,7 +280,7 @@
 						clickURL: "",
 						ImageURL: "../../static/Home/serve/hjcyuyue.png",//暗
 						// ImageURL: "../../static/Home/serve/jcyuyue.png",//亮
-						ItemTitle: "检票预约"
+						ItemTitle: "检测预约"
 					},
 					{
 						IsUse: false,
@@ -371,6 +372,8 @@
 			}
 		},
 		onLoad: function() {
+			this.applyName=this.$oSit.Interface.system.applyName;
+			console.log(this.applyName)
 			uni.request({
 				url: $lyfw.Interface.qg_GetImage.value,
 				method: $lyfw.Interface.qg_GetImage.method,

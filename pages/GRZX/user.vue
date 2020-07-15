@@ -16,7 +16,7 @@
 					<view><text>{{nickname}}</text></view>
 					<view style="display: flex;align-items: center;" v-if="nickname != '游客'">
 						<image src="../../static/GRZX/huangguan.png" style="width: 20upx;height: 20upx;background-color: #2A954B;padding: 12upx;border-top-left-radius: 8upx;border-bottom-left-radius: 8upx;"></image>
-						<text style="font-size: 20upx;color: #FFFFFF;line-height: 42upx;background-color: #2A954B;padding-right:10upx ;border-top-right-radius: 8upx;border-bottom-right-radius: 8upx;">未实名</text>
+						<text style="font-size: 20upx;color: #FFFFFF;line-height: 42upx;background-color: #2A954B;padding-right:10upx ;border-top-right-radius: 8upx;border-bottom-right-radius: 8upx;">普通用户</text>
 					</view>
 				</view>
 			</view>
@@ -183,7 +183,7 @@
 			
 			// ---------------------------加载服务功能模块----------------------------
 			loadServiceList(){
-				if(this.applyName=="兴业银行小程序"){
+				if(this.applyName=="南平综合出行"){
 					this.serviceList=[{
 							IsUse: true,
 							clickURL: "",

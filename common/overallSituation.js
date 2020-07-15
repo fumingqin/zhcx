@@ -14,7 +14,6 @@ const Interface = {
 	},
 	
 	system:{
-		companyName:'XXX公司',
 		applyName:'南平综合出行',
 		
 		// #ifdef H5
