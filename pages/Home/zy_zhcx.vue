@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view v-if="applyName=='南平综合出行'">
+		<view v-if="applyName=='南平综合出行2'">
 			<!-- 轮播图-->
 			<swiper class="swi" circular autoplay style="background-color: #65C36D;">
 				<swiper-item class="swiItem" v-for="(item,index) in homePage" :key="index">
@@ -91,7 +91,7 @@
 		</view>
 		
 		<view>
-			<view v-if="applyName=='兴业银行小程序'" class="zh_top">
+			<view v-if="applyName=='南平综合出行'" class="zh_top">
 				<!-- 顶部滑动 -->
 				<view style="position: absolute;width: 46%;top: 50upx;padding: 0 200upx;">
 					<view class="screen">
@@ -454,7 +454,7 @@
 			
 			if(that.departure == '' || that.destination == '') {
 				that.departure = '请选择出发地点';
-				that.destination = '请选择出发地点';
+				that.destination = '延平';
 			}
 		},
 
