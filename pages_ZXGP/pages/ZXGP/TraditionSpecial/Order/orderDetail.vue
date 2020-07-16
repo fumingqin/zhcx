@@ -422,7 +422,7 @@
 		display: block;
 		padding-top: 20rpx;
 		padding-bottom: 20rpx;
-		font-size: 30rpx;
+		font-size: 28rpx;
 		font-weight: 300;
 	}
 	.title view {

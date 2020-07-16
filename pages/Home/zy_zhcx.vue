@@ -155,7 +155,7 @@
 				<view class="tjButton" hover-class="ve_hover2" @click="queryClick">查询</view>
 				
 				<!-- 弹框 -->
-				<view class="top_popup">购票须知></view>
+				<view class="top_popup">购票须知 ></view>
 				
 				<image class="top_image" src="../../static/GRZX/ServiceIcon/beijin.png" mode="aspectFill"></image>
 			</view>
@@ -1185,7 +1185,7 @@
 					
 					var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + this.departure +'&endStation=' + this.destination + '&date=' + this.datestring + '&isNormal=' + this.type2;
 					uni.navigateTo({
-						url:params
+						url:params,
 					})
 				}
 			},
@@ -2159,7 +2159,7 @@
 		position: absolute;
 		width: 100%;
 		text-align: center;
-		font-size:32upx;
+		font-size:28upx;
 		color:#FFFFFF;
 		z-index: 99;
 		top: 636upx;
