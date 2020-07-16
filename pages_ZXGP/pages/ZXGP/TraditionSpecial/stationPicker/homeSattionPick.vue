@@ -17,28 +17,23 @@
 		<!-- 联动列表 -->
 		<view class="list_box" v-if="isShowAllList">
 			<!-- 左边的列表 -->
-			<view class="left">
+			<!-- <view class="left">
 				<scroll-view scroll-y="true" :style="{ 'height':scrollHeight }">
-					<view class="item" 
-						v-for="(item,index) in stationArray"
-						:key="index" 
-						:class="{ 'active':index==leftIndex }" 
-						:data-index="index"
-						@tap="leftTap"
-					>{{item.cityName}}</view>
-		        </scroll-view>
-			</view>
+					<view class="item" v-for="(item,index) in stationArray" :key="index" :class="{ 'active':index==leftIndex }"
+					 :data-index="index" @tap="leftTap">{{item.cityName}}</view>
+				</scroll-view>
+			</view> -->
 			<!-- 右边的列表 -->
 			<view class="main" v-if="isShowAllList">
-				<swiper class="swiper" :style="{ 'height':scrollHeight }" 
-					:current="leftIndex" @change="swiperChange"
-					 vertical="true" duration="300">
-					<swiper-item v-for="(item,index) in stationArray" :key="index">
-						<scroll-view  scroll-y="true" :style="{ 'height':scrollHeight }">
+				<swiper class="swiper" :style="{ 'height':scrollHeight }" :current="leftIndex" @change="swiperChange" vertical="true"
+				 duration="300">
+					<swiper-item>
+						<scroll-view scroll-y="true" :style="{ 'height':scrollHeight }">
 							<view class="item">
 								<view class="goods" v-for="(item2,index2) in mainArray" :key="index2" @tap="detailStationTap(item2)">
 									<view>
-										<view>{{item2.countys}}</view>
+										<view v-if="type==0">{{item2.StartSiteName}}</view>
+										<view v-if="type==1">{{item2.EndSiteName}}</view>
 									</view>
 								</view>
 							</view>
@@ -51,31 +46,37 @@
 </template>
 
 <script>
-	import $KyInterface from "@/common/Ctky.js"
+	import $Zxgp from "@/common/zxgp.js"
 	export default {
 		data() {
 			return {
-				scrollHeight:'500px',
-				stationArray:[],
-				leftArray:[],
-				mainArray:[],
-				leftIndex:0,
+				scrollHeight: '500px',
+				stationArray: [],
+				leftArray: [],
+				mainArray: [],
+				leftIndex: 0,
 				keywordList: [],
-				isShowAllList:true,//是否显示联动列表
-				isShowList:false,//是否显示站点列表
-				stationType:'',//判断上个页面点击的是上车点还是下车点
+				isShowAllList: true, //是否显示联动列表
+				isShowList: false, //是否显示站点列表
+				stationType: '', //判断上个页面点击的是上车点还是下车点
+				applyName: '',
+				type: '',
 			}
 		},
-		onLoad(param){
+		onLoad(param) {
 			var that = this;
 			// console.log(param);
 			that.stationType = param.station;
+			that.type = param.type;
+			console.log(that.type)
+			that.applyName = that.$oSit.Interface.system.applyName;
+			// console.log(that.applyName);
 			//获取站点列表
 			that.getBusStationList();
 			/* 设置当前滚动容器的高，若非窗口的高度，请自行修改 */
 			uni.getSystemInfo({
-				success:(res)=>{
-					this.scrollHeight=`${res.windowHeight}px`;
+				success: (res) => {
+					this.scrollHeight = `${res.windowHeight}px`;
 				}
 			});
 		},
@@ -83,40 +84,33 @@
 			//-------------------------获取车站列表数据-------------------------
 			getBusStationList() {
 				uni.showLoading();
-				var systemName = '';
-				// #ifdef H5
-				systemName = '南平旅游H5';
-				// #endif
-				// #ifdef APP-PLUS
-				systemName = '南平旅游APP';
-				// #endif
-				// #ifdef MP-WEIXIN
-				systemName = '南平旅游H5';
-				// #endif
+				console.log($Zxgp.KyInterface.Cs_GetInsuranceCheckState.Url)
 				uni.request({
-					url:$KyInterface.KyInterface.Ky_GetStations.Url,
-					method:$KyInterface.KyInterface.Ky_GetStations.method,
-					header:$KyInterface.KyInterface.Ky_GetStations.header,
-					data:{
-						systemName:systemName
+					url: $Zxgp.KyInterface.Cs_GetInsuranceCheckState.Url,
+					method: $Zxgp.KyInterface.Cs_GetInsuranceCheckState.method,
+					data: {
+						systemname: this.applyName
 					},
 					success: (res) => {
-						console.log(res)
+						console.log('请求接口的数据：', res)
 						uni.hideLoading();
 						let that = this;
-						// console.log(res.data);
-						if (res.data.length != 0) {
-							for (var i = 0; i < res.data.length; i++) {
-								var cityNameArray = {
-									cityName : res.data[i].cityName
-								}
-								this.stationArray.push(cityNameArray);
-								for (var j = 0; j < res.data[i].countys.length;j++) {
-									var countysArray = {
-										countys : res.data[i].countys[j]
-									}
-									this.mainArray.push(countysArray);
-								}
+						if (res.data.data.length != 0) {
+							// for (var i = 0; i < res.data.data.length; i++) {
+							// 	var countysArray = {
+							// 		LineName: res.data.data[i].LineName
+							// 	}
+							// 	this.mainArray.push(countysArray);
+							// 	console.log(countysArray)
+							// }
+							if (that.type == 0) {
+								that.mainArray = res.data.data.filter(item => {
+									return item.StartSiteName !== '延平';
+								})
+							} else if (that.type == 1) {
+								this.mainArray = res.data.data.filter(item => {
+									return item.EndSiteName !== '延平';
+								})
 							}
 						}
 					},
@@ -124,10 +118,52 @@
 						uni.hideLoading();
 					}
 				})
+
+				// var systemName = '';
+				// // #ifdef H5
+				// systemName = '南平旅游H5';
+				// // #endif
+				// // #ifdef APP-PLUS
+				// systemName = '南平旅游APP';
+				// // #endif
+				// // #ifdef MP-WEIXIN
+				// systemName = '南平旅游H5';
+				// // #endif
+				// uni.request({
+				// 	url:$KyInterface.KyInterface.Ky_GetStations.Url,
+				// 	method:$KyInterface.KyInterface.Ky_GetStations.method,
+				// 	header:$KyInterface.KyInterface.Ky_GetStations.header,
+				// 	data:{
+				// 		systemName:systemName
+				// 	},
+				// 	success: (res) => {
+				// 		console.log(res)
+				// 		uni.hideLoading();
+				// 		let that = this;
+				// 		// console.log(res.data);
+				// 		if (res.data.length != 0) {
+				// 			for (var i = 0; i < res.data.length; i++) {
+				// 				var cityNameArray = {
+				// 					cityName : res.data[i].cityName
+				// 				}
+				// 				this.stationArray.push(cityNameArray);
+				// 				for (var j = 0; j < res.data[i].countys.length;j++) {
+				// 					var countysArray = {
+				// 						countys : res.data[i].countys[j]
+				// 					}
+				// 					this.mainArray.push(countysArray);
+				// 				}
+				// 			}
+				// 		}
+				// 	},
+				// 	fail(res) {
+				// 		uni.hideLoading();
+				// 	}
+				// })
 			},
 			//-------------------------监听输入-------------------------
-			onInput(event){
-				var keyword = event.detail?event.detail.value:event;
+			onInput(event) {
+				var keyword = event.detail ? event.detail.value : event;
 				if (!keyword) {
 					this.keywordList = [];
 					this.isShowList = false;
@@ -149,12 +185,12 @@
 				systemName = '南平旅游H5';
 				// #endif
 				uni.request({
-					url:$KyInterface.KyInterface.Ky_GetSatartSite.Url,
-					method:$KyInterface.KyInterface.Ky_GetSatartSite.method,
-					header:$KyInterface.KyInterface.Ky_GetSatartSite.header,
-					data:{
-						systemName:systemName,
-						keyword:keyword
+					url: $KyInterface.KyInterface.Ky_GetSatartSite.Url,
+					method: $KyInterface.KyInterface.Ky_GetSatartSite.method,
+					header: $KyInterface.KyInterface.Ky_GetSatartSite.header,
+					data: {
+						systemName: systemName,
+						keyword: keyword
 					},
 					success: (res) => {
 						uni.hideLoading();
@@ -186,54 +222,47 @@
 				return keywordArr;
 			},
 			//-------------------------点击下拉站点-------------------------
-			itemClick(index){
+			itemClick(index) {
 				var that = this;
 				//获取点击选项的文字
 				var key = this.keywordList[index].keyword;
-				
+
 				if (that.stationType == 'qidian') {
 					//当前是上车点
 					uni.$emit('startstaionChange', {
-					    data: key
+						data: key
 					});
-					uni.navigateBack({ });
-				}else if(that.stationType == 'zhongdian') {
+					uni.navigateBack({});
+				} else if (that.stationType == 'zhongdian') {
 					//当前是下车点
 					uni.$emit('endStaionChange', {
-					    data: key
+						data: key
 					});
-					uni.navigateBack({ });
+					uni.navigateBack({});
 				}
 			},
 			//-------------------------点击站点-------------------------
-			detailStationTap(item){
+			detailStationTap(item) {
 				// console.log(item.countys);
 				var that = this;
-				if (that.stationType == 'qidian') {
-					//当前是上车点
-					uni.$emit('startstaionChange', {
-					    data: item.countys
-					});
-					uni.navigateBack({ });
-				}else if(that.stationType == 'zhongdian') {
-					//当前是下车点
-					uni.$emit('endStaionChange', {
-					    data: item.countys
-					});
-					uni.navigateBack({ });
-				}
-				
+				//当前是上车点
+				uni.$emit('startstaionChange', {
+					data: item.StartSiteName,
+					data2: item.EndSiteName,
+				});
+				uni.navigateBack({});
+
 			},
-			
+
 			//-------------------------左侧导航点击-------------------------
-			leftTap(e){
-				let index=e.currentTarget.dataset.index;
-				this.leftIndex=Number(index);
+			leftTap(e) {
+				let index = e.currentTarget.dataset.index;
+				this.leftIndex = Number(index);
 			},
 			/* 轮播图切换 */
-			swiperChange(e){
-				let index=e.detail.current;
-				this.leftIndex=Number(index);
+			swiperChange(e) {
+				let index = e.detail.current;
+				this.leftIndex = Number(index);
 			}
 		}
 	}
@@ -245,6 +274,7 @@
 		background-color: #DBDBDB;
 		padding-top: 20rpx;
 	}
+
 	.SearchBar {
 		background-color: #FFFFFF;
 		margin-right: 20rpx;
@@ -256,12 +286,14 @@
 		align-items: center;
 		justify-content: space-between;
 	}
+
 	//地址搜索输入
 	.addressInput {
 		color: #999999;
 		font-size: 30rpx;
 		font-weight: 300;
 	}
+
 	//站点列表
 	.stationList {
 		background-color: #FFFFFF;
@@ -269,78 +301,86 @@
 		box-sizing: border-box;
 		font-size: 28rpx;
 		height: 100rpx;
-		.listItem{
+
+		.listItem {
 			margin-left: 20rpx;
 			border-bottom: 1rpx solid #eeeeee;
 		}
 	}
-.list_box{
-	display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: flex-start;
-	font-size: 28rpx;
-	
-	.left{
-		width: 200rpx;
-		background-color: #f6f6f6;
-		line-height: 80rpx;
-		box-sizing: border-box;
-		font-size: 32rpx;
-		text-align: center;
-		.item{
-			padding-left: 20rpx;
-			position: relative;
-			&:not(:first-child) {
-				margin-top: 1px;
-			
-				&::after {
-					content: '';
-					display: block;
-					height: 0;
-					border-top: #d6d6d6 solid 1px;
-					width: 620upx;
-					position: absolute;
-					top: -1px;
-					right: 0;
-					transform:scaleY(0.5);	/* 1px像素 */
-				}
-			}
-			
-			&.active,&:active{
-				color: #42b983;
-				background-color: #fff;
-			}
-		}
-	}
-	.main{
-		background-color: #fff;
-		padding-left: 20rpx;
-		width: 0;
-		flex-grow: 1;
-		box-sizing: border-box;
-		
-		.swiper{
-			height: 500px;
-		}
 
-		
-		.item{
-			padding-bottom: 10rpx;
-		}
-	}
-	.goods{
+	.list_box {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
 		justify-content: flex-start;
-		align-items: center;
-		align-content: center;
-		margin-bottom: 10rpx;
-		border-bottom: 1rpx solid #eeeeee;
-		line-height: 80rpx;
+		align-items: flex-start;
+		align-content: flex-start;
+		font-size: 28rpx;
+
+		.left {
+			width: 200rpx;
+			background-color: #f6f6f6;
+			line-height: 80rpx;
+			box-sizing: border-box;
+			font-size: 32rpx;
+			text-align: center;
+
+			.item {
+				padding-left: 20rpx;
+				position: relative;
+
+				&:not(:first-child) {
+					margin-top: 1px;
+
+					&::after {
+						content: '';
+						display: block;
+						height: 0;
+						border-top: #d6d6d6 solid 1px;
+						width: 620upx;
+						position: absolute;
+						top: -1px;
+						right: 0;
+						transform: scaleY(0.5);
+						/* 1px像素 */
+					}
+				}
+
+				&.active,
+				&:active {
+					color: #42b983;
+					background-color: #fff;
+				}
+			}
+		}
+
+		.main {
+			background-color: #fff;
+			padding-left: 20rpx;
+			width: 0;
+			flex-grow: 1;
+			box-sizing: border-box;
+
+			.swiper {
+				height: 500px;
+			}
+
+
+			.item {
+				padding-bottom: 10rpx;
+			}
+		}
+
+		.goods {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: flex-start;
+			align-items: center;
+			align-content: center;
+			margin-bottom: 10rpx;
+			border-bottom: 1rpx solid #eeeeee;
+			line-height: 80rpx;
+		}
 	}
-}
 </style>

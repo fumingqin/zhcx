@@ -1,6 +1,6 @@
 /* 接口参数区 */
 // 示例
-import $oSit from '@/common/overallSituation.js'
+import $oSit from '@/common/overallSituation.js';
 // const Url='http://zntc.145u.net';
 // const Url = 'http://36.250.234.10:60039';//接口地址
 //const ddtUrl='http://36.250.234.10:60040' //达达通接口地址
@@ -9,14 +9,13 @@ import $oSit from '@/common/overallSituation.js'
 
 //接口域名
 // #ifdef H5
-	const Url=$oSit.Interface.address;
+	const Url=$oSit.Interface.address.Url;
 // #endif
 // #ifndef H5
-	const Url=$oSit.Interface.address;
+	const Url=$oSit.Interface.address.Url;
 // #endif
 
 const systemConfig={
-	companyName:$oSit.Interface.system.companyName,  //公司名称
 	applyName:$oSit.Interface.system.applyName,		//应用名称
 	openidtype:$oSit.Interface.system.openidtype,	//应用类型：app，小程序，公众号
 }

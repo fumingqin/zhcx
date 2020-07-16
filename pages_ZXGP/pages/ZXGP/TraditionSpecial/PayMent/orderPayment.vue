@@ -133,12 +133,12 @@
 				specialStartStation: '', //定制班车上车点
 				specialEndStation: '', //定制班车下车点
 				tickettype: '', //班车类型
-				ctkyOpenID: '',
-				weixinOpenId:'',
+				ctkyOpenID: '', //公众号的openid
+				weixinOpenId:'', //小程序的openid
 			}
 		},
 		onLoad: function(param) {
-			// console.log(param)
+			// console.log(JSON.parse(param.array))
 			var that = this;
 			that.ticketInfo = JSON.parse(param.array);
 			//定制班车上车点
@@ -212,9 +212,11 @@
 					key: 'userInfo',
 					success: function(data) {
 						that.userInfo = data.data;
+						console.log(data.data.openId_xcx)
 						// #ifdef MP-WEIXIN
 						that.weixinOpenId = data.data.openId_xcx;
 						// #endif
+						console.log(that.weixinOpenId)
 						//读取乘车人信息
 						that.getPassengerInfo();
 					}
@@ -349,7 +351,7 @@
 				companyCode = $KyInterface.KyInterface.systemName.systemNameNPAPP;
 				// #endif
 				// #ifdef MP-WEIXIN
-				companyCode = $KyInterface.KyInterface.systemName.systemNameNPH5;
+				companyCode = $KyInterface.KyInterface.systemName.systemNameNPWeiXin;
 				// #endif
 				//--------------------------发起下单请求-----------------------
 				uni.request({
@@ -379,7 +381,7 @@
 						carryChild: that.freeTicketNum, //携童人数
 						idNameType: that.idNameTypeStr, //乘车人信息
 						insured: that.isInsurance, //是否选择了保险
-						openId: openId,//oI1cA0k7cBdeZ_jA0fd_OdEO6kls
+						openId: openId,
 						totalPrice: that.totalPrice, //总价格
 						payParameter: '', //不需要的参数，传空
 
@@ -441,7 +443,6 @@
 							if (res.data) {
 								if (res.data.status == true) {
 									clearInterval(timer);
-									
 									var msgArray = JSON.parse(res.data.msg);
 									console.log(msgArray)
 									if (msgArray.oldState == '结束') {

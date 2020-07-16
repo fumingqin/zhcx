@@ -11,6 +11,7 @@ import zyx from 'common/ZYX.js'
 import Sceniclist from 'common/scenicSpotDistribution.js' //旅游服务-景区目录
 import ChangeImage from 'common/changeImage.js' //更换图片
 import oSit from 'common/overallSituation.js' //全局js文件
+import Zxgp from 'common/zxgp.js' //专线购票
 
 Vue.config.productionTip = false
 
@@ -18,6 +19,7 @@ Vue.prototype.$oSit=oSit;  //全局文件
 Vue.prototype.$Czc=Czc;  //出租车
 Vue.prototype.$GrzxInter=GrzxInter;  //个人中心
 Vue.prototype.$ChangeImage=ChangeImage; //更换图片
+Vue.prototype.$Zxgp=Zxgp; //专线购票
 App.mpType = 'app'
 
 
@@ -99,5 +101,14 @@ const zyxinfo = type=>{
 	})
 }
 
-Vue.prototype.$api = {ctky,czc,grzx,lyfwfmq,lyfwcwd,sceniclist,bcfwzyx,zyxinfo};
+//模拟异步请求数据 - 专线购票
+const zxgp = type=>{
+	return new Promise(resolve=>{
+		setTimeout(()=>{
+			resolve(Zxgp[type]);
+		}, 500)
+	})
+}
+
+Vue.prototype.$api = {ctky,czc,grzx,lyfwfmq,lyfwcwd,sceniclist,bcfwzyx,zyxinfo,zxgp};
 app.$mount()

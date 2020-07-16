@@ -1,32 +1,43 @@
 <template>
 	<view class="Cr_background">
 		<form @submit="formSubmit" >
-			<!-- #ifdef H5 -->
-			<image class="bg" :src="backImg||'/static/GRZX/login1.png'" mode="aspectFill" name="backImg"></image>
+			<!-- #ifdef H5 --> <!--公众号 头像，背景图 --> 
+			<image v-if="backImg!=''" class="bg" :src="backImg||'/static/GRZX/backImg.png'" mode="aspectFill" name="backImg"></image>
+			<view v-if="backImg==''" class="bg bc_GRZX" name="backImg"></view>
 			<image class="tx" :src="portrait||'/static/GRZX/missing-face.png'" name="portrait"></image>
 			<!-- #endif -->
-			<!-- #ifndef H5 -->
-			<image class="bg" :src="backImg||'/static/GRZX/backImg.png'" mode="aspectFill" name="backImg"></image>
+			
+			<!-- #ifndef H5 -->  <!--除了公众号 头像，背景图 --> 
+			<image v-if="backImg!=''" class="bg" :src="backImg||'/static/GRZX/backImg.png'" mode="aspectFill" name="backImg"></image>
+			<view v-if="backImg==''" class="bg bc_GRZX" name="backImg"></view>
+			
 			<image class="tx" :src="portrait||'/static/GRZX/missing-face.png'" name="portrait" @click="getPhoto"></image>
 			<button class="xgbg"  plain="" @click="reviseBackground">修改背景</button>
 			<!-- #endif -->
+			
+			<!-- 姓名 -->
 			<view class="Cr_slk1">
 				<text class="bz">姓&nbsp;名：</text>
 				<input class="slk" maxlength="10"  name="nickname"  placeholder="请输入" v-model="nickname" adjust-position="" />
 			</view>
+			
+			<!-- 性别 -->
 			<view class="Cr_slk2">
 				<text class="bz">性&nbsp;别：</text>
-				<!-- <picker @change="selectorChange" mode = "selector" :range="aim" name="aim" :value="user.aim"> -->
 				<picker class="slk1" name="gender"  mode="selector" @change="genderChange" :range="genderSex" :value="gender">
 					{{selector}}
 				</picker>
 			</view>
+			
+			<!-- 生日 -->
 			<view class="Cr_slk2"> 
 				<text class="bz">生&nbsp;日：</text>
 				<picker class="slk1" name="birthday"  mode="date" @change="dateChange" v-model="birthday"  :start="startDate" :end="endDate" placeholder="请选择"  >
 					{{birthday}}
 				</picker>
 			</view>
+			
+			<!-- 地址 -->
 			<view class="Cr_slk2">
 				<text class="bz">地&nbsp;址：</text>
 				<input class="slk" name="address"  disabled="disabled" @tap="toggleTab"  placeholder="你的常住地" v-model="address" />
@@ -39,10 +50,13 @@
 					:timeout="true"
 				></w-picker>
 			</view>
+			
 			<!-- <view class="Cr_slk2">
 				<text class="bz">签&nbsp;名：</text>
 				<input class="slk" name="autograph" placeholder="你想要说的话"  v-model="autograph" />
 			</view> -->
+			
+			<!-- 保存按钮 -->
 			<button class="an btn_background btn_fontColor" form-type="submit">保存</button>
 		</form>
 	</view>
@@ -89,13 +103,14 @@
 			},
 		},
 		methods:{
+			// --------------------------------------1.加载用户信息------------------------------------
 			loadUserInfo(){
 				uni.showLoading({
 					title:'加载中...'
 				})
 				var that=this;
 				uni.getStorage({
-					key:'backUrl',
+					key:'backUrl', //加载背景图
 					success:function(res1){
 						that.backImg=res1.data;
 					}
@@ -106,7 +121,6 @@
 						var phone=res.data.phoneNumber;
 						if(phone!=""&&phone!=null&&res.data!=""){
 							uni.request({
-								//url:'http://111.231.109.113:8002/api/person/login',
 								url:that.$GrzxInter.Interface.login.value,
 								data:{
 									phoneNumber:res.data.phoneNumber,
@@ -125,12 +139,10 @@
 										    that.portrait=path;
 										  })
 										  .catch(error => {
-										    // console.error(error)
 										  })
 									}else{
 										that.portrait=base64;
 									}
-									// console.log(that.portrait,"128")
 									// ------------2.昵称-------------
 									if(res1.data.data.nickname==null||res1.data.data.nickname==""){
 										that.nickname="";
@@ -183,7 +195,8 @@
 					}
 				})	
 			},
-			// --------性别---------
+			
+			// --------------------------------------2.性别------------------------------------
 			genderChange : function(e){
 				//console.log(e.detail.value,"sex")
 				if(e.detail.value==0){
@@ -193,11 +206,14 @@
 				}
 				this.gender=e.detail.value;
 			},
-			// --------日期---------
+			
+			// --------------------------------------3.日期------------------------------------
 			dateChange : function(e){
 				this.birthday = e.detail.value;
 			},
-			// --------获得日期---------
+			
+			// -----------------
+			// --------------------------------------4.获得日期------------------------------------
 			getDate(type) {
 				const date = new Date();
 				let year = date.getFullYear();
@@ -213,44 +229,43 @@
 				day = day > 9 ? day : '0' + day;
 				return `${year}-${month}-${day}`;
 			},
-			// --------地址切换---------
+			
+			// --------------------------------------5.地址切换------------------------------------
 			toggleTab(e){
 				this.$refs[this.mode].show(); 
 			},
 			onConfirm(e){
 				this.address=e.result;
 			},
-			// --------背景图---------
+			
+			// --------------------------------------6.更换背景图------------------------------------
 			reviseBackground(){
 				var that=this;
 				uni.chooseImage({
 					count:1,
-					//sourceType:['album'],
 					success(res) {
-						// console.log(res,"res11");
 						var tempFilePaths = res.tempFilePaths;
 						uni.saveFile({
-						  tempFilePath: tempFilePaths[0],
-						  success: function (res1) {
-							var savedFilePath = res1.savedFilePath;
-							uni.setStorage({
-								key:'backUrl',
-								data:savedFilePath
-							})
-							uni.getStorage({
-								key:'backUrl',
-								success:function(res){
-									that.backImg=res.data;
-									// console.log(res.data,"res..data")
-								}
-							})
-						  }
+							tempFilePath: tempFilePaths[0],
+							success: function (res1) {
+								var savedFilePath = res1.savedFilePath;
+								uni.setStorage({
+									key:'backUrl',
+									data:savedFilePath
+								})
+								uni.getStorage({
+									key:'backUrl',
+									success:function(res){
+										that.backImg=res.data;
+									}
+								})
+							}
 						});
-						 
 					}
 				})
 			},
-			// --------提交数据---------
+			
+			// --------------------------------------7.提交数据------------------------------------
 			formSubmit: function(e) {
 				uni.showLoading({
 					title:'保存中...'
@@ -309,7 +324,8 @@
 					})
 				}
 			},
-			// --------修改头像---------
+			
+			// --------------------------------------8.修改头像------------------------------------
 			changePortrait(){
 				var that=this;
 				uni.request({
@@ -337,7 +353,8 @@
 					}
 				})
 			},
-			// --------获得头像---------
+			
+			// --------------------------------------9.获得头像------------------------------------
 			getPhoto(){
 				var that=this;
 				uni.chooseImage({
@@ -359,7 +376,8 @@
 					}
 				})	
 			},
-			//------------判断是否为base64格式-----------
+			
+			// --------------------------------------9.判断是否为base64格式------------------------------------
 			isBase64:function(str) {
 			    if (str ==='' || str.trim() ===''){ return false; }
 			    try {

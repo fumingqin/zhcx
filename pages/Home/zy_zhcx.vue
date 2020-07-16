@@ -93,7 +93,7 @@
 		<view>
 			<view v-if="applyName=='南平综合出行'" class="zh_top">
 				<!-- 顶部滑动 -->
-				<view style="position: absolute;width: 46%;top: 50upx;padding: 0 200upx;">
+				<view style="position: absolute;width: 46%;top: 90upx;padding: 0 200upx;">
 					<view class="screen">
 						<view class="screenView">
 							<view class="screenText" :class="{current:type2===0}" @click="tabClick(0)">
@@ -152,10 +152,10 @@
 				</view>
 				
 				<!-- 按钮 -->
-				<view class="tjButton">查询</view>
+				<view class="tjButton" hover-class="ve_hover2" @click="queryClick">查询</view>
 				
 				<!-- 弹框 -->
-				<view class="top_popup">购票须知></view>
+				<view class="top_popup">购票须知 ></view>
 				
 				<image class="top_image" src="../../static/GRZX/ServiceIcon/beijin.png" mode="aspectFill"></image>
 			</view>
@@ -198,14 +198,14 @@
 						<!-- <image class="ct_image1" :src="sixPalaceList[0].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text1" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">{{sixPalaceList[0].ticketTitle}}</text> -->
 						<image class="ct_image1" src="http://zntc.145u.net/UpLoadImages/DDT/巾帼文明线.jpg" mode="aspectFill"></image>
-						<text class="ct_text1" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">巾帼文明线</text>
+						<!-- <text class="ct_text1" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">巾帼文明线</text> -->
 					</view>
 					<!-- 稻田摸鱼 -->
 					<view class="ct_content2" @click="godetail(sixPalaceList[1].ticketId)">
 						<!-- <image class="ct_image2" :src="sixPalaceList[1].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text2" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[1].ticketTitle}}</text> -->
 						<image class="ct_image2" src="http://zntc.145u.net/UpLoadImages/DDT/公共自行车.jpg" mode="aspectFill"></image>
-						<text class="ct_text2" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">公共自行车</text>
+						<!-- <text class="ct_text2" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">公共自行车</text> -->
 					</view>
 				</view>
 
@@ -215,21 +215,21 @@
 						<!-- <image class="ct_image3" :src="sixPalaceList[2].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text3" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[2].ticketTitle}}</text> -->
 						<image class="ct_image3" src="http://zntc.145u.net/UpLoadImages/DDT/古雷助力车01.jpg" mode="aspectFill"></image>
-						<text class="ct_text3" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">古雷助力车</text>
+						<!-- <text class="ct_text3" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">古雷助力车</text> -->
 					</view>
 					<!-- 泉州洛阳桥 -->
 					<view class="ct_content4" @click="godetail(sixPalaceList[3].ticketId)">
 						<!-- <image class="ct_image4" :src="sixPalaceList[3].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text4" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[3].ticketTitle}}</text> -->
 						<image class="ct_image4" src="http://zntc.145u.net/UpLoadImages/DDT/南站实拍图.jpg" mode="aspectFill"></image>
-						<text class="ct_text4" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">客运南站</text>
+						<!-- <text class="ct_text4" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">客运南站</text> -->
 					</view>
 					<!-- 七彩官畲 -->
 					<view class="ct_content5" @click="godetail(sixPalaceList[4].ticketId)">
 						<!-- <image class="ct_image5" :src="sixPalaceList[4].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text5" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[4].ticketTitle}}</text> -->
 						<image class="ct_image5" src="http://zntc.145u.net/UpLoadImages/DDT/双层公交.jpg" mode="aspectFill"></image>
-						<text class="ct_text5" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">双层公交</text>
+						<!-- <text class="ct_text5" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">双层公交</text> -->
 					</view>
 				</view>
 			</view>
@@ -267,7 +267,7 @@
 				</view>
 			</view>
 		</view> -->
-		<view class="zl_recommend">
+		<view class="zl_recommend" v-if="applyName=='南平综合出行2'">
 			<view>
 				<view class="zl_reContent">
 					<text class="zl_reTitle">应用合作</text>
@@ -414,6 +414,7 @@
 				showPicker: false,
 				date: '',
 				destination:'',
+				historyLines:'',//历史
 			}
 		},
 		onLoad() {
@@ -452,9 +453,12 @@
 			//获取客服热线
 			that.ConsumerHotline();
 			
-			if(that.departure == '' || that.destination == '') {
-				that.departure = '请选择出发地点';
-				that.destination = '延平';
+			if(that.departure == '' || that.destination == '' || that.type2==0) {
+				that.departure = '请选择起点';
+				that.destination = '请选择终点';
+			}else{
+				that.departure = '请选择终点';
+				that.destination = '请选择起点';
 			}
 		},
 
@@ -794,10 +798,15 @@
 							let openid = uni.getStorageSync('scenicSpotOpenId') || '';
 							console.log(openid, "openid")
 							if (openid != "" && openid != null && openid != undefined) {
+								console.log("访问地址",that.$GrzxInter.Interface.GetUserInfoByOpenId_wx.value)
+								console.log("应用名称",that.$GrzxInter.systemConfig.applyName)
+								console.log("应用类型",that.$GrzxInter.systemConfig.openidtype)
 								uni.request({
 									url: that.$GrzxInter.Interface.GetUserInfoByOpenId_wx.value,
 									data: {
 										openId_wx: openid,
+										systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+										openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 									},
 									method: that.$GrzxInter.Interface.GetUserInfoByOpenId_wx.method,
 									success(res1) {
@@ -1067,13 +1076,19 @@
 				//监听事件,监听下个页面返回的值
 				uni.$on('startstaionChange', function(data) {
 				    // data即为传过来的值，给上车点赋值
-					that.departure = data.data;
+					if(that.type2==0){
+						that.departure = data.data;
+						that.destination=data.data2;
+					}else if(that.type2==1){
+						that.departure = data.data2;
+						that.destination=data.data;
+					}
 				    //清除监听，不清除会消耗资源
 				    uni.$off('startstaionChange');
 				});
 				uni.navigateTo({
 					//跳转到下个页面的时候加个字段，判断当前点击的是上车点
-					url:'../../pages_ZXGP/pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick?&station=' + 'qidian'
+					url:'../../pages_ZXGP/pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick?&station=' + 'qidian' +'&type=' + this.type2
 				})
 			},
 			
@@ -1136,6 +1151,42 @@
 						break;
 					default:
 						break;
+				}
+			},
+			
+			//---------------------------------点击查询---------------------------------
+			queryClick: function() {
+				var that = this;
+				if(that.departure == '请选择起点') {
+					uni.showToast({
+						title: '请选择起点',
+						icon: 'none'
+					})
+				}else if(that.departure == '请选择终点'){
+					uni.showToast({
+						title: '请选择终点',
+						icon: 'none'
+					})
+				}else {
+					var station = this.departure + "-" + this.destination;
+					if(this.historyLines) {
+						for(let i = 0; i <= this.historyLines.length;i++){
+							if(station == this.historyLines[i]) {
+								this.historyLines.splice(i,1);
+							}
+						}
+						this.historyLines.unshift(this.departure + "-" + this.destination);
+					}
+					uni.setStorage({
+						key:'historyLines',
+						data:this.historyLines,
+					})
+					//页面传参通过地址后面添加参数 this.isNormal=0是普通购票1是定制班车
+					
+					var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + this.departure +'&endStation=' + this.destination + '&date=' + this.datestring + '&isNormal=' + this.type2;
+					uni.navigateTo({
+						url:params,
+					})
 				}
 			},
 		},
@@ -1850,7 +1901,7 @@
 				justify-content: center;
 				align-items: center;
 				height: 100%;
-				font-size: 38upx;
+				font-size: 34upx;
 				color: #FFFFFF;
 				position: relative;
 	
@@ -1858,7 +1909,7 @@
 	
 				&.current {
 					color: #FFFFFF;
-					font-size: 38upx;
+					font-size: 34upx;
 					font-weight: bold;
 					// background-color: #FFFFFF;
 	
@@ -1888,25 +1939,25 @@
 			position: absolute;
 			// display: flex;
 			width:342upx;
-			height:86upx;
+			height:70upx;
 			// overflow: hidden;
 			left: 6%;
 			padding: 20upx 28upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			top: 232upx;
 			
 			.top_text{
 				// display: block;
 				font-size: 20upx;
 				color: #999999;
-				padding-bottom: 6upx;
+				// padding-bottom: 6upx;
 			}
 			
 			//出发点
 			.setOut {
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				width: 310upx;
@@ -1920,7 +1971,7 @@
 			.jdticon{
 				position: absolute;
 				right: 0;
-				top: 64upx;
+				top: 58upx;
 				height:14px;
 				padding-right: 28upx;
 			}
@@ -1930,24 +1981,24 @@
 			position: absolute;
 			// display: flex;
 			width:192upx;
-			height:86upx;
+			height:70upx;
 			// overflow: hidden;
 			left: 61%;
 			padding: 20upx 28upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			top: 232upx;
 			
 			.top_text2{
 				// display: block;
 				font-size: 20upx;
 				color: #999999;
-				padding-bottom: 6upx;
+				// padding-bottom: 6upx;
 			}
 			
 			.destination{
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				// width: 234upx;
@@ -1964,24 +2015,24 @@
 			position: absolute;
 			// display: flex;
 			width:192upx;
-			height:86upx;
+			height:70upx;
 			// overflow: hidden;
 			left: 6%;
 			padding: 20upx 28upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			top: 232upx;
 			
 			.top_text3{
 				// display: block;
 				font-size: 20upx;
 				color: #999999;
-				padding-bottom: 6upx;
+				// padding-bottom: 6upx;
 			}
 			
 			.startingPoint{
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				// width: 234upx;
@@ -1998,25 +2049,25 @@
 			position: absolute;
 			// display: flex;
 			width:342upx;
-			height:86upx;
+			height:70upx;
 			// overflow: hidden;
 			left: 41%;
 			padding: 20upx 28upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			top: 232upx;
 			
 			.top_text4{
 				// display: block;
 				font-size: 20upx;
 				color: #999999;
-				padding-bottom: 6upx;
+				// padding-bottom: 6upx;
 			}
 			
 			//出发点
 			.setEnd {
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				width: 310upx;
@@ -2030,7 +2081,7 @@
 			.jdticon{
 				position: absolute;
 				right: 0;
-				top: 64upx;
+				top: 58upx;
 				height:14px;
 				padding-right: 28upx;
 			}
@@ -2048,12 +2099,12 @@
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 346upx;
+			top: 366upx;
 			
 			//出发点
 			.dateClass{
 				display: flex;
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				// width: 234upx;
@@ -2079,20 +2130,28 @@
 		background: #E4E7ED;
 	}
 	
+	//查询点击态
+	.ve_hover2{
+		transition: all .3s;//过度
+		border-radius: 64upx;
+		opacity: 0.8;
+		background: #F0AD4E;
+	}
+	
 	//底部按钮
 	.tjButton {
 		position: absolute;
 		border-radius: 64upx;
 		left: 6%;
 		padding: 28upx 50upx;
-		top: 486upx;
+		top: 498upx;
 		width: 560upx;
-		background-color: #FFC462;
+		background-color: #D17000;
 		text-align: center;
-		color: #B56100;
-		font-size: 44upx;
+		color: #FFFFFF;
+		font-size: 34upx;
 		font-weight: 400;
-		box-shadow:0px 20px 81px 0px rgba(255,160,32,0.3);
+		box-shadow:0px 20px 81px 0px rgba(184,99,0,0.6);
 		z-index: 99;
 	}
 	
@@ -2100,9 +2159,9 @@
 		position: absolute;
 		width: 100%;
 		text-align: center;
-		font-size:32upx;
+		font-size:28upx;
 		color:#FFFFFF;
 		z-index: 99;
-		top: 628upx;
+		top: 636upx;
 	}
 </style>

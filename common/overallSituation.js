@@ -9,12 +9,11 @@ const Interface = {
 		// 小程序/APP
 		// #ifndef H5
 			// Url : 'http://36.250.234.10:60039',
-			Url : 'https://zntc.145u.net:9098', //综合出行
+			Url : 'https://zntc.145u.net:9099', //综合出行
 		// #endif
 	},
 	
 	system:{
-		companyName:'XXX公司',
 		applyName:'南平综合出行',
 		
 		// #ifdef H5
