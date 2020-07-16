@@ -29,18 +29,19 @@ async function GetImage() {
 //request请求
 function request (model,systemName,openidtype) {
   return new Promise(function (resolve, reject) {
-	  console.log("systemname",systemName)
-	  console.log("openidtype",openidtype)
+	  console.log("系统名称",systemName)
+	  console.log("应用类型","XCX")
+	  console.log("访问地址",Url+'/api/zhcx/getImage')
     uni.request({
-    	url:Url+'/api/zhcx/GetImage',
+    	url:Url+'/api/zhcx/getImage',
     	data:{
     		model:model,
-			systemname:systemName,
-			openidtype:openidtype,
+			systemtype:"XCX",
+			companyid:systemName,
     	},
     	method:'POST',
     	success(res){
-    		console.log(res,"res")
+    		console.log("获取图片",res)
     		if(systemName=="南平综合出行"){ //南平综合出行
     			var image1=res.data.data.filter(item => {
     				return item.type=='南平背景图';

@@ -175,13 +175,13 @@
 				that.allTicketsList = [];
 				var systemName = '';
 				// #ifdef H5
-				systemName = '南平综合出行H5';
+				systemName = $KyInterface.KyInterface.systemName.systemNameNPH5;;
 				// #endif
 				// #ifdef APP-PLUS
-				systemName = '南平综合出行APP';
+				systemName = $KyInterface.KyInterface.systemName.systemNameNPAPP;
 				// #endif
 				// #ifdef MP-WEIXIN
-				systemName = '南平综合出行小程序';
+				systemName = $KyInterface.KyInterface.systemName.systemNameNPWeiXin;
 				// #endif
 				uni.request({
 					url: $KyInterface.KyInterface.Ky_getListSchedulesInfo.Url,
@@ -375,7 +375,7 @@
 								week: week,
 								date: nowdate,
 								longDate: longdate,
-							});
+							});x
 						}
 					}
 				}
