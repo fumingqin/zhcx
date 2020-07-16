@@ -3,44 +3,44 @@
 		<view style="display: flex;background-color: #FFF;height: 120rpx;font-size: 32rpx;align-items: center;justify-content: space-between;">
 			<view class="Tab" @click="Click(0)">
 				<view style="margin-bottom: 20rpx;" :class="tabNum==0?'TabClick':''">新闻资讯</view>
-				<view class="borderline" v-if="tabNum==0"></view>
+				<view class="borderline zxdt_topColor" v-if="tabNum==0"></view>
 			</view>
 			<view class="Tab" @click="Click(1)">
 				<view style="margin-bottom: 20rpx;" :class="tabNum==1?'TabClick':''">失物招领</view>
-				<view class="borderline" v-if="tabNum==1"></view>
+				<view class="borderline zxdt_topColor" v-if="tabNum==1"></view>
 			</view>
 			<view class="Tab" @click="Click(2)">
 				<view style="margin-bottom: 20rpx;" :class="tabNum==2?'TabClick':''">问卷调查</view>
-				<view class="borderline" v-if="tabNum==2"></view>
+				<view class="borderline zxdt_topColor" v-if="tabNum==2"></view>
 			</view>
 			<view class="Tab" @click="Click(3)">
 				<view style="margin-bottom: 20rpx;" :class="tabNum==3?'TabClick':''">通知公告</view>
-				<view class="borderline" v-if="tabNum==3"></view>
+				<view class="borderline zxdt_topColor" v-if="tabNum==3"></view>
 			</view>
 		</view>
 		<view style="margin: 20rpx;">
-			<view class="item" v-for="(item,index) in NewsArray" :key="index" @click="NewsDetail(item)" v-if="item.Type=='新闻资讯'&&tabNum==0">
+			<view class="item zxdt_color" v-for="(item,index) in NewsArray" :key="index" @click="NewsDetail(item)" v-if="item.Type=='新闻资讯'&&tabNum==0">
 				<view style="font-size: 32rpx;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
 					<text>{{item.Title}}</text>
 				</view>
 				<view style="font-size: 24rpx; color: #AAA;padding-top: 15rpx;">{{changeTime(item.CreateTime)}}</view>
 			</view>
 			
-			<view class="item" v-for="(item,index) in NewsArray" :key="index" @click="NewsDetail(item)" v-if="item.Type=='失物招领'&&tabNum==1">
+			<view class="item zxdt_color" v-for="(item,index) in NewsArray" :key="index" @click="NewsDetail(item)" v-if="item.Type=='失物招领'&&tabNum==1">
 				<view style="font-size: 32rpx;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
 					<text>{{item.Title}}</text>
 				</view>
 				<view style="font-size: 24rpx; color: #AAA;padding-top: 15rpx;">{{changeTime(item.CreateTime)}}</view>
 			</view>
 			
-			<view class="item" v-for="(item,index) in NewsArray" :key="index" @click="NewsDetail(item)" v-if="item.Type=='问卷调查'&&tabNum==2">
+			<view class="item zxdt_color" v-for="(item,index) in NewsArray" :key="index" @click="NewsDetail(item)" v-if="item.Type=='问卷调查'&&tabNum==2">
 				<view style="font-size: 32rpx;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
 					<text>{{item.Title}}</text>
 				</view>
 				<view style="font-size: 24rpx; color: #AAA;padding-top: 15rpx;">{{changeTime(item.CreateTime)}}</view>
 			</view>
 			
-			<view class="item" v-for="(item,index) in NewsArray" :key="index" @click="NewsDetail(item)" v-if="item.Type=='通知公告'&&tabNum==3">
+			<view class="item zxdt_color" v-for="(item,index) in NewsArray" :key="index" @click="NewsDetail(item)" v-if="item.Type=='通知公告'&&tabNum==3">
 				<view style="font-size: 32rpx;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
 					<text>{{item.Title}}</text>
 				</view>
@@ -156,20 +156,20 @@
 	}
 
 	.borderline {
-		border-bottom: 1px solid #65C36D;
+		// border-bottom: 1px solid #65C36D;
 		width: 75rpx;
-		color: #65C36D;
+		// color: #65C36D;
 	}
 
-	.TabClick {
-		color: #65C36D;
-	}
+	// .TabClick {
+	// 	color: #65C36D;
+	// }
 
 	.item {
 		margin: 20rpx;
-		border: 4rpx solid #65C36D;
+		// border: 4rpx solid #65C36D;
 		background-color: #FFF;
-		border-left-width: 20rpx;
+		// border-left-width: 20rpx;
 		border-radius: 10rpx;
 		padding: 15rpx 20rpx 20rpx 10rpx;
 	}
