@@ -155,7 +155,7 @@
 			this.applyName=this.$GrzxInter.systemConfig.applyName;
 			
 			//加载广告图片
-			// this.loadImg();
+			this.loadImg();
 			
 			//加载服务功能模块
 			this.loadServiceList();
@@ -952,7 +952,7 @@
 		// border: 1upx solid black;
 		display: flex;
 		flex-direction: column; //column:纵向排列，row横向排列
-		margin-bottom: 30upx;
+		padding-bottom: 30upx;
 	}
 
 	//图标样式开始
@@ -960,63 +960,63 @@
 	.XXGLicon{
 		width: 50upx;
 		height: 54upx;
-		margin: 30upx 60upx 16upx 60upx;
+		padding: 30upx 60upx 16upx 60upx;
 	}
 	
 	.ZDPZicon{
 		width: 48upx;
 		height: 50upx;
-		margin: 30upx 61upx 20upx 61upx;
+		padding: 30upx 61upx 20upx 61upx;
 	}
 	
 	.WDTSicon{
 		width: 42upx;
 		height: 50upx;
-		margin: 30upx 64upx 20upx 64upx;
+		padding: 30upx 64upx 20upx 64upx;
 	}
 	
 	.JJLXRicon{
 		width: 45upx;
 		height: 50upx;
-		margin: 30upx 62upx 20upx 63upx;
+		padding: 30upx 62upx 20upx 63upx;
 	}
 	
 	//第二排
 	.SMRZicon{
 		width: 44upx;
 		height: 50upx;
-		margin: 30upx 63upx 20upx 63upx;
+		padding: 30upx 63upx 20upx 63upx;
 	}
 	
 	.GHSJHicon{
 		width: 38upx;
 		height: 50upx;
-		margin: 30upx 66upx 20upx 66upx;
+		padding: 30upx 66upx 20upx 66upx;
 	}
 	
 	.DHKFicon{
 		width: 41upx;
 		height: 50upx;
-		margin: 30upx 64upx 20upx 65upx;
+		padding: 30upx 64upx 20upx 65upx;
 	}
 	
 	.YJFKicon{
 		width: 41upx;
 		height: 50upx;
-		margin: 30upx 64upx 20upx 65upx;
+		padding: 30upx 64upx 20upx 65upx;
 	}   
 	
 	//第三排
 	.QQKFicon{
 		width: 43upx;
 		height: 50upx;
-		margin: 30upx 63upx 20upx 64upx;
+		padding: 30upx 63upx 20upx 64upx;
 	}
 	
 	.ZXKFicon{
 		width: 45upx;
 		height: 50upx;
-		margin: 30upx 62upx 20upx 63upx;
+		padding: 30upx 62upx 20upx 63upx;
 	}
 	
 	//图标样式结束
