@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="backImg">
 			<!-- 顶部背景图 -->
-			<image src="../../static/GRZX/backImg.png" class="imgClass"></image>
+			
 			<!-- #ifdef APP-PLUS -->
 			<image src="../../static/GRZX/set.png" class="setClass" @click="navTo('set')"></image>
 			<image src="../../static/GRZX/info.png" class="infoClass" @click="navTo('myNews')"></image>
@@ -14,9 +14,9 @@
 				<image class="portraitClass" :src="port || '/static/GRZX/missing-face.png'"></image>
 				<view class="usernameClass" style="display: flex;flex-direction: column;">
 					<view><text>{{nickname}}</text></view>
-					<view style="display: flex;align-items: center;" v-if="nickname != '游客'">
-						<image src="../../static/GRZX/huangguan.png" style="width: 20upx;height: 20upx;background-color: #2A954B;padding: 12upx;border-top-left-radius: 8upx;border-bottom-left-radius: 8upx;"></image>
-						<text style="font-size: 20upx;color: #FFFFFF;line-height: 42upx;background-color: #2A954B;padding-right:10upx ;border-top-right-radius: 8upx;border-bottom-right-radius: 8upx;">普通用户</text>
+					<view class="userTypeBox" v-if="nickname != '游客'">
+						<image src="../../static/GRZX/huangguan.png" class="iconClass bc_GRZX_UserType"></image>
+						<text class="typeBox bc_GRZX_UserType" >普通用户</text>
 					</view>
 				</view>
 			</view>
@@ -155,7 +155,7 @@
 			this.applyName=this.$GrzxInter.systemConfig.applyName;
 			
 			//加载广告图片
-			this.loadImg();
+			// this.loadImg();
 			
 			//加载服务功能模块
 			this.loadServiceList();
@@ -178,6 +178,7 @@
 				var that = this;
 				that.$ChangeImage.GetImage("南平综合出行").then(function(data) {
 					that.advert = data.advert;
+					console.log(that.advert,"广告")
 				});
 			},
 			
@@ -670,7 +671,21 @@
 
 	.backImg {
 		width: 100%;
+		height: 510upx;
+		position: relative;  
+		z-index: -1;  
+		overflow: hidden;
+	}
+	
+	.backImg::after{
+		/* 以下不允许修改 */
+		width: 120%;
 		height: 490upx;
+		border-radius: 0 0 50% 50%;
+		position: absolute;
+		left:-10%;
+		z-index: -1;  
+		content: '';
 	}
 
 	.imgClass {
@@ -728,11 +743,9 @@
 
 	.usernameClass {
 		//昵称
-		// height: 60upx;
-		// line-height: 44upx;
 		font-size: 42upx;
 		color: #FFFFFF;
-		margin-top: 20upx;
+		margin-top: 17upx;
 		margin-left: 3%;
 		width: 350upx;
 		display: block;
@@ -767,16 +780,28 @@
 		/* #endif */
 	}
 
+	.userTypeBox{
+		display: flex;
+		align-items: center;
+		margin-top: 10upx;
+	}
+
+	.iconClass{
+		width: 20upx;
+		height: 18upx;
+		padding: 12upx;
+		border-top-left-radius: 8upx;
+		border-bottom-left-radius: 8upx;
+	}
+	
 	.typeBox {
 		//普通用户
-		width: 170upx;
-		height: 42upx;
-		// background-color: #C25E4E;
-		background-color: #2A954B;
-		position: absolute;
-		top: 245upx;
-		left: 23%;
-		border-radius: 8upx;
+		font-size: 21upx;
+		color: #FFFFFF;
+		line-height: 42upx;
+		padding-right:15upx;
+		border-top-right-radius: 8upx;
+		border-bottom-right-radius: 8upx;
 	}
 
 	.imgTubiao {

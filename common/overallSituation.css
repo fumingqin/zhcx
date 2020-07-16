@@ -13,3 +13,13 @@
 	color: #FC4646; /* 红色字体 */
 	background-color: #FFFFFF; /* 白底 */
 }
+
+/* 个人中心顶部背景色 */
+.backImg::after{
+	background-color: #FFAF2A; 
+}
+
+/* 个人中心顶部用户类型背景色 */
+.bc_GRZX_UserType{
+	background-color: #c38520; 
+}

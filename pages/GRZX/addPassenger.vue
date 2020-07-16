@@ -161,7 +161,8 @@
 				proveType:['请选择','军人','教师','学生'],
 				selectType:['请选择','成人','半票儿童','免票儿童'],
 				selectCode:['请选择','身份证','护照','港澳通行证','台胞证'],
-				codeType:'请选择证件类型 >',
+				// codeType:'请选择证件类型 >',
+				codeType:'身份证 >',
 				ticketType:'请选择购票类型 >',
 				selector:'请选择特殊凭证 >',
 				user:{
@@ -182,7 +183,7 @@
 				userType:'',
 				address:'',
 				userId:'', //账号id
-				code:0,
+				code:1,
 			}
 		},
 		onLoad (options){	
