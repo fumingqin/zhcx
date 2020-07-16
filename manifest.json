@@ -144,7 +144,7 @@
         "appid" : "wx37b8f978e30050e4",
         "setting" : {
             "es6" : false,
-            "postcss" : false,
+            "postcss" : true,
             "minified" : true,
             "urlCheck" : false
         },
