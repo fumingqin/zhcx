@@ -3150,7 +3150,7 @@
 					success: (res1) => {
 						this.userInfo = res1.data;
 						uni.request({
-							url: 'http://36.250.234.10:60039/api/taxi/GetAllExpressOrder_Passenger',
+							url: 'https://zntc.145u.net:9099/api/taxi/GetAllExpressOrder_Passenger',
 							data: {
 								userId: that.userInfo.userId,
 							},
