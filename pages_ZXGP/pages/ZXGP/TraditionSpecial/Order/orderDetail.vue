@@ -398,7 +398,7 @@
 	/* 发车时间 */
 	.headText {
 		padding: 10rpx 20rpx;
-		font-size: 25rpx;
+		font-size: 28rpx;
 		color: #666666;
 		font-weight: 300;
 	}
@@ -435,7 +435,7 @@
 		display: block;
 		padding-top: 20rpx;
 		padding-bottom: 20rpx;
-		font-size: 30rpx;
+		font-size: 28rpx;
 		font-weight: 500;
 	}
 	.detailInfo view {
