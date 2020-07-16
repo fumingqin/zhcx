@@ -93,7 +93,7 @@
 		<view>
 			<view v-if="applyName=='南平综合出行'" class="zh_top">
 				<!-- 顶部滑动 -->
-				<view style="position: absolute;width: 46%;top: 50upx;padding: 0 200upx;">
+				<view style="position: absolute;width: 46%;top: 90upx;padding: 0 200upx;">
 					<view class="screen">
 						<view class="screenView">
 							<view class="screenText" :class="{current:type2===0}" @click="tabClick(0)">
@@ -222,7 +222,7 @@
 						<!-- <image class="ct_image4" :src="sixPalaceList[3].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text4" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[3].ticketTitle}}</text> -->
 						<image class="ct_image4" src="http://zntc.145u.net/UpLoadImages/DDT/南站实拍图.jpg" mode="aspectFill"></image>
-						<text class="ct_text4" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">客运南站</text>
+						<!-- <text class="ct_text4" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">客运南站</text> -->
 					</view>
 					<!-- 七彩官畲 -->
 					<view class="ct_content5" @click="godetail(sixPalaceList[4].ticketId)">
@@ -1946,7 +1946,7 @@
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			top: 232upx;
 			
 			.top_text{
 				// display: block;
@@ -1988,7 +1988,7 @@
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			top: 232upx;
 			
 			.top_text2{
 				// display: block;
@@ -2022,7 +2022,7 @@
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			top: 232upx;
 			
 			.top_text3{
 				// display: block;
@@ -2056,7 +2056,7 @@
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			top: 232upx;
 			
 			.top_text4{
 				// display: block;
@@ -2099,7 +2099,7 @@
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 326upx;
+			top: 366upx;
 			
 			//出发点
 			.dateClass{
@@ -2134,8 +2134,8 @@
 	.ve_hover2{
 		transition: all .3s;//过度
 		border-radius: 64upx;
-		opacity: 0.9;
-		background: #E4E7ED;
+		opacity: 0.8;
+		background: #F0AD4E;
 	}
 	
 	//底部按钮
@@ -2144,14 +2144,14 @@
 		border-radius: 64upx;
 		left: 6%;
 		padding: 28upx 50upx;
-		top: 458upx;
+		top: 498upx;
 		width: 560upx;
-		background-color: #FFC462;
+		background-color: #D17000;
 		text-align: center;
-		color: #B56100;
+		color: #FFFFFF;
 		font-size: 34upx;
 		font-weight: 400;
-		box-shadow:0px 20px 81px 0px rgba(255,160,32,0.3);
+		box-shadow:0px 20px 81px 0px rgba(184,99,0,0.6);
 		z-index: 99;
 	}
 	
@@ -2162,6 +2162,6 @@
 		font-size:32upx;
 		color:#FFFFFF;
 		z-index: 99;
-		top: 596upx;
+		top: 636upx;
 	}
 </style>

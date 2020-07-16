@@ -138,7 +138,7 @@
 			}
 		},
 		onLoad: function(param) {
-			// console.log(param)
+			// console.log(JSON.parse(param.array))
 			var that = this;
 			that.ticketInfo = JSON.parse(param.array);
 			//定制班车上车点

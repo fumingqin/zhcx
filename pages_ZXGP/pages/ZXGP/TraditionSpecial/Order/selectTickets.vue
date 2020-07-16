@@ -175,13 +175,13 @@
 				that.allTicketsList = [];
 				var systemName = '';
 				// #ifdef H5
-				systemName = '南平旅游H5';
+				systemName = '南平综合出行H5';
 				// #endif
 				// #ifdef APP-PLUS
-				systemName = '南平旅游APP';
+				systemName = '南平综合出行APP';
 				// #endif
 				// #ifdef MP-WEIXIN
-				systemName = '南平旅游H5';
+				systemName = '南平综合出行小程序';
 				// #endif
 				uni.request({
 					url: $KyInterface.KyInterface.Ky_getListSchedulesInfo.Url,

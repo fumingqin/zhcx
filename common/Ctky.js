@@ -25,7 +25,7 @@ const scheduleUrl = 'https://zhcx.npzhly.com:9098';//班次列表https请求
 const npUrl = 'http://27.148.155.9:9055';
 
 
-const systemName = '泉运公司综合出行';
+const systemName = '南平综合出行';
 
 //接口对象
 const KyInterface = {
@@ -47,9 +47,11 @@ const KyInterface = {
 	},
 	systemName:{
 		systemName:'泉运公司综合出行',
+		
 		systemNameApp:'泉运公司综合出行APP',
 		systemNameH5:'泉运公司综合出行H5',
 		systemNameWeiXin:'泉运公司综合出行小程序',
+		
 		systemNameNPH5:'南平综合出行H5',
 		systemNameNPAPP:'南平综合出行APP',
 		systemNameNPWeiXin:'南平综合出行小程序',
@@ -119,7 +121,6 @@ const KyInterface = {
 		header:{'content-type': 'application/json'},
 		systemName:systemName,
 	},
-	
 	
 	Ky_getTicketPaymentInfo:{
 		Url: Url + '/api/ky/SellTicket_Flow',
