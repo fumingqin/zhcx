@@ -1,6 +1,6 @@
 /* 接口参数区 */
 // 示例
-import $oSit from '@/common/overallSituation.js'
+import $oSit from '@/common/overallSituation.js';
 // const Url='http://zntc.145u.net';
 // const Url = 'http://36.250.234.10:60039';//接口地址
 //const ddtUrl='http://36.250.234.10:60040' //达达通接口地址

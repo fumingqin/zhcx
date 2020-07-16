@@ -1,6 +1,6 @@
 <template>
 	<view class="se_view">
-		<view v-if="applyName=='兴业银行小程序'" class="sv_view">
+		<view v-if="applyName=='南平综合出行'" class="sv_view">
 			<image class="sv_image" :src="imageIndex[0].imageUrl" lazy-load="true"></image>
 		</view>
 
@@ -379,7 +379,9 @@
 				method: $lyfw.Interface.qg_GetImage.method,
 				data: {
 					model: 6,
-					type: '服务banner'
+					type: '服务banner',
+					systemtype: 'XCX',//APP,XCX,H5
+					companyid: '南平综合出行',//公司名
 				},
 				success: (res) => {
 					console.log(res)
