@@ -22,22 +22,22 @@
 			</view>
 						
 			<!-- 个人主页按钮 -->
-			<view class="grzyClass" @click="checkLogin">
+			<!-- <view class="grzyClass" @click="checkLogin">
 				<text>个人主页</text>
 				<image src="../../static/GRZX/btnRight_Home.png" class="rightClass"></image>
-			</view>
+			</view> -->
 			
 			<!-- 订单链接按钮 -->
 			<view class="myBox">
-				<view class="collection" @click="orderClick(3)">
+				<view class="collection" @click="orderClick(3)" hover-class="btn_Click">
 					<image src="../../static/GRZX/tubiao_pay1.png" class="imgStyle1" mode="aspectFill"></image>
 					<text class="myFont">待支付</text>
 				</view>
-				<view class="order" @click="orderClick(2)">
+				<view class="order" @click="orderClick(2)" hover-class="btn_Click">
 					<image src="../../static/GRZX/tubiao_pay2.png" class="imgStyle2" mode="aspectFill"></image>
 					<text class="myFont">进行中</text>
 				</view>
-				<view class="history" @click="orderClick(1)">
+				<view class="history" @click="orderClick(1)" hover-class="btn_Click">
 					<image src="../../static/GRZX/tubiao_pay3.png" class="imgStyle3" mode="aspectFill"></image>
 					<text class="myFont">已完成</text>
 				</view>
@@ -55,51 +55,51 @@
 			<!-- ========================更多服务的功能模块============================ -->
 			<view style="display: flex; flex-wrap: wrap;">
 				<view v-for="(item,index) in serviceList" :key="index">
-					<view class="itemClass" @click="infoClick" v-if="item.ItemTitle=='乘客管理'&&item.IsUse">
+					<view class="itemClass" @click="infoClick" v-if="item.ItemTitle=='乘客管理'&&item.IsUse" hover-class="btn_Click">
 						<image :src="item.ImageURL" class="XXGLicon"></image>
 						<text class="fontStyle">{{item.ItemTitle}}</text>
 					</view>
-					<view class="itemClass" @click="pictureClick" v-if="item.ItemTitle=='站点拍照'&&item.IsUse">
+					<view class="itemClass" @click="pictureClick" v-if="item.ItemTitle=='站点拍照'&&item.IsUse" hover-class="btn_Click">
 						<image :src="item.ImageURL" class="ZDPZicon"></image>
 						<text class="fontStyle">{{item.ItemTitle}}</text>
 					</view>
-					<view class="itemClass" @click="complaintClick" v-if="item.ItemTitle=='我的投诉'&&item.IsUse">
+					<view class="itemClass" @click="complaintClick" v-if="item.ItemTitle=='我的投诉'&&item.IsUse" hover-class="btn_Click">
 						<image :src="item.ImageURL" class="WDTSicon"></image>
 						<text class="fontStyle">{{item.ItemTitle}}</text>
 					</view>
-					<view class="itemClass" @click="addContact" v-if="item.ItemTitle=='紧急联系人'&&item.IsUse">
+					<view class="itemClass" @click="addContact" v-if="item.ItemTitle=='紧急联系人'&&item.IsUse" hover-class="btn_Click">
 						<image :src="item.ImageURL" class="JJLXRicon"></image>
 						<text class="fontStyle">{{item.ItemTitle}}</text>
 					</view>
 					
-					<view class="itemClass" @click="realName" v-if="item.ItemTitle=='实名认证'&&item.IsUse">
+					<view class="itemClass" @click="realName" v-if="item.ItemTitle=='实名认证'&&item.IsUse" hover-class="btn_Click">
 						<image :src="item.ImageURL" class="SMRZicon"></image>
 						<text class="fontStyle">{{item.ItemTitle}}</text>
 					</view>
-					<view class="itemClass" @click="replacePhoneNum" v-if="item.ItemTitle=='更换手机号'&&item.IsUse">
+					<view class="itemClass" @click="replacePhoneNum" v-if="item.ItemTitle=='更换手机号'&&item.IsUse" hover-class="btn_Click">
 						<image :src="item.ImageURL" class="GHSJHicon"></image>
 						<text class="fontStyle">{{item.ItemTitle}}</text>
 					</view>
 					<!-- #ifdef H5 -->
-					<view class="itemClass" @click="phoneClick" v-if="item.ItemTitle=='电话客服'&&item.IsUse">
+					<view class="itemClass" @click="phoneClick" v-if="item.ItemTitle=='电话客服'&&item.IsUse" hover-class="btn_Click">
 						<image :src="item.ImageURL" class="DHKFicon"></image>
 						<text class="fontStyle">{{item.ItemTitle}}</text>
 					</view>
 					<!-- #endif -->
-					<view class="itemClass" @click="feedbackClick" v-if="item.ItemTitle=='意见反馈'&&item.IsUse">
+					<view class="itemClass" @click="feedbackClick" v-if="item.ItemTitle=='意见反馈'&&item.IsUse" hover-class="btn_Click">
 						<image :src="item.ImageURL" class="YJFKicon"></image>
 						<text class="fontStyle">{{item.ItemTitle}}</text>
 					</view>
 					
 					<!-- #ifdef MP-WEIXIN -->
-					<view class="itemClass" style="position: relative;" v-if="item.ItemTitle=='在线客服'&&item.IsUse">
+					<view class="itemClass" style="position: relative;" v-if="item.ItemTitle=='在线客服'&&item.IsUse"> 
 						<image :src="item.ImageURL" class="ZXKFicon"></image>
-						<button open-type="contact" class="contactClass"></button>
+						<button open-type="contact" class="contactClass" hover-class="btn_Click"></button>
 						<text class="fontStyle">{{item.ItemTitle}}</text>
 					</view>
 					<!-- #endif -->
 					<!-- #ifdef APP-PLUS -->
-					<view class="itemClass" @click="QQClick" v-if="item.ItemTitle=='QQ客服'&&item.IsUse">
+					<view class="itemClass" @click="QQClick" v-if="item.ItemTitle=='QQ客服'&&item.IsUse" hover-class="btn_Click">
 						<image :src="item.ImageURL" class="QQKFicon"></image>
 						<text class="fontStyle">{{item.ItemTitle}}</text>
 					</view>
@@ -363,13 +363,11 @@
 						}
 					})
 				}
-				// console.log(e)
 			},
 			
 			// ---------------------------乘客管理----------------------------
 			infoClick() {
 				uni.navigateTo({
-					//url:'/pages/GRZX/infoList',
 					url: this.$GrzxInter.Route.infoList.url,
 				})
 			},
@@ -441,7 +439,6 @@
 			//------------------------------投诉---------------------------
 			complaintClick() {
 				uni.navigateTo({
-					// url:'/pages/GRZX/gz_complaintList'
 					url: this.$GrzxInter.Route.complaint.url,
 				})
 			},
@@ -449,7 +446,6 @@
 			//------------------------------意见反馈-----------------------
 			feedbackClick() {
 				uni.navigateTo({
-					// url:'/pages/GRZX/feedback'
 					url: this.$GrzxInter.Route.feedback.url,
 				})
 			},
@@ -457,7 +453,6 @@
 			//-----------------------------拍照返现------------------------
 			pictureClick() {
 				uni.navigateTo({
-					// url:'/pages/GRZX/feedback'
 					url: '../../pages_GRZX/pages/GRZX/pictureList',
 				})
 			},
