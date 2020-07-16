@@ -1,17 +1,16 @@
+import $oSit from '@/common/overallSituation.js';
 // #ifdef H5
-	const Url = 'http://zntc.145u.net'; //http请求
+	const Url=$oSit.Interface.address.Url;
 // #endif
 // #ifndef H5
-	const Url = 'http://36.250.234.10:60039'; //https请求
+	const Url=$oSit.Interface.address.Url;
 // #endif
 
-// #ifdef APP-PLUS
-// #endif
-// const ddtUrl='http://111.231.109.113:8004' //达达通接口地址
-const ddtUrl='http://36.250.234.10:60040' //达达通接口地址
 
 //获取图片的路径
-async function GetImage(systemName) {
+async function GetImage() {
+	var systemName=$oSit.Interface.system.applyName;
+	var openidtype=$oSit.Interface.system.openidtype;
 	var model=-1;
 	if(systemName=="南平综合出行"){
 		model=5;
@@ -22,18 +21,22 @@ async function GetImage(systemName) {
 	if(model==-1){
 		console.log('项目名暂未添加图片')
 	}else{
-		var res = await request(model,systemName)
+		var res = await request(model,systemName,openidtype)
 		return res;
 	}
 }
 
 //request请求
-function request (model,systemName) {
+function request (model,systemName,openidtype) {
   return new Promise(function (resolve, reject) {
+	  console.log("systemname",systemName)
+	  console.log("openidtype",openidtype)
     uni.request({
     	url:Url+'/api/zhcx/GetImage',
     	data:{
     		model:model,
+			systemname:systemName,
+			openidtype:openidtype,
     	},
     	method:'POST',
     	success(res){
