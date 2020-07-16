@@ -161,6 +161,7 @@
 				var scheduleCode = that.getScheduleNum(that.orderInfo.executeScheduleID);
 				console.log('班次编号',that.orderInfo.startStaion)
 				console.log('班次编号',that.orderInfo.endStation)
+				console.log('班次编号',that.orderInfo.executeScheduleID)
 				console.log('班次编号',scheduleCode)
 				// 获取站点数据
 				uni.request({
