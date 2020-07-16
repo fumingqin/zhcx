@@ -673,7 +673,7 @@
 		width: 100%;
 		height: 510upx;
 		position: relative;  
-		z-index: -1;  
+		z-index: 1;  
 		overflow: hidden;
 	}
 	
@@ -732,6 +732,7 @@
 		// background-color: #06B4FD;
 		display: flex;
 		flex-direction: row;
+		z-index:999;
 	}
 
 	.portraitClass {
@@ -765,6 +766,7 @@
 		color: #FFFFFF;
 		font-size: 28upx;
 		line-height: 27upx;
+		z-index:999;
 	}
 
 	.rightClass {
@@ -847,6 +849,7 @@
 		display: flex;
 		flex-direction: row;
 		border-radius: 12upx;
+		z-index:999;
 	}
 
 	.collection {

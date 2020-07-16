@@ -2,12 +2,15 @@
 	<view class="Cr_background">
 		<form @submit="formSubmit" >
 			<!-- #ifdef H5 --> <!--公众号 头像，背景图 --> 
-			<image class="bg" :src="backImg||'/static/GRZX/backImg.png'" mode="aspectFill" name="backImg"></image>
+			<image v-if="backImg!=''" class="bg" :src="backImg||'/static/GRZX/backImg.png'" mode="aspectFill" name="backImg"></image>
+			<view v-if="backImg==''" class="bg bc_GRZX" name="backImg"></view>
 			<image class="tx" :src="portrait||'/static/GRZX/missing-face.png'" name="portrait"></image>
 			<!-- #endif -->
 			
 			<!-- #ifndef H5 -->  <!--除了公众号 头像，背景图 --> 
-			<image class="bg" :src="backImg||'/static/GRZX/backImg.png'" mode="aspectFill" name="backImg"></image>
+			<image v-if="backImg!=''" class="bg" :src="backImg||'/static/GRZX/backImg.png'" mode="aspectFill" name="backImg"></image>
+			<view v-if="backImg==''" class="bg bc_GRZX" name="backImg"></view>
+			
 			<image class="tx" :src="portrait||'/static/GRZX/missing-face.png'" name="portrait" @click="getPhoto"></image>
 			<button class="xgbg"  plain="" @click="reviseBackground">修改背景</button>
 			<!-- #endif -->
