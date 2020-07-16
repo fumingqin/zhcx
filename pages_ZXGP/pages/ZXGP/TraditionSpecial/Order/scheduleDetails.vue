@@ -28,10 +28,10 @@
 			</view>
 
 			<!-- 地图标点 -->
-			<view class="orderCommonClass" v-if="true">
+			<view class="orderCommonClass" v-if="true" @click="checkLocation" >
 				<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">地图标点</view>
 				<view style="display: flex;margin-right: 41upx;align-items: center;">
-					<view @tap="checkLocation" style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;">查看班次信息</view>
+					<view style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;">查看班次信息</view>
 					<image src="../../../../static/ZXGP/right.png" style="width: 11upx;height: 21upx;margin-left: 10upx;"></image>
 				</view>
 			</view>
@@ -474,18 +474,21 @@
 			//-------------------------------跳转到地图标点-----------------------------
 			checkLocation() {
 				var that = this;
-				// #ifdef MP-WEIXIN
-				uni.showModal({
-					content:'小程序暂不支持地图显示',
-					showCancel:false,
-				})
-				// #endif
-				
-				// #ifndef MP-WEIXIN
 				uni.navigateTo({
 					url: '../MapMark/specialMark?specialArray=' + JSON.stringify(this.ticketDetail)
 				})
-				// #endif
+				// // #ifdef MP-WEIXIN
+				// uni.showModal({
+				// 	content:'小程序暂不支持地图显示',
+				// 	showCancel:false,
+				// })
+				// // #endif
+				
+				// // #ifndef MP-WEIXIN
+				// uni.navigateTo({
+				// 	url: '../MapMark/specialMark?specialArray=' + JSON.stringify(this.ticketDetail)
+				// })
+				// // #endif
 				
 				// if (that.ticketDetail.starSiteArr && that.ticketDetail.endSiteArr) {
 				// 	if (this.ticketDetail.shuttleType == '普通班车') { //普通班车
