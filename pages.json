@@ -971,7 +971,7 @@
 					"style": {
 						"navigationBarTitleText": "资讯列表",
 						"navigationBarTextStyle":"White",
-						"navigationBarBackgroundColor":"#65C36D"
+						"navigationBarBackgroundColor":"#ff9012"
 					}
 				}, {
 					"path": "pages/RentBike/Payment",
@@ -1011,7 +1011,7 @@
                     "style" : {
 						"navigationBarTitleText": "新闻详情",
 						"navigationBarTextStyle":"White",
-						"navigationBarBackgroundColor":"#65C36D"
+						"navigationBarBackgroundColor":"#ff9012"
 					}
                 }
                 ,{
