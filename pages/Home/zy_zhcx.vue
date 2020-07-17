@@ -153,11 +153,24 @@
 				
 				<!-- 按钮 -->
 				<view class="tjButton" hover-class="ve_hover2" @click="queryClick">查询</view>
-				
 				<!-- 弹框 -->
-				<view class="top_popup">购票须知 ></view>
+				<view class="top_popup" @click="open">购票须知 ></view>
+				<!-- 弹框插件 -->
+				<uni-popup ref="popup" type="bottom">
+					<view class="te_boxVlew">
+						<view class="bv_titleView">
+							<text class="tv_text1">购票须知</text>
+							<text class="tv_text2 jdticon icon-fork " @click="close(1)"></text>
+						</view>
+						<scroll-view class="bv_content" scroll-y="ture">
+							<view class="ct_noticeText">
+								<rich-text :nodes="way"></rich-text>
+							</view>
+						</scroll-view>
+					</view>
+				</uni-popup>
 				
-				<image class="top_image" src="../../static/GRZX/ServiceIcon/beijin.png" mode="aspectFill"></image>
+				<image class="top_image" :src="background[0].imageUrl" mode="aspectFill"></image>
 			</view>
 		</view>
 		
@@ -312,6 +325,9 @@
 				imgXXDT: [{
 					imageUrl: '',
 				}], //咨询动态
+				background:[{
+					imageUrl: '',
+				}], //背景图
 				homePage: [{
 					ImageURL: ''
 				}], //轮播图
@@ -415,6 +431,7 @@
 				date: '',
 				destination:'',
 				historyLines:'',//历史
+				way:'根据交通运输部令 2016年第82 相关规定，网购票需要旅客提供姓名、身份证号码信息，有关信息将用于旅客进站身份核验、行前取票、验票乘车等环节。身份信息不符将无法进站和乘车。 <p></p> 13328513020（ 时间：9:00-19:30 ） <p></p> 13365957285（ 时间：9:00-18:30 ）',
 			}
 		},
 		onLoad() {
@@ -658,7 +675,10 @@
 					url: $lyfw.Interface.qg_GetImage.value,
 					method: $lyfw.Interface.qg_GetImage.method,
 					data: {
-						model: 9
+						model:9, //模块名称
+						systemtype:'XCX',//应用类型
+						companyid:this.applyName, //公司名称
+						// type:'背景图', //图片类型
 					},
 					header: {
 						'content-type': 'application/json'
@@ -666,9 +686,11 @@
 					success: (res) => {
 						console.log(res)
 						this.imgXXDT = res.data.data.filter(item => {
-							return item.type == 'dongtai';
+							return item.type == '新闻资讯';
 						})
-
+						this.background = res.data.data.filter(item => {
+							return item.type == '背景图';
+						})
 						// console.log(this.imgXXDT)
 					}
 				})
@@ -1187,6 +1209,19 @@
 					uni.navigateTo({
 						url:params,
 					})
+				}
+			},
+			
+			//------------------------------弹框事件-----------------------------------------
+			
+			open() {
+				// 需要在 popup 组件，指定 ref 为 popup
+				this.$refs.popup.open()
+			},
+			
+			close(e) {
+				if (e == 1) {
+					this.$refs.popup.close()
 				}
 			},
 		},
@@ -2118,6 +2153,49 @@
 			height: 712upx;
 			overflow: hidden;
 			margin: 0 auto;
+		}
+	}
+	
+	//弹框样式
+	.te_boxVlew {
+		width: 90%;
+		padding: 16upx 40upx;
+		padding-bottom: 92upx;
+		background: #FFFFFF;
+	
+		.bv_titleView {
+			display: flex;
+			margin: 24upx 0;
+	
+			//弹框标题
+			.tv_text1 {
+				// position: relative;
+				font-size: 38upx;
+				font-weight: bold;
+				top: 8upx;
+				margin-bottom: 16upx;
+				margin: 0 auto;
+			}
+		
+			.tv_text2 {
+				margin-top: 8upx;
+				float: right;
+				color: #333;
+				font-size: 32upx;
+			}
+		}
+	
+		.bv_content {
+			height: 100%;
+			line-height: 32upx;
+	
+			.ct_noticeText {
+				color: #5E5E60;
+				text-align: justify;
+				line-height: 64upx;
+				margin: 32upx 0;
+				font-size: 30upx;
+			}
 		}
 	}
 	

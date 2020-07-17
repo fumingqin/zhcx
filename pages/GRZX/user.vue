@@ -176,9 +176,8 @@
 			// ---------------------------加载图片----------------------------
 			loadImg() {
 				var that = this;
-				that.$ChangeImage.GetImage("南平综合出行").then(function(data) {
-					that.advert = data.advert;
-					console.log(that.advert,"广告")
+				that.$ChangeImage.GetImage("南平综合出行","广告").then(function(data) {
+					that.advert = data;
 				});
 			},
 			

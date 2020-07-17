@@ -2,7 +2,7 @@
 	<view>
 		<view class="zh_top">
 			<!-- 顶部滑动 -->
-			<view style="position: absolute;width: 46%;top: 50upx;padding: 0 200upx;">
+			<view style="width: 46%;top: 90upx;padding: 0 200upx;padding-top: 82upx;">
 				<view class="screen">
 					<view class="screenView">
 						<view class="screenText" :class="{current:type2===0}" @click="tabClick(0)">
@@ -16,17 +16,19 @@
 			</view>
 			<view v-if="type2==0">
 				<!-- 选择出发地 -->
-				<view class="top_chooseTheRoute" hover-class="ve_hover" @tap="setOutStationTap">
-					<view class="top_text">起点</view>
-					<view>
-						<text class="setOut">{{departure}}</text>
-						<text class="jdticon icon-xia"></text>
+				<view style="display: flex;margin-top: 26upx;">
+					<view class="top_chooseTheRoute" hover-class="ve_hover" @tap="setOutStationTap">
+						<view class="top_text">起点</view>
+						<view style="display: flex;">
+							<text class="setOut">{{departure}}</text>
+							<text class="jdticon icon-xia"></text>
+						</view>
 					</view>
-				</view>
-				<!-- 目的地 -->
-				<view class="top_destination">
-					<view class="top_text2">终点（不可选）</view>
-					<view class="destination">{{destination}}</view>
+					<!-- 目的地 -->
+					<view class="top_destination">
+						<view class="top_text2">终点（不可选）</view>
+						<view class="destination">{{destination}}</view>
+					</view>
 				</view>
 				
 				<!-- 选择时间 -->
@@ -62,12 +64,13 @@
 			
 			<!-- 按钮 -->
 			<view class="tjButton">查询</view>
-			
-			<!-- 弹框 -->
-			<view class="top_popup">购票须知></view>
-			
-			<image class="top_image" src="../../../../../static/GRZX/ServiceIcon/beijin.png" mode="aspectFill"></image>
+			<!-- <view class="hp_view">
+				<view class="hp_Line"></view>
+				<text class="hp_text">购票须知</text>
+				<view class="hp_Line2"></view>
+			</view> -->
 		</view>
+		<image class="top_image" src="../../../../static/ZXGP/beijing.png" mode="aspectFill"></image>
 	</view>
 </template>
 
@@ -233,7 +236,7 @@
 				justify-content: center;
 				align-items: center;
 				height: 100%;
-				font-size: 38upx;
+				font-size: 34upx;
 				color: #FFFFFF;
 				position: relative;
 	
@@ -241,7 +244,7 @@
 	
 				&.current {
 					color: #FFFFFF;
-					font-size: 38upx;
+					font-size: 34upx;
 					font-weight: bold;
 					// background-color: #FFFFFF;
 	
@@ -262,34 +265,33 @@
 	
 	//顶部
 	.zh_top{
-		position: relative;
+		position: absolute;
 		width: 100%;
 		height: 100%;
 		
 		//选择路线
 		.top_chooseTheRoute{
-			position: absolute;
 			// display: flex;
 			width:342upx;
-			height:86upx;
+			height:70upx;
 			// overflow: hidden;
 			left: 6%;
 			padding: 20upx 28upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			margin-left: 46upx;
 			
 			.top_text{
 				// display: block;
 				font-size: 20upx;
 				color: #999999;
-				padding-bottom: 6upx;
+				// padding-bottom: 6upx;
 			}
 			
 			//出发点
 			.setOut {
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				width: 310upx;
@@ -301,36 +303,32 @@
 			}
 			
 			.jdticon{
-				position: absolute;
 				right: 0;
-				top: 64upx;
-				height:14px;
-				padding-right: 28upx;
+				padding-top: 8upx;
 			}
 		}
 		
 		.top_destination{
-			position: absolute;
 			// display: flex;
 			width:192upx;
-			height:86upx;
+			height:70upx;
 			// overflow: hidden;
 			left: 61%;
 			padding: 20upx 28upx;
+			margin-left: 12upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
 			
 			.top_text2{
 				// display: block;
 				font-size: 20upx;
 				color: #999999;
-				padding-bottom: 6upx;
+				// padding-bottom: 6upx;
 			}
 			
 			.destination{
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				// width: 234upx;
@@ -347,24 +345,24 @@
 			position: absolute;
 			// display: flex;
 			width:192upx;
-			height:86upx;
+			height:70upx;
 			// overflow: hidden;
 			left: 6%;
 			padding: 20upx 28upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			top: 232upx;
 			
 			.top_text3{
 				// display: block;
 				font-size: 20upx;
 				color: #999999;
-				padding-bottom: 6upx;
+				// padding-bottom: 6upx;
 			}
 			
 			.startingPoint{
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				// width: 234upx;
@@ -381,25 +379,25 @@
 			position: absolute;
 			// display: flex;
 			width:342upx;
-			height:86upx;
+			height:70upx;
 			// overflow: hidden;
 			left: 41%;
 			padding: 20upx 28upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			top: 232upx;
 			
 			.top_text4{
 				// display: block;
 				font-size: 20upx;
 				color: #999999;
-				padding-bottom: 6upx;
+				// padding-bottom: 6upx;
 			}
 			
 			//出发点
 			.setEnd {
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				width: 310upx;
@@ -413,7 +411,7 @@
 			.jdticon{
 				position: absolute;
 				right: 0;
-				top: 64upx;
+				top: 58upx;
 				height:14px;
 				padding-right: 28upx;
 			}
@@ -421,7 +419,7 @@
 		
 		//选择时间
 		.top_chooseTime{
-			position: absolute;
+			// position: absolute;
 			display: flex;
 			width:604upx;
 			// height:100%;
@@ -431,12 +429,14 @@
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 346upx;
+			// top: 386upx;
+			margin-left: 46upx;
+			margin-top: 42upx;
 			
 			//出发点
 			.dateClass{
 				display: flex;
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				// width: 234upx;
@@ -445,12 +445,6 @@
 			}
 		}
 		
-		.top_image{
-			width: 750upx;
-			height: 712upx;
-			overflow: hidden;
-			margin: 0 auto;
-		}
 	}
 	
 	//点击态
@@ -464,28 +458,52 @@
 	
 	//底部按钮
 	.tjButton {
-		position: absolute;
+		// position: absolute;
 		border-radius: 64upx;
 		left: 6%;
 		padding: 28upx 50upx;
-		top: 486upx;
+		// top: 530upx;
 		width: 560upx;
-		background-color: #FFC462;
+		background-color: #D17000;
 		text-align: center;
-		color: #B56100;
-		font-size: 44upx;
+		color: #FFFFFF;
+		font-size: 34upx;
 		font-weight: 400;
-		box-shadow:0px 20px 81px 0px rgba(255,160,32,0.3);
+		box-shadow:0px 20px 81px 0px rgba(184,99,0,0.6);
 		z-index: 99;
+		margin-top: 42upx;
+		margin-left: 46upx;
 	}
 	
-	.top_popup{
-		position: absolute;
-		width: 100%;
+	.hp_view{
+		position: relative;
+		display: flex;
+		width: 750upx;
+		z-index: 2;
+		top: 700upx;
 		text-align: center;
-		font-size:32upx;
-		color:#FFFFFF;
-		z-index: 99;
-		top: 628upx;
+		
+		.hp_Line{
+			width: 136upx;
+			border-bottom: 1px solid #FFFFFF; 
+		}
+		
+		.hp_text{
+			font-size: 28upx;
+			color: #FFFFFF;
+		}
+		
+		.hp_Line2{
+			width: 136upx;
+			border-bottom: 1px solid #FFFFFF; 
+		}
+	}
+	
+	.top_image{
+		width: 750upx;
+		height: 1300upx;
+		overflow: hidden;
+		margin: 0 auto;
+		// z-index: 1;
 	}
 </style>
