@@ -274,7 +274,7 @@ const Interface = {
 	},
 	
 	qg_GetImage:{
-		value: Url + '/api/zhcx/GetImage',
+		value: Url + '/api/zhcx/getImage',
 		name:'全局-请求静态图片',
 		method:'POST',
 		pages:["pages/Home/guidePage.vue"]

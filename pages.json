@@ -1118,6 +1118,13 @@
 					"style": {
 						"navigationBarTitleText": "客运"
 					}
+				},
+				{
+					"path": "pages/ZXGP/TraditionSpecial/Home/zxgpHomePage",
+					"style": {
+						"navigationBarTitleText": "专线订购",
+						"navigationStyle": "custom"
+					}
 				}
 				, {
 					"path": "pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick",
