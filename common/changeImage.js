@@ -8,9 +8,10 @@ import $oSit from '@/common/overallSituation.js';
 
 
 //获取图片的路径
-async function GetImage() {
-	var systemName=$oSit.Interface.system.applyName;
-	var openidtype=$oSit.Interface.system.openidtype;
+async function GetImage(systemName,type) {
+	// #ifdef MP-WEIXIN
+	// #endif
+	var openidtype="XCX";
 	var model=-1;
 	if(systemName=="南平综合出行"){
 		model=5;
@@ -21,13 +22,13 @@ async function GetImage() {
 	if(model==-1){
 		console.log('项目名暂未添加图片')
 	}else{
-		var res = await request(model,systemName,openidtype)
+		var res = await request(model,systemName,openidtype,type)
 		return res;
 	}
 }
 
 //request请求
-function request (model,systemName,openidtype) {
+function request (model,systemName,openidtype,type) {
   return new Promise(function (resolve, reject) {
 	  console.log("系统名称",systemName)
 	  console.log("应用类型","XCX")
@@ -35,43 +36,15 @@ function request (model,systemName,openidtype) {
     uni.request({
     	url:Url+'/api/zhcx/getImage',
     	data:{
-    		model:model,
-			systemtype:"XCX",
-			companyid:systemName,
+    		model:model, //模块名称
+			systemtype:openidtype,//应用类型
+			companyid:systemName, //公司名称
+			type:type, //图片类型
     	},
     	method:'POST',
     	success(res){
     		console.log("获取图片",res)
-    		if(systemName=="南平综合出行"){ //南平综合出行
-    			var image1=res.data.data.filter(item => {
-    				return item.type=='南平背景图';
-    			})
-    			var image2=res.data.data.filter(item => {
-    				return item.type=='nanpinglogo';
-    			})
-    			var image3=res.data.data.filter(item => {
-    				return item.type=='广告';
-    			})
-    			var imageList={
-    				background:image1[0].imageUrl, //背景图
-    				logo:image2[0].imageUrl,  //logo
-    				advert:image3[0].imageUrl, //广告
-    			}
-				resolve(imageList)
-    		}
-			else if(systemName=="漳州达达通"){//漳州达达通
-				var image1=res.data.data.filter(item => {
-					return item.type=='背景图';
-				})
-				var image2=res.data.data.filter(item => {
-					return item.type=='Logo';
-				})
-				var imageList={
-					background:image1[0].imageUrl, //背景图
-					logo:image2[0].imageUrl,  //logo
-				}
-				resolve(imageList)
-			}
+			resolve(res.data.data.imageUrl)
     	},
     	fail(err){
     		console.log(err,"err")

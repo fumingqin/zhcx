@@ -2,8 +2,8 @@
 // 示例
 import $oSit from '@/common/overallSituation.js';
 // const Url='http://zntc.145u.net';
-// const Url = 'http://36.250.234.10:60039';//接口地址
-//const ddtUrl='http://36.250.234.10:60040' //达达通接口地址
+// const Url = 'https://zntc.145u.net:9099';//接口地址
+//const ddtUrl='http://111.231.109.113:8004' //达达通接口地址
 //const Url = 'https://zntc.145u.net:9098';//综合出行接口地址
 //const Url = 'http://zntc.145u.net'; //http请求
 
