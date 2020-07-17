@@ -50,7 +50,7 @@
 					<view class="top_chooseEnd" hover-class="ve_hover" @tap="setOutStationTap">
 						<view class="top_text4">终点</view>
 						<view style="display: flex;">
-							<text class="setOut">{{departure}}</text>
+							<text class="setEnd">{{departure}}</text>
 							<text class="jdticon icon-xia"></text>
 						</view>
 					</view>
@@ -185,7 +185,7 @@
 				});
 				uni.navigateTo({
 					//跳转到下个页面的时候加个字段，判断当前点击的是上车点
-					url:'../stationPicker/homeSattionPick?&station=' + 'qidian' +'&type=' + this.type2,
+					url:'../../pages_ZXGP/pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick?&station=' + 'qidian' +'&type=' + this.type2,
 				})
 			},
 			
@@ -293,7 +293,7 @@
 <style lang="scss">
 	//默认背景颜色
 	page {
-		background-color: #f6f6f6;
+		background-color: #ff971e;
 	}
 	
 	//兴业银行
@@ -604,7 +604,7 @@
 	.ve_hover2{
 		transition: all .3s;//过度
 		border-radius: 64upx;
-		opacity: 0.8;
+		opacity: 0.9;
 		background: #F0AD4E;
 	}
 </style>
