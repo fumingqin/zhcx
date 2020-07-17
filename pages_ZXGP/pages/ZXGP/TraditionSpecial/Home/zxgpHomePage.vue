@@ -64,11 +64,11 @@
 			
 			<!-- 按钮 -->
 			<view class="tjButton">查询</view>
-			<!-- <view class="hp_view">
+			<view class="hp_view">
 				<view class="hp_Line"></view>
 				<text class="hp_text">购票须知</text>
 				<view class="hp_Line2"></view>
-			</view> -->
+			</view>
 		</view>
 		<image class="top_image" src="../../../../static/ZXGP/beijing.png" mode="aspectFill"></image>
 	</view>
