@@ -1852,35 +1852,35 @@
 					setTimeout(function(){
 						that.GetBookLogInfoByUserId();//加载定制巴士订单方法
 					},200)
-					setTimeout(function(){
-						that.loadczcData();//加载出租车订单方法
-					},400)
-					setTimeout(function(){
-						that.getOrderList();//加载出租车-专线车订单方法
-					},600)
-					setTimeout(function(){
-						that.getSfcOrderList();//加载出租车-顺风车订单方法
-					},800)
-					setTimeout(function(){
-						that.getArrayInfo();//加载包车服务方法
-					},1000)
-					setTimeout(function(){
-						that.toFinished();//加载景区订单方法
-					},1200)
+					// setTimeout(function(){
+					// 	that.loadczcData();//加载出租车订单方法
+					// },400)
+					// setTimeout(function(){
+					// 	that.getOrderList();//加载出租车-专线车订单方法
+					// },600)
+					// setTimeout(function(){
+					// 	that.getSfcOrderList();//加载出租车-顺风车订单方法
+					// },800)
+					// setTimeout(function(){
+					// 	that.getArrayInfo();//加载包车服务方法
+					// },1000)
+					// setTimeout(function(){
+					// 	that.toFinished();//加载景区订单方法
+					// },1200)
 				}else if(that.selectorIndex==1){
 					that.getUserInfo();//加载传统客运订单方法
 				}else if(that.selectorIndex==2){
 					that.GetBookLogInfoByUserId();//加载定制巴士订单方法
 				}else if(that.selectorIndex==3){
-					that.loadczcData();//加载出租车订单方法
+					// that.loadczcData();//加载出租车订单方法
 				}else if(that.selectorIndex==4){
-					that.getOrderList();//加载出租车-专线车订单方法
+					// that.getOrderList();//加载出租车-专线车订单方法
 				}else if(that.selectorIndex==5){
-					that.getSfcOrderList();//加载出租车-顺风车订单方法
+					// that.getSfcOrderList();//加载出租车-顺风车订单方法
 				}else if(that.selectorIndex==6){
-					that.getArrayInfo();//加载包车服务方法
+					// that.getArrayInfo();//加载包车服务方法
 				}else if(that.selectorIndex==7){
-					that.toFinished();//加载景区订单方法
+					// that.toFinished();//加载景区订单方法
 				}
 			},
 			CallAgain:function(value){//出租车再次呼叫
@@ -2274,14 +2274,15 @@
 						orderNumber: orderNumber,
 					},
 					success(respones) {
+						console.log(respones)
 						if(respones.data.status == true){
 							uni.hideLoading();
 							that.$refs.popup2.close()
 							let BounceMoney = respones.data.data.BounceMoney;
 							uni.showModal({
 								title:'温馨提示',
-								// content:'退票将收取手续费，退款金额为' + BounceMoney + '元',
-								content:'退票将收取手续费，是否继续退票',
+								content:'退票将收取手续费，退款金额为' + BounceMoney + '元',
+								// content:'退票将收取手续费，是否继续退票',
 								success(res) {
 									if(res.confirm) {
 										that.keYunRefundTicket(orderNumber)
