@@ -162,9 +162,9 @@
 				that.isInsurance = false;
 			}
 			//读取车票信息
-			this.getTickerInfo();
+			that.getTickerInfo();
 			//读取用户信息
-			this.getUserInfo();
+			that.getUserInfo();
 			
 		},
 		onShow() {

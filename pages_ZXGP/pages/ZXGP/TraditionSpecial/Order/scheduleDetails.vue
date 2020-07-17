@@ -687,7 +687,7 @@
 					insuredPrice: that.InsurePrice,//保险价格
 				}
 				console.log(array)
-				uni.navigateTo({
+				uni.redirectTo({
 					url: '../PayMent/orderPayment?array=' + JSON.stringify(array)
 				})
 			}
