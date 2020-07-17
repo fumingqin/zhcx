@@ -19,6 +19,15 @@
 				"navigationStyle": "custom"
 			}
 		},
+		//--------------------专线购票--------------------
+		{
+			"path": "pages/Home/zxgpHomePage",
+			"style": {
+				"navigationBarTitleText": "专线订购",
+				"navigationStyle": "custom"
+			}
+		},
+		
 		//--------------------搜索栏--------------------
 		{
 			"path": "pages/Home/ChooseSite",
@@ -1118,13 +1127,6 @@
 					"style": {
 						"navigationBarTitleText": "客运"
 					}
-				},
-				{
-					"path": "pages/ZXGP/TraditionSpecial/Home/zxgpHomePage",
-					"style": {
-						"navigationBarTitleText": "专线订购",
-						"navigationStyle": "custom"
-					}
 				}
 				, {
 					"path": "pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick",
@@ -1234,7 +1236,7 @@
 		//#endif
 		"list": [
 			{
-				"pagePath": "pages/Home/zy_zhcx",
+				"pagePath": "pages/Home/zxgpHomePage",
 				"text": "首页"
 			},
 			{
