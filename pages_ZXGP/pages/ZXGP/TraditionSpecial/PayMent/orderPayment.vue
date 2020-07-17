@@ -28,13 +28,13 @@
 				<view class="MP_selectionDate" :hidden="hiddenValues==0">
 					<view class="MP_title">费用详情</view>
 					<view class="MP_cost" v-if="adultNum>=1">
-						<text>成人票</text>
+						<text>全票</text>
 						<text class="MP_number">×{{adultNum}}</text>
 						<text class="MP_userCost">¥{{orderInfo.fare}}</text>
 					</view>
 
 					<view class="MP_cost" v-if="childrenNum>=1">
-						<text>儿童票</text>
+						<text>半票</text>
 						<text class="MP_number">×{{childrenNum}}</text>
 						<text class="MP_userCost">¥{{orderInfo.halfTicket}}</text>
 					</view>
@@ -42,7 +42,7 @@
 					<view class="MP_cost" v-if="freeTicketNum>=1">
 						<text>携带免童票</text>
 						<text class="MP_number">×{{freeTicketNum}}</text>
-						<text class="MP_userCost">¥{{orderInfo.halfTicket}}</text>
+						<text class="MP_userCost">¥0</text>
 					</view>
 
 					<!-- 保险 -->

@@ -10,31 +10,31 @@
 					<!-- 时间-价格 -->
 					<view class="ticketContent">
 						<view class="textCLass" style="font-size: 28upx;color: #333333;">{{turnDate(ticketDetail.setTime)}}出发</view>
-						<view class="textCLass" style="font-size: 28upx;color: #FC4646;">成人票￥{{ticketDetail.fare}}</view>
+						<view class="textCLass" style="font-size: 28upx;color: #FC4646;">全票￥{{ticketDetail.fare}}</view>
 					</view>
 					<!-- 站点-余票 -->
 					<view class="ticketContent">
 						<view class="textCLass" style="font-size: 32upx;color: #333333;">{{ticketDetail.startStaion}}→
 							{{ticketDetail.endStation}}</view>
-						<view class="textCLass" style="font-size: 28upx;color: #FC4646;">半价票￥{{ticketDetail.halfTicket}}</view>
+						<view class="textCLass" style="font-size: 28upx;color: #FC4646;">半票￥{{ticketDetail.halfTicket}}</view>
 						
 					</view>
 					<!-- 车型-儿童半价 -->
 					<view class="ticketContent">
-						<view class="textCLass" style="font-size: 24upx;color: #999999;">{{ticketDetail.carType}} 儿童半票</view>
+						<view class="textCLass" style="font-size: 24upx;color: #999999;">{{ticketDetail.carType}}</view>
 						<view class="textCLass" style="font-size: 24upx;font-style: SourceHanSansSC-Light; color: #666666;">余{{ticketDetail.remainingVotes}}张</view>
 					</view>
 				</view>
 			</view>
 
 			<!-- 地图标点 -->
-			<view class="orderCommonClass" v-if="true" @click="checkLocation" >
+			<!-- <view class="orderCommonClass" v-if="true" @click="checkLocation" >
 				<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">地图标点</view>
 				<view style="display: flex;margin-right: 41upx;align-items: center;">
 					<view style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;">查看班次信息</view>
 					<image src="../../../../static/ZXGP/right.png" style="width: 11upx;height: 21upx;margin-left: 10upx;"></image>
 				</view>
-			</view>
+			</view> -->
 
 			<!-- 上下车点选择,0是普通购票不显示上下车点选择 -->
 			<!-- v-if="ticketDetail.shuttleType == '定制班车'" -->
@@ -131,7 +131,7 @@
 			</popup>
 
 			<!-- 乘车险 -->
-			<view class="orderCommonClass">
+			<!-- <view class="orderCommonClass">
 				<view style="display: flex; align-items: center;">
 					<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">购买乘车险</view>
 					<view style="margin-left: 16upx;color:#FC4B4B ; font-size:30upx ;">{{InsurePrice}}元</view>
@@ -140,7 +140,7 @@
 					<view style="font-size: 30upx;color: #2C2D2D;">已选{{passengerNum}}份</view>
 					<radio class="Mp_box" value="1" :color="'#01aaef'" :checked="isInsurance===1 ? true : false" @click="insuranceTap"></radio>
 				</view>
-			</view>
+			</view> -->
 
 			<!-- 购票须知 -->
 			<view class="orderCommonClass" style="margin-bottom: 112rpx;">
@@ -279,7 +279,7 @@
 					//定制班车终点数组
 					that.specialEndArray = data.data.endSiteArr
 					//读取保险信息
-					that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
+					// that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
 					console.log('选择车票的班次数据', that.ticketDetail)
 					
 				}
@@ -905,9 +905,7 @@
 	.ticketInfoClass {
 		width: 652upx;
 		text-align: left;
-		padding-left: 29upx;
-		padding-right: 29upx;
-		padding-top: 28upx;
+		padding: 28upx 29upx;
 	}
 
 	.ticketContent {
