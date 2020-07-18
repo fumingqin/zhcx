@@ -2,7 +2,7 @@
 	<view>
 		<view class="zh_top">
 			<!-- 顶部滑动 -->
-			<view style="position: absolute;width: 46%;top: 50upx;padding: 0 200upx;">
+			<view style="width: 46%;top: 90upx;padding: 0 200upx;padding-top: 100upx;">
 				<view class="screen">
 					<view class="screenView">
 						<view class="screenText" :class="{current:type2===0}" @click="tabClick(0)">
@@ -16,17 +16,19 @@
 			</view>
 			<view v-if="type2==0">
 				<!-- 选择出发地 -->
-				<view class="top_chooseTheRoute" hover-class="ve_hover" @tap="setOutStationTap">
-					<view class="top_text">起点</view>
-					<view>
-						<text class="setOut">{{departure}}</text>
-						<text class="jdticon icon-xia"></text>
+				<view style="display: flex;margin-top: 26upx;">
+					<view class="top_chooseTheRoute" hover-class="ve_hover" @tap="setOutStationTap">
+						<view class="top_text">起点</view>
+						<view style="display: flex;">
+							<text class="setOut">{{departure}}</text>
+							<text class="jdticon icon-xia"></text>
+						</view>
 					</view>
-				</view>
-				<!-- 目的地 -->
-				<view class="top_destination">
-					<view class="top_text2">终点（不可选）</view>
-					<view class="destination">{{destination}}</view>
+					<!-- 目的地 -->
+					<view class="top_destination">
+						<view class="top_text2">终点（不可选）</view>
+						<view class="destination">{{destination}}</view>
+					</view>
 				</view>
 				
 				<!-- 选择时间 -->
@@ -38,17 +40,19 @@
 			</view>
 			
 			<view v-if="type2==1">
-				<!-- 目的地 -->
-				<view class="top_startingPoint">
-					<view class="top_text3">起点（不可选）</view>
-					<view class="startingPoint">{{destination}}</view>
-				</view>
-				<!-- 选择到达地 -->
-				<view class="top_chooseEnd" hover-class="ve_hover" @tap="setOutStationTap">
-					<view class="top_text4">终点</view>
-					<view>
-						<text class="setOut">{{departure}}</text>
-						<text class="jdticon icon-xia"></text>
+				<view style="display: flex;margin-top: 26upx;">
+					<!-- 目的地 -->
+					<view class="top_startingPoint">
+						<view class="top_text3">起点（不可选）</view>
+						<view class="startingPoint">{{destination}}</view>
+					</view>
+					<!-- 选择到达地 -->
+					<view class="top_chooseEnd" hover-class="ve_hover" @tap="setOutStationTap">
+						<view class="top_text4">终点</view>
+						<view style="display: flex;">
+							<text class="setEnd">{{departure}}</text>
+							<text class="jdticon icon-xia"></text>
+						</view>
 					</view>
 				</view>
 				
@@ -61,13 +65,18 @@
 			</view>
 			
 			<!-- 按钮 -->
-			<view class="tjButton">查询</view>
+			<view class="tjButton" hover-class="ve_hover2" @click="queryClick">查询</view>
+			<view class="hp_view">
+				<view class="hp_Line"></view>
+				<view class="hp_text">购票须知</view>
+				<view class="hp_Line2"></view>
+			</view>
 			
-			<!-- 弹框 -->
-			<view class="top_popup">购票须知></view>
-			
-			<image class="top_image" src="../../../../../static/GRZX/ServiceIcon/beijin.png" mode="aspectFill"></image>
+			<view class="ct_noticeText">
+				<rich-text :nodes="way"></rich-text>
+			</view>
 		</view>
+		<image class="top_image" :src="background[0].imageUrl" mode="aspectFill"></image>
 	</view>
 </template>
 
@@ -77,6 +86,7 @@
 	import $lyfw from '@/common/LYFW/LyfwFmq.js' //引用路径
 	import $Home from '@/common/Home.js' //引用路径
 	import MxDatePicker from "@/components/HOME/mx-datepicker/mx-datepicker.vue";
+	import $Zxgp from "@/common/zxgp.js"
 	export default {
 		components: {
 			uniPopup,
@@ -94,15 +104,26 @@
 				showPicker: false,
 				date: '',
 				destination:'',
+				background:[{
+					imageUrl: '',
+				}], //背景图
+				applyName:'',
+				way:'',
 			}
 		},
 		
 		onLoad(){
+			//加载应用名称
+			this.applyName=this.$oSit.Interface.system.applyName;
 			var that=this;
-			if(that.departure == '' || that.destination == '') {
-				that.departure = '请选择出发地点';
-				that.destination = '请选择出发地点';
+			if(that.departure == '' || that.destination == '' || that.type2==0) {
+				that.departure = '请选择起点';
+				that.destination = '请选择终点';
+			}else{
+				that.departure = '请选择终点';
+				that.destination = '请选择起点';
 			}
+			that.loadData();
 		},
 		
 		onShow(){
@@ -112,6 +133,46 @@
 		},
 		
 		methods: {
+			//----------------------接口数据-------------------------------
+			loadData: function() {
+				//请求图片
+				uni.request({
+					url: $lyfw.Interface.qg_GetImage.value,
+					method: $lyfw.Interface.qg_GetImage.method,
+					data: {
+						model:9, //模块名称
+						systemtype:'XCX',//应用类型
+						companyid:this.applyName, //公司名称
+						// type:'背景图', //图片类型
+					},
+					header: {
+						'content-type': 'application/json'
+					},
+					success: (res) => {
+						console.log(res)
+						this.background = res.data.data.filter(item => {
+							return item.type == '背景';
+						})
+						// console.log(this.imgXXDT)
+					}
+				})
+				
+				uni.request({
+					url: $Zxgp.KyInterface.Cs_getByTitle.Url,
+					method: $Zxgp.KyInterface.Cs_getByTitle.method,
+					data:{
+						title:'购票须知',
+						systemName:this.applyName,
+					},
+					success: (res) => {
+						// console.log('购票须知',res)
+						this.way=res.data.data.msg;
+						// console.log('购票须知2',this.way)
+					}
+				})
+				uni.stopPullDownRefresh();
+			},
+			
 			//-----------------tab事件---------------------------------------
 			tabClick(e) {
 				if (e == 0) {
@@ -127,13 +188,19 @@
 				//监听事件,监听下个页面返回的值
 				uni.$on('startstaionChange', function(data) {
 				    // data即为传过来的值，给上车点赋值
-					that.departure = data.data;
+					if(that.type2==0){
+						that.departure = data.data;
+						that.destination=data.data2;
+					}else if(that.type2==1){
+						that.departure = data.data2;
+						that.destination=data.data;
+					}
 				    //清除监听，不清除会消耗资源
 				    uni.$off('startstaionChange');
 				});
 				uni.navigateTo({
 					//跳转到下个页面的时候加个字段，判断当前点击的是上车点
-					url:'../../pages_ZXGP/pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick?&station=' + 'qidian'
+					url:'../../pages_ZXGP/pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick?&station=' + 'qidian' +'&type=' + this.type2,
 				})
 			},
 			
@@ -198,6 +265,42 @@
 						break;
 				}
 			},
+			
+			//---------------------------------点击查询---------------------------------
+			queryClick: function() {
+				var that = this;
+				if(that.departure == '请选择起点') {
+					uni.showToast({
+						title: '请选择起点',
+						icon: 'none'
+					})
+				}else if(that.departure == '请选择终点'){
+					uni.showToast({
+						title: '请选择终点',
+						icon: 'none'
+					})
+				}else {
+					var station = this.departure + "-" + this.destination;
+					if(this.historyLines) {
+						for(let i = 0; i <= this.historyLines.length;i++){
+							if(station == this.historyLines[i]) {
+								this.historyLines.splice(i,1);
+							}
+						}
+						this.historyLines.unshift(this.departure + "-" + this.destination);
+					}
+					uni.setStorage({
+						key:'historyLines',
+						data:this.historyLines,
+					})
+					//页面传参通过地址后面添加参数 this.isNormal=0是普通购票1是定制班车
+					
+					var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + this.departure +'&endStation=' + this.destination + '&date=' + this.datestring + '&isNormal=' + this.type2;
+					uni.navigateTo({
+						url:params,
+					})
+				}
+			},
 		}
 	}
 </script>
@@ -205,14 +308,14 @@
 <style lang="scss">
 	//默认背景颜色
 	page {
-		background-color: #f6f6f6;
+		background-color: #ff971e;
 	}
 	
 	//兴业银行
 	//顶部筛选样式
 	.screen {
 		height: 106upx;
-		position: sticky;
+		// position: sticky;
 		top: 0;
 		z-index: 1;
 	
@@ -233,7 +336,7 @@
 				justify-content: center;
 				align-items: center;
 				height: 100%;
-				font-size: 38upx;
+				font-size: 34upx;
 				color: #FFFFFF;
 				position: relative;
 	
@@ -241,7 +344,7 @@
 	
 				&.current {
 					color: #FFFFFF;
-					font-size: 38upx;
+					font-size: 34upx;
 					font-weight: bold;
 					// background-color: #FFFFFF;
 	
@@ -262,34 +365,33 @@
 	
 	//顶部
 	.zh_top{
-		position: relative;
+		position: absolute;
 		width: 100%;
 		height: 100%;
 		
 		//选择路线
 		.top_chooseTheRoute{
-			position: absolute;
 			// display: flex;
 			width:342upx;
-			height:86upx;
+			height:70upx;
 			// overflow: hidden;
 			left: 6%;
 			padding: 20upx 28upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			margin-left: 46upx;
 			
 			.top_text{
 				// display: block;
 				font-size: 20upx;
 				color: #999999;
-				padding-bottom: 6upx;
+				// padding-bottom: 6upx;
 			}
 			
 			//出发点
 			.setOut {
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				width: 310upx;
@@ -301,36 +403,32 @@
 			}
 			
 			.jdticon{
-				position: absolute;
 				right: 0;
-				top: 64upx;
-				height:14px;
-				padding-right: 28upx;
+				padding-top: 8upx;
 			}
 		}
 		
 		.top_destination{
-			position: absolute;
 			// display: flex;
 			width:192upx;
-			height:86upx;
+			height:70upx;
 			// overflow: hidden;
 			left: 61%;
 			padding: 20upx 28upx;
+			margin-left: 12upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
 			
 			.top_text2{
 				// display: block;
 				font-size: 20upx;
 				color: #999999;
-				padding-bottom: 6upx;
+				// padding-bottom: 6upx;
 			}
 			
 			.destination{
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				// width: 234upx;
@@ -344,27 +442,26 @@
 		
 		//选择到达起点
 		.top_startingPoint{
-			position: absolute;
 			// display: flex;
 			width:192upx;
-			height:86upx;
+			height:70upx;
 			// overflow: hidden;
 			left: 6%;
 			padding: 20upx 28upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			margin-left: 46upx;
 			
 			.top_text3{
 				// display: block;
 				font-size: 20upx;
 				color: #999999;
-				padding-bottom: 6upx;
+				// padding-bottom: 6upx;
 			}
 			
 			.startingPoint{
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				// width: 234upx;
@@ -378,28 +475,27 @@
 		
 		//选择到达终点
 		.top_chooseEnd{
-			position: absolute;
 			// display: flex;
 			width:342upx;
-			height:86upx;
+			height:70upx;
 			// overflow: hidden;
 			left: 41%;
 			padding: 20upx 28upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 192upx;
+			margin-left: 12upx;
 			
 			.top_text4{
 				// display: block;
 				font-size: 20upx;
 				color: #999999;
-				padding-bottom: 6upx;
+				// padding-bottom: 6upx;
 			}
 			
 			//出发点
 			.setEnd {
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				width: 310upx;
@@ -411,17 +507,14 @@
 			}
 			
 			.jdticon{
-				position: absolute;
 				right: 0;
-				top: 64upx;
-				height:14px;
-				padding-right: 28upx;
+				padding-top: 8upx;
 			}
 		}
 		
 		//选择时间
 		.top_chooseTime{
-			position: absolute;
+			// position: absolute;
 			display: flex;
 			width:604upx;
 			// height:100%;
@@ -431,12 +524,14 @@
 			border-radius:22upx;
 			background-color: #FFFFFF;
 			z-index: 99;
-			top: 346upx;
+			// top: 386upx;
+			margin-left: 46upx;
+			margin-top: 42upx;
 			
 			//出发点
 			.dateClass{
 				display: flex;
-				font-size: 34upx;
+				font-size: 32upx;
 				font-weight: 400;
 				color: #333333;
 				// width: 234upx;
@@ -445,12 +540,6 @@
 			}
 		}
 		
-		.top_image{
-			width: 750upx;
-			height: 712upx;
-			overflow: hidden;
-			margin: 0 auto;
-		}
 	}
 	
 	//点击态
@@ -464,28 +553,73 @@
 	
 	//底部按钮
 	.tjButton {
-		position: absolute;
+		// position: absolute;
 		border-radius: 64upx;
 		left: 6%;
 		padding: 28upx 50upx;
-		top: 486upx;
+		// top: 530upx;
 		width: 560upx;
-		background-color: #FFC462;
+		background-color: #D17000;
 		text-align: center;
-		color: #B56100;
-		font-size: 44upx;
+		color: #FFFFFF;
+		font-size: 34upx;
 		font-weight: 400;
-		box-shadow:0px 20px 81px 0px rgba(255,160,32,0.3);
+		box-shadow:0px 20px 81px 0px rgba(184,99,0,0.6);
 		z-index: 99;
+		margin-top: 42upx;
+		margin-left: 46upx;
 	}
 	
-	.top_popup{
-		position: absolute;
-		width: 100%;
-		text-align: center;
-		font-size:32upx;
-		color:#FFFFFF;
-		z-index: 99;
-		top: 628upx;
+	.hp_view{
+		width: 750upx;
+		height:36upx;
+		z-index: 2;
+		display: flex;
+		margin-left: 20%;
+		margin-top: 84upx;
+		
+		.hp_Line{
+			width: 136upx;
+			border-bottom: 1px solid #FFFFFF; 
+			margin-bottom: 12upx;
+		}
+		
+		.hp_text{
+			width: 170upx;
+			font-size: 28upx;
+			color: #FFFFFF;
+			text-align: center;
+		}
+		
+		.hp_Line2{
+			width: 136upx;
+			border-bottom: 1px solid #FFFFFF; 
+			margin-bottom: 12upx;
+		}
+	}
+	
+	.top_image{
+		width: 750upx;
+		height: 1300upx;
+		overflow: hidden;
+		margin: 0 auto;
+		// z-index: 1;
+	}
+	
+	.ct_noticeText {
+		color: #FFFFFF;
+		text-align: justify;
+		line-height: 54upx;
+		margin: 32upx 60upx;
+		font-size: 26upx;
+		z-index: 2;
+	}
+	
+	//查询点击态
+	.ve_hover2{
+		transition: all .3s;//过度
+		border-radius: 64upx;
+		opacity: 0.9;
+		background: #F0AD4E;
 	}
 </style>

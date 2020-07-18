@@ -1,12 +1,12 @@
 <template>
 	<view class="se_view">
 		<view v-if="applyName=='南平综合出行'" class="sv_view">
-			<image class="sv_image" :src="imageIndex[0].imageUrl" lazy-load="true"></image>
+			<image class="sv_image" :src="imageIndex.imageUrl" lazy-load="true"></image>
 		</view>
 
 		<view class="sv_view2">
 			<view class="sv_title">出行</view>
-			<view style="display: flex; flex-wrap: wrap;">
+			<view style="display: flex; flex-wrap: wrap;padding: 0 14rpx;">
 				<view class="sv_view3" v-for="(item,index1) in ItemArr" :key="index1">
 					<view @click="natTo(item.clickURL)">
 						<image v-if="item.ItemTitle =='达达骑车'" class="sv_print2" :src="item.ImageURL" lazy-load="true"></image>
@@ -166,7 +166,7 @@
 
 		<view class="sv_view2">
 			<view class="sv_title">旅游</view>
-			<view style="display: flex; flex-wrap: wrap;">
+			<view style="display: flex; flex-wrap: wrap;padding: 0 14rpx;">
 				<view class="sv_view3" v-for="(item,index) in ItemArr2" :key="index">
 					<view @click="natTo(item.clickURL)">
 						<image v-if="item.ItemTitle =='自由行'" class="sv_print3" style="width: 47upx;" :src="item.ImageURL" lazy-load="true"></image>
@@ -469,7 +469,7 @@
 			font-size: 36upx;
 			font-weight: bold;
 			padding-top: 41upx;
-			padding-left: 44upx;
+			padding-left: 32upx;
 		}
 
 		.sv_view2 {
@@ -484,7 +484,6 @@
 				width: 20%;
 				text-align: center;
 				margin-top: 45upx;
-
 				.sv_print {
 					width: 60upx;
 					height: 60upx;
