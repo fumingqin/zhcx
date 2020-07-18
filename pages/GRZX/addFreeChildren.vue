@@ -70,10 +70,15 @@
 					</view>
 				</view>
 			</view>
-			<view class="box3">
-				①6周岁及以下或1.2米及以下的儿童可免费登记乘车（无座位）;</br>
-				②每一名成人可携带一位免童;</br>
-				③乘车时需出示有效证件证明儿童年龄。
+			<view class="noticeClass">
+				<rich-text :nodes="noticeText" style="width: 100%;"></rich-text>
+				<!-- 购票说明：</br>
+				①成人和身高超过1.5米的儿童购买全票。</br>
+				②身高1.2-1.5米，或身高1.2米以下需要单独占用座位的儿童可购买半票。</br>
+				③身高1.2米以下儿童乘车免票，需由成人陪同不提供单独座位。
+				根据交管部门规定，一班车免票儿童人数不得超过核定座位数的10%，如携带儿童乘车务必在此声明人数。
+				如系统提示免票儿童名额已满，请选择其他时间班次或购买半票。</br>
+				④根据车站相关规定，请携带并出示相关的证件。 -->
 			</view>
 			<button  class="btndelete btn_GRZX_CZ" @click="resetClick">重置</button>
 			<button form-type="submit" class="btnsubmit btn_background btn_fontColor">保存</button>		
@@ -111,10 +116,13 @@
 				userId:'', //账号id
 				code:0,
 				list:[],
+				
+				noticeText:'', //乘车人须知
 			}
 		},
 		onLoad (){	
-			this.loadUnid();
+			this.loadUnid();//加载账号id
+			this.loadText();//加载乘车人须知
 		},
 		methods:{
 			//------------------------------------1.加载账号id------------------------------------
@@ -185,6 +193,23 @@
 					}
 				})
 			},
+			
+			//------------------3.加载乘车人须知----------------
+			loadText:function(){
+				var that=this;
+				uni.request({
+					url:that.$GrzxInter.Interface.getByTitle.value,
+					data:{
+						systemName:that.$GrzxInter.systemConfig.applyName,
+						title:'乘车人须知',
+					},
+					method:'POST',
+					success(res){
+						that.noticeText=res.data.data.msg;
+					},
+				})
+			},
+			
 			//------------------选择性别----------------
 			radioClick:function(e){
 				this.user.userSex = e;
@@ -224,19 +249,22 @@
 						title:'请输入证件号',
 						icon:'none',
 					})
-				}else if(data1.userauditState=="身份证 >"&&!that.checkIDCard(data1.userCodeNum)){
+				}else if(data1.userauditState=="身份证 >"){//&&!that.checkIDCard(data1.userCodeNum)
 					uni.showToast({
-						title:'输入的身份证号有误，请检查',
+						title:'请输入身份证号',
+						// title:'输入的身份证号有误，请检查',
 						icon:'none',
 					})
-				}else if(data1.userauditState=="出生证 >"&&!that.checkPass1(data1.userCodeNum)){
+				}else if(data1.userauditState=="出生证 >"){//&&!that.checkPass1(data1.userCodeNum)
 					uni.showToast({
-						title:'输入的证件号有误，请检查',
+						title:'请输入出生证号',
+						//title:'输入的证件号有误，请检查',
 						icon:'none',
 					})
-				}else if(data1.userauditState=="临时乘车编号 >"&&!that.checkPass2(data1.userCodeNum)){
+				}else if(data1.userauditState=="临时乘车编号 >"){ //&&!that.checkPass2(data1.userCodeNum)
 					uni.showToast({
-						title:'输入的证件号有误，请检查',
+						title:'请输入临时乘车编号',
+						//title:'输入的证件号有误，请检查',
 						icon:'none',
 					})
 				}else{
@@ -361,38 +389,41 @@
 				console.log(e)
 				if(e.detail.value==""){
 					console.log("空的")
-				}else if(this.checkIDCard(e.detail.value)){
-					console.log("正确")
-				}else{
-					uni.showToast({
-						title:'输入的身份证有误，请检查',
-						icon:'none'
-					})
 				}
+				// else if(this.checkIDCard(e.detail.value)){
+				// 	console.log("正确")
+				// }else{
+				// 	uni.showToast({
+				// 		title:'输入的身份证有误，请检查',
+				// 		icon:'none'
+				// 	})
+				// }
 			},
 			checkCodeNum2:function(e){
 				if(e.detail.value==""){
 					console.log("空的")
-				}else if(this.checkPass1(e.detail.value)){
-					console.log("正确")
-				}else{
-					uni.showToast({
-						title:'输入的出生证号有误，请检查',
-						icon:'none'
-					})
 				}
+				// else if(this.checkPass1(e.detail.value)){
+				// 	console.log("正确")
+				// }else{
+				// 	uni.showToast({
+				// 		title:'输入的出生证号有误，请检查',
+				// 		icon:'none'
+				// 	})
+				// }
 			},
 			checkCodeNum3:function(e){
 				if(e.detail.value==""){
 					console.log("空的")
-				}else if(this.checkPass2(e.detail.value)){
-					console.log("正确")
-				}else{
-					uni.showToast({
-						title:'输入的临时乘车编号有误，请检查',
-						icon:'none'
-					})
 				}
+				// else if(this.checkPass2(e.detail.value)){
+				// 	console.log("正确")
+				// }else{
+				// 	uni.showToast({
+				// 		title:'输入的临时乘车编号有误，请检查',
+				// 		icon:'none'
+				// 	})
+				// }
 			},
 			checkIDCard:function(idcode){
 			    // 加权因子
@@ -544,16 +575,16 @@
 		line-height: 108upx;
 	}
 
-	.box3{	
+	.noticeClass{	
 		width: 85%;
-		// height: 110upx;
-		// background-color: #FFFFFF;
-		margin-top: 40upx;
+		margin-top: 20upx;
 		margin-left: 7.47%;
 		margin-bottom: 150upx;
 		border-radius: 25upx;
 		font-size: 28upx;
-		font-weight: 300;
+		font-weight: 500;
+		margin-bottom: 150upx;
+		color: #FC4646;
 	}
 	.txtClass{
 		width: 82%;

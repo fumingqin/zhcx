@@ -176,7 +176,7 @@
 			// ---------------------------加载图片----------------------------
 			loadImg() {
 				var that = this;
-				that.$ChangeImage.GetImage("南平综合出行","广告").then(function(data) {
+				that.$ChangeImage.GetImage("南平综合出行","新广告").then(function(data) {
 					that.advert = data;
 				});
 			},
@@ -906,8 +906,9 @@
 		//广告
 		width: 91.47%;
 		height: 160upx;
-		margin-top: 42upx;
+		margin-top: 25upx;
 		margin-left: 4.27%;
+		border-radius: 12upx;
 	}
 
 	.serviceBox {
@@ -918,7 +919,7 @@
 		//height: 390upx;
 		background-color: #FFFFFF;
 		border-radius: 12upx;
-		margin-top: 10upx;
+		margin-top: 25upx;
 		margin-left: 4.27%;
 		display: flex;
 		flex-direction: column; //column:纵向排列，row横向排列

@@ -128,6 +128,17 @@
 					</checkbox-group>
 				</view>
 			</view>
+			
+			<view class="noticeClass">
+				<rich-text :nodes="noticeText" style="width: 100%;"></rich-text>
+				<!-- <p>购票说明：</p></br><p>①成人和身高超过1.5米的儿童购买全票。</p></br>
+				<p>②身高1.2-1.5米，或身高1.2米以下需要单独占用座位的儿童可购买半票。</p></br>
+				<p>③身高1.2米以下儿童乘车免票，需由成人陪同不提供单独座位。
+				根据交管部门规定，一班车免票儿童人数不得超过核定座位数的10%，如携带儿童乘车务必在此声明人数。
+				如系统提示免票儿童名额已满，请选择其他时间班次或购买半票。</p></br>
+				<p>④根据车站相关规定，请携带并出示相关的证件。</p> -->
+			</view>
+			
 			<!-- <view v-if="!user.show" style="margin-bottom: 150upx;"></view>
 			<view v-if="false" class="emergencyClass">
 				<view class="fontStyle">紧急联系人</view>
@@ -184,6 +195,8 @@
 				address:'',
 				userId:'', //账号id
 				code:1,
+				
+				noticeText:'', //乘车人须知
 			}
 		},
 		onLoad (options){	
@@ -193,6 +206,7 @@
 			if(options.type=="edit"){
 				this.loadData(type);
 			}
+			this.loadText();//加载乘车人须知
 		},
 		onUnload() {  //页面关闭时执行
 			//------------------清除editPassenger缓存----------------
@@ -216,10 +230,7 @@
 						//#ifdef APP-PLUS
 						setTimeout(function(){
 							uni.navigateTo({	
-								//loginType=1,泉运登录界面
-								//loginType=2,今点通登录界面
-								//loginType=3,武夷股份登录界面
-								url  : '/pages/GRZX/userLogin?loginType=1'
+								url  : '/pages/GRZX/userLogin'
 							}) 
 						},500);
 						//#endif
@@ -233,6 +244,7 @@
 					}
 				})
 			},
+			
 			//------------------加载乘车人信息----------------
 			loadData:function(type){
 				uni.showLoading({
@@ -306,6 +318,23 @@
 					}
 				})
 			}, 
+			
+			//------------------加载乘车人须知----------------
+			loadText:function(){
+				var that=this;
+				uni.request({
+					url:that.$GrzxInter.Interface.getByTitle.value,
+					data:{
+						systemName:that.$GrzxInter.systemConfig.applyName,
+						title:'乘车人须知',
+					},
+					method:'POST',
+					success(res){
+						that.noticeText=res.data.data.msg;
+					},
+				})
+			},
+			
 			//------------------选择性别----------------
 			radioClick:function(e){
 				this.user.userSex = e;
@@ -818,9 +847,21 @@
 		background-color: #FFFFFF;
 		margin-top: 20upx;
 		margin-left: 3.47%;
-		margin-bottom: 150upx;
 		border-radius: 25upx;
 	}
+	
+	.noticeClass{
+		width: 85%;
+		margin-top: 20upx;
+		margin-left: 7.47%;
+		margin-bottom: 150upx;
+		border-radius: 25upx;
+		font-size: 28upx;
+		font-weight: 500;
+		margin-bottom: 150upx;
+		color: #FC4646;//#ff9e2e 备用色
+	}
+	
 	// .emergencyClass{	//是否为紧急联系人
 	// 	width: 93.07%;
 	// 	height: 110upx;
