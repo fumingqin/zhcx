@@ -224,7 +224,8 @@ export default{
 		},
 		returnClick(){
 			uni.switchTab({
-				url:this.$GrzxInter.Route.home.url,
+				// url:this.$GrzxInter.Route.home.url,
+				url:'/pages/Home/zxgpHomePage'
 			})
 		}
 	}	

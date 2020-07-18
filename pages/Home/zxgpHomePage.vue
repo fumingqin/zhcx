@@ -94,7 +94,6 @@
 		}, //注册为子组件
 		data() {
 			return {
-				applyName:'',
 				type2: 0,
 				departure:'',
 				datestring: '',
@@ -130,6 +129,10 @@
 			var that=this;
 			//获取当前日期
 			that.getTodayDate();
+			
+			// #ifdef MP-WEIXIN
+			that.getLoginState(); //微信授权登录
+			//#endif
 		},
 		
 		methods: {
@@ -301,6 +304,33 @@
 					})
 				}
 			},
+			
+			// #ifdef MP-WEIXIN
+			//---------------------------------微信授权登录start---------------------------------
+			getLoginState() {
+				uni.getStorage({
+					key: 'isCanUse',
+					success(res) {},
+					fail(err) {
+						uni.showModal({
+							content: '您暂未登录，是否登录',
+							confirmText: '去登录',
+							cancelText: '暂不登录',
+							success(res) {
+								if (res.confirm) {
+									uni.navigateTo({
+										url: '/pages/Home/wxAuthorize?type=index'
+									})
+								} else if (res.cancel) {
+									// console.log('用户点击取消');
+								}
+							}
+						})
+					}
+				})
+			},
+			//---------------------------------微信授权登录end---------------------------------
+			//#endif
 		}
 	}
 </script>
