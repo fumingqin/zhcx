@@ -2,7 +2,7 @@
 	<view>
 		<view class="zh_top">
 			<!-- 顶部滑动 -->
-			<view style="width: 46%;top: 90upx;padding: 0 200upx;padding-top: 82upx;">
+			<view style="width: 46%;top: 90upx;padding: 0 200upx;padding-top: 100upx;">
 				<view class="screen">
 					<view class="screenView">
 						<view class="screenText" :class="{current:type2===0}" @click="tabClick(0)">
@@ -86,6 +86,7 @@
 	import $lyfw from '@/common/LYFW/LyfwFmq.js' //引用路径
 	import $Home from '@/common/Home.js' //引用路径
 	import MxDatePicker from "@/components/HOME/mx-datepicker/mx-datepicker.vue";
+	import $Zxgp from "@/common/zxgp.js"
 	export default {
 		components: {
 			uniPopup,
@@ -107,7 +108,7 @@
 					imageUrl: '',
 				}], //背景图
 				applyName:'',
-				way:'根据交通运输部令 2016年第82 相关规定，网购票需要旅客提供姓名、身份证号码信息，有关信息将用于旅客进站身份核验、行前取票、验票乘车等环节。身份信息不符将无法进站和乘车。 <p></p> 13328513020（ 时间：9:00-19:30 ） <p></p> 13365957285（ 时间：9:00-18:30 ）',
+				way:'',
 			}
 		},
 		
@@ -153,6 +154,20 @@
 							return item.type == '背景';
 						})
 						// console.log(this.imgXXDT)
+					}
+				})
+				
+				uni.request({
+					url: $Zxgp.KyInterface.Cs_getByTitle.Url,
+					method: $Zxgp.KyInterface.Cs_getByTitle.method,
+					data:{
+						title:'购票须知',
+						systemName:this.applyName,
+					},
+					success: (res) => {
+						// console.log('购票须知',res)
+						this.way=res.data.data.msg;
+						// console.log('购票须知2',this.way)
 					}
 				})
 				uni.stopPullDownRefresh();
@@ -300,7 +315,7 @@
 	//顶部筛选样式
 	.screen {
 		height: 106upx;
-		position: sticky;
+		// position: sticky;
 		top: 0;
 		z-index: 1;
 	

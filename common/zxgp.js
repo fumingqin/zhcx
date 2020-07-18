@@ -19,6 +19,13 @@ const KyInterface = {
 		name:'专线购票选择地址',
 		method:'POST',
 	},
+	
+	//--------------------------------------购票须知--------------------------------------
+	Cs_getByTitle:{
+		Url: Url + '/api/ky/getByTitle',
+		name:'购票须知',
+		method:'POST',
+	},
 }
 // 接口声明区
 export default {
