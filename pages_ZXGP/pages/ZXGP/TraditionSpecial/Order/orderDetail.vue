@@ -11,7 +11,9 @@
 				<view>{{orderInfo.carType}}:{{orderInfo.startSiteName}} — {{orderInfo.endSiteName}}  x{{getTicketNum(orderInfo)}}</view>
 			</view>
 			<!-- 发车时间 -->
+			<view class="headText"> 订单号：{{orderInfo.orderNumber}}</view>
 			<view class="headText"> 发车时间：{{orderInfo.setOutTime}}</view>
+			<view class="headText"> 班次：{{getScheduleNum(orderInfo.planScheduleCode)}}</view>
 			<view class="headText"> 司机姓名：{{getDetailInfo(orderInfo.driverName)}}</view>
 			<!-- <view class="headText"> 随车手机号：{{getDetailInfo(orderInfo.driverPhone)}}</view> -->
 			<view class="headText"> 车牌号：{{getDetailInfo(orderInfo.vehicleNumber)}}</view>
@@ -179,6 +181,14 @@
 				}else{
 					return param
 				}
+			},
+			//-------------------------------获取班次信息-------------------------------
+			getScheduleNum:function(param){
+					if(param.planScheduleCode){
+						return param.planScheduleCode;
+					}else{
+						return '无'; 
+					}
 			},
 			//-------------------------------获取乘车人信息-------------------------------
 			stringTurnArray(param){
