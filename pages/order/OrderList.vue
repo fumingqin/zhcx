@@ -410,11 +410,7 @@
 							<!-- <view class="u-f-ac" style="margin-top: 20rpx;">
 								<view class="redring"></view>
 								<view style="color: #AAAAAA; font-size: 28rpx;margin-left: 20rpx;">{{item.endSiteName}}</view>
-							</view> -->
-							<view v-if="item.carType != '定制巴士'" style="margin-left: 96upx;font-size: 28upx;margin-top: 20rpx;
-								color: #AAAAAA;;"></view>
-
-								
+							</view> -->			
 							<view class="at_buttonView">
 								<view class="at_button at_btDelete" v-if="item.state=='7'" @tap="open3(item.orderNumber,'2')">取消</view>
 								<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
@@ -676,8 +672,6 @@
 								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
-							<view v-if="item.carType != '定制巴士'" style="margin-left: 96upx;font-size: 28upx;margin-top: 20rpx;
-								color: #AAAAAA;;">班次：{{getScheduleNum(item)}}</view>
 							<view class="at_buttonView">
 								<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
 								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
@@ -958,8 +952,6 @@
 								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
-							<view v-if="item.carType != '定制巴士'" style="margin-left: 96upx;font-size: 28upx;margin-top: 20rpx;
-								color: #AAAAAA;;">班次：{{getScheduleNum(item)}}</view>
 							<view class="at_buttonView">
 								<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
 								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
@@ -1225,8 +1217,6 @@
 								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
-							<view v-if="item.carType != '定制巴士'" style="margin-left: 96upx;font-size: 28upx;margin-top: 20rpx;
-								color: #AAAAAA;;">班次：{{getScheduleNum(item)}}</view>
 							<view class="at_buttonView">
 								<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
 								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
@@ -1525,8 +1515,6 @@
 								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
-							<view v-if="item.carType != '定制巴士'" style="margin-left: 96upx;font-size: 28upx;margin-top: 20rpx;
-								color: #AAAAAA;;">班次：{{getScheduleNum(item)}}</view>
 							<view class="at_buttonView">
 								<view class="at_button at_btDetails" @tap="keYunDetail(item)">详情</view>
 								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
@@ -2187,6 +2175,8 @@
 			keYunDetail: function(res) {
 				console.log(res)
 				var orderInfo = {
+					planScheduleCode:res.planScheduleCode,
+					orderNumber:res.orderNumber,
 					carType:res.carType,
 					state: res.state,
 					totalPrice: res.totalPrice,
