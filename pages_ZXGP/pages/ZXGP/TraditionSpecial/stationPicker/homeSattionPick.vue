@@ -380,7 +380,8 @@
 			align-content: center;
 			margin-bottom: 10rpx;
 			border-bottom: 1rpx solid #eeeeee;
-			line-height: 80rpx;
+			line-height: 100upx;
+			padding-left: 20upx;
 		}
 	}
 </style>

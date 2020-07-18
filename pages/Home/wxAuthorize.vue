@@ -149,7 +149,6 @@ export default{
 			var data = pc.decryptData(encryptedData , iv)
 			var that=this;
 			
-			
 			uni.request({
 				url:that.$GrzxInter.Interface.login.value,
 				data:{

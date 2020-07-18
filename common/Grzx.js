@@ -163,6 +163,13 @@ const Interface={
 		method:'POST',//GET-POST
 		pages:[]
 	},
+	getByTitle:{
+		value: Url + '/api/ky/getByTitle',
+		name:'获取',
+		method:'POST',//GET-POST
+		pages:[]
+	},
+	
 	
 	//-----------------------达达通start------------------------
 	// RegistUser:{
