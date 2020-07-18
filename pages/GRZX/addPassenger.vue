@@ -164,7 +164,6 @@
 	export default {
 		data(){
 			return{
-				//add:1,
 				sexMode :[
 					{title:'男'},
 					{title:'女'}
@@ -182,14 +181,13 @@
 					userSex:0,
 					userPhoneNum:'',
 					userCodeNum:'',
-					// date:'',
 					userDefault:false,
 					show:true,
-					// userEmergencyContact:false,
-					// date:'请选择',
 					prove:0,
 					type:0,
-					// code:0,
+					// userEmergencyContact:false,
+					// date:'请选择',
+					// date:'',
 				},
 				userType:'',
 				address:'',
@@ -197,6 +195,7 @@
 				code:1,
 				
 				noticeText:'', //乘车人须知
+				whetherCheck:true,//是否开启身份验证
 			}
 		},
 		onLoad (options){	
@@ -356,6 +355,14 @@
 				}else{
 					data1.userType=that.ticketType;
 				}
+				var	checkState='';//是否开启验证，true开启，false关闭
+				console.log(data1.userType,"购票类型")
+				if(data1.userType=="免票儿童 >"||data1.userType=="半票儿童 >"){
+					checkState=false;
+				}else{
+					checkState=that.whetherCheck;
+				}
+				console.log(checkState,"是否开启验证")
 				var reg=(/^1(3|4|5|6|7|8|9)\d{9}$/);
 				if(data1.userName==""||data1.userName==null){
 					uni.showToast({
@@ -387,22 +394,22 @@
 						title:'请输入证件号',
 						icon:'none',
 					})
-				}else if(data1.userauditState=="身份证 >"&&!that.checkIDCard(data1.userCodeNum)){
+				}else if(data1.userauditState=="身份证 >"&&!that.checkIDCard(data1.userCodeNum)&&checkState){
 					uni.showToast({
 						title:'输入的身份证号有误，请检查',
 						icon:'none',
 					})
-				}else if(data1.userauditState=="护照 >"&&!that.checkPass1(data1.userCodeNum)){
+				}else if(data1.userauditState=="护照 >"&&!that.checkPass1(data1.userCodeNum)&&checkState){
 					uni.showToast({
 						title:'输入的证件号有误，请检查',
 						icon:'none',
 					})
-				}else if(data1.userauditState=="港澳通行证 >"&&!that.checkPass2(data1.userCodeNum)){
+				}else if(data1.userauditState=="港澳通行证 >"&&!that.checkPass2(data1.userCodeNum)&&checkState){
 					uni.showToast({
 						title:'输入的证件号有误，请检查',
 						icon:'none',
 					})
-				}else if(data1.userauditState=="台胞证 >"&&!that.checkPass3(data1.userCodeNum)){
+				}else if(data1.userauditState=="台胞证 >"&&!that.checkPass3(data1.userCodeNum)&&checkState){
 					uni.showToast({
 						title:'输入的证件号有误，请检查',
 						icon:'none',
@@ -627,10 +634,10 @@
 				}else if(this.checkIDCard(e.detail.value)){
 					console.log("正确")
 				}else{
-					uni.showToast({
-						title:'输入的身份证有误，请检查',
-						icon:'none'
-					})
+					// uni.showToast({
+					// 	title:'输入的身份证有误，请检查',
+					// 	icon:'none'
+					// })
 				}
 			},
 			checkCodeNum2:function(e){
@@ -639,10 +646,10 @@
 				}else if(this.checkPass1(e.detail.value)){
 					console.log("正确")
 				}else{
-					uni.showToast({
-						title:'输入的证件号有误，请检查',
-						icon:'none'
-					})
+					// uni.showToast({
+					// 	title:'输入的证件号有误，请检查',
+					// 	icon:'none'
+					// })
 				}
 			},
 			checkCodeNum3:function(e){
@@ -651,10 +658,10 @@
 				}else if(this.checkPass2(e.detail.value)){
 					console.log("正确")
 				}else{
-					uni.showToast({
-						title:'输入的证件号有误，请检查',
-						icon:'none'
-					})
+					// uni.showToast({
+					// 	title:'输入的证件号有误，请检查',
+					// 	icon:'none'
+					// })
 				}
 			},
 			checkCodeNum4:function(e){
@@ -663,10 +670,10 @@
 				}else if(this.checkPass3(e.detail.value)){
 					console.log("正确")
 				}else{
-					uni.showToast({
-						title:'输入的证件号有误，请检查',
-						icon:'none'
-					})
+					// uni.showToast({
+					// 	title:'输入的证件号有误，请检查',
+					// 	icon:'none'
+					// })
 				}
 			},
 			checkCodeNum5:function(e){

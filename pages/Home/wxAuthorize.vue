@@ -223,10 +223,15 @@ export default{
 			})
 		},
 		returnClick(){
-			uni.switchTab({
-				// url:this.$GrzxInter.Route.home.url,
-				url:'/pages/Home/zxgpHomePage'
-			})
+			if(that.$GrzxInter.systemConfig.applyName=="南平综合出行"){
+				uni.switchTab({
+					url:'/pages/Home/zxgpHomePage',//兴业银行小程序的主页（专线购票）
+				})
+			}else{
+				uni.switchTab({
+					url:this.$GrzxInter.Route.home.url,
+				})
+			}
 		}
 	}	
 }
