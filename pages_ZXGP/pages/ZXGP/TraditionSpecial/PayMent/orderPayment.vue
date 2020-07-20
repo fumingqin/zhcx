@@ -46,11 +46,11 @@
 					</view>
 
 					<!-- 保险 -->
-					<view class="MP_cost" v-if="isInsurance == 1 ">
+					<!-- <view class="MP_cost" v-if="isInsurance == 1 ">
 						<text>保险</text>
 						<text class="MP_number">×{{ticketNum}}</text>
 						<text class="MP_total">¥{{insuredPrice}}</text>
-					</view>
+					</view> -->
 
 					<!-- 优惠券 -->
 					<!-- <view class="MP_cost" v-if="orderInfo[0].couponPrice>0" v-if="false">
