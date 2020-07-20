@@ -25,10 +25,30 @@ const Interface = {
 		// #ifdef APP-PLUS
 			openidtype:'APP',
 		// #endif
+			
+			imageApplicationType:'XCX',//全局图片接口应用类型，用于请求全局图片使用
+			
 	}
+}
+
+const appConfig={  //AppId,AppSecret配置
+	wxConfig:{
+		name:'小程序的Appid',
+		wxAppId:'wx37b8f978e30050e4',
+	},
+	H5Config:{
+		name:'公众号的Appid和App秘钥',
+		H5AppId:'wx0ddb1b8b3ed8ee80',
+		H5AppSecret:'9091290458d85ff3a014198275d1d6d5',
+	},
+	local:{
+		url:'http://zntc.145u.net/h55/#/',
+		name:'公众号请求地址',
+	},
 }
 
 // 接口声明区
 export default {
-	Interface
+	Interface,
+	appConfig
 }
