@@ -364,7 +364,7 @@
 						<view class="at_view">
 							<view class="at_titleView">
 								<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
-								<text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text>
+								<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
 								<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
 							</view>
 							<view class="at_contentView" style="display: flex;">
@@ -657,7 +657,7 @@
 						<view class="at_view">
 							<view class="at_titleView">
 								<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
-								<text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text>
+								<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
 								<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
 							</view>
 							<view class="at_contentView" style="display: flex;">
@@ -937,7 +937,7 @@
 						<view class="at_view">
 							<view class="at_titleView">
 								<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
-								<text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text>
+								<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
 								<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
 							</view>
 							<view class="at_contentView" style="display: flex;">
@@ -1202,7 +1202,7 @@
 						<view class="at_view">
 							<view class="at_titleView">
 								<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
-								<text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text>
+								<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
 								<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
 							</view>
 							<view class="at_contentView" style="display: flex;">
@@ -1500,7 +1500,7 @@
 						<view class="at_view">
 							<view class="at_titleView">
 								<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
-								<text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text>
+								<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
 								<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
 							</view>
 							<view class="at_contentView" style="display: flex;">
@@ -4696,17 +4696,24 @@
 
 		.at_titleView {
 			position: relative;
+			display: flex;
 
 			.at_icon {
 				position: relative;
 				top: 4upx;
-				width: 34upx;
-				height: 31upx;
+				width: 40upx;
+				height: 34upx;
 			}
-
-			.at_title {
-				margin-left: 24upx;
+			.at_textView{
+				width: 220upx;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+				.at_title {
+					margin-left: 20upx;
+				}
 			}
+			
 
 			.at_status {
 				position: absolute;
