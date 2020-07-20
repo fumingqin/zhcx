@@ -413,12 +413,11 @@
 							</view> -->			
 							<view class="at_buttonView">
 								<view class="at_button at_btDelete" v-if="item.state=='7'" @tap="open3(item.orderNumber,'2')">取消</view>
-								<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
-
 								<view class="at_button at_btDelete" v-if="item.state=='4'" @tap="open2(item.orderNumber,'2')">退票</view>
 								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
 								<view class="at_button at_btToPay" v-if="item.state=='7'" @tap="keYunPay(item,item.carType)">去支付</view>
 								<view class="at_button at_btToPay" v-if="item.state=='尚未支付'" @tap="keYunPay(item,item.carType)">去支付</view>
+																<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
 								<!-- <view class="at_button at_btDelete" v-if="item.state=='4'" @tap="endorse(item)">改签</view> -->
 								<!-- #ifndef MP-WEIXIN -->
 								<!-- <button class="allBtn" v-if="item.state=='4'" @click="busLocation(item)">车辆位置</button> -->
@@ -1861,7 +1860,7 @@
 				}else if(that.selectorIndex==1){
 					that.getUserInfo();//加载传统客运订单方法
 				}else if(that.selectorIndex==2){
-					// that.GetBookLogInfoByUserId();//加载定制巴士订单方法
+					that.GetBookLogInfoByUserId();//加载定制巴士订单方法
 				}else if(that.selectorIndex==3){
 					// that.loadczcData();//加载出租车订单方法
 				}else if(that.selectorIndex==4){
@@ -4700,7 +4699,7 @@
 
 			.at_icon {
 				position: relative;
-				top: 4upx;
+				top: 6upx;
 				width: 40upx;
 				height: 34upx;
 			}
@@ -4771,7 +4770,7 @@
 				background: #3EABFC;
 				border: 1upx solid #3EABFC;
 				color: #FFFFFF;
-				margin-right: 24upx;
+				
 			}
 
 			//二维码/再次购买 - 实心橙
@@ -4793,6 +4792,7 @@
 				background: #02c501;
 				border: 1upx solid #02c501;
 				color: #FFFFFF;
+				margin-right: 24upx;
 			}
 		}
 	}
