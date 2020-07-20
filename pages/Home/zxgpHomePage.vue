@@ -214,6 +214,7 @@
 				var month = date.getMonth() + 1;
 				var day = date.getDate();
 				var timer = year + '-' + month + '-' + day;
+				this.queryWeek(date.toString().substring(0,3));
 				this.datestring = timer;
 			},
 			onShowDatePicker(type) { //显示
