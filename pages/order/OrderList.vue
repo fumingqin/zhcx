@@ -1704,8 +1704,8 @@
 				TaxiCost: 0, //价格
 				countdown: 0,
 				items: ['全部', '已完成', '进行中', '未支付', '已取消'],
-				// carSelect : ['全部','传统客运','定制巴士','出租车','专线车','顺风车','包车服务','旅游服务'],
-				carSelect : ['全部','传统客运','定制班车'],
+				// carSelect : ['全部','普通班车','定制班车','出租车','专线车','顺风车','包车服务','旅游服务'],
+				carSelect : ['全部','客运购票'],
 				selector : '全部',
 				selectorIndex : 0,//模块筛选值
 				current: 0,
@@ -1735,7 +1735,7 @@
 				driverName: '张师傅', //司机姓名
 				totalPrice: 32.5,
 				orderType1: '',
-				ctkyOrderNum: '', //传统客运订单号（退票需要）
+				ctkyOrderNum: '', //普通班车订单号（退票需要）
 				ky_currentType:'',
 				ky_orderStatus:'',//判断是否需要检测当前订单状态
 				
@@ -1839,10 +1839,10 @@
 				that.unfinishArr = [];
 				that.cancelArr = [];
 				if(that.selectorIndex==0){
-					that.getUserInfo();//加载传统客运订单方法
-					setTimeout(function(){
-						that.GetBookLogInfoByUserId();//加载定制巴士订单方法
-					},200)
+					that.getUserInfo();//加载普通班车订单方法
+					// setTimeout(function(){
+					// 	that.GetBookLogInfoByUserId();//加载定制巴士订单方法
+					// },200)
 					// setTimeout(function(){
 					// 	that.loadczcData();//加载出租车订单方法
 					// },400)
