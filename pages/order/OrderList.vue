@@ -1861,7 +1861,7 @@
 				}else if(that.selectorIndex==1){
 					that.getUserInfo();//加载传统客运订单方法
 				}else if(that.selectorIndex==2){
-					that.GetBookLogInfoByUserId();//加载定制巴士订单方法
+					// that.GetBookLogInfoByUserId();//加载定制巴士订单方法
 				}else if(that.selectorIndex==3){
 					// that.loadczcData();//加载出租车订单方法
 				}else if(that.selectorIndex==4){
