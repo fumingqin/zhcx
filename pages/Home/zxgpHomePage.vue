@@ -1,33 +1,55 @@
 <template>
 	<view>
 		<view class="zh_top">
+			<image class="top_image" :src="background[0].imageUrl" mode="aspectFill"></image>
 			<!-- 顶部滑动 -->
-			<view style="width: 46%;top: 90upx;padding: 0 200upx;padding-top: 100upx;">
-				<view class="screen">
-					<view class="screenView">
-						<view class="screenText" :class="{current:type2===0}" @click="tabClick(0)">
-							出发
-						</view>
-						<view class="screenText" :class="{current:type2===1}" @click="tabClick(1)">
-							到达
+			<view style="position: absolute;z-index: 999;">
+				<view style="width: 46%;top: 90upx;padding: 0 200upx;padding-top: 100upx;">
+					<view class="screen">
+						<view class="screenView">
+							<view class="screenText" :class="{current:type2===0}" @click="tabClick(0)">
+								出发
+							</view>
+							<view class="screenText" :class="{current:type2===1}" @click="tabClick(1)">
+								到达
+							</view>
 						</view>
 					</view>
 				</view>
-			</view>
-			<view v-if="type2==0">
-				<!-- 选择出发地 -->
-				<view style="display: flex;margin-top: 26upx;">
-					<view class="top_chooseTheRoute" hover-class="ve_hover" @tap="setOutStationTap">
-						<view class="top_text">起点</view>
-						<view style="display: flex;">
-							<text class="setOut">{{departure}}</text>
-							<text class="jdticon icon-xia"></text>
+				
+				<view v-if="type2==0">
+					<!-- 选择出发地 -->
+					<view style="display: flex;margin-top: 26upx;">
+						<view class="top_chooseTheRoute" hover-class="ve_hover" @tap="setOutStationTap">
+							<view class="top_text">起点</view>
+							<view style="display: flex;">
+								<text class="setOut">{{departure}}</text>
+								<text class="jdticon icon-xia"></text>
+							</view>
+						</view>
+						<!-- 目的地 -->
+						<view class="top_destination">
+							<view class="top_text2">终点（不可选）</view>
+							<view class="destination">{{destination}}</view>
 						</view>
 					</view>
-					<!-- 目的地 -->
-					<view class="top_destination">
-						<view class="top_text2">终点（不可选）</view>
-						<view class="destination">{{destination}}</view>
+				</view>
+				
+				<view v-if="type2==1">
+					<view style="display: flex;margin-top: 26upx;">
+						<!-- 目的地 -->
+						<view class="top_startingPoint">
+							<view class="top_text3">起点（不可选）</view>
+							<view class="startingPoint">{{destination}}</view>
+						</view>
+						<!-- 选择到达地 -->
+						<view class="top_chooseEnd" hover-class="ve_hover" @tap="setOutStationTap">
+							<view class="top_text4">终点</view>
+							<view style="display: flex;">
+								<text class="setEnd">{{departure}}</text>
+								<text class="jdticon icon-xia"></text>
+							</view>
+						</view>
 					</view>
 				</view>
 				
@@ -37,46 +59,20 @@
 				</view>
 				<mx-date-picker :show="showPicker" :type="type" :value="value" :show-tips="true" :begin-text="'入住'" :end-text="'离店'"
 				 :show-seconds="true" @confirm="onSelected" @cancel="onSelected" />
-			</view>
-			
-			<view v-if="type2==1">
-				<view style="display: flex;margin-top: 26upx;">
-					<!-- 目的地 -->
-					<view class="top_startingPoint">
-						<view class="top_text3">起点（不可选）</view>
-						<view class="startingPoint">{{destination}}</view>
-					</view>
-					<!-- 选择到达地 -->
-					<view class="top_chooseEnd" hover-class="ve_hover" @tap="setOutStationTap">
-						<view class="top_text4">终点</view>
-						<view style="display: flex;">
-							<text class="setEnd">{{departure}}</text>
-							<text class="jdticon icon-xia"></text>
-						</view>
-					</view>
+				
+				<!-- 按钮 -->
+				<view class="tjButton" hover-class="ve_hover2" @click="queryClick">查询</view>
+				<view class="hp_view">
+					<view class="hp_Line"></view>
+					<view class="hp_text">购票须知</view>
+					<view class="hp_Line2"></view>
 				</view>
 				
-				<!-- 选择时间 -->
-				<view class="top_chooseTime" hover-class="ve_hover" @click="onShowDatePicker('date')">
-					<text class="dateClass">{{datestring}}&nbsp;&nbsp;&nbsp;&nbsp;{{Week}}</text>
+				<view class="ct_noticeText">
+					<rich-text :nodes="way"></rich-text>
 				</view>
-				<mx-date-picker :show="showPicker" :type="type" :value="value" :show-tips="true" :begin-text="'入住'" :end-text="'离店'"
-				 :show-seconds="true" @confirm="onSelected" @cancel="onSelected" />
-			</view>
-			
-			<!-- 按钮 -->
-			<view class="tjButton" hover-class="ve_hover2" @click="queryClick">查询</view>
-			<view class="hp_view">
-				<view class="hp_Line"></view>
-				<view class="hp_text">购票须知</view>
-				<view class="hp_Line2"></view>
-			</view>
-			
-			<view class="ct_noticeText">
-				<rich-text :nodes="way"></rich-text>
 			</view>
 		</view>
-		<image class="top_image" :src="background[0].imageUrl" mode="aspectFill"></image>
 	</view>
 </template>
 
@@ -342,13 +338,22 @@
 		background-color: #ff971e;
 	}
 	
+	.top_image{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		margin: 0 auto;
+		z-index: 1;
+	}
+	
 	//兴业银行
 	//顶部筛选样式
 	.screen {
 		height: 106upx;
 		// position: sticky;
 		top: 0;
-		z-index: 1;
+		z-index: 2;
 	
 		.screenView {
 			left: 0;
@@ -396,9 +401,10 @@
 	
 	//顶部
 	.zh_top{
-		position: absolute;
+		// position: absolute;
 		width: 100%;
-		height: 100%;
+		// height: 100%;
+		z-index: 2;
 		
 		//选择路线
 		.top_chooseTheRoute{
@@ -410,7 +416,7 @@
 			padding: 20upx 28upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
-			z-index: 99;
+			z-index: 2;
 			margin-left: 46upx;
 			
 			.top_text{
@@ -449,7 +455,7 @@
 			margin-left: 12upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
-			z-index: 99;
+			z-index: 2;
 			
 			.top_text2{
 				// display: block;
@@ -481,7 +487,7 @@
 			padding: 20upx 28upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
-			z-index: 99;
+			z-index: 2;
 			margin-left: 46upx;
 			
 			.top_text3{
@@ -514,7 +520,7 @@
 			padding: 20upx 28upx;
 			border-radius:22upx;
 			background-color: #FFFFFF;
-			z-index: 99;
+			z-index: 2;
 			margin-left: 12upx;
 			
 			.top_text4{
@@ -542,35 +548,34 @@
 				padding-top: 8upx;
 			}
 		}
+	}
+	
+	//选择时间
+	.top_chooseTime{
+		// position: absolute;
+		display: flex;
+		width:604upx;
+		// height:100%;
+		overflow: hidden;
+		left: 6%;
+		padding: 28upx;
+		border-radius:22upx;
+		background-color: #FFFFFF;
+		z-index: 2;
+		// top: 386upx;
+		margin-left: 46upx;
+		margin-top: 42upx;
 		
-		//选择时间
-		.top_chooseTime{
-			// position: absolute;
+		//出发点
+		.dateClass{
 			display: flex;
-			width:604upx;
-			// height:100%;
-			overflow: hidden;
-			left: 6%;
-			padding: 28upx;
-			border-radius:22upx;
-			background-color: #FFFFFF;
-			z-index: 99;
-			// top: 386upx;
-			margin-left: 46upx;
-			margin-top: 42upx;
-			
-			//出发点
-			.dateClass{
-				display: flex;
-				font-size: 32upx;
-				font-weight: 400;
-				color: #333333;
-				// width: 234upx;
-				left: 0;
-				text-align: left;
-			}
+			font-size: 32upx;
+			font-weight: 400;
+			color: #333333;
+			// width: 234upx;
+			left: 0;
+			text-align: left;
 		}
-		
 	}
 	
 	//点击态
@@ -596,17 +601,17 @@
 		font-size: 34upx;
 		font-weight: 400;
 		box-shadow:0px 20px 81px 0px rgba(184,99,0,0.6);
-		z-index: 99;
+		z-index: 2;
 		margin-top: 42upx;
 		margin-left: 46upx;
 	}
 	
 	.hp_view{
-		width: 750upx;
+		// width: 100%;
 		height:36upx;
 		z-index: 2;
 		display: flex;
-		margin-left: 20%;
+		padding-left: 20%;
 		margin-top: 84upx;
 		
 		.hp_Line{
@@ -627,14 +632,6 @@
 			border-bottom: 1px solid #FFFFFF; 
 			margin-bottom: 12upx;
 		}
-	}
-	
-	.top_image{
-		width: 750upx;
-		height: 1300upx;
-		overflow: hidden;
-		margin: 0 auto;
-		// z-index: 1;
 	}
 	
 	.ct_noticeText {
