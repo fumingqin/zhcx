@@ -4705,12 +4705,11 @@
 				height: 34upx;
 			}
 			.at_textView{
-				width: 220upx;
-				text-overflow: ellipsis;
-				white-space: nowrap;
+				padding-left: 20upx;
+				width: 450upx;
 				overflow: hidden;
 				.at_title {
-					margin-left: 20upx;
+					
 				}
 			}
 			
