@@ -23,16 +23,16 @@ const systemConfig={
 const appConfig={
 	wxConfig:{
 		name:'小程序的Appid',
-		wxAppId:'wx37b8f978e30050e4',
+		wxAppId:$oSit.appConfig.wxConfig.wxAppId,
 	},
 	H5Config:{
 		name:'公众号的Appid和App秘钥',
-		H5AppId:'wx0ddb1b8b3ed8ee80',
-		H5AppSecret:'9091290458d85ff3a014198275d1d6d5',
+		H5AppId:$oSit.appConfig.H5Config.H5AppId,
+		H5AppSecret:$oSit.appConfig.H5Config.H5AppSecret,
 	},
 	local:{
-		url:'http://zntc.145u.net/h55/#/',
-		name:'地址',
+		url:$oSit.appConfig.local.url,
+		name:'公众号请求地址',
 	},
 }
 
