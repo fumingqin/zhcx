@@ -1,5 +1,13 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		//--------------------专线购票--------------------
+		{
+			"path": "pages/Home/zxgpHomePage",
+			"style": {
+				"navigationBarTitleText": "专线订购",
+				"navigationStyle": "custom"
+			}
+		},
 		//--------------------引导判断页--------------------
 		{
 			"path": "pages/Home/init",
@@ -19,14 +27,7 @@
 				"navigationStyle": "custom"
 			}
 		},
-		//--------------------专线购票--------------------
-		{
-			"path": "pages/Home/zxgpHomePage",
-			"style": {
-				"navigationBarTitleText": "专线订购",
-				"navigationStyle": "custom"
-			}
-		},
+		
 		
 		//--------------------搜索栏--------------------
 		{

@@ -112,6 +112,21 @@
 		},
 		
 		onLoad(){
+			// #ifdef APP-PLUS
+			const value = uni.getStorageSync('launchFlag');
+			console.log(value)
+			if(value !== true){
+				uni.setStorage({
+					key:'launchFlag',
+					data:true,
+					success:function(){
+						uni.redirectTo({
+							url:'guidePage'
+						})
+					}
+				})
+			}
+			// #endif
 			//加载应用名称
 			this.applyName=this.$oSit.Interface.system.applyName;
 			var that=this;
