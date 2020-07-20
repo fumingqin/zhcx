@@ -44,6 +44,7 @@
 				endSelectIndex:0,//记录下车点点击下标
 				startStationList:[],//上车点数组
 				endStationList:[],//下车点数组
+				default:'',
 				startStation:'',//上车点
 				endStation:'',//下车点
 				stationArray:[]
@@ -59,12 +60,13 @@
 			that.startStationList = that.arrayDistinct(stationArray.specialStartArray);
 			//保存下车点数组
 			that.endStationList = that.arrayDistinct(stationArray.specialEndArray);
-			
+			that.default = that.endStationList.length-1;
+			console.log(that.default)
 			if(stationArray.startStaionIndex == "" && stationArray.endStationIndex == "") {
 				//定位已选择的上车点
 				that.startSelectIndex = 0;
 				//定位已选择的下车点
-				that.endSelectIndex = 0;
+				that.endSelectIndex = that.default;
 			}else {
 				//定位已选择的上车点
 				that.startSelectIndex = stationArray.startStaionIndex;
