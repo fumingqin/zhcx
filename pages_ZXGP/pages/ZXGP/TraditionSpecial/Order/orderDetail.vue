@@ -245,7 +245,8 @@
 				    			let ticketHeader = array[0];
 				    			var array2 = array[1];
 				    			var array3 = array2.split(',');
-				    			return ticketHeader + '-' + array3[index];
+				    			return ticketHeader;
+								// return ticketHeader + '-' + array3[index];
 				    		}
 				    	}
 				    }else if(that.orderState == '已完成') {
@@ -258,7 +259,8 @@
 				    			let ticketHeader = array[0];
 				    			var array2 = array[1];
 				    			var array3 = array2.split(',');
-				    			return ticketHeader + '-' + array3[index];
+				    			// return ticketHeader + '-' + array3[index];
+								return ticketHeader;
 				    		}
 				    	}
 				    }
@@ -272,7 +274,8 @@
 							let ticketHeader = array[0];
 							var array2 = array[1];
 							var array3 = array2.split(',');
-							return ticketHeader + '-' + array3[index];
+							// return ticketHeader + '-' + array3[index];
+							return ticketHeader;
 						}
 					}
 				} else if (that.orderState == 5) {
@@ -285,7 +288,8 @@
 							let ticketHeader = array[0];
 							var array2 = array[1];
 							var array3 = array2.split(',');
-							return ticketHeader + '-' + array3[index];
+							// return ticketHeader + '-' + array3[index];
+							return ticketHeader;
 						}
 					}
 				} else if (that.orderState == 6) {
