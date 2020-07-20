@@ -67,7 +67,7 @@
 					<!-- <view v-if="orderInfo.carType == '定制巴士'" style="width: 100%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden; color: #2C2D2D;font-size: 32rpx;font-weight: 300; padding-bottom: 10rpx;">
 						  取票号 {{getSpecialOneTicketNum(specialCodeArray,index)}}
 					</view> -->
-					<view style="color: #999999;font-size: 28rpx;font-weight: 300; padding-bottom: 50rpx;">
+					<view style="color: #999999;font-size: 28rpx;font-weight: 300; padding-bottom: 32rpx; ">
 						出示二维码，检票上车
 					</view>
 					
@@ -396,14 +396,15 @@
 		background: #FFFFFF;
 		border-radius: 20rpx;
 		margin: 20rpx;
-		margin-top: -60rpx;
+		margin-top: -40rpx;
+		padding: 20rpx 0;
 	}
 	/* 起始站/价格 */
 	.head>view:first-child {
-		padding: 20rpx;
+		padding: 12rpx 20rpx;
 		font-size: 30rpx;
 		color: #2C2D2D;
-		font-weight: 500;
+		font-weight: bold;
 	}
 	/* 发车时间 */
 	.headText {
@@ -421,6 +422,7 @@
 		background: #FFFFFF;
 		margin: 0 20rpx;
 		margin-bottom: 20rpx;
+		padding:20rpx 0;
 	}
 	/* 乘客信息 */
 	.passageInfo {

@@ -7,7 +7,7 @@
 		<view class="cvt_content" :hidden="isNormal==1">
 			<view class="ct_departureContents1">
 				<view class="ct_content1">目的地 &nbsp;<text class="ct_content2">{{privateSite}}</text></view>
-				<view class="ct_content3">上车点 &nbsp;<text class="ct_content4">{{initialPoint}}</text></view>
+				<view class="ct_content3">上车点 &nbsp;<text class="ct_content4">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</text></view>
 			</view>
 			<view class="ct_departureContents2">
 				<view class="ct_content5" style="padding-bottom: 40upx;">出发时间 &nbsp;<text class="ct_content6">{{datestring}}</text></view>
