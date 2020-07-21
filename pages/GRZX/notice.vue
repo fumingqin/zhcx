@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view v-for="(item, index) in tweetArticle" :key="index" class="boxClass"> <!-- @click="selete(item)" -->
-			<view class="timeClass">{{item.CreateTime}}</view>
+			<view class="timeClass">{{formatTime(item.CreateTime)}}</view>
 			<view class="boxClass1" @click="selete(item)">
 				<view class="titleClass generalStyle">{{item.Title}}</view>
 				<view class="imgClass generalStyle">
@@ -66,6 +66,16 @@
 					//url:'/pages/GRZX/detailTweet'
 					url:this.$GrzxInter.Route.detailTweet.url,
 				})
+			},
+			
+			//--------------------时间格式化--------------------
+			formatTime: function(time) {
+				var dateTime = time.replace('T', ' ').slice(0,16);
+				if (dateTime.indexOf('1900') > -1) {
+					return '';
+				} else {
+					return dateTime;
+				}
 			},
 		}
 		

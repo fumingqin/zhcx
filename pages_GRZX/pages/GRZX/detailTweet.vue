@@ -4,7 +4,7 @@
 			<rich-text :nodes="information.Title"></rich-text>
 		</view>
 		<view class="time">
-			<text>{{information.CreateTime}}</text>
+			<text>{{formatTime(information.CreateTime)}}</text>
 			<!-- <text style="margin-left:24upx;" :v-if="information.author !==''">{{information.author}}</text> -->
 		</view>
 		<view class="content">
@@ -95,6 +95,16 @@
 						that.information = res.data;
 					},
 				})	
+			},
+			
+			//--------------------时间格式化--------------------
+			formatTime: function(time) {
+				var dateTime = time.replace('T', ' ').slice(0,16);
+				if (dateTime.indexOf('1900') > -1) {
+					return '';
+				} else {
+					return dateTime;
+				}
 			},
 		}
 	}
