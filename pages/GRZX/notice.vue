@@ -7,7 +7,7 @@
 				<view class="imgClass generalStyle">
 					<image :src="item.ShowImageURL" style="width: 100%;" mode="widthFix" role="img"></image>
 				</view>
-				<view class="textClass generalStyle">{{item.ContentDetail}}</view>
+				<!-- <view class="textClass generalStyle">{{item.ContentDetail}}</view> -->
 				<view class="detailClass generalStyle">
 					<text class="detailText">查看详情</text>
 					<text class="more-icon jdticon icon-you"></text>
