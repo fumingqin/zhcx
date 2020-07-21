@@ -25,6 +25,9 @@ const Interface = {
 		// #ifdef APP-PLUS
 			openidtype:'APP',
 		// #endif
+			
+			imageApplicationType:'XCX',//全局图片接口应用类型，用于请求全局图片使用
+			
 	}
 }
 
