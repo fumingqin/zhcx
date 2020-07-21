@@ -15,7 +15,7 @@
 				<view class="usernameClass" style="display: flex;flex-direction: column;">
 					<view><text>{{nickname}}</text></view>
 					<view class="userTypeBox" v-if="nickname != '游客'">
-						<image src="../../static/GRZX/huangguan.png" class="iconClass bc_GRZX_UserType"></image>
+						<!-- <image src="../../static/GRZX/huangguan.png" class="iconClass bc_GRZX_UserType"></image> -->
 						<text class="typeBox bc_GRZX_UserType" >普通用户</text>
 					</view>
 				</view>
@@ -259,8 +259,6 @@
 								url: that.$GrzxInter.Interface.login.value,
 								data: {
 									phoneNumber: phone,
-									systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
-									openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 								},
 								method: that.$GrzxInter.Interface.login.method,
 								success(res) {
@@ -782,13 +780,13 @@
 		margin-top: 10upx;
 	}
 
-	.iconClass{
-		width: 20upx;
-		height: 18upx;
-		padding: 12upx;
-		border-top-left-radius: 8upx;
-		border-bottom-left-radius: 8upx;
-	}
+	// .iconClass{
+	// 	width: 20upx;
+	// 	height: 18upx;
+	// 	padding: 12upx;
+	// 	border-top-left-radius: 8upx;
+	// 	border-bottom-left-radius: 8upx;
+	// }
 	
 	.typeBox {
 		//普通用户
@@ -796,8 +794,10 @@
 		color: #FFFFFF;
 		line-height: 42upx;
 		padding-right:15upx;
-		border-top-right-radius: 8upx;
-		border-bottom-right-radius: 8upx;
+		border-radius:8upx;
+		padding: 0 20upx;
+		// border-top-right-radius: 8upx;
+		// border-bottom-right-radius: 8upx;
 	}
 
 	.imgTubiao {
