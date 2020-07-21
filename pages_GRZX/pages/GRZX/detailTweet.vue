@@ -20,7 +20,11 @@
 	export default {
 		data() {
 			return {
-				information:{},
+				information:{
+					Title:'',
+					CreateTime:'',
+					ContentDetail:'',
+				},
 				aid : '',
 				imageText : '', //图文
 			}
@@ -92,7 +96,9 @@
 				uni.getStorage({
 					key:'detailTweet',
 					success:(res) =>{
-						that.information = res.data;
+						that.information.Title = res.data.Title;
+						that.information.CreateTime = res.data.CreateTime;
+						that.information.ContentDetail = res.data.ContentDetail.replace(/\<img/g, '<img style="max-width:100%;height:auto;display:inline-block;margin:10rpx auto;"" ');
 					},
 				})	
 			},
