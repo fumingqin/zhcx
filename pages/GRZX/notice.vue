@@ -1,13 +1,13 @@
 <template>
 	<view>
 		<view v-for="(item, index) in tweetArticle" :key="index" class="boxClass"> <!-- @click="selete(item)" -->
-			<view class="timeClass">{{item.reportTime}}</view>
+			<view class="timeClass">{{item.CreateTime}}</view>
 			<view class="boxClass1" @click="selete(item)">
-				<view class="titleClass generalStyle">{{item.title}}</view>
+				<view class="titleClass generalStyle">{{item.Title}}</view>
 				<view class="imgClass generalStyle">
-					<image :src="item.imageUrl" style="width: 100%;" mode="widthFix" role="img"></image>
+					<image :src="item.ShowImageURL" style="width: 100%;" mode="widthFix" role="img"></image>
 				</view>
-				<view class="textClass generalStyle">{{item.newsContent}}</view>
+				<view class="textClass generalStyle">{{item.ContentDetail}}</view>
 				<view class="detailClass generalStyle">
 					<text class="detailText">查看详情</text>
 					<text class="more-icon jdticon icon-you"></text>
@@ -21,36 +21,7 @@
 	export default{
 		data(){
 			return{
-				tweetArticle:[
-				// 	{
-				// 	tweetID:0,
-				// 	time:'2020-03-24 12:01',
-				// 	title:'重要通知一',
-				// 	src:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3761064275,227090144&fm=26&gp=0.jpg',
-				// 	text:'虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责。即便如此，还是要做好事。虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责新品上市全场2折起，新品上市全场2折起，新品上市全场2折起，新品上市全场2折起，新品上市全场2折起即便如此，还是要做好事。虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责。即便如此，还是要做好事。虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责。即便如此，还是要做好事。',
-				// },
-				// {
-				// 	tweetID:1,
-				// 	time:'2020-03-24 12:33',
-				// 	title:'新品上市，全场满199减50',
-				// 	src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1556465765776&di=57bb5ff70dc4f67dcdb856e5d123c9e7&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01fd015aa4d95fa801206d96069229.jpg%401280w_1l_2o_100sh.jpg',
-				// 	text:'虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责。即便如此，还是要做好事。虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责新品上市全场2折起，新品上市全场2折起，新品上市全场2折起，新品上市全场2折起，新品上市全场2折起即便如此，还是要做好事。虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责。即便如此，还是要做好事。虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责。即便如此，还是要做好事。',
-				// },
-				// {
-				// 	tweetID:2,
-				// 	time:'2020-03-24 12:22',
-				// 	title:'重要通知三',
-				// 	src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1556465765776&di=57bb5ff70dc4f67dcdb856e5d123c9e7&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01fd015aa4d95fa801206d96069229.jpg%401280w_1l_2o_100sh.jpg',
-				// 	text:'虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责。即便如此，还是要做好事。虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责新品上市全场2折起，新品上市全场2折起，新品上市全场2折起，新品上市全场2折起，新品上市全场2折起即便如此，还是要做好事。虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责。即便如此，还是要做好事。虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责。即便如此，还是要做好事。',
-				// },
-				// {
-				// 	tweetID:3,
-				// 	time:'2020-03-24 10:01',
-				// 	title:'重要通知四',
-				// 	src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1556465765776&di=57bb5ff70dc4f67dcdb856e5d123c9e7&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01fd015aa4d95fa801206d96069229.jpg%401280w_1l_2o_100sh.jpg',
-				// 	text:'虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责。即便如此，还是要做好事。虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责新品上市全场2折起，新品上市全场2折起，新品上市全场2折起，新品上市全场2折起，新品上市全场2折起即便如此，还是要做好事。虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责。即便如此，还是要做好事。虽然做了一件好事，但很有可能因此招来他人的无端猜测，例如被质疑是否藏有其他利己动机等，乃至谴责。即便如此，还是要做好事。',
-				// },
-				]
+				tweetArticle:[],	//推文列表
 			}
 		},
 		onLoad(){
@@ -61,21 +32,30 @@
 		},
 		methods:{
 			//------------------加载通知----------------
+			// for(var i=0;i<res.data.data.length;i++){
+			// 	res.data.data[i].newsContent=res.data.data[i].newsContent.slice(6,30);
+			// 	that.tweetArticle.push(res.data.data[i]);
+			//}
 			loadData(){
 				var that=this;
 				that.tweetArticle=[];
-					uni.request({
-					url:that.$GrzxInter.Interface.getNews.value,
-					method:that.$GrzxInter.Interface.getNews.method,
+				uni.request({
+					url:that.$GrzxInter.Interface.getallMsg.value,
+					method:that.$GrzxInter.Interface.getallMsg.method,
+					data:{
+						SystemName:'南平综合出行',
+					},
 					success(res) {
 						console.log(res)
 						for(var i=0;i<res.data.data.length;i++){
-							res.data.data[i].newsContent=res.data.data[i].newsContent.slice(6,30);
+							// res.data.data[i].newsContent=res.data.data[i].newsContent.slice(6,30);
 							that.tweetArticle.push(res.data.data[i]);
 						}
+						console.log(that.tweetArticle);
 					}
 				})
 			},
+			
 			//------------------选择通知----------------
 			selete(e){
 				uni.setStorage({

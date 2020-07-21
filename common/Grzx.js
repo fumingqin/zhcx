@@ -139,9 +139,21 @@ const Interface={
 		method:'POST',
 		pages: [],
 	},
-	getNews:{
-		value:Url+'/api/person/getNews',
+	// getNews:{
+	// 	value:Url+'/api/person/getNews',
+	// 	name:'获取新闻资讯列表（旧）',
+	// 	method:'POST',
+	// 	pages: [],
+	// },
+	getallMsg:{
+		value:Url+'/api/ky/getallMsg',
 		name:'获取新闻资讯列表',
+		method:'POST',
+		pages: [],
+	},
+	getbymsg:{
+		value:Url+'/api/ky/getbymsg',
+		name:'获取新闻资讯详情',
 		method:'POST',
 		pages: [],
 	},
