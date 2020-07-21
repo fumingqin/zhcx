@@ -142,7 +142,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wx37b8f978e30050e4",
+        "appid" : "wxb9df0ad8d98f94a1",
         "setting" : {
             "es6" : false,
             "postcss" : true,
