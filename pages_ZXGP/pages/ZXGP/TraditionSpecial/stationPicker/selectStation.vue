@@ -13,7 +13,6 @@
 					<text class="deSelectColor" :class="{'selectColor' : startSelectIndex == index}">{{item.SiteName}}</text>
 				</view>
 			</view>
-			
 		</view>
 		
 		<!-- 选择下车点 -->
@@ -55,7 +54,8 @@
 			//接收上个页面传过来的定制班车站点数据
 			var stationArray = JSON.parse(param.stationArray);
 			that.stationArray = stationArray;
-
+			console.log(that.stationArray)
+			
 			//保存上车点数组
 			that.startStationList = that.arrayDistinct(stationArray.specialStartArray);
 			//保存下车点数组
