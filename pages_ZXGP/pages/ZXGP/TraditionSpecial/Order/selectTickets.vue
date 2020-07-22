@@ -196,7 +196,7 @@
 					},
 					success: (res) => {
 						// uni.hideLoading();
-						// console.log('客运班次信息',res);
+						console.log('客运班次信息',res);
 						//非空判断
 						if (res.data.status == true) {
 							if(res.data.data){
