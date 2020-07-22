@@ -79,10 +79,7 @@
 					//#ifdef APP-PLUS
 					setTimeout(function(){
 						uni.navigateTo({	
-							//loginType=1,泉运登录界面
-							//loginType=2,今点通登录界面
-							//loginType=3,武夷股份登录界面
-							url  : '/pages/GRZX/userLogin?loginType=1'
+							url  : '/pages/GRZX/userLogin'
 						}) 
 					},500);
 					//#endif
@@ -104,7 +101,8 @@
 			this.loadData();
 		},
 		methods:{
-			async loadData(){
+			//--------------------------------加载数据------------------------------
+			loadData(){
 				var that=this;
 				var array=[];
 				var list=[];
@@ -169,6 +167,8 @@
 				// this.passengerList=array;
 				// console.log(array)
 			},
+			
+			//--------------------------------添加乘客------------------------------
 			addPassenger(){
 				var that=this;
 				uni.getStorage({
@@ -186,12 +186,15 @@
 						})
 					}
 				})
-				
 			},
+			
+			//--------------------------------返回上一页------------------------------
 			returnPages(){
 				uni.navigateBack();
 			},
-			editPassenger(e){   //编辑乘车人信息
+			
+			//--------------------------------编辑乘车人信息------------------------------
+			editPassenger(e){   
 				uni.setStorage({
 					key:'editPassenger',
 					data:e
@@ -200,8 +203,9 @@
 					url:'/pages/GRZX/addPassenger?type=edit'
 				})
 			},
-			choosePassenger(e){  //选择乘车人
-				//console.log(e,"....00000")
+			
+			//--------------------------------选择乘车人------------------------------
+			choosePassenger(e){  
 				var list=this.passengerList;
 				var count=0;
 				for(var i=0;i<list.length;i++){
@@ -220,7 +224,9 @@
 					e.hiddenIndex=1;
 				}		
 			},
-			definite(){ //提交array
+			
+			//--------------------------------提交选中的乘客------------------------------
+			definite(){
 				var data=this.passengerList;
 				var array=[];
 				for(var i=0;i<data.length;i++){
@@ -234,10 +240,6 @@
 						icon:"none"
 					})
 				}else{
-					// uni.setStorage({
-					// 	key:"passengerList",
-					// 	data:array
-					// })
 					uni.setStorageSync('passengerList',array);
 					uni.navigateBack();	
 				}			

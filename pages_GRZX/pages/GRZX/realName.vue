@@ -78,13 +78,12 @@
 					}
 				})
 			},
+			
 			//--------------------返回-------------------
 			returnClick:function(){
-				// uni.switchTab({
-				// 	url:this.$GrzxInter.Route.user.url,
-				// })
 				uni.navigateBack();
 			},
+			
 			//--------------------校验姓名-------------------
 			nameBlur:function(e){
 				if(e.detail.value==""){
@@ -98,6 +97,7 @@
 					})
 				}
 			},
+			
 			//--------------------校验身份证号-------------------
 			codeBlur:function(e){
 				if(e.detail.value==""){
@@ -111,6 +111,7 @@
 					})
 				}
 			},
+			
 			checkIDCard:function(idcode){
 			    // 加权因子
 			    var weight_factor = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
@@ -135,6 +136,7 @@
 				// 返回验证结果，校验码和格式同时正确才算是合法的身份证号码
 				return last === last_no && format ? true : false;
 			},
+			
 			//--------------------提交数据-------------------
 			submitClick:function(){
 				var that=this;
@@ -162,6 +164,7 @@
 					// that.bikeUserVerified(that.name,that.codeNum)
 				}
 			},
+			
 			//--------------------自行车用户实名认证-------------------
 			bikeUserVerified:function(name,codeNum){
 				var that=this;
@@ -192,6 +195,7 @@
 					}
 				})
 			},
+			
 			//--------------------钱包注册新用户-------------------
 			GetEnrollment:function(name,codeNum){
 				var that=this;
@@ -226,10 +230,12 @@
 					}
 				})
 			},
+			
 			//--------------------有效期-------------------
 			dateChange : function(e){
 				this.validityTerm = e.detail.value;
 			},
+			
 			//--------------------获得日期-------------------
 			getDate(type) {
 				const date = new Date();
