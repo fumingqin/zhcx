@@ -955,9 +955,7 @@
 								<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
 								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
 								<view class="at_button at_btDelete" v-if="item.carType=='普通班车' || item.carType=='定制班车'" @tap="open2(item.orderNumber,'2')">退票</view>
-								<!-- #ifndef MP-WEIXIN -->
-								<view class="at_button at_btDelete" v-if="item.state=='4'&&item.carType=='定制巴士'" @click="busLocation(item)">车辆位置</view>
-								<!-- #endif -->
+								<view class="at_button at_btDelete" v-if="item.state=='4'" @click="busLocation(item)">车辆位置</view>
 								<view class="at_button at_btDelete" v-if="item.carType=='定制巴士'" @tap="open2(item,'cs2tui')">退票</view>
 								<!-- <view class="at_button at_btDelete" v-if="item.carType=='普通班车' || item.carType=='定制班车'" @tap="endorse(item)">改签</view> -->
 							</view>
