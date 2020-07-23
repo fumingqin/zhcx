@@ -177,6 +177,11 @@
 				"navigationBarTitleText": "服务"
 			}
 		}
+       
+        ,{
+            "path" : "pages/order/newOrderList",
+            "style" : {}
+        }
     ],
 
 	"subPackages": [
