@@ -428,6 +428,7 @@
 					that.checkSelf(data1); //检查列表中是否存在本人
 				}
 			},
+			
 			// ------------------检查是否有本人----------------
 			checkSelf:function(data1){
 				var that=this;
@@ -475,6 +476,7 @@
 					}
 				})
 			},
+			
 			// ------------------保存用户信息----------------
 			keepPassenger:function(data1){
 				var that=this;
@@ -547,10 +549,12 @@
 					},
 				})
 			},
+			
 			// ------------------绑定日期----------------
 			bindDateChange:function(e){
 				this.user.date = e.target.value;
 			},
+			
 			//------------------选择证件类型----------------
 			codeChange:function(e){
 				this.code=e.detail.value;
@@ -561,6 +565,7 @@
 					this.codeType=this.selectCode[e.detail.value]+" >";
 				}
 			},
+			
 			//------------------添加额外凭证----------------
 			proveChange:function(e){
 				this.user.prove=e.detail.value;
@@ -570,6 +575,7 @@
 					this.selector=this.proveType[e.detail.value]+" >";
 				}
 			},
+			
 			//------------------选择购票类型----------------
 			typeChange:function(e){
 				this.user.type=e.detail.value;
@@ -580,6 +586,7 @@
 					this.ticketType=this.selectType[e.detail.value]+" >";
 				}
 			},
+			
 			//------------------重置信息----------------
 			resetClick:function(e){
 				console.log(e)
@@ -598,6 +605,7 @@
 				this.user.type=0;
 				// this.user.userEmergencyContact=false;
 			},
+			
 			//------------------是否选中本人----------------
 			checkChange:function(e){
 				//console.log(e.detail.value,"xuanzhong");
@@ -608,10 +616,12 @@
 					this.user.userEmergencyContact=false;
 				}
 			},
+			
 			//------------------返回按钮----------------
 			returnClick:function(){
 				uni.navigateBack();
 			},
+			
 			//------------------校验手机号----------------
 			checkPhone:function(e){
 				var reg=(/^1(3|4|5|6|7|8|9)\d{9}$/);
@@ -626,6 +636,7 @@
 					})
 				}
 			},
+			
 			//------------------校验身份证号----------------
 			checkCodeNum1:function(e){
 				console.log(e)
@@ -688,6 +699,8 @@
 					})
 				}
 			},
+			
+			//------------------校验身份证号----------------
 			checkIDCard:function(idcode){
 			    // 加权因子
 			    var weight_factor = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
@@ -712,26 +725,31 @@
 				// 返回验证结果，校验码和格式同时正确才算是合法的身份证号码
 				return last === last_no && format ? true : false;
 			},
+			
 			//------------------校验护照----------------
 			checkPass1:function(e){
 				var reg=/^((1[45]\d{7})|(G\d{8})|(P\d{7})|(S\d{7,8}))?$/.test(e);
 				return reg;
 			},
+			
 			//------------------校验港澳通行证----------------
 			checkPass2:function(e){
 				var reg=/^[HMhm]{1}([0-9]{10}|[0-9]{8})$/.test(e);
 				return reg;
 			},
+			
 			//------------------校验台胞证----------------
 			checkPass3:function(e){
 				var reg=/^(?:(830000(?:19|20)\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])\d{3}[\dX])|\d{10}[DAB])$/.test(e);
 				return reg;
 			},
+			
 			//------------------校验回乡证----------------
 			checkPass4:function(e){
 				// var reg=/^[HMhm]{1}([0-9]{10}|[0-9]{8})$/.test(e);
 				return true;
 			},
+			
 			//------------------校验姓名----------------
 			nameClick:function(e){
 				if(e.detail.value==""){

@@ -133,13 +133,16 @@
 				text:'',
 				
 				title:'',
-				systemName:'南平综合出行',
+				systemName:'',
 				companyName:'途游信息科技',
 			}
 		},
 		onLoad(options) {
 			this.title=options.title;
 			this.loadTitle(options.title);
+			
+			//加载应用名称
+			this.systemName=this.$GrzxInter.systemConfig.applyName;
 		},
 		methods:{
 			loadTitle:function(e){

@@ -31,31 +31,24 @@
 			this.loadImg();
 	    },
 	    methods: {
+			//--------------------------------加载背景图--------------------------
 			loadImg(){
-				var that=this;
-				console.log(that.$GrzxInter.GetImage.url,"144")
-				uni.request({
-					url:that.$GrzxInter.GetImage.url,
-					data:{
-						model:5,
-					},
-					method:'POST',
-					success(res) {
-						var image=res.data.data.filter(item => {
-							return item.type=='绑定手机号';
-						})
-						that.bindPhoneImg=image[0].imageUrl;
-						console.log(that.bindPhoneImg,'that.bindPhone')
-					}
-				})
+				var that = this;
+				that.$ChangeImage.GetImage("南平综合出行","绑定手机号").then(function(data) {
+					that.bindPhoneImg = data;
+				});
 			},
-			returnClick(){		//返回个人中心
+			
+			//--------------------------------返回个人中心--------------------------
+			returnClick(){		
 				uni.switchTab({
 					// url:'/pages/GRZX/user',
 					url:theSelf.$GrzxInter.Route.user.url,
 				})
 			},
-			judgeNum(val){  //只能输入数字
+			
+			//--------------------------------只能输入数字--------------------------
+			judgeNum(val){  
 				var regPos = /^\d+(\.\d+)?$/; //非负浮点数
 				    var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
 				    if(regPos.test(val) || regNeg.test(val)) {
@@ -64,6 +57,8 @@
 				        return false;
 				    }
 			},
+			
+			//--------------------------------输入手机号时触发--------------------------
 			inputChange1(e){
 				var num=e.detail.value;
 				if(this.judgeNum(num)){
@@ -77,6 +72,8 @@
 				const key = e.currentTarget.dataset.key;
 				this[key] = e.detail.value;
 			},
+			
+			//--------------------------------输入验证码时触发--------------------------
 			inputChange2(e){
 				var num=e.detail.value;
 				if(this.judgeNum(num)){
@@ -90,7 +87,9 @@
 				const key = e.currentTarget.dataset.key;
 				this[key] = e.detail.value;
 			},
-			bindPhone(){	 //绑定手机
+			
+			//--------------------------------绑定手机--------------------------
+			bindPhone(){	 
 				var that=this;
 				var list=uni.getStorageSync('captchaCode')	//验证码和手机号
 				console.log(list,"list")
@@ -191,7 +190,9 @@
 					})
 				}
 			},
-			getCodeClick(e){	//获取验证码
+			
+			//--------------------------------获取验证码--------------------------
+			getCodeClick(e){	
 				var self=this;
 				const {phoneNumber, captchaCode} = this;		
 				if(self.judgeNum(self.phoneNumber)){

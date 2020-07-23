@@ -50,12 +50,14 @@
 			this.load();
 		},
 		methods:{
+			//------------------------------------路由--------------------------
 			navTo(url){
 				uni.navigateTo({
 					url:url
 				})
 			},
-			async load(){
+			//------------------------------------加载缓存大小--------------------------
+			load(){
 				var that=this;
 				uni.getStorage({
 					key:'switch',
@@ -80,7 +82,7 @@
 					that.currentSize=size+" KB";
 				}
 			},
-			//退出登录
+			//------------------------------------退出登录--------------------------
 			toLogout(){				
 				// var user=uni.getStorageSync('userInfo');
 				// console.log(user,"00000")
@@ -126,7 +128,8 @@
 					}
 				})
 			},
-			//清除缓存
+			
+			//------------------------------------清除缓存--------------------------
 			clearStorage(){
 				var user=uni.getStorageSync('userInfo');
 				var RealNameInfo=uni.getStorageSync('RealNameInfo');
@@ -145,24 +148,23 @@
 				    }
 				});
 			},
-			//switch
+			
+			//------------------------------------switchChange--------------------------
 			switchChange(e){
 				let statusTip = e.detail.value ? true: false;
 				uni.setStorage({
 					key:'switch',
 					data:statusTip
 				})
-				//console.log(statusTip)
-				//this.$api.msg(`${statusTip}消息推送`);
 			},
+			
+			//------------------------------------playChange--------------------------
 			playChange(e){
 				let statusTip = e.detail.value ? true: false;
 				uni.setStorage({
 					key:'play',
 					data:statusTip
 				})
-				//console.log(statusTip)
-				//this.$api.msg(`${statusTip}消息推送`);
 			},
 
 		}

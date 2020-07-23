@@ -34,7 +34,7 @@ const Interface = {
 const appConfig={  //AppId,AppSecret配置
 	wxConfig:{
 		name:'小程序的Appid',
-		wxAppId:'wx37b8f978e30050e4',
+		wxAppId:'wxb9df0ad8d98f94a1',
 	},
 	H5Config:{
 		name:'公众号的Appid和App秘钥',

@@ -13,7 +13,6 @@
 					<text class="deSelectColor" :class="{'selectColor' : startSelectIndex == index}">{{item.SiteName}}</text>
 				</view>
 			</view>
-			
 		</view>
 		
 		<!-- 选择下车点 -->
@@ -44,6 +43,7 @@
 				endSelectIndex:0,//记录下车点点击下标
 				startStationList:[],//上车点数组
 				endStationList:[],//下车点数组
+				default:'',
 				startStation:'',//上车点
 				endStation:'',//下车点
 				stationArray:[]
@@ -54,17 +54,19 @@
 			//接收上个页面传过来的定制班车站点数据
 			var stationArray = JSON.parse(param.stationArray);
 			that.stationArray = stationArray;
-
+			console.log(that.stationArray)
+			
 			//保存上车点数组
 			that.startStationList = that.arrayDistinct(stationArray.specialStartArray);
 			//保存下车点数组
 			that.endStationList = that.arrayDistinct(stationArray.specialEndArray);
-			
+			that.default = that.endStationList.length-1;
+			console.log(that.default)
 			if(stationArray.startStaionIndex == "" && stationArray.endStationIndex == "") {
 				//定位已选择的上车点
 				that.startSelectIndex = 0;
 				//定位已选择的下车点
-				that.endSelectIndex = 0;
+				that.endSelectIndex = that.default;
 			}else {
 				//定位已选择的上车点
 				that.startSelectIndex = stationArray.startStaionIndex;

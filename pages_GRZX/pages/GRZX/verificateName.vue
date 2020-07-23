@@ -60,8 +60,9 @@
 						})
 					}
 				})
-				// RealNameInfo
 			},
+			
+			//--------------------加载实名信息-------------------
 			loadRealNameInfo:function(){
 				var that=this;
 				uni.getStorage({
@@ -70,13 +71,10 @@
 						that.RealNameInfo=res.data;
 					},
 					fail() {
-						// uni.showToast({
-						// 	title:'',
-						// 	icon:'none'
-						// })
 					}
 				})
 			},
+			
 			//--------------------校验姓名-------------------
 			nameBlur:function(e){
 				if(e.detail.value==""){
@@ -90,6 +88,7 @@
 					})
 				}
 			},
+			
 			//--------------------校验身份证号-------------------
 			codeBlur:function(e){
 				if(e.detail.value==""){
@@ -103,6 +102,7 @@
 					})
 				}
 			},
+			
 			checkIDCard:function(idcode){
 			    // 加权因子
 			    var weight_factor = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
@@ -127,6 +127,7 @@
 				// 返回验证结果，校验码和格式同时正确才算是合法的身份证号码
 				return last === last_no && format ? true : false;
 			},
+			
 			//--------------------提交-------------------
 			submitClick:function(){
 				var that=this;

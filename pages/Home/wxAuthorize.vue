@@ -148,13 +148,11 @@ export default{
 			var pc = new WXBizDataCrypt(appId, this.sessionKey)
 			var data = pc.decryptData(encryptedData , iv)
 			var that=this;
-			
+			console.log("获取微信手机号",data.purePhoneNumber);
 			uni.request({
 				url:that.$GrzxInter.Interface.login.value,
 				data:{
 					phoneNumber:data.purePhoneNumber,
-					systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
-					openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 				},
 				method:that.$GrzxInter.Interface.login.method,
 				success(res1){
