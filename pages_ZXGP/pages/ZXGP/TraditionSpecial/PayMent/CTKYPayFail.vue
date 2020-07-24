@@ -73,7 +73,7 @@
 			godetail: function(e) {
 				if(e==0){
 					uni.switchTab({
-						url:'../../../../../pages/order/OrderList',
+						url:'../../../../../pages/order/newOrderList',
 						
 					});
 				}else if(e==1){
