@@ -127,8 +127,8 @@
 	        return {
 				applyName:'',   //应用名称
 				
-				type:'1',  		//切换tab
-				state:'1',		 //1管理， 2完成
+				type:1,  		//切换tab
+				state:1,		 //1管理， 2完成
 				passengerList:[], 	//乘客列表
 				addressList:[],		//地址列表
 				
@@ -190,6 +190,10 @@
 					key:'userInfo',
 					success(res){
 						that.userId=res.data.userId;
+						uni.showLoading({
+							mask:true,
+							title: '加载中...',
+						})
 						uni.request({
 							url:that.$GrzxInter.Interface.userInfoList.value,
 							data:{
@@ -231,6 +235,14 @@
 								uni.setStorage({
 									key:'passengerList',
 									data:list1,
+								})
+								uni.hideLoading();
+							},
+							fail() {
+								uni.hideLoading();
+								uni.showToast({
+									icon:'none',
+									title:'网络请求失败'
 								})
 							}
 						})
@@ -316,35 +328,56 @@
 						deleteList.push(data[i]);
 					}
 				}
-				console.log(deleteList,"deleteList")
 				if(deleteList.length==0){
 					uni.showToast({
 						title: '请选择',
 						icon:"none"
 					})
 				}else{
-					for(var j=0;j<deleteList.length;j++){
-						uni.request({
-							url:that.$GrzxInter.Interface.deletuserInfoList.value,
-							data:{
-								userId:that.userId,
-								passengerId:deleteList[j].passengerId,
-							},
-							method:that.$GrzxInter.Interface.deletuserInfoList.method,
-							success(res) {
-								if(res.data.status&&res.data.msg=='删除成功'){
-									uni.showToast({
-										title:'删除成功！',
-										icon:'none',
-									})
+					uni.showModal({
+						title:'友情提醒',
+					    content: '确定删除这些乘客信息？',
+					    success: (e)=>{
+					    	if(e.confirm){
+								that.deleteByList(deleteList);
+								uni.redirectTo({
+									url:that.$GrzxInter.Route.infoList.url,
+								})
+							}else{
+								uni.showToast({
+									icon:'none',
+									title:'已取消',
+								})
+								this.state=1;
+								for(var i=0;i<data.length;i++){
+									data[i].deleteIndex=0;
 								}
 							}
-						})	
-					}
-					this.state=1;
-					uni.redirectTo({
-						url:that.$GrzxInter.Route.infoList.url,
-					})
+					    }
+					});
+				}
+			},
+			
+			//--------------------------------请求接口删除乘客--------------------------------
+			deleteByList(deleteList){
+				var that=this;
+				for(var j=0;j<deleteList.length;j++){
+					uni.request({
+						url:that.$GrzxInter.Interface.deletuserInfoList.value,
+						data:{
+							userId:that.userId,
+							passengerId:deleteList[j].passengerId,
+						},
+						method:that.$GrzxInter.Interface.deletuserInfoList.method,
+						success(res) {
+							if(res.data.status&&res.data.msg=='删除成功'){
+								uni.showToast({
+									title:'删除成功！',
+									icon:'none',
+								})
+							}
+						}
+					})	
 				}
 			},
 			
@@ -391,7 +424,7 @@
 				})
 			},
 			
-			// --------------------------------删除乘车人--------------------------------
+			// --------------------------------点击管理--------------------------------
 			deleteClick(){
 				var that=this;
 				uni.getStorage({

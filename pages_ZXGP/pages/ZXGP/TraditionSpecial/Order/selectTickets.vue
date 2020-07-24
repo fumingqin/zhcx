@@ -220,18 +220,33 @@
 								}
 								console.log('客运班次信息2',that.allTicketsList)
 								//加载定制巴士班次列表数据
-								that.getSpecialBusTicketInfo(date);
+								// that.getSpecialBusTicketInfo(date);
+								uni.hideLoading();
 							}else if(res.data.data.length == 0) {
 								//加载定制巴士班次列表数据
-								that.getSpecialBusTicketInfo(date);
+								// that.getSpecialBusTicketInfo(date);
+								uni.showToast({
+									title: '暂无班次信息',
+									icon: 'none'
+								})
+								uni.hideLoading();
 							}
 						} else if (res.data.status == false){
 							//加载定制巴士班次列表数据
-							that.getSpecialBusTicketInfo(date);
+							// that.getSpecialBusTicketInfo(date);
+							uni.showToast({
+								title: '暂无班次信息',
+								icon: 'none'
+							})
+							uni.hideLoading();
 						}
 					},
 					fail(res) {
 						console.log(res);
+						uni.showToast({
+							title: '服务器异常，班次列表数据出错',
+							icon: 'none'
+						})
 						uni.hideLoading();
 					}
 				});
@@ -383,9 +398,9 @@
 							var nowdate = this.getTime(3, mydate); //获取该日期的缩写  月/日
 							var week = this.getTime(2, mydate); //获取该日期为周几
 							var longdate = this.getTime(0, mydate); //获取 年/月/日
-							if (this.getTime(0, mydate) == this.getTime(0, dateToday)) {
-								week = '今天';
-							}
+							// if (this.getTime(0, mydate) == this.getTime(0, dateToday)) {
+							// 	week = '今天';
+							// }
 							this.dateArray.push({
 								week: week,
 								date: nowdate,
@@ -594,9 +609,9 @@
 					var nowdate = this.getTime(3, mydate);
 					var week = this.getTime(2, mydate);
 					var longdate = this.getTime(0, mydate);
-					if (mydate.getTime() == date.getTime()) {
-						week = '今天';
-					}
+					// if (mydate.getTime() == date.getTime()) {
+					// 	week = '今天';
+					// }
 					this.dateArray.push({
 						week: week,
 						date: nowdate,

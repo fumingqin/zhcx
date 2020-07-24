@@ -1,7 +1,7 @@
 <template>
 	<view class="content">	
 		<view class="passengerList">
-			<view class="boxClass" v-if="submitType == 1 || submitType == 2" v-for="(item, index) in passengerList" :key="index" @click="choosePassenger(item)">  <!--非个人中心页面进入 -->
+			<view class="boxClass" v-for="(item, index) in passengerList" :key="index" @click="choosePassenger(item)">  <!--非个人中心页面进入 -->
 				<view class="nameClass">{{item.userName}}</view>
 				<view class="sexClass" name="userSex">{{item.userSex}}</view>
 				<!-- <view class="typeClass">{{item.userType}}</view> -->
@@ -17,33 +17,13 @@
 					<text style="font-size: 24upx;color: #2C2D2D;line-height: 57upx;margin-left: 20upx;">{{item.userauditState}}</text>
 					<text v-if="item.userDefault==true" class="fontClass" style="width: 80upx;">本人</text>
 					<!-- <text v-if="item.userEmergencyContact==true" class="fontClass" style="width: 80upx;">联系人</text> -->
-					
-				</view>
-			</view>
-			<view class="boxClass" v-if="submitType == 0" v-for="(item, index) in passengerList" :key="index" @click="editPassenger(item)">  <!--个人中心页面进入 -->
-				<view class="nameClass">{{item.userName}}</view>
-				<view class="sexClass">{{item.userSex}}</view>
-				<!-- <view class="typeClass">{{item.userType}}</view> -->
-				<view class="codeClass fontStyle">身份证</view>
-				<view class="codeNumClass fontStyle">{{item.userCodeNum}}</view>
-				<view class="phoneClass fontStyle">联系电话</view>
-				<view class="phoneNumClass fontStyle">{{item.userPhoneNum}}</view>
-				<image src="../../static/GRZX/btnRight.png" class="btnRight"></image>
-				<view class="redBox">
-					<view class="typeClass">{{item.userType}}</view>
-					<text style="font-size: 24upx;color: #2C2D2D;line-height: 57upx;margin-left: 20upx;">{{item.userauditState}}</text>
-					<text v-if="item.userDefault==true" class="fontClass" style="width: 80upx;">本人</text>
-					<!-- <text v-if="item.userEmergencyContact=='true'" class="fontClass" style="width: 80upx;">联系人</text> -->
 				</view>
 			</view>
 		</view>	
-		<view v-if="submitType == 1 || submitType == 2" class="btnBox">  <!--非个人中心页面进入 -->
+		<view class="btnBox"> 
 			<button type="warn" @click="addPassenger" class="btnAdd1">+添加乘客</button>
 			<button type="primary" @click="definite" class="btnDefinite">确定</button>
 		</view>
-		<view v-if="submitType == 0" class="btnBox">  <!--个人中心页面进入-->
-			<button type="warn" @click="addPassenger" class="btnAdd2">+添加乘客</button>
-		</view>	
 		<view class="returnBox" @click="returnPages">
 			<image class="returnClass" src="../../static/GRZX/btnReturn.png"></image>
 			<view class="titleClass">返回</view>
@@ -55,18 +35,13 @@
 	export default {
 		data(){
 			return{
-				limt:'',
-				passengerList:[],
-				submitType:'',
+				limt:'', //限制的人数
+				passengerList:[], //乘客列表
 			}
 		},
 		onLoad(options){
 			//传参
-			//submitType参数为1,为旅游进入
-			//submitType参数为2,为出租车进入
-			//submitType参数为3,为传统客运进入
 			//limitNum参数为你限制添加乘车人的数量（大于等于1）
-			this.submitType=options.submitType;
 			this.limit=options.limitNum;
 			uni.getStorage({
 				key:'userInfo',
@@ -97,7 +72,6 @@
 		  this.loadData();
 		},
 		onShow() {
-			//uni.startPullDownRefresh();
 			this.loadData();
 		},
 		methods:{
@@ -124,7 +98,6 @@
 							})
 						}else{
 							uni.request({
-								//url:'http://111.231.109.113:8002/api/person/userInfoList',
 								url:that.$GrzxInter.Interface.userInfoList.value,
 								data:{
 									userId:res.data.userId
@@ -139,7 +112,6 @@
 											res1.data.data[i].userSex="女";
 										}
 										var data1=res1.data.data[i];
-										//console.log(data1,"data1")
 										data1.hiddenIndex=0;
 										for(var q=0;q<list.length;q++){
 											if(data1.passengerId==list[q]){
@@ -164,8 +136,6 @@
 						
 					}
 				})
-				// this.passengerList=array;
-				// console.log(array)
 			},
 			
 			//--------------------------------添加乘客------------------------------
@@ -175,7 +145,6 @@
 					key:'userInfo',
 					success() {
 						uni.navigateTo({
-							//url:'/pages/GRZX/addPassenger?type=ad'
 							url:that.$GrzxInter.Route.addPassenger.url+'?type=add'
 						})
 					},
