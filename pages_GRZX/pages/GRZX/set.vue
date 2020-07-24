@@ -24,11 +24,7 @@
 			<text class="cell-tit">退出登录</text>
 		</view>
 		<!-- #endif -->
-		<!-- #ifdef MP-WEIXIN -->
-		<view class="list-cell log-out-btn" @click="toLogout">
-			<text class="cell-tit">退出登录</text>
-		</view>
-		<!-- #endif -->
+
 	</view>
 </template>
 
@@ -92,7 +88,8 @@
 					key:'userInfo',
 					success(){
 						uni.showModal({
-							content: '确定要退出登录么',
+							title:'提示',
+							content: '确定要退出登录吗？',
 							success: (e)=>{
 								if(e.confirm){
 									uni.removeStorageSync('userInfo');
@@ -116,7 +113,7 @@
 						setTimeout(function(){
 							uni.navigateTo({
 								// url  : '/pages/GRZX/userLogin',
-								url:that.$GrzxInter.Route.userLogin.url +'?loginType=1&&urlData=1'
+								url:that.$GrzxInter.Route.userLogin.url +'?urlData=1'
 							}) 
 						},1000);
 						// #endif

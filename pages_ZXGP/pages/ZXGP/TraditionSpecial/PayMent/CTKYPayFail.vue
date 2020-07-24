@@ -78,14 +78,14 @@
 					});
 				}else if(e==1){
 					uni.switchTab({
-						url:'../../../../../pages/Home/Index',
+						url:'../../../../../pages/Home/zxgpHomePage',
 					});
 				}
 			},
 			backHome : function() {
 				setTimeout(() => {
 					uni.switchTab({
-						url:'../../../../../pages/Home/Index',
+						url:'../../../../../pages/Home/zxgpHomePage',
 					});
 				}, 10000);
 			}

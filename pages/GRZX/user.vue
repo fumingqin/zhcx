@@ -165,12 +165,12 @@
 			this.loadData();
 			
 			//读取客服热线
-			uni.getStorage({
-				key: 'ConsumerHotline',
-				success(res) {
-					that.phoneNumber = res.data.Phone1
-				}
-			})
+			// uni.getStorage({
+			// 	key: 'ConsumerHotline',
+			// 	success(res) {
+			// 		that.phoneNumber = res.data.Phone1
+			// 	}
+			// })
 		},
 		methods: {
 			// ---------------------------加载图片----------------------------
@@ -532,22 +532,22 @@
 			// ---------------------------电话客服--------------------------
 			phoneClick() {
 				var that = this;
-				uni.makePhoneCall({
-					phoneNumber: that.phoneNumber, //仅为示例
-				});
-				// uni.request({
-				// 	url:that.$GrzxInter.Interface.SearchCustomerService.value,
-				// 	data:{
-				// 		region:'泉州',
-				// 	},
-				// 	method:that.$GrzxInter.Interface.SearchCustomerService.method,
-				// 	success(res){
-				// 		console.log(res)
-				// 		uni.makePhoneCall({
-				// 		    phoneNumber: res.data.data.phone, //仅为示例
-				// 		});
-				// 	}
-				// })
+				// uni.makePhoneCall({
+				// 	phoneNumber: that.phoneNumber, //仅为示例
+				// });
+				uni.request({
+					url:that.$GrzxInter.Interface.SearchCustomerService.value,
+					data:{
+						region:'泉州',
+					},
+					method:that.$GrzxInter.Interface.SearchCustomerService.method,
+					success(res){
+						console.log(res)
+						uni.makePhoneCall({
+						    phoneNumber: res.data.data.phone, 
+						});
+					}
+				})
 			},
 			
 			// ---------------------------QQ客服--------------------------

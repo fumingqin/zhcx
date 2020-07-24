@@ -249,25 +249,24 @@
 						title:'请输入证件号',
 						icon:'none',
 					})
-				}else if(data1.userauditState=="身份证 >"){//&&!that.checkIDCard(data1.userCodeNum)
-					uni.showToast({
-						title:'请输入身份证号',
-						// title:'输入的身份证号有误，请检查',
-						icon:'none',
-					})
-				}else if(data1.userauditState=="出生证 >"){//&&!that.checkPass1(data1.userCodeNum)
-					uni.showToast({
-						title:'请输入出生证号',
-						//title:'输入的证件号有误，请检查',
-						icon:'none',
-					})
-				}else if(data1.userauditState=="临时乘车编号 >"){ //&&!that.checkPass2(data1.userCodeNum)
-					uni.showToast({
-						title:'请输入临时乘车编号',
-						//title:'输入的证件号有误，请检查',
-						icon:'none',
-					})
-				}else{
+				}
+				// else if(data1.userauditState=="身份证 >"&&!that.checkIDCard(data1.userCodeNum)){
+				// 	uni.showToast({
+				// 		title:'输入的身份证号有误，请检查',
+				// 		icon:'none',
+				// 	})
+				// }else if(data1.userauditState=="出生证 >"&&!that.checkPass1(data1.userCodeNum)){
+				// 	uni.showToast({
+				// 		title:'输入的证件号有误，请检查',
+				// 		icon:'none',
+				// 	})
+				// }else if(data1.userauditState=="临时乘车编号 >"&&!that.checkPass2(data1.userCodeNum)){ 
+				// 	uni.showToast({
+				// 		title:'输入的证件号有误，请检查',
+				// 		icon:'none',
+				// 	})
+				// }
+				else{
 					data1.userauditState = data1.userauditState.substring(0,data1.userauditState.length-2);
 					uni.showLoading({
 						title:'保存中...'
@@ -362,7 +361,6 @@
 			
 			//------------------是否选中本人----------------
 			checkChange:function(e){
-				//console.log(e.detail.value,"xuanzhong");
 				if(e.detail.value=="false"||e.detail.value=="true"){ //选中
 					this.user.show=false;
 				}else{	//未选中

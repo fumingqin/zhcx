@@ -8,12 +8,12 @@
 				<text class="MP_text">费用包含：车票 {{insurance}}</text>
 
 				<view class="MP_selectionDate">
-					<view class="MP_title">使用时间</view>
-					<text class="MP_text">{{turnDate(orderInfo.setTime)}} &nbsp; 仅限当天</text>
+					<view class="MP_title">发车时间</view>
+					<text class="MP_text">{{turnDate(orderInfo.setTime)}}</text>
 				</view>
 
 				<view class="MP_selectionDate" :hidden="hiddenValues==0">
-					<view class="MP_title">购票人信息</view>
+					<view class="MP_title">乘客信息</view>
 					<view class="MP_userInformation" v-for="(item,index) in passengerInfo" :key="index">
 						<text>{{item.userName}}</text>
 						<text class="Mp_sex">{{item.userSex}}</text>
@@ -227,7 +227,8 @@
 			turnDate(date) {
 				if (date) {
 					var setTime = date.replace('T', ' ');
-					return setTime;
+					var setTime2 = setTime.substr(0,16);
+					return setTime2;
 				}
 			},
 			//--------------------------读取乘车人信息--------------------------
@@ -354,6 +355,8 @@
 				companyCode = $KyInterface.KyInterface.systemName.systemNameNPWeiXin;
 				// #endif
 				//--------------------------发起下单请求-----------------------
+				console.log(that.orderInfo.planScheduleCode)
+				console.log(that.orderInfo.lineName)
 				uni.request({
 					url:$KyInterface.KyInterface.Ky_PaymentUrl.Url,
 					method:$KyInterface.KyInterface.Ky_PaymentUrl.method,
@@ -361,6 +364,7 @@
 					
 					data: {
 						companyCode: companyCode,
+						SystemName:companyCode,//公司代码
 						clientID: that.userInfo.userId, //用户ID
 						clientName: that.userInfo.nickname, //用户名
 						phoneNumber: that.userInfo.phoneNumber, //手机号码
@@ -384,9 +388,12 @@
 						openId: openId,
 						totalPrice: that.totalPrice, //总价格
 						payParameter: '', //不需要的参数，传空
-
+						
 						getOnPoint: that.specialStartStation, //定制班车上车点
 						getOffPoint: that.specialEndStation, //定制班车下车点
+						planScheduleCode:that.orderInfo.planScheduleCode,//班次号
+						lineName: that.orderInfo.lineName,//线路名称
+						
 					},
 
 					success: (res) => {
@@ -460,7 +467,13 @@
 												if(res.confirm) {
 													that.payment();
 												}
+											},
+											fail() {
+												uni.switchTab({
+													url:'../../../../../pages/order/newOrderList'
+												})
 											}
+											
 										})
 									}
 								} else if (res.data.status == false) {
