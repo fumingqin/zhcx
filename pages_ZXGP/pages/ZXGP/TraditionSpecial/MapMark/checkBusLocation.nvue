@@ -6,18 +6,18 @@
 		<view class="orderInfo">
 			<text style="font-size:32rpx; margin-left: 30rpx; margin-top: 20rpx;">{{orderInfo.station}}</text>
 			<text class="textView">发车时间：{{orderInfo.time}}</text>
-			<text class="textView">司机姓名：{{(orderInfo.driverName.substr(0,1))+'师傅'}}</text>
+			<!-- <text class="textView">司机姓名：{{(orderInfo.driverName.substr(0,1))+'师傅'}}</text> -->
 			<text class="textView">当前所在站点：{{orderInfo.currentStation}}</text>
 			<text class="textView">下一站：{{orderInfo.stationNum}}</text>
-			<text class="textView">预计时间：{{orderInfo.dowStation}}</text>
-			<view class="buttonView">
+			<text class="textView" style="margin-bottom: 20upx;">预计时间：{{orderInfo.dowStation}}</text>
+			<!-- <view class="buttonView">
 				<button class="button" style="background-color: #06B4FD;" @click="checkDriver">
 					<text class="butnText">查看司机</text>
 				</button>
 				<button class="button" style="background-color: #FC4646;" @click="contactDriver">
 					<text class="butnText">联系司机</text>
 				</button>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>
@@ -170,8 +170,6 @@
 	.orderInfo {
 		background-color: #FFFFFF;
 		position: fixed;
-		width: 600upx;
-		height: 700upx;
 		border-radius: 20rpx;
 		bottom: 20rpx;
 		left: 20rpx;

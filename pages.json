@@ -177,6 +177,11 @@
 				"navigationBarTitleText": "服务"
 			}
 		}
+       
+        ,{
+            "path" : "pages/order/newOrderList",
+            "style" : {}
+        }
     ],
 
 	"subPackages": [
@@ -901,7 +906,28 @@
 						"navigationBarTitleText": "软件许可及服务协议",
 						"navigationBarBackgroundColor": "#FFFFFF"
 					}
+				},
+				{
+					"path": "pages/GRZX/TSXT/complaint", //软件许可及服务协议
+					"style": {}
+				},
+				{
+					"path": "pages/GRZX/TSXT/complaintList", //软件许可及服务协议
+					"style": {}
+				},
+				{
+					"path": "pages/GRZX/TSXT/complaintStatus", //软件许可及服务协议
+					"style": {}
+				},
+				{
+					"path": "pages/GRZX/TSXT/Feedback", //软件许可及服务协议
+					"style": {}
+				},
+				{
+					"path": "pages/GRZX/TSXT/FeedbackView", //软件许可及服务协议
+					"style": {}
 				}
+				
 			]
 		},
 		//---------------------------------------------第七个包：达达通------------------------------------------

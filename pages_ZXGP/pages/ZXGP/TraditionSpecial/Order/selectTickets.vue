@@ -37,10 +37,15 @@
 				</view>
 				
 				<view style="margin-left: 25upx;display: flex;align-items: center;margin-bottom: 16upx;justify-content: space-between;">
-					<view style="display: flex;align-items: center;">
+					<view v-if="isNormal==0" style="display: flex;align-items: center;">
 						<image src="../../../../static/ZXGP/startDot.png" style="width: 10upx ;height: 10upx;"></image>
 						<view style="margin-left: 16upx; font-size: 30upx;font-style:SourceHanSansSC-Regular ;
 						color: #333333;">{{item.startStaion}}</view>
+					</view>
+					<view v-if="isNormal==1" style="display: flex;align-items: center;">
+						<image src="../../../../static/ZXGP/startDot.png" style="width: 10upx ;height: 10upx;"></image>
+						<view style="margin-left: 16upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;
+						color: #333333;">{{item.endStation}}</view>
 					</view>
 					<view v-if="item.shuttleType != '定制巴士'" style="margin-right: 28upx;font-size: 24upx;font-style:
 					SourceHanSansSC-Regular; color: #FC4646;">全票￥{{item.fare}}</view>
@@ -50,10 +55,15 @@
 					SourceHanSansSC-Regular; color: #FC4646;">价格￥{{item.PriceRange}}</view>
 				</view>
 				<view style="margin-left: 25upx;display: flex;align-items: center;margin-bottom: 16upx;justify-content: space-between;">
-					<view style="display: flex;align-items: center;">
+					<view v-if="isNormal==0" style="display: flex;align-items: center;">
 						<image src="../../../../static/ZXGP/endDot.png" style="width: 10upx ;height: 10upx;"></image>
 						<view style="margin-left: 16upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;
 						color: #333333;">{{item.endStation}}</view>
+					</view>
+					<view v-if="isNormal==1" style="display: flex;align-items: center;">
+						<image src="../../../../static/ZXGP/endDot.png" style="width: 10upx ;height: 10upx;"></image>
+						<view style="margin-left: 16upx; font-size: 30upx;font-style:SourceHanSansSC-Regular ;
+						color: #333333;">{{item.startStaion}}</view>
 					</view>
 					<view style="margin-right: 28upx;font-size: 24upx;font-style:
 					SourceHanSansSC-Light; color: #666666;">余{{item.remainingVotes}}张</view>
@@ -92,6 +102,7 @@
 				value: '',
 				startStation: '', //出发站
 				endStation: '', //终点站
+				isNormal:'',//状态
 				departureData: [], //班次数据
 				stationArray: [],
 				isEndores:'',//是否是改签
@@ -124,8 +135,10 @@
 				
 				that.startStation = param.startStation;
 				that.endStation = param.endStation;
+				that.isNormal = param.isNormal;
 				console.log('起点',that.startStation)
 				console.log('终点',that.endStation)
+				console.log('状态',that.isNormal)
 				//如果传过来的参数没有时间就获取当前时间
 				if (param.date == 'date') {//二维码扫码进来
 				// #ifdef H5

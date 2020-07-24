@@ -2213,7 +2213,7 @@
 					longitude:item.lon
 				}
 				uni.navigateTo({
-					url:'../../pages_CTKY/pages/CTKY/TraditionSpecial/MapMark/checkBusLocation?busInfo=' + JSON.stringify(loaction)
+					url:'../../pages_ZXGP/pages/ZXGP/TraditionSpecial/MapMark/checkBusLocation?busInfo=' + JSON.stringify(loaction)
 				})
 			},
 			//--------------------------退票之前获取车票支付参数--------------------------
