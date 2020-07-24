@@ -354,6 +354,8 @@
 				companyCode = $KyInterface.KyInterface.systemName.systemNameNPWeiXin;
 				// #endif
 				//--------------------------发起下单请求-----------------------
+				console.log(that.orderInfo.startStaion)
+				console.log(that.orderInfo.endStation)
 				console.log(that.ticketInfo.planScheduleCode)
 				uni.request({
 					url:$KyInterface.KyInterface.Ky_PaymentUrl.Url,
@@ -385,10 +387,11 @@
 						openId: openId,
 						totalPrice: that.totalPrice, //总价格
 						payParameter: '', //不需要的参数，传空
-						planScheduleCode:that.ticketInfo.planScheduleCode,//班次号
-
+						
 						getOnPoint: that.specialStartStation, //定制班车上车点
 						getOffPoint: that.specialEndStation, //定制班车下车点
+						planScheduleCode:that.ticketInfo.planScheduleCode,//班次号
+						
 					},
 
 					success: (res) => {
