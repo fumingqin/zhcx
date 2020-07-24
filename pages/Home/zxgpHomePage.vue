@@ -310,7 +310,7 @@
 					})
 					//页面传参通过地址后面添加参数 this.isNormal=0是普通购票1是定制班车
 					
-					var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + this.departure +'&endStation=' + this.destination + '&date=' + this.datestring + '&isNormal=' + this.type2;
+					var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + this.departure +'&endStation=' + this.destination + '&date=' + this.datestring + '&isNormal=' + this.type2 + '&Week=' + this.Week;
 					uni.navigateTo({
 						url:params,
 					})

@@ -59,9 +59,9 @@
 			<view class="orderCommonClass" style="flex-direction: column;padding-bottom: 25upx;">
 				<view style="margin-top: 35upx;margin-bottom: 35upx;margin-left: 41upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">乘车人信息</view>
 				<view style="display: flex;margin-bottom: 35upx;">
-					<button @tap="addPassenger('成人')" class="button_1"  style="border: #AAAAAA 1px solid;padding: 0 40rpx;height: 66upx;align-items: center;font-size: 25upx; color:#2C2D2D ;text-align: center;background: #FFFFFF;">添加成人/儿童</button>
-					<button @tap="pickPassenger" class="button_1" style="border: #AAAAAA 1px solid;width: 150upx;height: 66upx;align-items: center;font-size: 25upx; color:#2C2D2D ;text-align: center;background: #FFFFFF;">选择</button>
-					<button @tap="addPassenger('免童')" class="button_1" style="border: #AAAAAA 1px solid;height: 66upx;align-items: center;font-size: 25upx; color:#2C2D2D ;text-align: center;background: #FFFFFF;">携带免童</button>
+					<!-- <button @tap="addPassenger('成人')" class="button_1"  style="border: #AAAAAA 1px solid;padding: 0 40rpx;height: 66upx;align-items: center;font-size: 25upx; color:#2C2D2D ;text-align: center;background: #FFFFFF;">添加成人/儿童</button> -->
+					<button @tap="pickPassenger" class="button_1" style="border: #AAAAAA 1px solid;font-size: 25upx; color:#2C2D2D ;text-align: center;background: #FFFFFF;margin-left: 44upx;margin-right: 22upx;">选择乘客</button>
+					<button @tap="addPassenger('免童')" class="button_1" style="border: #AAAAAA 1px solid;font-size: 25upx; color:#2C2D2D ;text-align: center;background: #FFFFFF;margin-left: 22upx;">携带免童</button>
 				</view>
 				<view style="flex-direction: column;background: #FFFFFF; " v-for="(items,index) in passengerInfo" :key=index
 				 v-model="passengerInfo">
@@ -143,7 +143,7 @@
 			</view> -->
 
 			<!-- 购票须知 -->
-			<view class="orderCommonClass" style="margin-bottom: 112rpx;">
+			<view class="orderCommonClass">
 				<view style="display: flex; align-items: center;">
 					<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">同意购票须知</view>
 					<view @tap="checkAttention" style="margin-left: 16upx;color:#19A0FF ; font-size:30upx ;">点击查看须知</view>
@@ -205,6 +205,7 @@
 					<radio class="Mp_box" value="1" :color="'#01aaef'" :checked="selectedValue===1 ? true : false" @click="Selection"></radio>
 				</view>
 			</view>
+			<view style="display: flex;font-size: 28upx;margin:0 46upx;">点击立即预定表示已阅读并同意<text style="font-size: 28upx;color: #01aaef;" @tap="checkAttention">预定须知</text></view>
 		</scroll-view>
 		<view class="toPayClass">
 			<view style="display: flex;align-items: center;margin-left: 32upx;">
@@ -386,7 +387,8 @@
 			turnDate(date) {
 				if (date) {
 					var setTime = date.replace('T', ' ');
-					return setTime;
+					var setTime2 = setTime.substr(0,16);
+					return setTime2;
 				}
 			},
 			//-------------------------------点击定制班车上车点-----------------------------
