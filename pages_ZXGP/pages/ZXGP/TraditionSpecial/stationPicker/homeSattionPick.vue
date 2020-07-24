@@ -47,6 +47,7 @@
 
 <script>
 	import $Zxgp from "@/common/zxgp.js"
+	import $KyInterface from "@/common/Ctky.js"
 	export default {
 		data() {
 			return {
@@ -194,7 +195,7 @@
 					},
 					success: (res) => {
 						uni.hideLoading();
-						// console.log(res);
+						console.log(res);
 						this.keywordList = [];
 						this.keywordList = this.drawCorrelativeKeyword(res.data, keyword);
 					},
@@ -226,20 +227,24 @@
 				var that = this;
 				//获取点击选项的文字
 				var key = this.keywordList[index].keyword;
-
-				if (that.stationType == 'qidian') {
-					//当前是上车点
-					uni.$emit('startstaionChange', {
-						data: key
-					});
-					uni.navigateBack({});
-				} else if (that.stationType == 'zhongdian') {
-					//当前是下车点
-					uni.$emit('endStaionChange', {
-						data: key
-					});
-					uni.navigateBack({});
-				}
+				uni.$emit('startstaionChange', {
+					data: key,
+					data2: '延平',
+				});
+				uni.navigateBack({});
+				// if (that.stationType == 'qidian') {
+				// 	//当前是上车点
+				// 	uni.$emit('startstaionChange', {
+				// 		data: key
+				// 	});
+				// 	uni.navigateBack({});
+				// } else if (that.stationType == 'zhongdian') {
+				// 	//当前是下车点
+				// 	uni.$emit('endStaionChange', {
+				// 		data: key
+				// 	});
+				// 	uni.navigateBack({});
+				// }
 			},
 			//-------------------------点击站点-------------------------
 			detailStationTap(item) {

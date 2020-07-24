@@ -1,6 +1,7 @@
 <template>
 	<!-- 订单支付页面 -->
 	<view>
+		<view style="width: 100%;height: 248upx;background: #FC4646;position: absolute;"></view>
 		<!-- <view style="color: #000000; font-size: 26upx; position: absolute; right: 32upx; z-index: 1; top: 24upx;">倒计时：{{countDownDate}}秒</view> -->
 		<view class="cover-container">
 			<view class="MP_information1">
@@ -8,12 +9,12 @@
 				<text class="MP_text">费用包含：车票 {{insurance}}</text>
 
 				<view class="MP_selectionDate">
-					<view class="MP_title">使用时间</view>
-					<text class="MP_text">{{turnDate(orderInfo.setTime)}} &nbsp; 仅限当天</text>
+					<view class="MP_title">发车时间</view>
+					<text class="MP_text">{{turnDate(orderInfo.setTime)}}</text>
 				</view>
 
 				<view class="MP_selectionDate" :hidden="hiddenValues==0">
-					<view class="MP_title">购票人信息</view>
+					<view class="MP_title">乘客信息</view>
 					<view class="MP_userInformation" v-for="(item,index) in passengerInfo" :key="index">
 						<text>{{item.userName}}</text>
 						<text class="Mp_sex">{{item.userSex}}</text>
@@ -72,7 +73,7 @@
 
 			</view>
 
-			<view class="MP_information2">
+<!-- 			<view class="MP_information2">
 				<view class="MP_optionBar">
 					<text class="Mp-icon jdticon icon-weixinzhifu"></text>
 					<text class="Mp_title">微信</text>
@@ -86,7 +87,7 @@
 					<text class="Mp_title">支付宝</text>
 					<radio class="Mp_box" :checked="channeIndex===1" :color="'#01aaef'" @click="Selection"></radio>
 				</view>
-			</view>
+			</view> -->
 
 			<view class="MP_information3" @click="payment">支付{{totalPrice}}元
 			</view>
@@ -227,7 +228,8 @@
 			turnDate(date) {
 				if (date) {
 					var setTime = date.replace('T', ' ');
-					return setTime;
+					var setTime2 = setTime.substr(0,16);
+					return setTime2;
 				}
 			},
 			//--------------------------读取乘车人信息--------------------------
@@ -361,6 +363,7 @@
 					
 					data: {
 						companyCode: companyCode,
+						SystemName:companyCode,//公司代码
 						clientID: that.userInfo.userId, //用户ID
 						clientName: that.userInfo.nickname, //用户名
 						phoneNumber: that.userInfo.phoneNumber, //手机号码
@@ -384,9 +387,12 @@
 						openId: openId,
 						totalPrice: that.totalPrice, //总价格
 						payParameter: '', //不需要的参数，传空
-
+						
 						getOnPoint: that.specialStartStation, //定制班车上车点
 						getOffPoint: that.specialEndStation, //定制班车下车点
+						planScheduleCode:that.orderInfo.planScheduleCode,//班次号
+						lineName: that.orderInfo.lineName,//线路名称
+						
 					},
 
 					success: (res) => {
@@ -460,7 +466,13 @@
 												if(res.confirm) {
 													that.payment();
 												}
+											},
+											fail() {
+												uni.switchTab({
+													url:'../../../../../pages/order/newOrderList'
+												})
 											}
+											
 										})
 									}
 								} else if (res.data.status == false) {
@@ -704,8 +716,9 @@
 	//整体容器样式
 	.cover-container {
 		position: relative;
+		z-index: 2;
 		top: 30upx;
-		padding: 32upx 30upx;
+		padding:150upx 30upx 32upx 30upx;
 	}
 
 	//公共样式 - 适用多个数据框

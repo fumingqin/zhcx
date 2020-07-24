@@ -76,17 +76,17 @@
 			godetail: function(e) {
 				if(e==0){//查看订单
 					uni.switchTab({
-						url:'../../../../../pages/order/OrderList',
+						url:'../../../../../pages/order/newOrderList',
 					});
 				}else if(e==1){//返回首页
 					uni.switchTab({
-						url:'../../../../../pages/Home/Index',
+						url:'../../../../../pages/Home/zxgpHomePage',
 					});
 				}
 			},
 			backHome : function() {
 				uni.switchTab({
-					url:'../../../../../pages/Home/Index',
+					url:'../../../../../pages/Home/zxgpHomePage',
 				});
 			}
 

@@ -661,6 +661,7 @@
 			keYunDetail: function(res) {
 				console.log(res)
 				var orderInfo = {
+					lineName:res.lineName,
 					planScheduleCode:res.planScheduleCode,
 					orderNumber:res.orderNumber,
 					carType:res.carType,
