@@ -33,7 +33,6 @@
 					<!-- 班次：{{getScheduleNum(item)}} 这里没有班次信息，暂时不显示 -->
 					<!-- <view v-if="item.shuttleType != '定制巴士'" style="margin-left: 25upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;
 						color: #333333;margin-bottom: 16upx;"></view>
-					
 				</view> -->
 				<view style="margin-left: 24upx;margin-bottom: 16upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;color: #333333;">线路:{{item.lineName}}</view>
 				<view style="margin-left: 24upx;display: flex;align-items: center;margin-bottom: 16upx;justify-content: space-between;">
@@ -708,13 +707,14 @@
 	page,
 	.myView {
 		flex-direction: column;
-		width: 100%;
-		height: 100%;
+		// width: 100%;
+		// height: 100%;
 		background: #F1F1F1;
 	}
 
 	.headerClass {
 		position: sticky;
+		top: 0;
 		width: 100%;
 		background: #FFFFFF;
 		height: 109upx;
@@ -725,6 +725,8 @@
 	}
 
 	.scrollClass {
+		position: sticky;
+		top: 0;
 		height: 109upx;
 		width: 86%;
 		white-space: nowrap; //外层写这俩
