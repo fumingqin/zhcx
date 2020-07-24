@@ -97,25 +97,25 @@
 				sexMode :[
 					{title:'男'},
 					{title:'女'}
-				],
-				selectCode:['身份证','出生证','临时乘车编号'],
-				codeType:'身份证 >',
-				accompanyList:[],
-				phoneList:[],
-				accompanyPeople:'',
+				], //性别选择
+				selectCode:['身份证','出生证','临时乘车编号'], //证件类型
+				codeType:'身份证 >', //默认证件类型
+				accompanyList:[],	//陪同人列表
+				phoneList:[],		//陪同人电话列表
+				accompanyPeople:'',	//陪同人
 				user:{
 					passengerId:'',//乘车人id
-					userName:'',	
-					userSex:0,
-					userPhoneNum:'',
-					userCodeNum:'',
-					prove:0,
-					accompany:0,
+					userName:'',	//姓名
+					userSex:0,		//性别
+					userPhoneNum:'',//手机号
+					userCodeNum:'',	//证件号
+					prove:0,	//证件列表下标
+					accompany:0,//陪同人列表下标
 				},
-				userType:'',
+				userType:'', //类型
 				userId:'', //账号id
-				code:0,
-				list:[],
+				code:0, //证件号下标
+				list:[], //默认已选的列表
 				
 				noticeText:'', //乘车人须知
 			}
@@ -125,7 +125,7 @@
 			this.loadText();//加载乘车人须知
 		},
 		methods:{
-			//------------------------------------1.加载账号id------------------------------------
+			//------------------------------------加载账号id------------------------------------
 			loadUnid(){
 				var the=this;
 				uni.getStorage({
@@ -158,11 +158,10 @@
 				})
 			},
 			
-			//------------------------------------2.加载选择列表------------------------------------
+			//------------------------------------加载选择列表------------------------------------
 			loadList(id){
 				var that=this;
 				uni.request({
-					//url:'http://111.231.109.113:8002/api/person/userInfoList',
 					url:that.$GrzxInter.Interface.userInfoList.value,
 					data:{
 						userId:id,
@@ -194,7 +193,7 @@
 				})
 			},
 			
-			//------------------3.加载乘车人须知----------------
+			//------------------加载乘车人须知----------------
 			loadText:function(){
 				var that=this;
 				uni.request({
@@ -214,6 +213,7 @@
 			radioClick:function(e){
 				this.user.userSex = e;
 			},
+			
 			//------------------上传乘车人信息----------------
 			formSubmit(e){
 				var data1=e.target.value;
@@ -338,17 +338,20 @@
 					})
 				}
 			},
+			
 			//------------------选择证件类型----------------
 			codeChange:function(e){
 				this.code=e.detail.value;
 				this.user.userCodeNum="";
 				this.codeType=this.selectCode[e.detail.value]+" >";
 			},
+			
 			//------------------选择陪同乘客----------------
 			accompanyChange:function(e){
 				this.accompanyPeople=this.accompanyList[e.detail.value]+" >";
 				this.user.userPhoneNum=this.phoneList[e.detail.value];
 			},
+			
 			//------------------重置信息----------------
 			resetClick:function(e){
 				console.log(e)
@@ -356,6 +359,7 @@
 				this.user.userName="";
 				this.user.userCodeNum="";
 			},
+			
 			//------------------是否选中本人----------------
 			checkChange:function(e){
 				//console.log(e.detail.value,"xuanzhong");
@@ -366,10 +370,12 @@
 					this.user.userEmergencyContact=false;
 				}
 			},
+			
 			//------------------返回按钮----------------
 			returnClick(){
 				uni.navigateBack();
 			},
+			
 			//------------------校验手机号----------------
 			checkPhone:function(e){
 				var reg=(/^1(3|4|5|6|7|8|9)\d{9}$/);
@@ -384,7 +390,8 @@
 					})
 				}
 			},
-			//------------------校验身份证号----------------
+			
+			//------------------校验证件号----------------
 			checkCodeNum1:function(e){
 				console.log(e)
 				if(e.detail.value==""){
@@ -399,6 +406,8 @@
 				// 	})
 				// }
 			},
+			
+			//------------------校验证件号----------------
 			checkCodeNum2:function(e){
 				if(e.detail.value==""){
 					console.log("空的")
@@ -412,6 +421,8 @@
 				// 	})
 				// }
 			},
+			
+			//------------------校验证件号----------------
 			checkCodeNum3:function(e){
 				if(e.detail.value==""){
 					console.log("空的")
@@ -425,6 +436,8 @@
 				// 	})
 				// }
 			},
+			
+			//------------------校验身份证号----------------
 			checkIDCard:function(idcode){
 			    // 加权因子
 			    var weight_factor = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
@@ -449,16 +462,19 @@
 				// 返回验证结果，校验码和格式同时正确才算是合法的身份证号码
 				return last === last_no && format ? true : false;
 			},
+			
 			//------------------校验出生证----------------
 			checkPass1:function(e){
 				var reg= /^[a-zA-Z0-9]{5,21}$/.test(e);
 				return reg;
 			},
+			
 			//------------------校验临时乘车编号----------------
 			checkPass2:function(e){
 				// var reg=/^[HMhm]{1}([0-9]{10}|[0-9]{8})$/.test(e);
 				return true;
 			},
+			
 			//------------------校验姓名----------------
 			nameClick(e){
 				if(e.detail.value==""){

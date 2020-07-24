@@ -47,12 +47,14 @@
 					}
 				})
 			},
+			
 			//--------------------跳转至实名验证-------------------
 			cancellationClick:function(){
 				uni.navigateTo({
 					url:this.$GrzxInter.Route.verificateName.url,
 				})
 			},
+			
 			//--------------------提交-------------------
 			submitClick:function(){
 				var that=this;
@@ -99,6 +101,7 @@
 					})
 				}
 			},
+			
 			//--------------------获取验证码-------------------
 			getCodeClick:function(){
 				var that=this;

@@ -31,6 +31,7 @@
 							<!-- 身份证 -->
 							<view>身份证</view>
 							<!-- 联系电话 -->
+							<view>座位号</view>
 							<!-- <view>联系电话</view> -->
 							<!-- 退改规则 -->
 							<view>退改规则</view>
@@ -42,7 +43,8 @@
 							<view>{{item.userName}}</view>
 							<!-- 身份证 -->
 							<view>{{userCodeNumChange(item.userCodeNum)}}</view>
-							<!-- 联系电话 -->
+							<!-- 座位号 -->
+							<view>{{seat}}</view>
 							<!-- <view>{{orderInfo.phoneNumber}}</view> -->
 							<!-- 退改规则 -->
 							<view>{{role}}</view>
@@ -90,6 +92,7 @@
 				orderInfo:[],//订单数据
 				passageInfo:[],
 				ticketNum:0,
+				seat:'无',//座位号
 				qrcodeSrc: '',//二维码
 				qrcodeText: 'uQRCode',
 				qrcodeSize: 150,
@@ -184,8 +187,8 @@
 			},
 			//-------------------------------获取班次信息-------------------------------
 			getScheduleNum:function(param){
-					if(param.planScheduleCode){
-						return param.planScheduleCode;
+					if(param){
+						return param;
 					}else{
 						return '无'; 
 					}
@@ -239,7 +242,10 @@
 				    	if(ticketNum) {
 				    		let a = ticketNum.indexOf(',')
 				    		if(a == -1) {
-				    			return ticketNum;
+				    			var array = ticketNum.split('-');
+				    			let ticketHeader = array[0];
+				    			this.seat = array[1];
+				    			return ticketHeader;
 				    		}else {
 				    			var array = ticketNum.split('-');
 				    			let ticketHeader = array[0];
@@ -253,7 +259,10 @@
 				    	if(ticketNum) {
 				    		let a = ticketNum.indexOf(',')
 				    		if(a == -1) {
-				    			return ticketNum;
+								var array = ticketNum.split('-');
+								let ticketHeader = array[0];
+								this.seat = array[1];
+				    			return ticketHeader;
 				    		}else {
 				    			var array = ticketNum.split('-');
 				    			let ticketHeader = array[0];
@@ -268,7 +277,10 @@
 					if(ticketNum) {
 						let a = ticketNum.indexOf(',')
 						if(a == -1) {
-							return ticketNum;
+							var array = ticketNum.split('-');
+							let ticketHeader = array[0];
+							this.seat = array[1];
+							return ticketHeader;
 						}else {
 							var array = ticketNum.split('-');
 							let ticketHeader = array[0];
@@ -282,7 +294,10 @@
 					if(ticketNum) {
 						let a = ticketNum.indexOf(',')
 						if(a == -1) {
-							return ticketNum;
+						var array = ticketNum.split('-');
+						let ticketHeader = array[0];
+						this.seat = array[1];
+						return ticketHeader;
 						}else {
 							var array = ticketNum.split('-');
 							let ticketHeader = array[0];

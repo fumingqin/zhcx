@@ -91,6 +91,7 @@
 			// 		}
 			// 	})
 			// },
+			//------------------获取资讯详情----------------
 			getArticleInfo:function(){
 				var that=this;
 				uni.getStorage({

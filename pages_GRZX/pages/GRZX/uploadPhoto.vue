@@ -86,13 +86,12 @@
 					}
 				})
 			},
+			
 			//--------------------返回-------------------
 			returnClick:function(){
-				// uni.switchTab({
-				// 	url:this.$GrzxInter.Route.user.value,
-				// })
 				uni.navigateBack();
 			},
+			
 			//--------------------提交-------------------
 			submitClick:function(){
 				var that=this;
@@ -118,6 +117,7 @@
 					//that.UpdateRealNamePhoto();
 				}
 			},
+			
 			//--------------------自行车用户上传实名认证照片-------------------
 			UpdateRealNamePhoto:function(){
 				var that=this;
@@ -148,6 +148,7 @@
 					}
 				})
 			},
+			
 			//--------------------上传身份证正面-------------------
 			chooseFrontImg:function(){
 				var that=this;
@@ -178,6 +179,7 @@
 					}
 				})	
 			},
+			
 			//--------------------上传身份证背面-------------------
 			chooseBackImg:function(){
 				var that=this;
@@ -208,6 +210,7 @@
 					}
 				})
 			},
+			
 			//--------------------上传手持身份证照-------------------
 			chooseHandImg:function(){
 				var that=this;

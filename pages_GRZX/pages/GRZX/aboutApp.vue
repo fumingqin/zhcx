@@ -71,24 +71,14 @@
 		},
 		components: { uniPopup },  //注册为子组件
 		methods:{
+			//--------------------------------加载logo--------------------------
 			loadImg(){
-				var that=this;
-				uni.request({
-					url:that.$GrzxInter.GetImage.url,
-					data:{
-						model:5,
-					},
-					method:'POST',
-					success(res) {
-						var image=res.data.data.filter(item => {
-							return item.type=='nanpinglogo';
-						})
-						that.logo=image[0].imageUrl;
-						// console.log(that.logo,'that.logo')
-					}
-				})
+				var that = this;
+				that.$ChangeImage.GetImage("南平综合出行","logo").then(function(data) {
+					that.logo = data;
+				});
 			},
-			//-----------加载是否服务------------
+			//--------------------------加载是否服务--------------------------
 			loadService:function(){
 				var that=this;
 				uni.getStorage({
@@ -104,28 +94,36 @@
 					}
 				})
 			},
-			//-----------开启弹窗------------
+			
+			//--------------------------开启弹窗--------------------------
 			openPopup: function(value) {
 				this.$nextTick(function() {
 					this.$refs[value].open();
 				});
 			},
-			//-----------关闭弹窗------------
+			
+			//--------------------------关闭弹窗--------------------------
 			closePopup: function(value) {
 				this.$nextTick(function() {
 					this.$refs[value].close();
 				});
 			},
+			
+			//--------------------------是否同意软件协议--------------------------
 			confirm:function(){
 				uni.setStorageSync('acceptService',true);
 				this.closePopup('centerPopup');
 			},
+			
+			//--------------------------功能介绍--------------------------
 			functionClick(){
 				uni.showToast({
 					icon:'none',
 					title:'功能介绍'
 				})
 			},
+			
+			//--------------------------检查新功能--------------------------
 			checkClick(){
 				var that=this;
 				uni.request({
@@ -138,10 +136,10 @@
 						console.log(res)
 						if(that.version!=res.data.data.version){
 							uni.showModal({
-							    content: '是否下载新版本',
+								title:'温馨提示',
+							    content: '检测到有新版本，是否立即下载新版本？',
 							    success: (e)=>{
 							    	if(e.confirm){
-										//plus.runtime.openURL(res.data.DownLoadUrl);
 										// #ifdef APP-PLUS
 										plus.runtime.openURL("http://27.148.155.9:9248/LoadAppWebsite/泉运出行综合平台.apk");
 										// #endif
@@ -163,11 +161,15 @@
 					}
 				})
 			},
+			
+			//--------------------------软件许可及服务协议--------------------------
 			agreementClick(){
 				uni.navigateTo({
 					url:this.$GrzxInter.Route.privacyService.url+'?title=软件许可及服务协议',
 				})
 			},
+			
+			//--------------------------隐私政策--------------------------
 			privacyClick(){
 				uni.navigateTo({
 					url:this.$GrzxInter.Route.privacyService.url+'?title=隐私政策',
