@@ -254,6 +254,7 @@
 				specialEndArray: [], //定制班车终点数组
 				InsurePrice:'0',//保险价格
 				adultNum:0,//成人数
+				planScheduleCode :'',//班次号
 			}
 		},
 
@@ -273,6 +274,7 @@
 					that.ticketDetail = data.data; //车票数组
 					that.totalPrice = data.data.fare; //价格
 					that.shuttleType = data.data.shuttleType; //班车类型
+					that.planScheduleCode = data.data.planScheduleCode;//班次号
 					
 					//定制班车起点数组
 					that.sepecialStartArray = data.data.starSiteArr;
@@ -685,6 +687,7 @@
 					getOnPoint: that.startStation,//起点
 					getOffPoint: that.endStation,//终点
 					insuredPrice: that.InsurePrice,//保险价格
+					planScheduleCode : that.planScheduleCode,//班次号
 				}
 				console.log(array)
 				uni.navigateTo({
