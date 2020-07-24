@@ -630,8 +630,8 @@
 			},
 			//-------------------------------获取班次信息-------------------------------
 			getScheduleNum:function(param){
-					if(param.scheduleCompanyCode){
-						return param.scheduleCompanyCode;
+					if(param.planScheduleCode){
+						return param.planScheduleCode;
 					}else{
 						return '无'; 
 					}
@@ -662,7 +662,7 @@
 				console.log(res)
 				var orderInfo = {
 					lineName:res.lineName,
-					scheduleCompanyCode:res.scheduleCompanyCode,
+					planScheduleCode:res.planScheduleCode,
 					orderNumber:res.orderNumber,
 					carType:res.carType,
 					state: res.state,

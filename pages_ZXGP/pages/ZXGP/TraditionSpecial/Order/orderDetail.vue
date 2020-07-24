@@ -13,11 +13,11 @@
 			<!-- 发车时间 -->
 			<view class="headText"> 订单号：{{orderInfo.orderNumber}}</view>
 			<view class="headText"> 发车时间：{{orderInfo.setOutTime}}</view>
-			<view class="headText"> 班次：{{getScheduleNum(orderInfo.scheduleCompanyCode)}}</view>
+			<view class="headText"> 班次：{{getScheduleNum(orderInfo.planScheduleCode)}}</view>
 			<view class="headText"> 上车点：{{orderInfo.startSiteName}}</view>
 			<!-- <view class="headText"> 随车手机号：{{getDetailInfo(orderInfo.driverPhone)}}</view> -->
 			<view class="headText"> 下车点：{{orderInfo.endSiteName}}</view>
-			<view class="headText"> 检票口：未知</view>
+			<!-- <view class="headText"> 检票口：未知</view> -->
 		</view>
 		<!-- 乘客信息 -->
 		<scroll-view class="scrollBox" scroll-y="true">
