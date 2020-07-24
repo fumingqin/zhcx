@@ -29,14 +29,14 @@
 					<view class="markType" style="border:#1EA2FF solid 1px;color:#1EA2FF;" v-if="item.shuttleType == '普通班车' && isFlowTickets(item) == '流水'">流水</view>
 					<view style="margin-left:19upx ;font-family: SourceHanSansSC-Bold;font-weight: bold;">{{turnDate(item.setTime)}}</view>
 				</view>
-				<view style="display: flex;align-items: center;justify-content: space-between;">
+				<!-- <view style="display: flex;align-items: center;justify-content: space-between;"> -->
 					<!-- 班次：{{getScheduleNum(item)}} 这里没有班次信息，暂时不显示 -->
-					<view v-if="item.shuttleType != '定制巴士'" style="margin-left: 25upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;
+					<!-- <view v-if="item.shuttleType != '定制巴士'" style="margin-left: 25upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;
 						color: #333333;margin-bottom: 16upx;"></view>
 					
-				</view>
-				
-				<view style="margin-left: 25upx;display: flex;align-items: center;margin-bottom: 16upx;justify-content: space-between;">
+				</view> -->
+				<view style="margin-left: 24upx;margin-bottom: 16upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;color: #333333;">线路:{{item.lineName}}</view>
+				<view style="margin-left: 24upx;display: flex;align-items: center;margin-bottom: 16upx;justify-content: space-between;">
 					<view v-if="isNormal==0" style="display: flex;align-items: center;">
 						<image src="../../../../static/ZXGP/startDot.png" style="width: 10upx ;height: 10upx;"></image>
 						<view style="margin-left: 16upx; font-size: 30upx;font-style:SourceHanSansSC-Regular ;
@@ -71,10 +71,10 @@
 				
 				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
 				font-size: 28upx;color: #666666;"
-				 v-if="item.shuttleType == '普通班车'">{{item.carType}}/约{{item.duration}}分钟</view>
+				 v-if="item.shuttleType == '普通班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟</view>
 				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
 				font-size: 28upx;color: #666666;"
-				 v-if="item.shuttleType == '定制班车'">{{item.carType}}/约{{item.duration}}分钟</view>
+				 v-if="item.shuttleType == '定制班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟</view>
 				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
 				 font-size: 28upx;color: #666666;"
 				  v-if="item.shuttleType == '定制巴士'">{{item.SetoutTimeDesc}}</view>
@@ -218,7 +218,7 @@
 								for(i; i < res.data.data.length;i++){
 									that.allTicketsList.push(res.data.data[i])
 								}
-								// console.log(that.allTicketsList)
+								console.log('客运班次信息2',that.allTicketsList)
 								//加载定制巴士班次列表数据
 								that.getSpecialBusTicketInfo(date);
 							}else if(res.data.data.length == 0) {
@@ -299,7 +299,7 @@
 			ForwardRankingDate:function(param){
 				for (let i = 0; i < param.length - 1; i++){
 					for (let j = 0; j < param.length - 1 - i; j++) {
-						if (Date.parse(this.turnDate(param[j].setTime)) > Date.parse(this.turnDate(param[j+1].setTime))) {
+						if (Date.parse(this.turnDate(param[j].setTime2)) > Date.parse(this.turnDate(param[j+1].setTime2))) {
 							var temp = param[j];
 							param[j] = param[j + 1];
 							param[j + 1] = temp;
@@ -324,7 +324,8 @@
 			//-------------------------------时间转换-------------------------------
 			turnDate(date) {
 				var setTime = date.replace('T', ' ');
-				return setTime;
+				var setTime2 = setTime.substr(0,16);
+				return setTime2;
 			},
 			//-------------------------------判断是否是流水班次-------------------------------
 			isFlowTickets:function(param){
