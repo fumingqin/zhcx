@@ -72,7 +72,7 @@
 
 			</view>
 
-			<view class="MP_information2">
+<!-- 			<view class="MP_information2">
 				<view class="MP_optionBar">
 					<text class="Mp-icon jdticon icon-weixinzhifu"></text>
 					<text class="Mp_title">微信</text>
@@ -86,7 +86,7 @@
 					<text class="Mp_title">支付宝</text>
 					<radio class="Mp_box" :checked="channeIndex===1" :color="'#01aaef'" @click="Selection"></radio>
 				</view>
-			</view>
+			</view> -->
 
 			<view class="MP_information3" @click="payment">支付{{totalPrice}}元
 			</view>
@@ -355,8 +355,6 @@
 				companyCode = $KyInterface.KyInterface.systemName.systemNameNPWeiXin;
 				// #endif
 				//--------------------------发起下单请求-----------------------
-				console.log(that.orderInfo.planScheduleCode)
-				console.log(that.orderInfo.lineName)
 				uni.request({
 					url:$KyInterface.KyInterface.Ky_PaymentUrl.Url,
 					method:$KyInterface.KyInterface.Ky_PaymentUrl.method,
