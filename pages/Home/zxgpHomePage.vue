@@ -40,13 +40,13 @@
 						<!-- 目的地 -->
 						<view class="top_startingPoint">
 							<view class="top_text3">起点（不可选）</view>
-							<view class="startingPoint">{{destination}}</view>
+							<view class="startingPoint">{{departure2}}</view>
 						</view>
 						<!-- 选择到达地 -->
 						<view class="top_chooseEnd" hover-class="ve_hover" @tap="setOutStationTap">
 							<view class="top_text4">终点</view>
 							<view style="display: flex;">
-								<text class="setEnd">{{departure}}</text>
+								<text class="setEnd">{{destination2}}</text>
 								<text class="jdticon icon-xia"></text>
 							</view>
 						</view>
@@ -91,14 +91,16 @@
 		data() {
 			return {
 				type2: 0,
-				departure:'',
 				datestring: '',
 				Week: '',
 				type: 'rangetime',
 				value: '',
 				showPicker: false,
 				date: '',
-				destination:'',
+				departure:'请选择起点',
+				destination:'请选择终点',
+				departure2:'请选择起点',
+				destination2:'请选择终点',
 				background:[{
 					imageUrl: '',
 				}], //背景图
@@ -126,13 +128,13 @@
 			//加载应用名称
 			this.applyName=this.$oSit.Interface.system.applyName;
 			var that=this;
-			if(that.departure == '' || that.destination == '' || that.type2==0) {
-				that.departure = '请选择起点';
-				that.destination = '请选择终点';
-			}else{
-				that.departure = '请选择终点';
-				that.destination = '请选择起点';
-			}
+			// if(that.departure == '' || that.destination == '' || that.type2==0) {
+			// 	that.departure = '请选择起点';
+			// 	that.destination = '请选择终点';
+			// }else{
+			// 	that.departure2 = '请选择起点';
+			// 	that.destination2 = '请选择终点';
+			// }
 			that.loadData();
 		},
 		
@@ -190,9 +192,24 @@
 			//-----------------tab事件---------------------------------------
 			tabClick(e) {
 				if (e == 0) {
-					this.type2 = 0;
+					
+					if( this. departure2 !== '请选择起点'){
+						this.departure = this.destination2;
+						this.destination = this.departure2;
+						this.type2 = 0;
+					}else{
+						this.type2 = 0;
+					}
 				} else if (e == 1) {
-					this.type2 = 1;
+					if( this. departure !== '请选择起点'){
+						console.log('222222')
+						this.departure2 = this.destination;
+						this.destination2 = this.departure;
+						console.log(this.departure2	)
+						this.type2 = 1;
+					}else{
+						this.type2 = 1;
+					}
 				}
 			},
 			
@@ -206,8 +223,8 @@
 						that.departure = data.data;
 						that.destination=data.data2;
 					}else if(that.type2==1){
-						that.departure = data.data2;
-						that.destination=data.data;
+						that.departure2 = data.data;
+						that.destination2=data.data2;
 					}
 				    //清除监听，不清除会消耗资源
 				    uni.$off('startstaionChange');
@@ -284,36 +301,30 @@
 			//---------------------------------点击查询---------------------------------
 			queryClick: function() {
 				var that = this;
-				if(that.departure == '请选择起点') {
+				if(that.type2==0 && that.departure == '请选择起点') {
 					uni.showToast({
 						title: '请选择起点',
 						icon: 'none'
 					})
-				}else if(that.departure == '请选择终点'){
+				}else if(that.type2==1 && that.destination2 == '请选择终点'){
 					uni.showToast({
-						title: '请选择终点',
+						title: '请选择到达地点',
 						icon: 'none'
 					})
 				}else {
-					var station = this.departure + "-" + this.destination;
-					if(this.historyLines) {
-						for(let i = 0; i <= this.historyLines.length;i++){
-							if(station == this.historyLines[i]) {
-								this.historyLines.splice(i,1);
-							}
-						}
-						this.historyLines.unshift(this.departure + "-" + this.destination);
-					}
-					uni.setStorage({
-						key:'historyLines',
-						data:this.historyLines,
-					})
 					//页面传参通过地址后面添加参数 this.isNormal=0是普通购票1是定制班车
-					
-					var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + this.departure +'&endStation=' + this.destination + '&date=' + this.datestring + '&isNormal=' + this.type2 + '&Week=' + this.Week;
-					uni.navigateTo({
-						url:params,
-					})
+					if(that.type2==0){
+						var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + this.departure +'&endStation=' + this.destination + '&date=' + this.datestring + '&isNormal=' + this.type2 + '&Week=' + this.Week;
+						uni.navigateTo({
+							url:params,
+						})
+					}
+					else if(that.type2==1){
+						var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + this.departure2 +'&endStation=' + this.destination2 + '&date=' + this.datestring + '&isNormal=' + this.type2 + '&Week=' + this.Week;
+						uni.navigateTo({
+							url:params,
+						})
+					}
 				}
 			},
 			
