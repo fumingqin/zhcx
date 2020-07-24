@@ -220,18 +220,33 @@
 								}
 								// console.log(that.allTicketsList)
 								//加载定制巴士班次列表数据
-								that.getSpecialBusTicketInfo(date);
+								// that.getSpecialBusTicketInfo(date);
+								uni.hideLoading();
 							}else if(res.data.data.length == 0) {
 								//加载定制巴士班次列表数据
-								that.getSpecialBusTicketInfo(date);
+								// that.getSpecialBusTicketInfo(date);
+								uni.showToast({
+									title: '暂无班次信息',
+									icon: 'none'
+								})
+								uni.hideLoading();
 							}
 						} else if (res.data.status == false){
 							//加载定制巴士班次列表数据
-							that.getSpecialBusTicketInfo(date);
+							// that.getSpecialBusTicketInfo(date);
+							uni.showToast({
+								title: '暂无班次信息',
+								icon: 'none'
+							})
+							uni.hideLoading();
 						}
 					},
 					fail(res) {
 						console.log(res);
+						uni.showToast({
+							title: '服务器异常，班次列表数据出错',
+							icon: 'none'
+						})
 						uni.hideLoading();
 					}
 				});
