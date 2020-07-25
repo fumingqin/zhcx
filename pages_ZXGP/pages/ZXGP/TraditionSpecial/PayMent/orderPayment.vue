@@ -106,7 +106,7 @@
 				countDownDate: 120, //倒计时时间
 				utils: utils,
 				userInfo: [], //用户信息
-				hiddenValues: '0', //隐藏状态值
+				hiddenValues: '1', //隐藏状态值
 				channel: [{
 					name: '微信'
 				}, {
@@ -468,9 +468,30 @@
 												}
 											},
 											fail() {
-												uni.switchTab({
-													url:'../../../../../pages/order/newOrderList'
+												uni.request({
+													url: $KyInterface.KyInterface.Ky_CancelTicket.Url,
+													method: $KyInterface.KyInterface.Ky_CancelTicket.method,
+													data: {
+														orderNumber: orderNumber,
+													},
+													success: (respones) => {
+														uni.hideLoading()
+														// console.log('取消结果', respones)
+														if (respones.data.status == true) {
+															console.log('取消成功')
+														} else {
+															console.log('取消成功')
+														}
+													},
+													fail: (respones) => {
+														// alert(respones.data.msg)
+														uni.hideLoading()
+														console.log(respones)
+														console.log('服务器异常')
+													}
 												})
+												
+												
 											}
 											
 										})
