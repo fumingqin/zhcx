@@ -1,6 +1,7 @@
 <template>
 	<!-- 订单支付页面 -->
 	<view>
+		<view style="width: 100%;height: 248upx;background: #FC4646;position: absolute;"></view>
 		<!-- <view style="color: #000000; font-size: 26upx; position: absolute; right: 32upx; z-index: 1; top: 24upx;">倒计时：{{countDownDate}}秒</view> -->
 		<view class="cover-container">
 			<view class="MP_information1">
@@ -715,8 +716,9 @@
 	//整体容器样式
 	.cover-container {
 		position: relative;
+		z-index: 2;
 		top: 30upx;
-		padding: 32upx 30upx;
+		padding:150upx 30upx 32upx 30upx;
 	}
 
 	//公共样式 - 适用多个数据框
