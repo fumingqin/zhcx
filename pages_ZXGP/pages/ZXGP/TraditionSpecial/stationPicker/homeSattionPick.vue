@@ -32,8 +32,9 @@
 							<view class="item">
 								<view class="goods" v-for="(item2,index2) in mainArray" :key="index2" @tap="detailStationTap(item2)">
 									<view>
-										<view v-if="type==0">{{item2.StartSiteName}}</view>
-										<view v-if="type==1">{{item2.EndSiteName}}</view>
+										<view>{{item2.LineName}}</view>
+										<!-- <view v-if="type==0">{{item2.StartSiteName}}</view>
+										<view v-if="type==1">{{item2.EndSiteName}}</view> -->
 									</view>
 								</view>
 							</view>
@@ -97,6 +98,8 @@
 						uni.hideLoading();
 						let that = this;
 						if (res.data.data.length != 0) {
+							that.mainArray = res.data.data;
+							console.log(that.mainArray)
 							// for (var i = 0; i < res.data.data.length; i++) {
 							// 	var countysArray = {
 							// 		LineName: res.data.data[i].LineName
@@ -104,15 +107,15 @@
 							// 	this.mainArray.push(countysArray);
 							// 	console.log(countysArray)
 							// }
-							if (that.type == 0) {
-								that.mainArray = res.data.data.filter(item => {
-									return item.StartSiteName !== '延平';
-								})
-							} else if (that.type == 1) {
-								this.mainArray = res.data.data.filter(item => {
-									return item.EndSiteName !== '延平';
-								})
-							}
+							// if (that.type == 0) {
+							// 	that.mainArray = res.data.data.filter(item => {
+							// 		return item.StartSiteName !== '延平';
+							// 	})
+							// } else if (that.type == 1) {
+							// 	this.mainArray = res.data.data.filter(item => {
+							// 		return item.EndSiteName !== '延平';
+							// 	})
+							// }
 						}
 					},
 					fail(res) {
@@ -252,6 +255,8 @@
 				var that = this;
 				//当前是上车点
 				uni.$emit('startstaionChange', {
+					// data: item.StartSiteName,
+					// data2: item.EndSiteName,
 					data: item.StartSiteName,
 					data2: item.EndSiteName,
 				});
