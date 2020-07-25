@@ -34,7 +34,7 @@
 							</view>
 						 
 							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
+								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>		
 							<view class="at_buttonView">
@@ -79,7 +79,7 @@
 							</view>
 						 
 							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
+								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -113,7 +113,7 @@
 							</view>
 						 
 							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
+								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -155,7 +155,7 @@
 							</view>
 						 
 							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
+								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -193,7 +193,7 @@
 							</view>
 						 
 							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
+								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -635,6 +635,14 @@
 					}else{
 						return '无'; 
 					}
+			},
+			//-------------------------------获取班次信息-------------------------------
+			gettime:function(param){
+					let array=param.split(':');
+					console.log(array);
+					var a=array[0]+":"+array[1];
+					console.log(a);
+					return a;
 			},
 			//-------------------------判断订单状态-------------------------
 			getCtkyOrderStatus(param) {
