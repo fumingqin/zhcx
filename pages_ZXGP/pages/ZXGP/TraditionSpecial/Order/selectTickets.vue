@@ -60,10 +60,10 @@
 				
 				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
 				font-size: 28upx;color: #666666;"
-				 v-if="item.shuttleType == '普通班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟</view>
+				 v-if="item.shuttleType == '普通班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟/{{item.planScheduleCode}}</view>
 				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
 				font-size: 28upx;color: #666666;"
-				 v-if="item.shuttleType == '定制班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟</view>
+				 v-if="item.shuttleType == '定制班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟/{{item.planScheduleCode}}</view>
 				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
 				 font-size: 28upx;color: #666666;"
 				  v-if="item.shuttleType == '定制巴士'">{{item.SetoutTimeDesc}}</view>

@@ -21,7 +21,7 @@
 					</view>
 					<!-- 车型-儿童半价 -->
 					<view class="ticketContent">
-						<view class="textCLass" style="font-size: 24upx;color: #999999;">{{ticketDetail.carType}}</view>
+						<view class="textCLass" style="font-size: 24upx;color: #999999;">{{ticketDetail.carType}}&nbsp;&nbsp;{{ticketDetail.planScheduleCode}}</view>
 						<view class="textCLass" style="font-size: 24upx;font-style: SourceHanSansSC-Light; color: #666666;">余{{ticketDetail.remainingVotes}}张</view>
 					</view>
 				</view>
