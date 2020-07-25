@@ -89,7 +89,7 @@
 				</view>
 			</view> -->
 
-			<view class="MP_information3" @click="payment">支付{{totalPrice}}元
+			<view class="MP_information3" @click="getOrder">支付{{totalPrice}}元
 			</view>
 
 		</view>
