@@ -395,6 +395,19 @@
 			}
 			this.getOpenID();
 			this.selectorChange();
+			
+			//接收current
+			var that=this;
+			uni.getStorage({
+				key:'currentNum',
+				success:function(res){
+					that.current=res.data;
+					uni.removeStorageSync('currentNum');
+				},
+				fail(){
+					that.current=0;
+				}
+			})
 		},
 		onPullDownRefresh: function() {
 			//客运刷新状态
