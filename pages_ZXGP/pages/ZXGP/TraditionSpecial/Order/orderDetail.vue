@@ -379,7 +379,7 @@
 			},
 			//--------------------时间转换-----------------
 			gettime:function(param){
-					let array=param.split(':');
+					let array=param.split(":");
 					var a=array[0]+":"+array[1];
 					return a;
 			}
