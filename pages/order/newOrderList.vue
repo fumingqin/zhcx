@@ -382,7 +382,11 @@
 					// #endif
 				}
 			})
-			
+			if (this.ctkyOrderNum) {
+				this.getTicketPaymentInfo_ticketIssue(this.ctkyOrderNum);
+			}
+			this.getOpenID();
+			this.selectorChange();
 		},
 		onShow: function() {
 			//客运刷新状态
@@ -983,6 +987,7 @@
 							})
 							this.$refs.popup3.close()
 							uni.startPullDownRefresh();
+							this.selectorChange();
 						} else {
 							uni.hideLoading()
 							uni.showToast({
@@ -1077,6 +1082,7 @@
 									},1500)
 								}
 							})
+							this.selectorChange();
 						} else {
 							uni.showToast({
 								title: '取消失败',
@@ -1760,7 +1766,7 @@
 									icon: 'none'
 								})
 								this.close3();
-								this.toFinished();
+								this.selectorChange();
 							} else if (e.data.msg == '订单取消失败') {
 								uni.showToast({
 									title: '订单取消失败',
@@ -1840,6 +1846,7 @@
 								})
 								this.close3();
 								this.toFinished();
+								this.selectorChange();
 							} else if (e.data.msg == '订单取消失败') {
 								uni.showToast({
 									title: '订单取消失败',
