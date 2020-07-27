@@ -665,6 +665,11 @@
 					// }
 				}
 			},
+			open3(e, exitindex) {
+				this.ticketOrderNumber = e;
+				this.exitindex = exitindex;
+				this.$refs.popup3.open()
+			},
 			//-------------------------跳转到详情页-------------------------
 			keYunDetail: function(res) {
 				console.log(res)
