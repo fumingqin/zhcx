@@ -12,7 +12,7 @@
 			</view>
 			<!-- 发车时间 -->
 			<view class="headText"> 订单号：{{orderInfo.orderNumber}}</view>
-			<view class="headText"> 发车时间：{{orderInfo.setOutTime}}</view>
+			<view class="headText"> 发车时间：{{gettime(orderInfo.setOutTime)}}</view>
 			<view class="headText"> 班次：{{getScheduleNum(orderInfo.planScheduleCode)}}</view>
 			<view class="headText"> 上车点：{{orderInfo.startSiteName}}</view>
 			<!-- <view class="headText"> 随车手机号：{{getDetailInfo(orderInfo.driverPhone)}}</view> -->
@@ -377,6 +377,12 @@
 					return '订单已作废'
 				}
 			},
+			//--------------------时间转换-----------------
+			gettime:function(param){
+					let array=param.split(":");
+					var a=array[0]+":"+array[1];
+					return a;
+			}
 		}
 	}
 </script>

@@ -3,8 +3,8 @@
 		<view class="zh_top">
 			<image class="top_image" :src="background[0].imageUrl" mode="aspectFill"></image>
 			<!-- 顶部滑动 -->
-			<view style="position: absolute;z-index: 999;">
-				<view style="width: 46%;top: 90upx;padding: 0 200upx;padding-top: 100upx;">
+			<view style="position: absolute;z-index: 999;margin-top: 192upx;">
+				<!-- <view style="width: 46%;top: 90upx;padding: 0 200upx;padding-top: 100upx;">
 					<view class="screen">
 						<view class="screenView">
 							<view class="screenText" :class="{current:type2===0}" @click="tabClick(0)">
@@ -15,9 +15,10 @@
 							</view>
 						</view>
 					</view>
-				</view>
+				</view> -->
 				
-				<view v-if="type2==0">
+				<!-- 暂时用不到 v-if="type2==0" -->
+				<view>
 					<!-- 选择出发地 -->
 					<view style="display: flex;margin-top: 26upx;">
 						<view class="top_chooseTheRoute" hover-class="ve_hover" @tap="setOutStationTap">
@@ -35,23 +36,23 @@
 					</view>
 				</view>
 				
-				<view v-if="type2==1">
-					<view style="display: flex;margin-top: 26upx;">
+				<!-- <view v-if="type2==1">
+					<view style="display: flex;margin-top: 26upx;"> -->
 						<!-- 目的地 -->
-						<view class="top_startingPoint">
+						<!-- <view class="top_startingPoint">
 							<view class="top_text3">起点（不可选）</view>
-							<view class="startingPoint">{{destination}}</view>
-						</view>
+							<view class="startingPoint">{{departure2}}</view>
+						</view> -->
 						<!-- 选择到达地 -->
-						<view class="top_chooseEnd" hover-class="ve_hover" @tap="setOutStationTap">
+				<!-- 		<view class="top_chooseEnd" hover-class="ve_hover" @tap="setOutStationTap">
 							<view class="top_text4">终点</view>
 							<view style="display: flex;">
-								<text class="setEnd">{{departure}}</text>
+								<text class="setEnd">{{destination2}}</text>
 								<text class="jdticon icon-xia"></text>
 							</view>
 						</view>
 					</view>
-				</view>
+				</view> -->
 				
 				<!-- 选择时间 -->
 				<view class="top_chooseTime" hover-class="ve_hover" @click="onShowDatePicker('date')">
@@ -91,14 +92,16 @@
 		data() {
 			return {
 				type2: 0,
-				departure:'',
 				datestring: '',
 				Week: '',
 				type: 'rangetime',
 				value: '',
 				showPicker: false,
 				date: '',
-				destination:'',
+				departure:'请选择起点',
+				destination:'请选择终点',
+				departure2:'请选择起点',
+				destination2:'请选择终点',
 				background:[{
 					imageUrl: '',
 				}], //背景图
@@ -126,13 +129,13 @@
 			//加载应用名称
 			this.applyName=this.$oSit.Interface.system.applyName;
 			var that=this;
-			if(that.departure == '' || that.destination == '' || that.type2==0) {
-				that.departure = '请选择起点';
-				that.destination = '请选择终点';
-			}else{
-				that.departure = '请选择终点';
-				that.destination = '请选择起点';
-			}
+			// if(that.departure == '' || that.destination == '' || that.type2==0) {
+			// 	that.departure = '请选择起点';
+			// 	that.destination = '请选择终点';
+			// }else{
+			// 	that.departure2 = '请选择起点';
+			// 	that.destination2 = '请选择终点';
+			// }
 			that.loadData();
 		},
 		
@@ -190,9 +193,24 @@
 			//-----------------tab事件---------------------------------------
 			tabClick(e) {
 				if (e == 0) {
-					this.type2 = 0;
+					
+					if( this. departure2 !== '请选择起点'){
+						this.departure = this.destination2;
+						this.destination = this.departure2;
+						this.type2 = 0;
+					}else{
+						this.type2 = 0;
+					}
 				} else if (e == 1) {
-					this.type2 = 1;
+					if( this. departure !== '请选择起点'){
+						console.log('222222')
+						this.departure2 = this.destination;
+						this.destination2 = this.departure;
+						console.log(this.departure2	)
+						this.type2 = 1;
+					}else{
+						this.type2 = 1;
+					}
 				}
 			},
 			
@@ -202,13 +220,8 @@
 				//监听事件,监听下个页面返回的值
 				uni.$on('startstaionChange', function(data) {
 				    // data即为传过来的值，给上车点赋值
-					if(that.type2==0){
-						that.departure = data.data;
-						that.destination=data.data2;
-					}else if(that.type2==1){
-						that.departure = data.data2;
-						that.destination=data.data;
-					}
+					that.departure = data.data;
+					that.destination=data.data2;
 				    //清除监听，不清除会消耗资源
 				    uni.$off('startstaionChange');
 				});
@@ -216,6 +229,23 @@
 					//跳转到下个页面的时候加个字段，判断当前点击的是上车点
 					url:'../../pages_ZXGP/pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick?&station=' + 'qidian' +'&type=' + this.type2,
 				})
+				
+				// uni.$on('startstaionChange', function(data) {
+				//     // data即为传过来的值，给上车点赋值
+				// 	if(that.type2==0){
+				// 		that.departure = data.data;
+				// 		that.destination=data.data2;
+				// 	}else if(that.type2==1){
+				// 		that.departure2 = data.data;
+				// 		that.destination2=data.data2;
+				// 	}
+				//     //清除监听，不清除会消耗资源
+				//     uni.$off('startstaionChange');
+				// });
+				// uni.navigateTo({
+				// 	//跳转到下个页面的时候加个字段，判断当前点击的是上车点
+				// 	url:'../../pages_ZXGP/pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick?&station=' + 'qidian' +'&type=' + this.type2,
+				// })
 			},
 			
 			//---------------------------------获取当前日期---------------------------------
@@ -289,32 +319,38 @@
 						title: '请选择起点',
 						icon: 'none'
 					})
-				}else if(that.departure == '请选择终点'){
-					uni.showToast({
-						title: '请选择终点',
-						icon: 'none'
-					})
-				}else {
-					var station = this.departure + "-" + this.destination;
-					if(this.historyLines) {
-						for(let i = 0; i <= this.historyLines.length;i++){
-							if(station == this.historyLines[i]) {
-								this.historyLines.splice(i,1);
-							}
-						}
-						this.historyLines.unshift(this.departure + "-" + this.destination);
-					}
-					uni.setStorage({
-						key:'historyLines',
-						data:this.historyLines,
-					})
+				}else{
 					//页面传参通过地址后面添加参数 this.isNormal=0是普通购票1是定制班车
-					
 					var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + this.departure +'&endStation=' + this.destination + '&date=' + this.datestring + '&isNormal=' + this.type2 + '&Week=' + this.Week;
 					uni.navigateTo({
 						url:params,
 					})
 				}
+				// if(that.type2==0 && that.departure == '请选择起点') {
+				// 	uni.showToast({
+				// 		title: '请选择起点',
+				// 		icon: 'none'
+				// 	})
+				// }else if(that.type2==1 && that.destination2 == '请选择终点'){
+				// 	uni.showToast({
+				// 		title: '请选择到达地点',
+				// 		icon: 'none'
+				// 	})
+				// }else {
+				// 	//页面传参通过地址后面添加参数 this.isNormal=0是普通购票1是定制班车
+				// 	if(that.type2==0){
+				// 		var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + this.departure +'&endStation=' + this.destination + '&date=' + this.datestring + '&isNormal=' + this.type2 + '&Week=' + this.Week;
+				// 		uni.navigateTo({
+				// 			url:params,
+				// 		})
+				// 	}
+				// 	else if(that.type2==1){
+				// 		var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + this.departure2 +'&endStation=' + this.destination2 + '&date=' + this.datestring + '&isNormal=' + this.type2 + '&Week=' + this.Week;
+				// 		uni.navigateTo({
+				// 			url:params,
+				// 		})
+				// 	}
+				// }
 			},
 			
 			// #ifdef MP-WEIXIN

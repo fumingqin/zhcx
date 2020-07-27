@@ -34,7 +34,7 @@
 							</view>
 						 
 							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
+								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>		
 							<view class="at_buttonView">
@@ -79,7 +79,7 @@
 							</view>
 						 
 							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
+								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -113,7 +113,7 @@
 							</view>
 						 
 							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
+								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -155,7 +155,7 @@
 							</view>
 						 
 							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
+								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -193,7 +193,7 @@
 							</view>
 						 
 							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
+								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -382,7 +382,11 @@
 					// #endif
 				}
 			})
-			
+			if (this.ctkyOrderNum) {
+				this.getTicketPaymentInfo_ticketIssue(this.ctkyOrderNum);
+			}
+			this.getOpenID();
+			this.selectorChange();
 		},
 		onShow: function() {
 			//客运刷新状态
@@ -636,6 +640,14 @@
 						return '无'; 
 					}
 			},
+			//-------------------------------获取班次信息-------------------------------
+			gettime:function(param){
+					let array=param.split(':');
+					console.log(array);
+					var a=array[0]+":"+array[1];
+					console.log(a);
+					return a;
+			},
 			//-------------------------判断订单状态-------------------------
 			getCtkyOrderStatus(param) {
 				if (!(/(^[1-9]\d*$)/.test(param))){//如果不是数字
@@ -656,6 +668,11 @@
 					// 	return '已改签'
 					// }
 				}
+			},
+			open3(e, exitindex) {
+				this.ticketOrderNumber = e;
+				this.exitindex = exitindex;
+				this.$refs.popup3.open()
 			},
 			//-------------------------跳转到详情页-------------------------
 			keYunDetail: function(res) {
@@ -975,6 +992,7 @@
 							})
 							this.$refs.popup3.close()
 							uni.startPullDownRefresh();
+							this.selectorChange();
 						} else {
 							uni.hideLoading()
 							uni.showToast({
@@ -1069,6 +1087,7 @@
 									},1500)
 								}
 							})
+							this.selectorChange();
 						} else {
 							uni.showToast({
 								title: '取消失败',
@@ -1718,6 +1737,136 @@
 								icon: 'none',
 							})
 							uni.hideLoading()
+						}
+					})
+				}
+			},
+			//-------------------------景区门票-打开取消弹框-------------------------
+			open3(e, exitindex) {
+				this.ticketOrderNumber = e;
+				this.exitindex = exitindex;
+				this.$refs.popup3.open()
+			},
+			//-------------------------景区门票-关闭取消弹框-------------------------
+			close3() {
+				this.$refs.popup3.close()
+			},
+			//-------------------------景区门票-取消-------------------------
+			cancel: function() {
+				if (this.exitindex == '3') {
+					uni.request({
+						url: $lyfw.Interface.spt_CancelTickets.value,
+						method: $lyfw.Interface.spt_CancelTickets.method,
+						data: {
+							orderNumber: this.ticketOrderNumber
+						},
+						header: {
+							'content-type': 'application/json'
+						},
+						success: (e) => {
+							// console.log(e)
+							if (e.data.msg == '订单取消成功') {
+								uni.showToast({
+									title: '订单取消成功',
+									icon: 'none'
+								})
+								this.close3();
+								this.selectorChange();
+							} else if (e.data.msg == '订单取消失败') {
+								uni.showToast({
+									title: '订单取消失败',
+									icon: 'none'
+								})
+								this.close3();
+								this.toFinished();
+							}
+						},
+						fail() {
+							uni.showToast({
+								title: '取消失败！请检查网络状态',
+								icon: 'none',
+								duration: 1500,
+							})
+						}
+					})
+				} else if (this.exitindex == '4') {
+					console.log(this.ticketOrderNumber);
+					uni.request({
+						url: $bcfw.Interface.spt_CancelTickets.value,
+						method: $bcfw.Interface.spt_CancelTickets.method,
+						data: {
+							or_number: this.ticketOrderNumber
+						},
+						header: {
+							'content-type': 'application/json'
+						},
+						success: (e) => {
+							console.log(e)
+							if (e.data.status == true) {
+								uni.showToast({
+									title: '订单取消成功',
+									icon: 'none'
+								})
+								this.close3();
+								this.toFinished();
+							} else if (e.data.status == false) {
+								uni.showToast({
+									title: '订单取消失败',
+									icon: 'none'
+								})
+								this.close3();
+								this.toFinished();
+							}
+						},
+						fail() {
+							uni.showToast({
+								title: '取消失败！请检查网络状态',
+								icon: 'none',
+								duration: 1500,
+							})
+						}
+					})
+				} else if (this.exitindex == '2') {//客运取消
+					// this.keYunCancelTicket(this.ticketOrderNumber);
+					//客运取消之前先检测当前车票状态
+					this.cancel_getTicketPaymentInfo(this.ticketOrderNumber);
+				}else if (this.exitindex == 'cs2') {//定制巴士取消
+					this.Cs_cancelStateCheck(this.ticketOrderNumber);
+				}else if (this.exitindex == '5') {
+					uni.request({
+						url: $lyfw.Interface.lyky_CancelTickets.value,
+						method: $lyfw.Interface.lyky_CancelTickets.method,
+						data: {
+							orderNumber: this.ticketOrderNumber
+						},
+						header: {
+							'content-type': 'application/json'
+						},
+						success: (e) => {
+							// console.log(e)
+							if (e.data.msg == '订单取消成功') {
+								uni.showToast({
+									title: '订单取消成功',
+									icon: 'none'
+								})
+								this.close3();
+								this.toFinished();
+								this.selectorChange();
+							} else if (e.data.msg == '订单取消失败') {
+								uni.showToast({
+									title: '订单取消失败',
+									icon: 'none'
+								})
+								this.close3();
+								this.toFinished();
+							}
+						},
+						fail() {
+							uni.showToast({
+								title: '取消失败！请检查网络状态',
+								icon: 'none',
+								duration: 1500,
+							})
 						}
 					})
 				}

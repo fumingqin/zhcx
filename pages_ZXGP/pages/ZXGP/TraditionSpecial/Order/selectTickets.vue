@@ -33,19 +33,13 @@
 					<!-- 班次：{{getScheduleNum(item)}} 这里没有班次信息，暂时不显示 -->
 					<!-- <view v-if="item.shuttleType != '定制巴士'" style="margin-left: 25upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;
 						color: #333333;margin-bottom: 16upx;"></view>
-					
 				</view> -->
 				<view style="margin-left: 24upx;margin-bottom: 16upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;color: #333333;">线路:{{item.lineName}}</view>
 				<view style="margin-left: 24upx;display: flex;align-items: center;margin-bottom: 16upx;justify-content: space-between;">
-					<view v-if="isNormal==0" style="display: flex;align-items: center;">
+					<view style="display: flex;align-items: center;">
 						<image src="../../../../static/ZXGP/startDot.png" style="width: 10upx ;height: 10upx;"></image>
 						<view style="margin-left: 16upx; font-size: 30upx;font-style:SourceHanSansSC-Regular ;
 						color: #333333;">{{item.startStaion}}</view>
-					</view>
-					<view v-if="isNormal==1" style="display: flex;align-items: center;">
-						<image src="../../../../static/ZXGP/startDot.png" style="width: 10upx ;height: 10upx;"></image>
-						<view style="margin-left: 16upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;
-						color: #333333;">{{item.endStation}}</view>
 					</view>
 					<view v-if="item.shuttleType != '定制巴士'" style="margin-right: 28upx;font-size: 24upx;font-style:
 					SourceHanSansSC-Regular; color: #FC4646;">全票￥{{item.fare}}</view>
@@ -55,15 +49,10 @@
 					SourceHanSansSC-Regular; color: #FC4646;">价格￥{{item.PriceRange}}</view>
 				</view>
 				<view style="margin-left: 25upx;display: flex;align-items: center;margin-bottom: 16upx;justify-content: space-between;">
-					<view v-if="isNormal==0" style="display: flex;align-items: center;">
+					<view style="display: flex;align-items: center;">
 						<image src="../../../../static/ZXGP/endDot.png" style="width: 10upx ;height: 10upx;"></image>
 						<view style="margin-left: 16upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;
 						color: #333333;">{{item.endStation}}</view>
-					</view>
-					<view v-if="isNormal==1" style="display: flex;align-items: center;">
-						<image src="../../../../static/ZXGP/endDot.png" style="width: 10upx ;height: 10upx;"></image>
-						<view style="margin-left: 16upx; font-size: 30upx;font-style:SourceHanSansSC-Regular ;
-						color: #333333;">{{item.startStaion}}</view>
 					</view>
 					<view style="margin-right: 28upx;font-size: 24upx;font-style:
 					SourceHanSansSC-Light; color: #666666;">余{{item.remainingVotes}}张</view>
@@ -71,10 +60,10 @@
 				
 				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
 				font-size: 28upx;color: #666666;"
-				 v-if="item.shuttleType == '普通班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟</view>
+				 v-if="item.shuttleType == '普通班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟/{{item.planScheduleCode}}</view>
 				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
 				font-size: 28upx;color: #666666;"
-				 v-if="item.shuttleType == '定制班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟</view>
+				 v-if="item.shuttleType == '定制班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟/{{item.planScheduleCode}}</view>
 				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
 				 font-size: 28upx;color: #666666;"
 				  v-if="item.shuttleType == '定制巴士'">{{item.SetoutTimeDesc}}</view>
@@ -718,13 +707,14 @@
 	page,
 	.myView {
 		flex-direction: column;
-		width: 100%;
-		height: 100%;
+		// width: 100%;
+		// height: 100%;
 		background: #F1F1F1;
 	}
 
 	.headerClass {
 		position: sticky;
+		top: 0;
 		width: 100%;
 		background: #FFFFFF;
 		height: 109upx;
@@ -735,6 +725,8 @@
 	}
 
 	.scrollClass {
+		position: sticky;
+		top: 0;
 		height: 109upx;
 		width: 86%;
 		white-space: nowrap; //外层写这俩
