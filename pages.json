@@ -1,5 +1,12 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		//--------------------主页--------------------
+		{
+			"path": "pages/Home/zy_zhcx",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
 		//--------------------专线购票--------------------
 		{
 			"path": "pages/Home/zxgpHomePage",
@@ -20,13 +27,7 @@
 				"navigationStyle": "custom"
 			}
 		},
-		//--------------------主页--------------------
-		{
-			"path": "pages/Home/zy_zhcx",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
+		
 		
 		
 		//--------------------搜索栏--------------------
@@ -1272,7 +1273,8 @@
 		//#endif
 		"list": [
 			{
-				"pagePath": "pages/Home/zxgpHomePage",
+				// "pagePath": "pages/Home/zxgpHomePage",
+				"pagePath": "pages/Home/zy_zhcx",
 				"text": "首页"
 			},
 			{
@@ -1284,7 +1286,7 @@
 				"text": "服务"
 			},
 			{
-				"pagePath": "pages/order/newOrderList",
+				"pagePath": "pages/order/OrderList",
 				"text": "订单"
 			},
 

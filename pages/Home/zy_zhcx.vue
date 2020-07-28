@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view v-if="applyName=='南平综合出行2'">
+		<view v-if="applyName=='南平综合出行'">
 			<!-- 轮播图-->
 			<swiper class="swi" circular autoplay style="background-color: #65C36D;">
 				<swiper-item class="swiItem" v-for="(item,index) in homePage" :key="index">
@@ -65,16 +65,16 @@
 					<view style="display: flex;justify-content: space-around;align-items: center;"> -->
 					<view style="display: flex;width: 25%;justify-content: center;margin-bottom: 12upx;" v-for="(ArrItem,index1) in item.ItemArr" :key="index1">
 						<view style="display: flex;justify-content: center;flex-direction: column;align-items: center;" @click="TitleJump(ArrItem.IsUse,ArrItem.clickURL)">
-							<image v-if="ArrItem.ItemTitle =='达达骑车'" style="width: 90upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-							<image v-if="ArrItem.ItemTitle =='公交刷码'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-							<image v-if="ArrItem.ItemTitle =='达达钱包'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-							<image v-if="ArrItem.ItemTitle =='公交查询'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-							<image v-if="ArrItem.ItemTitle =='车票订购'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-							<image v-if="ArrItem.ItemTitle =='包车服务'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-							<image v-if="ArrItem.ItemTitle =='景区门票'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-							<image v-if="ArrItem.ItemTitle =='旅游产品'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-							<image v-if="ArrItem.ItemTitle =='预约检测'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-							<image v-if="ArrItem.ItemTitle =='自由行'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='达达骑车'" style="width: 86upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='公交刷码'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='达达钱包'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='公交查询'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='车票订购'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='包车服务'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='景区门票'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='旅游产品'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='预约检测'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='自由行'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
 							<text class="itemText">{{ArrItem.ItemTitle}}</text>
 						</view>
 					</view>
@@ -91,7 +91,8 @@
 		</view>
 		
 		<view>
-			<view v-if="applyName=='南平综合出行'" class="zh_top">
+			<!-- <view v-if="applyName=='南平综合出行'" class="zh_top"> -->
+			<view v-if="applyName=='南平综合出行2'" class="zh_top">
 				<!-- 顶部滑动 -->
 				<view style="position: absolute;width: 46%;top: 90upx;padding: 0 200upx;">
 					<view class="screen">
@@ -305,6 +306,7 @@
 				<view class="btnBox">
 					<view class="btnClass1" @click="closePopup('centerPopup')">暂不使用</view>
 					<view class="btnClass2" @click="confirm">同意</view>
+					<image src=""></image>
 				</view>
 			</view>
 		</uni-popup>
@@ -353,73 +355,106 @@
 					{
 						ItemArr: [{
 								IsUse: true,
-								clickURL: "../../pages_DDQC/pages/RentBike/RentBikeHome",
-								ImageURL: "../../static/Home/DDQC.png",
-								ItemTitle: "达达骑车"
-							},
-							{
-								IsUse: true,
-								clickURL: "../../pages_DDQC/pages/GRZY/zy_QRcode",
-								ImageURL: "../../static/Home/GJSM.png",
-								ItemTitle: "公交刷码"
-							},
-							{
-								IsUse: true,
-								clickURL: "../../pages_DDQC/pages/GRZY/zy_homepage",
-								ImageURL: "../../static/Home/QB.png",
-								ItemTitle: "达达钱包"
-							},
-							{
+								clickURL: "../../pages_CTKY/pages/CTKY/TraditionSpecial/Home/ctkyIndex",
+								ImageURL: "../../static/Home/CPDG.png",
+								ItemTitle: "车票订购"
+							},{
 								IsUse: true,
 								clickURL: "../../pages_DDQC/pages/Bus/BusSeach",
 								ImageURL: "../../static/Home/GJCX.png",
 								ItemTitle: "公交查询"
-							},
-						]
-					},
-					{
-						ItemArr: [{
+							},{
 								IsUse: true,
-								clickURL: "../../pages_DDQC/pages/Bus/TicketPurchase",
-								ImageURL: "../../static/Home/CPDG.png",
-								ItemTitle: "车票订购"
-							},
-							{
-								IsUse: false,
-								clickURL: "",
-								ImageURL: "../../static/Home/BCFW2.png",
+								clickURL: "/pages_BCFW/pages/BCFW/bf_chartered",
+								ImageURL: "../../static/Home/BCFW.png",
 								ItemTitle: "包车服务"
-							},
-							{
-								IsUse: false,
-								clickURL: "",
-								ImageURL: "../../static/Home/serve/jqgoupiao2.png",
+							},{
+								IsUse: true,
+								clickURL: "/pages_LYFW/pages/LYFW/scenicSpotTickets/ticketsList",
+								ImageURL: "../../static/Home/LVFW.png",//亮
+								// ImageURL: "../../static/Home/serve/hjqgoupiao.png",//暗
 								ItemTitle: "景区门票"
-							},
-							{
+							},{
 								IsUse: false,
 								clickURL: "",
-								ImageURL: "../../static/Home/LYCP2.png",
-								ItemTitle: "旅游产品"
-							},
-						]
-					},
-					{
-						ItemArr: [{
-								IsUse: false,
-								clickURL: "",
-								ImageURL: "../../static/Home/YYJC2.png",
+								ImageURL: "../../static/Home/YYJC.png",//暗
+								// ImageURL: "../../static/Home/serve/jcyuyue.png",//亮
 								ItemTitle: "预约检测"
 							},
-							{
-								IsUse: false,
-								clickURL: "",
-								ImageURL: "../../static/Home/ZYX2.png",
-								ItemTitle: "自由行"
-							}
 						]
-					}
+					},
 				],
+				// swiperItem: [ //菜单栏
+				// 	{
+				// 		ItemArr: [{
+				// 				IsUse: true,
+				// 				clickURL: "../../pages_DDQC/pages/RentBike/RentBikeHome",
+				// 				ImageURL: "../../static/Home/DDQC.png",
+				// 				ItemTitle: "达达骑车"
+				// 			},
+				// 			{
+				// 				IsUse: true,
+				// 				clickURL: "../../pages_DDQC/pages/GRZY/zy_QRcode",
+				// 				ImageURL: "../../static/Home/GJSM.png",
+				// 				ItemTitle: "公交刷码"
+				// 			},
+				// 			{
+				// 				IsUse: true,
+				// 				clickURL: "../../pages_DDQC/pages/GRZY/zy_homepage",
+				// 				ImageURL: "../../static/Home/QB.png",
+				// 				ItemTitle: "达达钱包"
+				// 			},
+				// 			{
+				// 				IsUse: true,
+				// 				clickURL: "../../pages_DDQC/pages/Bus/BusSeach",
+				// 				ImageURL: "../../static/Home/GJCX.png",
+				// 				ItemTitle: "公交查询"
+				// 			},
+				// 		]
+				// 	},
+				// 	{
+				// 		ItemArr: [{
+				// 				IsUse: true,
+				// 				clickURL: "../../pages_DDQC/pages/Bus/TicketPurchase",
+				// 				ImageURL: "../../static/Home/CPDG.png",
+				// 				ItemTitle: "车票订购"
+				// 			},
+				// 			{
+				// 				IsUse: false,
+				// 				clickURL: "",
+				// 				ImageURL: "../../static/Home/BCFW2.png",
+				// 				ItemTitle: "包车服务"
+				// 			},
+				// 			{
+				// 				IsUse: false,
+				// 				clickURL: "",
+				// 				ImageURL: "../../static/Home/serve/jqgoupiao2.png",
+				// 				ItemTitle: "景区门票"
+				// 			},
+				// 			{
+				// 				IsUse: false,
+				// 				clickURL: "",
+				// 				ImageURL: "../../static/Home/LYCP2.png",
+				// 				ItemTitle: "旅游产品"
+				// 			},
+				// 		]
+				// 	},
+				// 	{
+				// 		ItemArr: [{
+				// 				IsUse: false,
+				// 				clickURL: "",
+				// 				ImageURL: "../../static/Home/YYJC2.png",
+				// 				ItemTitle: "预约检测"
+				// 			},
+				// 			{
+				// 				IsUse: false,
+				// 				clickURL: "",
+				// 				ImageURL: "../../static/Home/ZYX2.png",
+				// 				ItemTitle: "自由行"
+				// 			}
+				// 		]
+				// 	}
+				// ],
 				applyName:'',
 				type2: 0,
 				departure:'',
@@ -616,7 +651,7 @@
 			},
 			newsClick: function(item) {
 				uni.navigateTo({
-					url: '../../pages_DDQC/pages/GRZY/newsDetail?id=' + item.AID
+					url: '../../pages_DDQC/pages/GRZY/newsDetail?id=' + item.AID,
 				})
 			},
 			//----------------------接口数据-------------------------------
@@ -747,7 +782,7 @@
 
 			Jump() {
 				uni.navigateTo({
-					url: '../../pages_DDQC/pages/GRZY/zy_newsScreening'
+					url: '../../pages_DDQC/pages/GRZY/zy_newsScreening',
 				})
 			},
 
@@ -1885,7 +1920,7 @@
 	//指示点
 	.dots {
 		position: relative;
-		background-color: #FFFFFF;
+		// background-color: #FFFFFF;
 		bottom: 28rpx;
 		left: 50%;
 		// 这里一定要注意兼容不然很可能踩坑          
