@@ -1665,7 +1665,7 @@
 				TaxiCost: 0, //价格
 				countdown: 0,
 				items: ['全部', '已完成', '进行中', '未支付', '已取消'],
-				// carSelect : ['全部','普通班车','定制班车','出租车','专线车','顺风车','包车服务','旅游服务'],
+				// carSelect : ['全部','普通班车','定制班车','出租车','专线车','顺风车','景区门票','包车服务'],
 				carSelect : ['全部','客运购票'],
 				selector : '全部',
 				selectorIndex : 0,//模块筛选值
@@ -1802,6 +1802,12 @@
 				if(that.selectorIndex==0){
 					that.getUserInfo();//加载普通班车订单方法
 					// setTimeout(function(){
+					// 	that.toFinished();//加载景区订单方法
+					// },400)
+					// setTimeout(function(){
+					// 	that.getArrayInfo();//加载包车服务方法
+					// },800)
+					// setTimeout(function(){
 					// 	that.GetBookLogInfoByUserId();//加载定制巴士订单方法
 					// },200)
 					// setTimeout(function(){
@@ -1822,8 +1828,10 @@
 				}else if(that.selectorIndex==1){
 					that.getUserInfo();//加载传统客运订单方法
 				}else if(that.selectorIndex==2){
-					that.GetBookLogInfoByUserId();//加载定制巴士订单方法
+					// that.getArrayInfo();//加载包车服务方法
+					// that.GetBookLogInfoByUserId();//加载定制巴士订单方法
 				}else if(that.selectorIndex==3){
+					// that.toFinished();//加载景区订单方法
 					// that.loadczcData();//加载出租车订单方法
 				}else if(that.selectorIndex==4){
 					// that.getOrderList();//加载出租车-专线车订单方法
@@ -2002,8 +2010,6 @@
 						clientID: that.userInfo.userId,
 					},
 					success: (res) => {
-						uni.stopPullDownRefresh();
-						uni.hideLoading();
 						console.log('客运订单数据', res.data);
 						that.ctkyOrderNum = res.data.orderNumber;
 						if (res.data.status == true) {
@@ -2021,11 +2027,13 @@
 									that.cancelArr.push(res.data.data[i]);
 								}
 							}
-
-						} else if (res.data.status == false) {
+							uni.stopPullDownRefresh();
 							uni.hideLoading();
-
+						} else if (res.data.status == false) {
+							uni.stopPullDownRefresh();
+							uni.hideLoading();
 						}
+						
 					},
 					fail(res) {
 						uni.hideLoading();
@@ -3793,8 +3801,7 @@
 					},
 					success: (res) => {
 						console.log('景区门票',res);
-						uni.hideLoading();
-						uni.stopPullDownRefresh();
+						
 						if (res.data.status == true) {
 								for (var i = 0; i < res.data.data.length; i++) {
 										that.info.push(res.data.data[i]);
@@ -3811,10 +3818,20 @@
 									}
 								}
 							//执行旅游产品列表接口
-							that.tp_orderListData();
+							// that.tp_orderListData();
+							uni.hideLoading();
+							uni.stopPullDownRefresh();
 						} else {
-							that.tp_orderListData();
+							uni.hideLoading();
+							uni.stopPullDownRefresh();
+							uni.showToast({
+								title:'无订单数据',
+								icon:'none'
+							})
+							// that.tp_orderListData();
+							
 						}
+						
 					},
 					fail:function(){
 						uni.hideLoading();
@@ -3838,8 +3855,7 @@
 					},
 					success: (res) => {
 						console.log('旅游产品',res);
-						uni.hideLoading();
-						uni.stopPullDownRefresh();
+						
 						if (res.data.status == true) {
 							for (var i = 0; i < res.data.data.length; i++) {
 									that.info.push(res.data.data[i]);
@@ -3857,6 +3873,8 @@
 								}
 							}
 						}
+						uni.hideLoading();
+						uni.stopPullDownRefresh();
 					},
 					fail:function(){
 						uni.hideLoading();
@@ -4034,7 +4052,7 @@
 									title: '退票成功',
 								})
 								this.close2()
-								this.toFinished();
+								uni.startPullDownRefresh()
 							}
 							
 						},
@@ -4071,7 +4089,7 @@
 									title: '退票成功',
 								})
 								this.close2()
-								this.toFinished();
+								uni.startPullDownRefresh()
 							}
 							
 						},
@@ -4108,14 +4126,14 @@
 									icon: 'none'
 								})
 								this.close3();
-								this.toFinished();
+								uni.startPullDownRefresh()
 							} else if (e.data.msg == '订单取消失败') {
 								uni.showToast({
 									title: '订单取消失败',
 									icon: 'none'
 								})
 								this.close3();
-								this.toFinished();
+								uni.startPullDownRefresh()
 							}
 						},
 						fail() {
@@ -4145,14 +4163,14 @@
 									icon: 'none'
 								})
 								this.close3();
-								this.toFinished();
+								uni.startPullDownRefresh()
 							} else if (e.data.status == false) {
 								uni.showToast({
 									title: '订单取消失败',
 									icon: 'none'
 								})
 								this.close3();
-								this.toFinished();
+								uni.startPullDownRefresh()
 							}
 						},
 						fail() {
@@ -4187,14 +4205,14 @@
 									icon: 'none'
 								})
 								this.close3();
-								this.toFinished();
+								uni.startPullDownRefresh()
 							} else if (e.data.msg == '订单取消失败') {
 								uni.showToast({
 									title: '订单取消失败',
 									icon: 'none'
 								})
 								this.close3();
-								this.toFinished();
+								uni.startPullDownRefresh()
 							}
 						},
 						fail() {
@@ -4228,7 +4246,7 @@
 								duration: 1500,
 							})
 							this.close4();
-							this.toFinished();
+							uni.startPullDownRefresh()
 						},
 						fail() {
 							uni.showToast({
@@ -4256,7 +4274,7 @@
 								duration: 1500,
 							})
 							this.close4();
-							this.toFinished();
+							uni.startPullDownRefresh()
 						},
 						fail() {
 							uni.showToast({
@@ -4284,7 +4302,7 @@
 								duration: 1500,
 							})
 							this.close4();
-							this.toFinished();
+							uni.startPullDownRefresh()
 						},
 						fail() {
 							uni.showToast({
@@ -4388,8 +4406,7 @@
 					},
 					success: (res) => {
 						console.log('包车服务',res);
-						uni.hideLoading();
-						uni.stopPullDownRefresh();
+						
 						if (res.data.msg == '订单查询完成') {
 							for (var i = 0; i < res.data.data.length; i++) {
 								if (res.data.data[i].or_Type == '6' || res.data.data[i].or_Type == '9' || res.data.data[i].or_Type ==
@@ -4415,6 +4432,8 @@
 								}
 							}
 						}
+						uni.hideLoading();
+						uni.stopPullDownRefresh();
 					},
 					fail:function(){
 						uni.hideLoading();

@@ -254,19 +254,18 @@
 					// 	ItemTitle: "达达骑车"
 					// },
 					// {
-						IsUse: true,
-						clickURL: "../../pages_GJCX/pages/GJCX/busH5",
-						ImageURL: "../../static/Home/serve/gjchaxun.png",//亮
-						// ImageURL: "../../static/Home/serve/hgjchaxun.png",//暗
-						ItemTitle: "公交查询"
-					},
-
-					{
 						IsUse: false,
 						clickURL: "/pages_CTKY/pages/CTKY/TraditionSpecial/Home/ctkyIndex",
 						// ImageURL: "../../static/Home/serve/hcpdinggou.png",//暗
 						ImageURL: "../../static/Home/serve/cpdinggou.png",//亮
 						ItemTitle: "车票订购"
+					},
+					{
+						IsUse: true,
+						clickURL: "../../pages_GJCX/pages/GJCX/busH5",
+						ImageURL: "../../static/Home/serve/gjchaxun.png",//亮
+						// ImageURL: "../../static/Home/serve/hgjchaxun.png",//暗
+						ItemTitle: "公交查询"
 					},
 					{
 						IsUse: false,
