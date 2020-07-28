@@ -255,7 +255,7 @@
 					// },
 					// {
 						IsUse: true,
-						clickURL: "../../pages_DDQC/pages/Bus/BusSeach",
+						clickURL: "../../pages_GJCX/pages/GJCX/busH5",
 						ImageURL: "../../static/Home/serve/gjchaxun.png",//亮
 						// ImageURL: "../../static/Home/serve/hgjchaxun.png",//暗
 						ItemTitle: "公交查询"
@@ -306,16 +306,16 @@
 					// },
 					{
 						IsUse: false,
-						clickURL: "",
-						ImageURL: "../../static/Home/serve/hhangban.png",//暗
-						// ImageURL: "../../static/Home/serve/hangban.png",//亮
+						clickURL: "../../pages_GJCX/pages/HB/hangban",
+						// ImageURL: "../../static/Home/serve/hhangban.png",//暗
+						ImageURL: "../../static/Home/serve/hangban.png",//亮
 						ItemTitle: "航班"
 					},
 					{
 						IsUse: false,
-						clickURL: "",
-						ImageURL: "../../static/Home/serve/hhuoche.png",//暗
-						// ImageURL: "../../static/Home/serve/huoche.png",//亮
+						clickURL: "../../pages_GJCX/pages/HC/huoche",
+						// ImageURL: "../../static/Home/serve/hhuoche.png",//暗
+						ImageURL: "../../static/Home/serve/huoche.png",//亮
 						ItemTitle: "火车"
 					},
 					{
@@ -397,6 +397,30 @@
 					// #ifdef MP-WEIXIN
 					uni.showToast({
 						title: '公交查询仅支持公众号和APP',
+						icon: 'none'
+					})
+					// #endif
+					// #ifndef MP-WEIXIN
+					uni.navigateTo({
+						url: url
+					});
+					// #endif
+				}else if (url == '/pages_GJCX/pages/GJCX/hangban') {
+					// #ifdef MP-WEIXIN
+					uni.showToast({
+						title: '航班查询仅支持公众号和APP',
+						icon: 'none'
+					})
+					// #endif
+					// #ifndef MP-WEIXIN
+					uni.navigateTo({
+						url: url
+					});
+					// #endif
+				}else if (url == '/pages_GJCX/pages/GJCX/huoche') {
+					// #ifdef MP-WEIXIN
+					uni.showToast({
+						title: '火车查询仅支持公众号和APP',
 						icon: 'none'
 					})
 					// #endif
