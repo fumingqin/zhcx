@@ -25,6 +25,8 @@
 							<image v-if="ArrItem.ItemTitle =='旅游产品'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
 							<image v-if="ArrItem.ItemTitle =='预约检测'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
 							<image v-if="ArrItem.ItemTitle =='自由行'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='武夷新区'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='村村通'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
 							<text class="itemText">{{ArrItem.ItemTitle}}</text>
 						</view>
 					</view>
@@ -50,6 +52,8 @@
 							<image v-if="ArrItem.ItemTitle =='旅游产品'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
 							<image v-if="ArrItem.ItemTitle =='预约检测'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
 							<image v-if="ArrItem.ItemTitle =='自由行'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='武夷新区'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='村村通'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
 							<text class="itemText">{{ArrItem.ItemTitle}}</text>
 						</view>
 					</view>
@@ -73,8 +77,10 @@
 							<image v-if="ArrItem.ItemTitle =='包车服务'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
 							<image v-if="ArrItem.ItemTitle =='景区门票'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
 							<image v-if="ArrItem.ItemTitle =='旅游产品'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-							<image v-if="ArrItem.ItemTitle =='预约检测'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='检测预约'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
 							<image v-if="ArrItem.ItemTitle =='自由行'" style="width: 64upx;height: 64upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='武夷新区'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+							<image v-if="ArrItem.ItemTitle =='村村通'" style="width: 68upx;height: 68upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
 							<text class="itemText">{{ArrItem.ItemTitle}}</text>
 						</view>
 					</view>
@@ -364,22 +370,23 @@
 								ImageURL: "../../static/Home/GJCX.png",
 								ItemTitle: "公交查询"
 							},{
-								IsUse: true,
-								clickURL: "/pages_BCFW/pages/BCFW/bf_chartered",
-								ImageURL: "../../static/Home/BCFW.png",
-								ItemTitle: "包车服务"
-							},{
-								IsUse: true,
-								clickURL: "/pages_LYFW/pages/LYFW/scenicSpotTickets/ticketsList",
-								ImageURL: "../../static/Home/LVFW.png",//亮
-								// ImageURL: "../../static/Home/serve/hjqgoupiao.png",//暗
-								ItemTitle: "景区门票"
+								IsUse: false,
+								clickURL: "",
+								ImageURL: "../../static/Home/hxqzhuanxian.png",//暗
+								// ImageURL: "../../static/Home/serve/xqzhuanxian.png",//亮
+								ItemTitle: "武夷新区"
 							},{
 								IsUse: false,
 								clickURL: "",
-								ImageURL: "../../static/Home/YYJC.png",//暗
-								// ImageURL: "../../static/Home/serve/jcyuyue.png",//亮
-								ItemTitle: "预约检测"
+								ImageURL: "../../static/Home/CCT2.png",//暗
+								// ImageURL: "../../static/Home/serve/cuncuntong.png",//亮
+								ItemTitle: "村村通"
+							},{
+								IsUse: false,
+								clickURL: "",
+								ImageURL: "../../static/Home/YYJC2.png",//暗
+								// ImageURL: "../../static/Home/YYJC.png",//亮
+								ItemTitle: "检测预约"
 							},
 						]
 					},
