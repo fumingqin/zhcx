@@ -200,7 +200,7 @@
 		<view class="zl_recommend">
 			<view>
 				<view class="zl_reContent">
-					<text class="zl_reTitle">长运风采</text>
+					<text class="zl_reTitle">南平风采</text>
 					<!-- 下面这是要注释的 -->
 					<!-- <text class="zl_reMore">更多></text> -->
 				</view>
