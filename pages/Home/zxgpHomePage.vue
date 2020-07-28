@@ -63,6 +63,20 @@
 				
 				<!-- 按钮 -->
 				<view class="tjButton" hover-class="ve_hover2" @click="queryClick">查询</view>
+				
+
+				
+				<view class="zl_recommend">
+					<view>
+						<view class="zl_reContent">
+							<text class="zl_reTitle">快捷选项</text>
+						</view>
+						<view class="zl_cilckView" v-for="(item,index) in mainArray" :key="index" @click="quick(item)" >
+							<view class="zl_textView"  hover-class="ve_hover3">{{item.LineName}}</view>
+						</view>
+					</view>
+				</view>
+				
 				<view class="hp_view">
 					<view class="hp_Line"></view>
 					<view class="hp_text">购票须知</view>
@@ -107,10 +121,11 @@
 				}], //背景图
 				applyName:'',
 				way:'',
+				mainArray:'',
 			}
 		},
 		
-		onLoad(){
+		onLoad:function(){
 			// #ifdef APP-PLUS
 			const value = uni.getStorageSync('launchFlag');
 			console.log(value)
@@ -137,6 +152,7 @@
 			// 	that.destination2 = '请选择终点';
 			// }
 			that.loadData();
+			this.getBusStationList();
 		},
 		
 		onShow(){
@@ -379,6 +395,34 @@
 			},
 			//---------------------------------微信授权登录end---------------------------------
 			//#endif
+			
+			//-------------------------获取车站列表数据-------------------------
+			getBusStationList:function() {
+				uni.request({
+					url: $Zxgp.KyInterface.Cs_GetInsuranceCheckState.Url,
+					method: $Zxgp.KyInterface.Cs_GetInsuranceCheckState.method,
+					data: {
+						systemname: this.applyName
+					},
+					success: (res) => {
+						console.log('请求接口的数据：', res)
+						uni.hideLoading();
+						if (res.data.data.length != 0) {
+							this.mainArray = res.data.data;
+							console.log(this.mainArray)
+						}
+					},
+					fail(res) {
+						uni.hideLoading();
+					}
+				})
+			},
+			quick:function(item){
+				var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + item.StartSiteName +'&endStation=' + item.EndSiteName + '&date=' + this.datestring + '&isNormal=' + this.type2;
+				uni.navigateTo({
+					url:params,
+				})
+			}
 		}
 	}
 </script>
@@ -498,10 +542,10 @@
 		
 		.top_destination{
 			// display: flex;
-			width:192upx;
+			width:196upx;
 			height:70upx;
 			// overflow: hidden;
-			left: 61%;
+			// left: 61%;
 			padding: 20upx 28upx;
 			margin-left: 12upx;
 			border-radius:22upx;
@@ -637,6 +681,20 @@
 		opacity: 0.9;
 		background: #E4E7ED;
 	}
+	//查询点击态
+	.ve_hover2{
+		transition: all .3s;//过度
+		border-radius: 64upx;
+		opacity: 0.9;
+		background: #F0AD4E;
+	}
+	//点击态
+	.ve_hover3{
+		transition: all .3s;//过度
+		border-radius: 44upx;
+		opacity: 0.9;
+		background: #aaa;
+	}
 	
 	//底部按钮
 	.tjButton {
@@ -658,12 +716,8 @@
 	}
 	
 	.hp_view{
-		// width: 100%;
-		height:36upx;
-		z-index: 2;
 		display: flex;
 		padding-left: 20%;
-		margin-top: 84upx;
 		
 		.hp_Line{
 			width: 136upx;
@@ -676,6 +730,7 @@
 			font-size: 28upx;
 			color: #FFFFFF;
 			text-align: center;
+			margin-top: 64upx;
 		}
 		
 		.hp_Line2{
@@ -694,11 +749,48 @@
 		z-index: 2;
 	}
 	
-	//查询点击态
-	.ve_hover2{
-		transition: all .3s;//过度
-		border-radius: 64upx;
-		opacity: 0.9;
-		background: #F0AD4E;
+
+	
+	// 旅游推荐
+	.zl_recommend {
+		// background: #fff;
+		margin-top: 16upx;
+	
+		.zl_reContent {
+			position: relative;
+			padding-top: 40upx;
+			margin-left: 28upx;
+	
+			.zl_reTitle {
+				font-size: 30upx;
+				color: #FFFFFF;
+				font-weight: bold;
+				margin-left: 22upx;
+			}
+	
+			.zl_reMore {
+				position: absolute;
+				padding-right: 31upx;
+				padding: 4upx 0;
+				right: 0;
+				font-size: 24upx;
+				color: #5E5E60;
+			}
+		}
+		
+		.zl_cilckView{
+			float: left;
+			margin-left: 52rpx;
+			margin-top: 32rpx;
+			
+			.zl_textView{
+				color: #333333;
+				font-size: 30upx;
+				padding: 20upx 86upx;
+				background: #FFFFFF;
+				border-radius: 44rpx;
+			}
+		}
+	
 	}
 </style>

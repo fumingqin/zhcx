@@ -103,7 +103,10 @@
 			}
 		},
 		onLoad(param) {
-			
+			uni.showToast({
+				title: '查询班次中...',
+				icon: 'none'
+			})
 			var that = this;
 			if(param.isEndores) {//当前是改签
 				that.isEndores = param.isEndores;
@@ -171,7 +174,10 @@
 			//-------------------------------加载客运班次列表数据-------------------------------
 			getTicketInfo: function(date) {
 				var that = this;
-				uni.showLoading();
+				uni.showToast({
+					title:'查询班次中...',
+					icon:'loading'
+				})
 				if (date == 'date') {
 					date = new Date();
 				}
