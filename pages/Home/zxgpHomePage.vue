@@ -3,7 +3,7 @@
 		<view class="zh_top">
 			<image class="top_image" :src="background[0].imageUrl" mode="aspectFill"></image>
 			<!-- 顶部滑动 -->
-			<view style="position: absolute;z-index: 999;margin-top: 150upx;">
+			<view style="position: absolute;z-index: 999;margin-top: 192upx;">
 				<!-- <view style="width: 46%;top: 90upx;padding: 0 200upx;padding-top: 100upx;">
 					<view class="screen">
 						<view class="screenView">

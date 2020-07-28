@@ -89,7 +89,7 @@
 				</view>
 			</view> -->
 
-			<view class="MP_information3" @click="payment">支付{{totalPrice}}元
+			<view class="MP_information3" @click="getOrder">支付{{totalPrice}}元
 			</view>
 
 		</view>
@@ -106,7 +106,7 @@
 				countDownDate: 120, //倒计时时间
 				utils: utils,
 				userInfo: [], //用户信息
-				hiddenValues: '0', //隐藏状态值
+				hiddenValues: '1', //隐藏状态值
 				channel: [{
 					name: '微信'
 				}, {
@@ -397,12 +397,24 @@
 
 					success: (res) => {
 						console.log('下单返回结果',res)
-						
 						if (res.data) {
 							if (res.data.status == true) {
 								that.orderNum = res.data.data;
 								that.getTicketPaymentInfo(res.data.data);
-							} else if (res.data.status == false) {
+							}else if(res.data.msg == '车票预定失败,您有未完成的订单,请支付后再预定'){
+								uni.hideLoading()
+								uni.showToast({
+									title:res.data.msg,
+									duration:1500,
+									success: () => {
+										uni.switchTab({
+											url:'../../../../../pages/order/newOrderList'
+										})
+									}
+								})
+								
+								
+							}else if (res.data.status == false) {
 								uni.hideLoading();
 								uni.showModal({
 									content: res.data.msg,
@@ -468,9 +480,31 @@
 												}
 											},
 											fail() {
-												uni.switchTab({
-													url:'../../../../../pages/order/newOrderList'
+												console.log(orderNumber)
+												uni.request({
+													url: $KyInterface.KyInterface.Ky_CancelTicket.Url,
+													method: $KyInterface.KyInterface.Ky_CancelTicket.method,
+													data: {
+														orderNumber: orderNumber,
+													},
+													success: (respones) => {
+														uni.hideLoading()
+														// console.log('取消结果', respones)
+														if (respones.data.status == true) {
+															console.log('取消成功')
+														} else {
+															console.log('取消成功')
+														}
+													},
+													fail: (respones) => {
+														// alert(respones.data.msg)
+														uni.hideLoading()
+														console.log(respones)
+														console.log('服务器异常')
+													}
 												})
+												
+												
 											}
 											
 										})
@@ -515,8 +549,30 @@
 						})
 						that.getTicketPaymentInfo_ticketIssue(that.orderNum);
 					} else if (res.err_msg == "get_brand_wcpay_request:cancel") {
+						uni.request({
+							url: $KyInterface.KyInterface.Ky_CancelTicket.Url,
+							method: $KyInterface.KyInterface.Ky_CancelTicket.method,
+							data: {
+								orderNumber: that.orderNum,
+							},
+							success: (respones) => {
+								uni.hideLoading()
+								// console.log('取消结果', respones)
+								if (respones.data.status == true) {
+									console.log('取消成功')
+								} else {
+									console.log('取消成功')
+								}
+							},
+							fail: (respones) => {
+								// alert(respones.data.msg)
+								uni.hideLoading()
+								console.log(respones)
+								console.log('服务器异常')
+							}
+						})
 						uni.showToast({
-							title: '您取消了支付，请重新支付',
+							title: '您取消了支付',
 							icon: 'none'
 						})
 					} else if (res.err_msg == "get_brand_wcpay_request:faile") {

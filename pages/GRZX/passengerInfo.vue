@@ -104,7 +104,7 @@
 								},
 								method:that.$GrzxInter.Interface.userInfoList.method,
 								success(res1) {
-									console.log(res1,'111')
+									console.log(res1,'乘车人列表')
 									for(var i=0;i<res1.data.data.length;i++){
 										if(res1.data.data[i].userSex==0){
 											res1.data.data[i].userSex="男";
@@ -123,7 +123,7 @@
 									}
 									var defaultList=[];
 									for(var n=0;n<array.length;n++){
-										if(array[n].userDefault==true){
+										if(array[n].hiddenIndex==1){
 											defaultList.unshift(array[n]);
 										}else{
 											defaultList.push(array[n]);
