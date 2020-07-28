@@ -1271,10 +1271,10 @@
 				"pagePath": "pages/GRZX/notice",
 				"text": "通知"
 			},
-			{
-				"pagePath": "pages/Home/serve",
-				"text": "服务"
-			},
+			// {
+			// 	"pagePath": "pages/Home/serve",
+			// 	"text": "服务"
+			// },
 			{
 				"pagePath": "pages/order/newOrderList",
 				"text": "订单"
