@@ -86,14 +86,14 @@ export default{
 		getOpenID:function(code){
 			var that = this;
 			console.log("访问地址",that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.value)
-			console.log("应用名称",that.$GrzxInter.systemConfig.applyName)
+			console.log("应用名称",that.$GrzxInter.systemConfig.appName)
 			console.log("应用类型",that.$GrzxInter.systemConfig.openidtype)
 			uni.request({
 				url:that.$GrzxInter.Interface.GetOpenId_xcx.value,
 				method: that.$GrzxInter.Interface.GetOpenId_xcx.method,
 				data:{
 					code:code,
-					systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+					systemname:that.$GrzxInter.systemConfig.appName,//应用名称
 					openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 				},
 				success(logRes){
