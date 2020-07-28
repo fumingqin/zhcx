@@ -542,10 +542,10 @@
 		
 		.top_destination{
 			// display: flex;
-			width:192upx;
+			width:196upx;
 			height:70upx;
 			// overflow: hidden;
-			left: 61%;
+			// left: 61%;
 			padding: 20upx 28upx;
 			margin-left: 12upx;
 			border-radius:22upx;
