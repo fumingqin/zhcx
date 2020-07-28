@@ -366,9 +366,9 @@
 							var nowdate = this.getTime(3, mydate); //获取该日期的缩写  月/日
 							var week = this.getTime(2, mydate); //获取该日期为周几
 							var longdate = this.getTime(0, mydate); //获取 年/月/日
-							if (this.getTime(0, mydate) == this.getTime(0, dateToday)) {
-								week = '今天';
-							}
+							// if (this.getTime(0, mydate) == this.getTime(0, dateToday)) {
+							// 	week = '今天';
+							// }
 							this.dateArray.push({
 								week: week,
 								date: nowdate,
@@ -577,9 +577,9 @@
 					var nowdate = this.getTime(3, mydate);
 					var week = this.getTime(2, mydate);
 					var longdate = this.getTime(0, mydate);
-					if (mydate.getTime() == date.getTime()) {
-						week = '今天';
-					}
+					// if (mydate.getTime() == date.getTime()) {
+					// 	week = '今天';
+					// }
 					this.dateArray.push({
 						week: week,
 						date: nowdate,
@@ -686,13 +686,14 @@
 	page,
 	.myView {
 		flex-direction: column;
-		width: 100%;
-		height: 100%;
+		// width: 100%;
+		// height: 100%;
 		background: #F1F1F1;
 	}
 
 	.headerClass {
 		position: sticky;
+		top: 0;
 		width: 100%;
 		background: #FFFFFF;
 		height: 109upx;

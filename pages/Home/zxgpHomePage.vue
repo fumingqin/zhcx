@@ -63,6 +63,22 @@
 				
 				<!-- 按钮 -->
 				<view class="tjButton" hover-class="ve_hover2" @click="queryClick">查询</view>
+				
+
+				
+				<view class="zl_recommend">
+					<view>
+						<view class="zl_reContent">
+							<text class="zl_reTitle">长运风采</text>
+						</view>
+						<view style="display: flex;padding: 0 30upx;">
+							<view class="zl_cilckView" v-for="(item,index) in mainArray" :key="index" @click="XXX(item)">
+								{{item.LineName}}
+							</view>
+						</view>
+					</view>
+				</view>
+				
 				<view class="hp_view">
 					<view class="hp_Line"></view>
 					<view class="hp_text">购票须知</view>
@@ -107,10 +123,11 @@
 				}], //背景图
 				applyName:'',
 				way:'',
+				mainArray:'',
 			}
 		},
 		
-		onLoad(){
+		onLoad:function(){
 			// #ifdef APP-PLUS
 			const value = uni.getStorageSync('launchFlag');
 			console.log(value)
@@ -137,6 +154,7 @@
 			// 	that.destination2 = '请选择终点';
 			// }
 			that.loadData();
+			this.getBusStationList();
 		},
 		
 		onShow(){
@@ -379,6 +397,28 @@
 			},
 			//---------------------------------微信授权登录end---------------------------------
 			//#endif
+			
+			//-------------------------获取车站列表数据-------------------------
+			getBusStationList:function() {
+				uni.request({
+					url: $Zxgp.KyInterface.Cs_GetInsuranceCheckState.Url,
+					method: $Zxgp.KyInterface.Cs_GetInsuranceCheckState.method,
+					data: {
+						systemname: this.applyName
+					},
+					success: (res) => {
+						console.log('请求接口的数据：', res)
+						uni.hideLoading();
+						if (res.data.data.length != 0) {
+							this.mainArray = res.data.data;
+							console.log(this.mainArray)
+						}
+					},
+					fail(res) {
+						uni.hideLoading();
+					}
+				})
+			},
 		}
 	}
 </script>
@@ -700,5 +740,43 @@
 		border-radius: 64upx;
 		opacity: 0.9;
 		background: #F0AD4E;
+	}
+	
+	// 旅游推荐
+	.zl_recommend {
+		// background: #fff;
+		margin-top: 16upx;
+		padding: 0 31upx;
+	
+		.zl_reContent {
+			position: relative;
+			padding-top: 40upx;
+	
+			.zl_reTitle {
+				font-size: 32upx;
+				color: #FFFFFF;
+				font-weight: bold;
+			}
+	
+			.zl_reMore {
+				position: absolute;
+				padding-right: 31upx;
+				padding: 4upx 0;
+				right: 0;
+				font-size: 24upx;
+				color: #5E5E60;
+			}
+		}
+		
+		.zl_cilckView{
+			display: flex;
+			color: #333333;
+			background-color: #FFFFFF;
+			font-size: 30upx;
+			margin:28upx 0;
+			padding: 10upx;
+			width: 140upx;
+		}
+	
 	}
 </style>

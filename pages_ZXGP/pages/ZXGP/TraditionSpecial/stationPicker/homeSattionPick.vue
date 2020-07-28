@@ -15,7 +15,7 @@
 			</block>
 		</view>
 		<!-- 联动列表 -->
-		<view class="list_box" v-if="isShowAllList">
+		<view class="list_box" v-if="isShowAllList">	
 			<!-- 左边的列表 -->
 			<!-- <view class="left">
 				<scroll-view scroll-y="true" :style="{ 'height':scrollHeight }">
