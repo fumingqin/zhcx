@@ -69,12 +69,10 @@
 				<view class="zl_recommend">
 					<view>
 						<view class="zl_reContent">
-							<text class="zl_reTitle">长运风采</text>
+							<text class="zl_reTitle">快捷选项</text>
 						</view>
-						<view style="display: flex;padding: 0 30upx;">
-							<view class="zl_cilckView" v-for="(item,index) in mainArray" :key="index" @click="XXX(item)">
-								{{item.LineName}}
-							</view>
+						<view class="zl_cilckView" v-for="(item,index) in mainArray" :key="index" @click="quick(item)" >
+							<view class="zl_textView"  hover-class="ve_hover3">{{item.LineName}}</view>
 						</view>
 					</view>
 				</view>
@@ -419,6 +417,12 @@
 					}
 				})
 			},
+			quick:function(item){
+				var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + item.StartSiteName +'&endStation=' + item.EndSiteName + '&date=' + this.datestring + '&isNormal=' + this.type2;
+				uni.navigateTo({
+					url:params,
+				})
+			}
 		}
 	}
 </script>
@@ -677,6 +681,20 @@
 		opacity: 0.9;
 		background: #E4E7ED;
 	}
+	//查询点击态
+	.ve_hover2{
+		transition: all .3s;//过度
+		border-radius: 64upx;
+		opacity: 0.9;
+		background: #F0AD4E;
+	}
+	//点击态
+	.ve_hover3{
+		transition: all .3s;//过度
+		border-radius: 44upx;
+		opacity: 0.9;
+		background: #aaa;
+	}
 	
 	//底部按钮
 	.tjButton {
@@ -698,12 +716,8 @@
 	}
 	
 	.hp_view{
-		// width: 100%;
-		height:36upx;
-		z-index: 2;
 		display: flex;
 		padding-left: 20%;
-		margin-top: 84upx;
 		
 		.hp_Line{
 			width: 136upx;
@@ -716,6 +730,7 @@
 			font-size: 28upx;
 			color: #FFFFFF;
 			text-align: center;
+			margin-top: 64upx;
 		}
 		
 		.hp_Line2{
@@ -734,28 +749,23 @@
 		z-index: 2;
 	}
 	
-	//查询点击态
-	.ve_hover2{
-		transition: all .3s;//过度
-		border-radius: 64upx;
-		opacity: 0.9;
-		background: #F0AD4E;
-	}
+
 	
 	// 旅游推荐
 	.zl_recommend {
 		// background: #fff;
 		margin-top: 16upx;
-		padding: 0 31upx;
 	
 		.zl_reContent {
 			position: relative;
 			padding-top: 40upx;
+			margin-left: 28upx;
 	
 			.zl_reTitle {
-				font-size: 32upx;
+				font-size: 30upx;
 				color: #FFFFFF;
 				font-weight: bold;
+				margin-left: 22upx;
 			}
 	
 			.zl_reMore {
@@ -769,13 +779,17 @@
 		}
 		
 		.zl_cilckView{
-			display: flex;
-			color: #333333;
-			background-color: #FFFFFF;
-			font-size: 30upx;
-			margin:28upx 0;
-			padding: 10upx;
-			width: 140upx;
+			float: left;
+			margin-left: 52rpx;
+			margin-top: 32rpx;
+			
+			.zl_textView{
+				color: #333333;
+				font-size: 30upx;
+				padding: 20upx 86upx;
+				background: #FFFFFF;
+				border-radius: 44rpx;
+			}
 		}
 	
 	}
