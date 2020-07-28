@@ -79,10 +79,12 @@
 				specialPickerNum:0,
 				isNormal:0,//判断是普通购票还是定制班车默认是普通购票
 				imageUrl:'',
+				applyName:'',
 			}
 		},
 		onLoad() {
 			var that = this;
+			that.applyName=that.$oSit.Interface.system.applyName;
 			if(that.departure == '' || that.destination == '') {
 				that.departure = '选择上车点';
 				that.destination = '选择下车点';
@@ -114,6 +116,8 @@
 					header:$KyInterface.KyInterface.Ky_AddPicture.header,
 					data:{
 						model:0,
+						systemtype:'XCX',//应用类型
+						companyid:this.applyName, //公司名称
 					},
 					success(res) {
 						console.log(res)
