@@ -16,6 +16,7 @@ const Interface = {
 	system:{
 		applyName:'南平综合出行',
 		appName:'专线购票小程序', //仅用于微信授权登录
+		// appName:'南平综合出行', //仅用于微信授权登录
 		// #ifdef H5
 			openidtype:'公众号',
 		// #endif
