@@ -334,7 +334,8 @@
 			orderClick(e) {
 				uni.setStorageSync('currentNum', e)
 				uni.switchTab({
-					url: '/pages/order/OrderList',
+					// url: '/pages/order/OrderList',
+					url: '/pages/order/newOrderList',
 				})
 			},
 			

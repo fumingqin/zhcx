@@ -169,7 +169,6 @@
 		  this.loadData();
 		},
 		onShow(){
-			//uni.startPullDownRefresh();
 			this.loadData();
 		},
 	    methods: {	
@@ -225,7 +224,7 @@
 										list1.push(array[i]);
 									}
 									if(array[i].userDefault==true){
-										defaultList.unshift(array[i]);
+										defaultList.unshift(array[i]);//置顶
 									}else{
 										defaultList.push(array[i]);
 									}
