@@ -16,6 +16,7 @@ import $oSit from '@/common/overallSituation.js';
 // #endif
 
 const systemConfig={
+	appName:$oSit.Interface.system.appName,	
 	applyName:$oSit.Interface.system.applyName,		//应用名称
 	openidtype:$oSit.Interface.system.openidtype,	//应用类型：app，小程序，公众号
 }
