@@ -356,6 +356,9 @@
 				companyCode = $KyInterface.KyInterface.systemName.systemNameNPWeiXin;
 				// #endif
 				//--------------------------发起下单请求-----------------------
+				uni.showLoading({
+				    title: '正在下单...'
+				});
 				uni.request({
 					url:$KyInterface.KyInterface.Ky_PaymentUrl.Url,
 					method:$KyInterface.KyInterface.Ky_PaymentUrl.method,
@@ -475,38 +478,33 @@
 										uni.showModal({
 											content: '请在2分钟内完成支付',
 											success(res) {
-												if(res.confirm) {
+												console.log('确认',res)
+												if(res.confirm == true) {
 													that.payment();
-												}
-											},
-											fail() {
-												console.log(orderNumber)
-												uni.request({
-													url: $KyInterface.KyInterface.Ky_CancelTicket.Url,
-													method: $KyInterface.KyInterface.Ky_CancelTicket.method,
-													data: {
-														orderNumber: orderNumber,
-													},
-													success: (respones) => {
-														uni.hideLoading()
-														// console.log('取消结果', respones)
-														if (respones.data.status == true) {
-															console.log('取消成功')
-														} else {
-															console.log('取消成功')
+												}else if(res.confirm == false) {
+													uni.request({
+														url: $KyInterface.KyInterface.Ky_CancelTicket.Url,
+														method: $KyInterface.KyInterface.Ky_CancelTicket.method,
+														data: {
+															orderNumber: orderNumber,
+														},
+														success: (respones) => {
+															uni.hideLoading()
+															// console.log('取消结果', respones)
+															if (respones.data.status == true) {
+																that.showToast("您取消了支付，已自动取消订单")
+															} else {
+																that.showToast("您取消了支付，自动取消订单失败")
+															}
+														},
+														fail: (respones) => {
+															// alert(respones.data.msg)
+															uni.hideLoading()
+															that.showToast("您取消了支付，自动取消订单失败")
 														}
-													},
-													fail: (respones) => {
-														// alert(respones.data.msg)
-														uni.hideLoading()
-														console.log(respones)
-														console.log('服务器异常')
-													}
-												})
-												
-												
+													})
+												}
 											}
-											
 										})
 									}
 								} else if (res.data.status == false) {
@@ -559,21 +557,16 @@
 								uni.hideLoading()
 								// console.log('取消结果', respones)
 								if (respones.data.status == true) {
-									console.log('取消成功')
+									that.showToast("您取消了支付，已自动取消订单")
 								} else {
-									console.log('取消成功')
+									that.showToast("您取消了支付，自动取消订单失败")
 								}
 							},
 							fail: (respones) => {
 								// alert(respones.data.msg)
 								uni.hideLoading()
-								console.log(respones)
-								console.log('服务器异常')
+								that.showToast("您取消了支付，自动取消订单失败")
 							}
-						})
-						uni.showToast({
-							title: '您取消了支付',
-							icon: 'none'
 						})
 					} else if (res.err_msg == "get_brand_wcpay_request:faile") {
 						uni.showToast({
@@ -677,9 +670,27 @@
 								that.getTicketPaymentInfo_ticketIssue(that.orderNum);
 							},4000)
 						}else if (res.errMsg == "requestPayment:fail cancel") {
-							setTimeout(function() {
-								that.showToast("您取消了支付，请重新支付")
-							}, 1000)
+							uni.request({
+								url: $KyInterface.KyInterface.Ky_CancelTicket.Url,
+								method: $KyInterface.KyInterface.Ky_CancelTicket.method,
+								data: {
+									orderNumber: that.orderNum,
+								},
+								success: (respones) => {
+									uni.hideLoading()
+									console.log('取消结果', respones)
+									if (respones.data.status == true) {
+										that.showToast("您取消了支付，已自动取消订单")
+									} else {
+										that.showToast("您取消了支付，自动取消订单失败")
+									}
+								},
+								fail: (respones) => {
+									// alert(respones.data.msg)
+									uni.hideLoading()
+									that.showToast("您取消了支付，自动取消订单失败")
+								}
+							})
 						}else if (res.errMsg == "requestPayment:fail errors") {
 							setTimeout(function() {
 								that.showToast("支付失败，请重新支付")
@@ -689,9 +700,27 @@
 					fail(res) {
 						console.log(res)
 						if (res.errMsg == "requestPayment:fail cancel") {
-							setTimeout(function() {
-								that.showToast("您取消了支付，请重新支付")
-							}, 1000)
+							uni.request({
+								url: $KyInterface.KyInterface.Ky_CancelTicket.Url,
+								method: $KyInterface.KyInterface.Ky_CancelTicket.method,
+								data: {
+									orderNumber: that.orderNum,
+								},
+								success: (respones) => {
+									uni.hideLoading()
+									// console.log('取消结果', respones)
+									if (respones.data.status == true) {
+										that.showToast("您取消了支付，已自动取消订单")
+									} else {
+										that.showToast("您取消了支付，自动取消订单失败")
+									}
+								},
+								fail: (respones) => {
+									// alert(respones.data.msg)
+									uni.hideLoading()
+									that.showToast("您取消了支付，自动取消订单失败")
+								}
+							})
 						}else if (res.errMsg == "requestPayment:fail errors") {
 							setTimeout(function() {
 								that.showToast("支付失败，请重新支付")
