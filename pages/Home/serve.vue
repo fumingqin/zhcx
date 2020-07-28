@@ -13,14 +13,14 @@
 						<image v-if="item.ItemTitle =='公交查询'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='车票订购'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='包车服务'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
-						<image v-if="item.ItemTitle =='检测预约'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='网络约车'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='公务租车'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='小件快递'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='天气'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='航班'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='火车'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
-						<image v-if="item.ItemTitle =='新区专线'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
+						<image v-if="item.ItemTitle =='检测预约'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
+						<image v-if="item.ItemTitle =='武夷新区'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='村村通'" class="sv_print" :src="item.ImageURL" lazy-load="true"></image>
 						<text class="sv_text">{{item.ItemTitle}}</text>
 					</view>
@@ -172,7 +172,7 @@
 						<image v-if="item.ItemTitle =='自由行'" class="sv_print3" style="width: 47upx;" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='跟团游'" class="sv_print3" style="width: 57upx;" :src="item.ImageURL" lazy-load="true"></image>
 						<image v-if="item.ItemTitle =='景区购票'" class="sv_print3" style="width:52upx;" :src="item.ImageURL" lazy-load="true"></image>
-						<image v-if="item.ItemTitle =='旅游产品'" class="sv_print3" style="width: 62upx;" :src="item.ImageURL" lazy-load="true"></image>
+<!-- 						<image v-if="item.ItemTitle =='旅游产品'" class="sv_print3" style="width: 62upx;" :src="item.ImageURL" lazy-load="true"></image> -->
 						<text class="sv_text">{{item.ItemTitle}}</text>
 					</view>
 				</view>
@@ -248,12 +248,12 @@
 					imageUrl: '',
 				}], //首页图片
 				ItemArr: [{
-						IsUse: true,
-						clickURL: "../../pages_DDQC/pages/RentBike/RentBikeHome",
-						ImageURL: "../../static/Home/serve/DDQC.png",
-						ItemTitle: "达达骑车"
-					},
-					{
+					// 	IsUse: true,
+					// 	clickURL: "../../pages_DDQC/pages/RentBike/RentBikeHome",
+					// 	ImageURL: "../../static/Home/serve/DDQC.png",
+					// 	ItemTitle: "达达骑车"
+					// },
+					// {
 						IsUse: true,
 						clickURL: "../../pages_DDQC/pages/Bus/BusSeach",
 						ImageURL: "../../static/Home/serve/gjchaxun.png",//亮
@@ -264,52 +264,46 @@
 					{
 						IsUse: false,
 						clickURL: "/pages_CTKY/pages/CTKY/TraditionSpecial/Home/ctkyIndex",
-						ImageURL: "../../static/Home/serve/hcpdinggou.png",//暗
-						// ImageURL: "../../static/Home/serve/cpdinggou.png",//亮
+						// ImageURL: "../../static/Home/serve/hcpdinggou.png",//暗
+						ImageURL: "../../static/Home/serve/cpdinggou.png",//亮
 						ItemTitle: "车票订购"
 					},
 					{
 						IsUse: false,
 						clickURL: "/pages_BCFW/pages/BCFW/bf_chartered",
-						ImageURL: "../../static/Home/serve/hbcfuwu.png",//暗
-						// ImageURL: "../../static/Home/serve/bcfuwu.png",//亮
+						// ImageURL: "../../static/Home/serve/hbcfuwu.png",//暗
+						ImageURL: "../../static/Home/serve/bcfuwu.png",//亮
 						ItemTitle: "包车服务"
 					},
-					{
-						IsUse: false,
-						clickURL: "",
-						ImageURL: "../../static/Home/serve/hjcyuyue.png",//暗
-						// ImageURL: "../../static/Home/serve/jcyuyue.png",//亮
-						ItemTitle: "检测预约"
-					},
-					{
-						IsUse: false,
-						clickURL: "",
-						ImageURL: "../../static/Home/serve/hwlyueche.png",//暗
-						// ImageURL: "../../static/Home/serve/wlyueche.png",//亮
-						ItemTitle: "网络约车"
-					},
-					{
-						IsUse: false,
-						clickURL: "",
-						ImageURL: "../../static/Home/serve/hgwzuche.png",//暗
-						// ImageURL: "../../static/Home/serve/gwzuche.png",//亮
-						ItemTitle: "公务租车"
-					},
-					{
-						IsUse: false,
-						clickURL: "",
-						ImageURL: "../../static/Home/serve/hxjkuaidi.png",//暗
-						// ImageURL: "../../static/Home/serve/xjkuaidi.png",//亮
-						ItemTitle: "小件快递"
-					},
-					{
-						IsUse: false,
-						clickURL: "",
-						ImageURL: "../../static/Home/serve/htianqi.png",//暗
-						// ImageURL: "../../static/Home/serve/tianqi.png",//亮
-						ItemTitle: "天气"
-					},
+					
+					// {
+					// 	IsUse: false,
+					// 	clickURL: "",
+					// 	ImageURL: "../../static/Home/serve/hwlyueche.png",//暗
+					// 	// ImageURL: "../../static/Home/serve/wlyueche.png",//亮
+					// 	ItemTitle: "网络约车"
+					// },
+					// {
+					// 	IsUse: false,
+					// 	clickURL: "",
+					// 	ImageURL: "../../static/Home/serve/hgwzuche.png",//暗
+					// 	// ImageURL: "../../static/Home/serve/gwzuche.png",//亮
+					// 	ItemTitle: "公务租车"
+					// },
+					// {
+					// 	IsUse: false,
+					// 	clickURL: "",
+					// 	ImageURL: "../../static/Home/serve/hxjkuaidi.png",//暗
+					// 	// ImageURL: "../../static/Home/serve/xjkuaidi.png",//亮
+					// 	ItemTitle: "小件快递"
+					// },
+					// {
+					// 	IsUse: false,
+					// 	clickURL: "",
+					// 	ImageURL: "../../static/Home/serve/htianqi.png",//暗
+					// 	// ImageURL: "../../static/Home/serve/tianqi.png",//亮
+					// 	ItemTitle: "天气"
+					// },
 					{
 						IsUse: false,
 						clickURL: "",
@@ -327,9 +321,16 @@
 					{
 						IsUse: false,
 						clickURL: "",
+						ImageURL: "../../static/Home/serve/hjcyuyue.png",//暗
+						// ImageURL: "../../static/Home/serve/jcyuyue.png",//亮
+						ItemTitle: "检测预约"
+					},
+					{
+						IsUse: false,
+						clickURL: "",
 						ImageURL: "../../static/Home/serve/hxqzhuanxian.png",//暗
 						// ImageURL: "../../static/Home/serve/xqzhuanxian.png",//亮
-						ItemTitle: "新区专线"
+						ItemTitle: "武夷新区"
 					},
 					{
 						IsUse: false,
@@ -340,33 +341,33 @@
 					}
 				],
 				ItemArr2: [{
-						IsUse: false,
-						clickURL: "",
-						ImageURL: "../../static/Home/serve/hziyouxing.png",//暗
-						// ImageURL: "../../static/Home/serve/ziyouxing.png",//亮
-						ItemTitle: "自由行"
-					},
-					{
-						IsUse: false,
-						clickURL: "",
-						ImageURL: "../../static/Home/serve/hgentuanyou.png",//暗
-						// ImageURL: "../../static/Home/serve/gentuanyou.png",//亮
-						ItemTitle: "跟团游"
-					},
-					{
+				// 		IsUse: false,
+				// 		clickURL: "",
+				// 		ImageURL: "../../static/Home/serve/hziyouxing.png",//暗
+				// 		// ImageURL: "../../static/Home/serve/ziyouxing.png",//亮
+				// 		ItemTitle: "自由行"
+				// 	},
+				// 	{
+				// 		IsUse: false,
+				// 		clickURL: "",
+				// 		ImageURL: "../../static/Home/serve/hgentuanyou.png",//暗
+				// 		// ImageURL: "../../static/Home/serve/gentuanyou.png",//亮
+				// 		ItemTitle: "跟团游"
+				// 	},
+					// {
 						IsUse: true,
 						clickURL: "/pages_LYFW/pages/LYFW/scenicSpotTickets/ticketsList",
 						ImageURL: "../../static/Home/serve/jqgoupiao.png",//亮
 						// ImageURL: "../../static/Home/serve/hjqgoupiao.png",//暗
 						ItemTitle: "景区购票"
-					},
-					{
-						IsUse: false,
-						clickURL: "/pages_LYFW/pages/LYFW/tourismProducts/tp_ticketsList",
-						ImageURL: "../../static/Home/serve/lyshangpin.png",//亮
-						// ImageURL: "../../static/Home/serve/hlyshangpin.png",//暗
-						ItemTitle: "旅游产品"
 					}
+					// {
+					// 	IsUse: false,
+					// 	clickURL: "/pages_LYFW/pages/LYFW/tourismProducts/tp_ticketsList",
+					// 	ImageURL: "../../static/Home/serve/lyshangpin.png",//亮
+					// 	// ImageURL: "../../static/Home/serve/hlyshangpin.png",//暗
+					// 	ItemTitle: "旅游产品"
+					// }
 
 				]
 			}
