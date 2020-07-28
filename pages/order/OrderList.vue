@@ -356,82 +356,45 @@
 							</view>
 						</view>
 					</view>
-
-
-					<!-- （全部）客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车 -->
-					<view v-if="item.carType=='普通班车' || item.carType=='定制班车' ||item.carType=='定制巴士'">
-						<view class="pd_view">下单时间：{{item.bookTime}}</view>
-						<view class="at_view">
-							<view class="at_titleView">
-								<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
-								<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
-								<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
-							</view>
-							<view class="at_contentView" style="display: flex;">
-								
-									<view class="at_contentFrame">扫码上车</view>
-									<view class="at_contentFrame">线上购票</view>
-								
-								<text class="at_contentPrice">¥{{item.totalPrice}}</text>
-							</view>
-						 
-							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
-								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
-							</view>
-						<!-- 预定日期 -->
-						<!-- <view style="display: flex; margin-bottom: 40rpx; margin-left: 28rpx;">
-							<view class="reserveDate">预定日期：{{item.bookTime}}</view>
-						</view>
-
-						<view class="kywhiteBg"> -->
-							<!-- 站点-状态 -->
-							<!-- <view class="u-f-ac">
-								<image style="width: 48rpx; height: 45rpx; margin-left: 20rpx;" src="../../static/Order/keche.png"></image>
-								<view class="u-f-jsb" style="margin-left: 20rpx; width: 100%;">
-									<view class="stationTitle">{{item.startSiteName}}-{{item.endSiteName}}</view>
-									<view style="color: #666666; font-size: 28rpx;margin-right: 20rpx;"></view>
+						<!-- （全部）客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车 -->
+						<view v-if="item.carType=='普通班车' || item.carType=='定制班车' ||item.carType=='定制巴士'">
+							<view class="pd_view">下单时间：{{item.bookTime}}</view>
+							<view class="at_view">
+								<view class="at_titleView">
+									<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
+									<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
+									<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
 								</view>
-							</view> -->
-							<!-- 时间-价格 -->
-							<!-- <view class="u-f-ac" style="margin-left: 96rpx; margin-top: 20rpx;color: #AAAAAA; font-size: 28rpx;">
-								<image style="width: 22rpx; height: 22rpx;" src="../../static/Order/time.png"></image>
-								<view class="u-f-jsb" style="margin-left: 15rpx; width: 100%;">
-									<view>{{item.setOutTime}}</view>
-									<view style="margin-right: 20rpx;">¥{{item.totalPrice}}</view>
+								<view class="at_contentView" style="display: flex;">
+									
+										<view class="at_contentFrame">扫码上车</view>
+										<view class="at_contentFrame">线上购票</view>
+									
+									<text class="at_contentPrice">¥{{item.totalPrice}}</text>
 								</view>
-							</view> -->
-							<!-- 上车点 -->
-							<!-- <view class="u-f-ac" style="margin-top: 20rpx;">
-								<view class="bluering"></view>
-								<view style="color: #AAAAAA; font-size: 28rpx;margin-left: 20rpx;">{{item.startSiteName}}</view>
-							</view> -->
-							<!-- 下车点 -->
-							<!-- <view class="u-f-ac" style="margin-top: 20rpx;">
-								<view class="redring"></view>
-								<view style="color: #AAAAAA; font-size: 28rpx;margin-left: 20rpx;">{{item.endSiteName}}</view>
-							</view> -->			
-							<view class="at_buttonView">
-								<view class="at_button at_btDelete" v-if="item.state=='7'" @tap="open3(item.orderNumber,'2')">取消</view>
-								<view class="at_button at_btDelete" v-if="item.state=='4'" @tap="open2(item.orderNumber,'2')">退票</view>
-								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
-								<view class="at_button at_btToPay" v-if="item.state=='7'" @tap="keYunPay(item,item.carType)">去支付</view>
-								<view class="at_button at_btToPay" v-if="item.state=='尚未支付'" @tap="keYunPay(item,item.carType)">去支付</view>
-																<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
-								<!-- <view class="at_button at_btDelete" v-if="item.state=='4'" @tap="endorse(item)">改签</view> -->
-								<!-- #ifndef MP-WEIXIN -->
-								<!-- <button class="allBtn" v-if="item.state=='4'" @click="busLocation(item)">车辆位置</button> -->
-								<!-- #endif -->
-								<view class="at_button at_btDelete" v-if="item.state=='支付正常' || item.state=='改签'" @tap="open2(item,'cs2tui')">退票</view>
-
-								<view class="at_button at_btDelete" v-if="item.state=='尚未支付'" @tap="open3(item.orderNumber,'cs2')">取消</view>
-								
+							 
+								<view class="at_contentView">							
+									<text class="at_contentText">发车时间：&nbsp;{{gettime2(item.setOutTime)}}</text>
+									<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
+								</view>		
+								<view class="at_buttonView">
+									<!-- #ifndef MP-WEIXIN -->
+									<view class="at_button at_btDelete" v-if="item.state=='4'" @click="busLocation(item)">车辆位置</view>
+									<!-- #endif -->
+									<view class="at_button at_btDelete" v-if="item.state=='7'" @tap="open3(item.orderNumber,'2')">取消</view>
+									<view class="at_button at_btDelete" v-if="item.state=='4'" @tap="open2(item.orderNumber,'2')">退票</view>
+									<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
+									<view class="at_button at_btDelete" v-if="item.state=='支付正常' || item.state=='改签'" @tap="open2(item,'cs2tui')">退票</view>
+									<view class="at_button at_btDelete" v-if="item.state=='尚未支付'" @tap="open3(item.orderNumber,'cs2')">取消</view>
+									<view class="at_button at_btToPay" v-if="item.state=='7'" @tap="keYunPay(item,item.carType)">去支付</view>
+									<view class="at_button at_btToPay" v-if="item.state=='尚未支付'" @tap="keYunPay(item,item.carType)">去支付</view>	
+									<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
+								</view>
 							</view>
 						</view>
 					</view>
+					<empty-data :isShow="info.length==0" text="暂无数据" :image="noDataImage" textColor="#999999"></empty-data>
 				</view>
-				<empty-data :isShow="info.length == 0" text="暂无数据" :image="noDataImage" textColor="#999999"></empty-data>
-			</view>
 
 
 			<!-- 已完成 -->
@@ -650,36 +613,37 @@
 
 
 					<!-- （已完成）客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车 -->
-					<view v-if="item.carType=='普通班车' || item.carType=='定制班车' ||item.carType=='定制巴士'">
-						<!-- 预定日期 -->
-						<view class="pd_view">下单时间：{{item.bookTime}}</view>
-						<view class="at_view">
-							<view class="at_titleView">
-								<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
-								<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
-								<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
-							</view>
-							<view class="at_contentView" style="display: flex;">
-								
-									<view class="at_contentFrame">扫码上车</view>
-									<view class="at_contentFrame">线上购票</view>
-								
-								<text class="at_contentPrice">¥{{item.totalPrice}}</text>
-							</view>
-						 
-							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
-								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
-							</view>
-							<view class="at_buttonView">
-								<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
-								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
+							<!-- （已完成）客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车 -->
+							<view v-if="item.carType=='普通班车' || item.carType=='定制班车' ||item.carType=='定制巴士'">
+								<!-- 预定日期 -->
+								<view class="pd_view">下单时间：{{item.bookTime}}</view>
+								<view class="at_view">
+									<view class="at_titleView">
+										<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
+										<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
+										<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
+									</view>
+									<view class="at_contentView" style="display: flex;">
+										
+											<view class="at_contentFrame">扫码上车</view>
+											<view class="at_contentFrame">线上购票</view>
+										
+										<text class="at_contentPrice">¥{{item.totalPrice}}</text>
+									</view>
+								 
+									<view class="at_contentView">							
+										<text class="at_contentText">发车时间：&nbsp;{{gettime2(item.setOutTime)}}</text>
+										<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
+									</view>
+									<view class="at_buttonView">
+										<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
+										<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
+									</view>
+								</view>
 							</view>
 						</view>
+						<empty-data :isShow="finishArr.length == 0" text="暂无数据" :image="noDataImage" textColor="#999999"></empty-data>
 					</view>
-				</view>
-				<empty-data :isShow="finishArr.length == 0" text="暂无数据" :image="noDataImage" textColor="#999999"></empty-data>
-			</view>
 
 			<!-- 进行中 -->
 			<view v-if="current === 2" style="margin-top: 20rpx;">
@@ -929,42 +893,43 @@
 						</view>
 					</view>
 
-					<!-- (进行中)客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车 -->
-					<view v-if="item.carType=='普通班车' || item.carType=='定制班车' ||item.carType=='定制巴士'">
-						<!-- 预定日期 -->
-						<view class="pd_view">下单时间：{{item.bookTime}}</view>
-						<view class="at_view">
-							<view class="at_titleView">
-								<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
-								<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
-								<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
-							</view>
-							<view class="at_contentView" style="display: flex;">
-								
-									<view class="at_contentFrame">扫码上车</view>
-									<view class="at_contentFrame">线上购票</view>
-								
-								<text class="at_contentPrice">¥{{item.totalPrice}}</text>
-							</view>
-						 
-							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
-								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
-							</view>
-							<view class="at_buttonView">
-								<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
-								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
-								<view class="at_button at_btDelete" v-if="item.carType=='普通班车' || item.carType=='定制班车'" @tap="open2(item.orderNumber,'2')">退票</view>
-								<view class="at_button at_btDelete" v-if="item.state=='4'" @click="busLocation(item)">车辆位置</view>
-								<view class="at_button at_btDelete" v-if="item.carType=='定制巴士'" @tap="open2(item,'cs2tui')">退票</view>
-								<!-- <view class="at_button at_btDelete" v-if="item.carType=='普通班车' || item.carType=='定制班车'" @tap="endorse(item)">改签</view> -->
+							<!-- (进行中)客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车 -->
+							<view v-if="item.carType=='普通班车' || item.carType=='定制班车' ||item.carType=='定制巴士'">
+								<!-- 预定日期 -->
+								<view class="pd_view">下单时间：{{item.bookTime}}</view>
+								<view class="at_view">
+									<view class="at_titleView">
+										<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
+										<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
+										<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
+									</view>
+									<view class="at_contentView" style="display: flex;">
+										
+											<view class="at_contentFrame">扫码上车</view>
+											<view class="at_contentFrame">线上购票</view>
+										
+										<text class="at_contentPrice">¥{{item.totalPrice}}</text>
+									</view>
+								 
+									<view class="at_contentView">							
+										<text class="at_contentText">发车时间：&nbsp;{{gettime2(item.setOutTime)}}</text>
+										<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
+									</view>
+									<view class="at_buttonView">
+										<view class="at_button at_btDelete" v-if="item.carType=='普通班车' || item.carType=='定制班车'" @tap="open2(item.orderNumber,'2')">退票</view>
+										<!-- #ifndef MP-WEIXIN -->
+										<view class="at_button at_btDelete" v-if="item.state=='4'" @click="busLocation(item)">车辆位置</view>
+										<!-- #endif -->
+										<view class="at_button at_btDelete" v-if="item.carType=='定制巴士'" @tap="open2(item,'cs2tui')">退票</view>
+										<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
+										<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
+										<!-- <view class="at_button at_btDelete" v-if="item.carType=='普通班车' || item.carType=='定制班车'" @tap="endorse(item)">改签</view> -->
+									</view>
+								</view>
 							</view>
 						</view>
+						<empty-data :isShow="goingArr.length == 0" text="暂无数据" :image="noDataImage" textColor="#999999"></empty-data>
 					</view>
-				</view>
-				<empty-data :isShow="goingArr.length == 0" text="暂无数据" :image="noDataImage" textColor="#999999"></empty-data>
-			</view>
-
 
 			<!-- 未支付 -->
 			<view v-if="current === 3" style="margin-top: 20rpx;">
@@ -1192,40 +1157,40 @@
 						</view>
 					</view>
 
-					<!-- (未支付)客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车 -->
-					<view v-if="item.carType=='普通班车' || item.carType=='定制班车' ||item.carType=='定制巴士'">
-						<!-- 预定日期 -->
-						<view class="pd_view">下单时间：{{item.bookTime}}</view>
-						<view class="at_view">
-							<view class="at_titleView">
-								<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
-								<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
-								<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
-							</view>
-							<view class="at_contentView" style="display: flex;">
-								
-									<view class="at_contentFrame">扫码上车</view>
-									<view class="at_contentFrame">线上购票</view>
-								
-								<text class="at_contentPrice">¥{{item.totalPrice}}</text>
-							</view>
-						 
-							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
-								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
-							</view>
-							<view class="at_buttonView">
-								<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
-								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
-								<view class="at_button at_btDelete" v-if="item.carType=='普通班车' || item.carType=='定制班车'" @tap="open3(item.orderNumber,'2')">取消</view>
-								<view class="at_button at_btDelete" v-if="item.carType=='定制巴士'" @tap="open3(item.orderNumber,'cs2')">取消</view>
-								<view class="at_button at_btToPay" @tap="keYunPay(item,item.carType)">去支付</view>
+							<!-- (未支付)客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车 -->
+							<view v-if="item.carType=='普通班车' || item.carType=='定制班车' ||item.carType=='定制巴士'">
+								<!-- 预定日期 -->
+								<view class="pd_view">下单时间：{{item.bookTime}}</view>
+								<view class="at_view">
+									<view class="at_titleView">
+										<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
+										<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
+										<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
+									</view>
+									<view class="at_contentView" style="display: flex;">
+										
+											<view class="at_contentFrame">扫码上车</view>
+											<view class="at_contentFrame">线上购票</view>
+										
+										<text class="at_contentPrice">¥{{item.totalPrice}}</text>
+									</view>
+								 
+									<view class="at_contentView">							
+										<text class="at_contentText">发车时间：&nbsp;{{gettime2(item.setOutTime)}}</text>
+										<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
+									</view>
+									<view class="at_buttonView">
+										<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
+										<view class="at_button at_btDelete" v-if="item.carType=='普通班车' || item.carType=='定制班车'" @tap="open3(item.orderNumber,'2')">取消</view>
+										<view class="at_button at_btDelete" v-if="item.carType=='定制巴士'" @tap="open3(item.orderNumber,'cs2')">取消</view>
+										<view class="at_button at_btToPay" @tap="keYunPay(item,item.carType)">去支付</view>
+										<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
+									</view>
+								</view>
 							</view>
 						</view>
+						<empty-data :isShow="unfinishArr.length == 0" text="暂无数据" :image="noDataImage" textColor="#999999"></empty-data>
 					</view>
-				</view>
-				<empty-data :isShow="unfinishArr.length == 0" text="暂无数据" :image="noDataImage" textColor="#999999"></empty-data>
-			</view>
 
 			<!-- 已取消 -->
 			<view v-if="current === 4" style="margin-top: 20rpx;">
@@ -1489,39 +1454,38 @@
 							</view>
 						</view>
 					</view>
-
-					<!-- (已取消)客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车 -->
-					<view v-if="item.carType=='普通班车' || item.carType=='定制班车' ||item.carType=='定制巴士'">
-						<!-- 预定日期 -->
-						<view class="pd_view">下单时间：{{item.bookTime}}</view>
-						<view class="at_view">
-							<view class="at_titleView">
-								<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
-								<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
-								<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
+								<!-- (已取消)客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车客车 -->
+								<view v-if="item.carType=='普通班车' || item.carType=='定制班车' ||item.carType=='定制巴士'">
+									<!-- 预定日期 -->
+									<view class="pd_view">下单时间：{{item.bookTime}}</view>
+									<view class="at_view">
+										<view class="at_titleView">
+											<image class="at_icon" src="../../static/Order/keche.png" mode="aspectFill"></image>
+											<view class="at_textView"><text class="at_title">{{item.startSiteName}}-{{item.endSiteName}}</text></view>
+											<text class="at_status">{{getCtkyOrderStatus(item.state)}}</text>
+										</view>
+										<view class="at_contentView" style="display: flex;">
+											
+												<view class="at_contentFrame">扫码上车</view>
+												<view class="at_contentFrame">线上购票</view>
+											
+											<text class="at_contentPrice">¥{{item.totalPrice}}</text>
+										</view>
+									 
+										<view class="at_contentView">							
+											<text class="at_contentText">发车时间：&nbsp;{{gettime2(item.setOutTime)}}</text>
+											<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
+										</view>
+										<view class="at_buttonView">
+											<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
+											<view class="at_button at_btDetails" @tap="keYunDetail(item)">详情</view>
+										</view>
+									</view>
+								</view>
 							</view>
-							<view class="at_contentView" style="display: flex;">
-								
-									<view class="at_contentFrame">扫码上车</view>
-									<view class="at_contentFrame">线上购票</view>
-								
-								<text class="at_contentPrice">¥{{item.totalPrice}}</text>
-							</view>
-						 
-							<view class="at_contentView">							
-								<text class="at_contentText">发车时间：&nbsp;{{item.setOutTime}}</text>
-								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
-							</view>
-							<view class="at_buttonView">
-								<view class="at_button at_btDetails" @tap="keYunDetail(item)">详情</view>
-								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
-							</view>
+							<empty-data :isShow="cancelArr.length == 0" text="暂无数据" :image="noDataImage" textColor="#999999"></empty-data>
 						</view>
 					</view>
-				</view>
-				<empty-data :isShow="cancelArr.length == 0" text="暂无数据" :image="noDataImage" textColor="#999999"></empty-data>
-			</view>
-		</view>
 
 		<!-- 二维码弹框 -->
 		<uni-popup2 ref="popup5" type="bottom">
@@ -2147,6 +2111,12 @@
 						return '无'; 
 					}
 			},
+			//----------------------------获取时间--------------------
+			gettime2:function(param){
+					let array=param.split(':');
+					var a=array[0]+":"+array[1];
+					return a;
+			},
 			//-------------------------判断订单状态-------------------------
 			getCtkyOrderStatus(param) {
 				if (!(/(^[1-9]\d*$)/.test(param))){//如果不是数字
@@ -2172,6 +2142,7 @@
 			keYunDetail: function(res) {
 				console.log(res)
 				var orderInfo = {
+					lineName:res.lineName,
 					planScheduleCode:res.planScheduleCode,
 					orderNumber:res.orderNumber,
 					carType:res.carType,

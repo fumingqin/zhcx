@@ -502,12 +502,15 @@
 					method: $KyInterface.KyInterface.Ky_AddPicture.method,
 					header: $KyInterface.KyInterface.Ky_AddPicture.header,
 					data: {
-						model: 0,
+					model: 0,
+					// type: 'banner',
+					// systemtype: 'XCX',//APP,XCX,H5
+					// companyid: '南平综合出行',//公司名
 					},
 					success(res) {
 						console.log(res)
 						if (res.data.status == true) {
-							that.noDataImage = res.data.data[2].imageUrl
+							that.noDataImage = res.data.data.imageUrl
 						} else {
 							console.log(res.data.status)
 						}

@@ -8,14 +8,16 @@
 		<view class="head">
 			<!-- 起始站/价格 -->
 			<view class="u-f-jsb">
-				<view>{{orderInfo.carType}}:{{orderInfo.startSiteName}} — {{orderInfo.endSiteName}}  x{{getTicketNum(orderInfo)}}</view>
+				<view>{{orderInfo.carType}}:{{orderInfo.lineName}} x{{getTicketNum(orderInfo)}}</view>
 			</view>
 			<!-- 发车时间 -->
-			<view class="headText"> 发车时间：{{orderInfo.setOutTime}}</view>
-			<view class="headText"> 司机姓名：{{getDetailInfo(orderInfo.driverName)}}</view>
+			<view class="headText"> 订单号：{{orderInfo.orderNumber}}</view>
+			<view class="headText"> 发车时间：{{gettime(orderInfo.setOutTime)}}</view>
+			<view class="headText"> 班次：{{getScheduleNum(orderInfo.planScheduleCode)}}</view>
+			<view class="headText"> 上车点：{{orderInfo.startSiteName}}</view>
 			<!-- <view class="headText"> 随车手机号：{{getDetailInfo(orderInfo.driverPhone)}}</view> -->
-			<view class="headText"> 车牌号：{{getDetailInfo(orderInfo.vehicleNumber)}}</view>
-			<view class="headText"> 检票口：未知</view>
+			<view class="headText"> 下车点：{{orderInfo.endSiteName}}</view>
+			<!-- <view class="headText"> 检票口：未知</view> -->
 		</view>
 		<!-- 乘客信息 -->
 		<scroll-view class="scrollBox" scroll-y="true">
@@ -29,6 +31,7 @@
 							<!-- 身份证 -->
 							<view>身份证</view>
 							<!-- 联系电话 -->
+							<view>座位号</view>
 							<!-- <view>联系电话</view> -->
 							<!-- 退改规则 -->
 							<view>退改规则</view>
@@ -40,7 +43,8 @@
 							<view>{{item.userName}}</view>
 							<!-- 身份证 -->
 							<view>{{userCodeNumChange(item.userCodeNum)}}</view>
-							<!-- 联系电话 -->
+							<!-- 座位号 -->
+							<view>{{seat}}</view>
 							<!-- <view>{{orderInfo.phoneNumber}}</view> -->
 							<!-- 退改规则 -->
 							<view>{{role}}</view>
@@ -65,7 +69,7 @@
 					<!-- <view v-if="orderInfo.carType == '定制巴士'" style="width: 100%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden; color: #2C2D2D;font-size: 32rpx;font-weight: 300; padding-bottom: 10rpx;">
 						  取票号 {{getSpecialOneTicketNum(specialCodeArray,index)}}
 					</view> -->
-					<view style="color: #999999;font-size: 28rpx;font-weight: 300; padding-bottom: 50rpx;">
+					<view style="color: #999999;font-size: 28rpx;font-weight: 300; padding-bottom: 32rpx; ">
 						出示二维码，检票上车
 					</view>
 					
@@ -76,8 +80,8 @@
 </template>
 
 <script>
-	import uQRCode from '@/pages_CTKY/components/CTKY/uni-qrcode/uqrcode.js'
-	import tkiQrcode from '@/pages_CTKY/components/CTKY/tki-qrcode/tki-qrcode.vue'
+	import uQRCode from '@/pages_ZXGP/components/ZXGP/uni-qrcode/uqrcode.js'
+	import tkiQrcode from '@/pages_ZXGP/components/ZXGP/tki-qrcode/tki-qrcode.vue'
 	export default {
 		components: {tkiQrcode},
 		
@@ -88,6 +92,7 @@
 				orderInfo:[],//订单数据
 				passageInfo:[],
 				ticketNum:0,
+				seat:'无',//座位号
 				qrcodeSrc: '',//二维码
 				qrcodeText: 'uQRCode',
 				qrcodeSize: 150,
@@ -180,6 +185,14 @@
 					return param
 				}
 			},
+			//-------------------------------获取班次信息-------------------------------
+			getScheduleNum:function(param){
+					if(param){
+						return param;
+					}else{
+						return '无'; 
+					}
+			},
 			//-------------------------------获取乘车人信息-------------------------------
 			stringTurnArray(param){
 				var that = this;
@@ -229,26 +242,34 @@
 				    	if(ticketNum) {
 				    		let a = ticketNum.indexOf(',')
 				    		if(a == -1) {
-				    			return ticketNum;
+				    			var array = ticketNum.split('-');
+				    			let ticketHeader = array[0];
+				    			this.seat = array[1];
+				    			return ticketHeader;
 				    		}else {
 				    			var array = ticketNum.split('-');
 				    			let ticketHeader = array[0];
 				    			var array2 = array[1];
 				    			var array3 = array2.split(',');
-				    			return ticketHeader + '-' + array3[index];
+				    			return ticketHeader;
+								// return ticketHeader + '-' + array3[index];
 				    		}
 				    	}
 				    }else if(that.orderState == '已完成') {
 				    	if(ticketNum) {
 				    		let a = ticketNum.indexOf(',')
 				    		if(a == -1) {
-				    			return ticketNum;
+								var array = ticketNum.split('-');
+								let ticketHeader = array[0];
+								this.seat = array[1];
+				    			return ticketHeader;
 				    		}else {
 				    			var array = ticketNum.split('-');
 				    			let ticketHeader = array[0];
 				    			var array2 = array[1];
 				    			var array3 = array2.split(',');
-				    			return ticketHeader + '-' + array3[index];
+				    			// return ticketHeader + '-' + array3[index];
+								return ticketHeader;
 				    		}
 				    	}
 				    }
@@ -256,26 +277,34 @@
 					if(ticketNum) {
 						let a = ticketNum.indexOf(',')
 						if(a == -1) {
-							return ticketNum;
+							var array = ticketNum.split('-');
+							let ticketHeader = array[0];
+							this.seat = array[1];
+							return ticketHeader;
 						}else {
 							var array = ticketNum.split('-');
 							let ticketHeader = array[0];
 							var array2 = array[1];
 							var array3 = array2.split(',');
-							return ticketHeader + '-' + array3[index];
+							// return ticketHeader + '-' + array3[index];
+							return ticketHeader;
 						}
 					}
 				} else if (that.orderState == 5) {
 					if(ticketNum) {
 						let a = ticketNum.indexOf(',')
 						if(a == -1) {
-							return ticketNum;
+						var array = ticketNum.split('-');
+						let ticketHeader = array[0];
+						this.seat = array[1];
+						return ticketHeader;
 						}else {
 							var array = ticketNum.split('-');
 							let ticketHeader = array[0];
 							var array2 = array[1];
 							var array3 = array2.split(',');
-							return ticketHeader + '-' + array3[index];
+							// return ticketHeader + '-' + array3[index];
+							return ticketHeader;
 						}
 					}
 				} else if (that.orderState == 6) {
@@ -348,6 +377,12 @@
 					return '订单已作废'
 				}
 			},
+			//--------------------时间转换-----------------
+			gettime:function(param){
+					let array=param.split(":");
+					var a=array[0]+":"+array[1];
+					return a;
+			}
 		}
 	}
 </script>
@@ -386,19 +421,20 @@
 		background: #FFFFFF;
 		border-radius: 20rpx;
 		margin: 20rpx;
-		margin-top: -60rpx;
+		margin-top: -40rpx;
+		padding: 20rpx 0;
 	}
 	/* 起始站/价格 */
 	.head>view:first-child {
-		padding: 20rpx;
+		padding: 12rpx 20rpx;
 		font-size: 30rpx;
 		color: #2C2D2D;
-		font-weight: 500;
+		font-weight: bold;
 	}
 	/* 发车时间 */
 	.headText {
 		padding: 10rpx 20rpx;
-		font-size: 25rpx;
+		font-size: 28rpx;
 		color: #666666;
 		font-weight: 300;
 	}
@@ -411,6 +447,7 @@
 		background: #FFFFFF;
 		margin: 0 20rpx;
 		margin-bottom: 20rpx;
+		padding:20rpx 0;
 	}
 	/* 乘客信息 */
 	.passageInfo {
@@ -422,7 +459,7 @@
 		display: block;
 		padding-top: 20rpx;
 		padding-bottom: 20rpx;
-		font-size: 30rpx;
+		font-size: 28rpx;
 		font-weight: 300;
 	}
 	.title view {
@@ -435,7 +472,7 @@
 		display: block;
 		padding-top: 20rpx;
 		padding-bottom: 20rpx;
-		font-size: 30rpx;
+		font-size: 28rpx;
 		font-weight: 500;
 	}
 	.detailInfo view {
