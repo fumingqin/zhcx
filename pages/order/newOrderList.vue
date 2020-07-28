@@ -545,7 +545,6 @@
 					},
 					success: (res) => {
 						uni.stopPullDownRefresh();
-						uni.hideLoading();
 						console.log('客运订单数据', res.data);
 						that.ctkyOrderNum = res.data.orderNumber;
 						if (res.data.status == true) {
@@ -563,7 +562,7 @@
 									that.cancelArr.push(res.data.data[i]);
 								}
 							}
-
+							uni.hideLoading();
 						} else if (res.data.status == false) {
 							uni.hideLoading();
 
@@ -656,9 +655,7 @@
 			//-------------------------------获取班次信息-------------------------------
 			gettime:function(param){
 					let array=param.split(':');
-					console.log(array);
 					var a=array[0]+":"+array[1];
-					console.log(a);
 					return a;
 			},
 			//-------------------------判断订单状态-------------------------
