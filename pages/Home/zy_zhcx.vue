@@ -571,7 +571,7 @@
 				const index = e.detail.current;
 				this.swiperCurrent = index;
 			},
-
+			
 			TitleJump: function(e, Url) {
 				if(Url=="../../pages_DDQC/pages/Bus/TicketPurchase"){
 					Url="../../pages_DDQC/pages/Bus/TicketPurchase?id="+this.userInfo.userId;
