@@ -290,6 +290,7 @@
 				}, {
 					"path": "pages/CTKY/TraditionSpecial/PayMent/orderPayment",
 					"style": {
+						"navigationStyle": "custom"
 					}
 				}, {
 					"path": "pages/CTKY/TraditionSpecial/stationPicker/selectStation", //上下车点选择

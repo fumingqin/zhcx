@@ -246,7 +246,7 @@
 				couponColor: '', //优惠券couponID，大于等于0触发价格判断事件
 				selectedValue: 0, //同意须知的选中值
 				couponCondition: '', //优惠券的满足条件值
-				isInsurance: 1, //默认选择乘车险
+				isInsurance: 0, //默认选择乘车险
 				maskState: 0, //优惠券面板显示状态
 				ticketDetail: [], //车票详情数据
 				totalPrice: 0, //车票总价格
@@ -281,7 +281,7 @@
 					//定制班车终点数组
 					that.specialEndArray = data.data.endSiteArr
 					//读取保险信息
-					that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
+					// that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
 					console.log('选择车票的班次数据', that.ticketDetail)
 					
 				}
