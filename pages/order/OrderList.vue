@@ -2163,7 +2163,7 @@
 					CheckInfoList:res.CheckInfoList,
 				}
 				uni.navigateTo({
-					url: '../../pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/orderDetail?orderInfo=' + JSON.stringify(orderInfo)
+					url: '../../pages_CTKY/pages/CTKY/TraditionSpecial/Order/orderDetail?orderInfo=' + JSON.stringify(orderInfo)
 				})
 			},
 			// -------------------------客运改签-------------------------
