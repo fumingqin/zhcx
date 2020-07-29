@@ -2,9 +2,9 @@
 	<view>
 		<view v-if="applyName=='南平综合出行'">
 			<!-- 轮播图-->
-			<swiper class="swi" circular autoplay style="background-color: #65C36D;">
-				<swiper-item class="swiItem" v-for="(item,index) in homePage" :key="index">
-					<image :src="item.ImageURL" mode="aspectFill" />
+			<swiper class="swi bc_GRZX" circular autoplay>
+				<swiper-item class="swiItem" v-for="(item,index) in background" :key="index">
+					<image :src="item.imageUrl" mode="aspectFill" />
 				</swiper-item>
 			</swiper>
 			<!-- app -->
@@ -515,7 +515,7 @@
 				}
 			})
 			// #endif
-			this.GetRotationChart();
+			// this.GetRotationChart();
 			this.loadData();
 			//#ifdef APP-PLUS
 			this.loadService();
@@ -746,7 +746,7 @@
 							return item.type == '新闻资讯';
 						})
 						this.background = res.data.data.filter(item => {
-							return item.type == '背景图';
+							return item.type == '轮播图';
 						})
 						this.NanpingStyle = res.data.data.filter(item => {
 							return item.type == '南平风采';
@@ -757,20 +757,20 @@
 				uni.stopPullDownRefresh();
 			},
 			//----------------------获取轮播图------------------------------
-			GetRotationChart: function() {
-				var that = this;
-				uni.request({
-					url: $DDTInterface.DDTInterface.GetRotationChart.Url,
-					method: $DDTInterface.DDTInterface.GetRotationChart.method,
-					data: {},
-					success(res) {
-						that.homePage = res.data.data;
-					},
-					fail(err) {
-						console.log(err)
-					}
-				})
-			},
+			// GetRotationChart: function() {
+			// 	var that = this;
+			// 	uni.request({
+			// 		url: $DDTInterface.DDTInterface.GetRotationChart.Url,
+			// 		method: $DDTInterface.DDTInterface.GetRotationChart.method,
+			// 		data: {},
+			// 		success(res) {
+			// 			that.homePage = res.data.data;
+			// 		},
+			// 		fail(err) {
+			// 			console.log(err)
+			// 		}
+			// 	})
+			// },
 			//---------------------页面触底加载信息-----------------------------
 
 			getMore() {

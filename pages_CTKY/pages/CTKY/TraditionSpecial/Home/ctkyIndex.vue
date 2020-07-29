@@ -230,11 +230,17 @@
 						data:this.historyLines,
 					})
 					//页面传参通过地址后面添加参数 this.isNormal=0是普通购票1是定制班车
-					
-					var params='../Order/selectTickets?&startStation=' + this.departure +'&endStation=' + this.destination + '&date=' + this.datestring + '&isNormal=' + this.isNormal;
-					uni.navigateTo({ 
-						url:params
-					})
+					if(this.departure==this.destination){
+						uni.showToast({
+							title: '上下车点重复请重新选择',
+							icon: 'none'
+						})
+					}else{
+						var params='../Order/selectTickets?&startStation=' + this.departure +'&endStation=' + this.destination + '&date=' + this.datestring + '&isNormal=' + this.isNormal;
+						uni.navigateTo({ 
+							url:params
+						})
+					}
 				}
 			},
 			onSelected(e) { //选择
