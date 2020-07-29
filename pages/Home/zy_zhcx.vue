@@ -217,14 +217,14 @@
 					<view class="ct_content1" @click="godetail(sixPalaceList[0].ticketId)">
 						<!-- <image class="ct_image1" :src="sixPalaceList[0].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text1" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">{{sixPalaceList[0].ticketTitle}}</text> -->
-						<image class="ct_image1" src="http://zntc.145u.net/UpLoadImages/DDT/巾帼文明线.jpg" mode="aspectFill"></image>
+						<image class="ct_image1" :src="NanpingStyle[0].imageUrl" mode="aspectFill"></image>
 						<!-- <text class="ct_text1" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">巾帼文明线</text> -->
 					</view>
 					<!-- 稻田摸鱼 -->
 					<view class="ct_content2" @click="godetail(sixPalaceList[1].ticketId)">
 						<!-- <image class="ct_image2" :src="sixPalaceList[1].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text2" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[1].ticketTitle}}</text> -->
-						<image class="ct_image2" src="http://zntc.145u.net/UpLoadImages/DDT/公共自行车.jpg" mode="aspectFill"></image>
+						<image class="ct_image2" :src="NanpingStyle[1].imageUrl" mode="aspectFill"></image>
 						<!-- <text class="ct_text2" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">公共自行车</text> -->
 					</view>
 				</view>
@@ -234,21 +234,21 @@
 					<view class="ct_content3" @click="godetail(sixPalaceList[2].ticketId)">
 						<!-- <image class="ct_image3" :src="sixPalaceList[2].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text3" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[2].ticketTitle}}</text> -->
-						<image class="ct_image3" src="http://zntc.145u.net/UpLoadImages/DDT/古雷助力车01.jpg" mode="aspectFill"></image>
+						<image class="ct_image3" :src="NanpingStyle[2].imageUrl" mode="aspectFill"></image>
 						<!-- <text class="ct_text3" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">古雷助力车</text> -->
 					</view>
 					<!-- 泉州洛阳桥 -->
 					<view class="ct_content4" @click="godetail(sixPalaceList[3].ticketId)">
 						<!-- <image class="ct_image4" :src="sixPalaceList[3].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text4" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[3].ticketTitle}}</text> -->
-						<image class="ct_image4" src="http://zntc.145u.net/UpLoadImages/DDT/南站实拍图.jpg" mode="aspectFill"></image>
+						<image class="ct_image4" :src="NanpingStyle[3].imageUrl" mode="aspectFill"></image>
 						<!-- <text class="ct_text4" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">客运南站</text> -->
 					</view>
 					<!-- 七彩官畲 -->
 					<view class="ct_content5" @click="godetail(sixPalaceList[4].ticketId)">
 						<!-- <image class="ct_image5" :src="sixPalaceList[4].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text5" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[4].ticketTitle}}</text> -->
-						<image class="ct_image5" src="http://zntc.145u.net/UpLoadImages/DDT/双层公交.jpg" mode="aspectFill"></image>
+						<image class="ct_image5" :src="NanpingStyle[4].imageUrl" mode="aspectFill"></image>
 						<!-- <text class="ct_text5" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">双层公交</text> -->
 					</view>
 				</view>
@@ -331,6 +331,21 @@
 				swiperCurrent: 0,
 				consultingService: [], //新闻资讯
 				imgXXDT: [{
+					imageUrl: '',
+				}], //咨询动态
+				NanpingStyle: [{
+					imageUrl: '',
+				},
+				{
+					imageUrl: '',
+				},
+				{
+					imageUrl: '',
+				},
+				{
+					imageUrl: '',
+				},
+				{
 					imageUrl: '',
 				}], //咨询动态
 				background:[{
@@ -732,6 +747,9 @@
 						})
 						this.background = res.data.data.filter(item => {
 							return item.type == '背景图';
+						})
+						this.NanpingStyle = res.data.data.filter(item => {
+							return item.type == '南平风采';
 						})
 						// console.log(this.imgXXDT)
 					}
