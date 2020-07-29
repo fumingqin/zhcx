@@ -10,31 +10,32 @@
 					<!-- 时间-价格 -->
 					<view class="ticketContent">
 						<view class="textCLass" style="font-size: 28upx;color: #333333;">{{turnDate(ticketDetail.setTime)}}出发</view>
-						<view class="textCLass" style="font-size: 28upx;color: #FC4646;">成人票￥{{ticketDetail.fare}}</view>
+						<view class="textCLass" style="font-size: 28upx;color: #FC4646;">全票￥{{ticketDetail.fare}}</view>
 					</view>
 					<!-- 站点-余票 -->
 					<view class="ticketContent">
 						<view class="textCLass" style="font-size: 32upx;color: #333333;">{{ticketDetail.startStaion}}→
 							{{ticketDetail.endStation}}</view>
-						<view class="textCLass" style="font-size: 28upx;color: #FC4646;">半价票￥{{ticketDetail.halfTicket}}</view>
+						<view class="textCLass" style="font-size: 28upx;color: #FC4646;">半票￥{{ticketDetail.halfTicket}}</view>
 						
 					</view>
 					<!-- 车型-儿童半价 -->
 					<view class="ticketContent">
-						<view class="textCLass" style="font-size: 24upx;color: #999999;">{{ticketDetail.carType}} 儿童半票</view>
+						<!-- <view class="textCLass" style="font-size: 24upx;color: #999999;">{{ticketDetail.carType}} 儿童半票</view> -->
+						<view class="textCLass" style="font-size: 24upx;color: #999999;">{{ticketDetail.carType}}&nbsp;&nbsp;{{ticketDetail.planScheduleCode}}</view>
 						<view class="textCLass" style="font-size: 24upx;font-style: SourceHanSansSC-Light; color: #666666;">余{{ticketDetail.remainingVotes}}张</view>
 					</view>
 				</view>
 			</view>
 
 			<!-- 地图标点 -->
-			<view class="orderCommonClass" v-if="true">
+			<!-- <view class="orderCommonClass" v-if="true">
 				<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">地图标点</view>
 				<view style="display: flex;margin-right: 41upx;align-items: center;">
 					<view @tap="checkLocation" style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;">查看班次信息</view>
 					<image src="/pages_CTKY/static/CTKY/right.png" style="width: 11upx;height: 21upx;margin-left: 10upx;"></image>
 				</view>
-			</view>
+			</view> -->
 
 			<!-- 上下车点选择,0是普通购票不显示上下车点选择 -->
 			<!-- v-if="ticketDetail.shuttleType == '定制班车'" -->
@@ -59,16 +60,16 @@
 			<view class="orderCommonClass" style="flex-direction: column;padding-bottom: 25upx;">
 				<view style="margin-top: 35upx;margin-bottom: 35upx;margin-left: 41upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">乘车人信息</view>
 				<view style="display: flex;margin-bottom: 35upx;">
-					<button @tap="addPassenger('成人')" class="button_1"  style="border: #AAAAAA 1px solid;padding: 0 40rpx;height: 66upx;align-items: center;font-size: 25upx; color:#2C2D2D ;text-align: center;background: #FFFFFF;">添加成人/儿童</button>
-					<button @tap="pickPassenger" class="button_1" style="border: #AAAAAA 1px solid;width: 150upx;height: 66upx;align-items: center;font-size: 25upx; color:#2C2D2D ;text-align: center;background: #FFFFFF;">选择</button>
-					<button @tap="addPassenger('免童')" class="button_1" style="border: #AAAAAA 1px solid;height: 66upx;align-items: center;font-size: 25upx; color:#2C2D2D ;text-align: center;background: #FFFFFF;">携带免童</button>
+					<!-- <button @tap="addPassenger('成人')" class="button_1"  style="border: #AAAAAA 1px solid;padding: 0 40rpx;height: 66upx;align-items: center;font-size: 25upx; color:#2C2D2D ;text-align: center;background: #FFFFFF;">添加成人/儿童</button> -->
+					<button @tap="pickPassenger" class="button_1" style="border: #AAAAAA 1px solid;font-size: 25upx; color:#2C2D2D ;text-align: center;background: #FFFFFF;margin-left: 168upx;margin-right: 22upx;">选择乘客</button>
+					<button @tap="addPassenger('免童')" class="button_1" style="border: #AAAAAA 1px solid;font-size: 25upx; color:#2C2D2D ;text-align: center;background: #FFFFFF;margin-left: 22upx;">携带免童</button>
 				</view>
 				<view style="flex-direction: column;background: #FFFFFF; " v-for="(items,index) in passengerInfo" :key=index
 				 v-model="passengerInfo">
 					<view class="passengerInfoDetail">
 						<view style="display: flex;text-align: center;align-items: center;">
 							<view style="width: 73upx;">
-								<image src="/pages_CTKY/static/CTKY/delete.png" style="width: 34upx;height: 34upx;" @click="deleteInfo(index)"></image>
+								<image src="../../../../static/CTKY/delete.png" style="width: 34upx;height: 34upx;" @click="deleteInfo(index)"></image>
 							</view>
 							<view style="height: 100%;">
 								<view style="display: flex;margin-top: 18upx;margin-bottom: 18upx;">
@@ -81,7 +82,7 @@
 							</view>
 						</view>
 						<view>
-							<image src="/pages_CTKY/static/CTKY/right.png" style="width:12upx ;height: 21upx;"></image>
+							<image src="../../../../static/CTKY/right.png" style="width:12upx ;height: 21upx;"></image>
 						</view>
 					</view>
 				</view>
@@ -131,7 +132,7 @@
 			</popup>
 
 			<!-- 乘车险 -->
-			<view class="orderCommonClass">
+			<!-- <view class="orderCommonClass">
 				<view style="display: flex; align-items: center;">
 					<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">购买乘车险</view>
 					<view style="margin-left: 16upx;color:#FC4B4B ; font-size:30upx ;">{{InsurePrice}}元</view>
@@ -140,13 +141,13 @@
 					<view style="font-size: 30upx;color: #2C2D2D;">已选{{passengerNum}}份</view>
 					<radio class="Mp_box" value="1" :color="'#01aaef'" :checked="isInsurance===1 ? true : false" @click="insuranceTap"></radio>
 				</view>
-			</view>
+			</view> -->
 
 			<!-- 购票须知 -->
-			<view class="orderCommonClass" style="margin-bottom: 112rpx;">
+			<view class="orderCommonClass" style="margin-bottom: 40rpx;">
 				<view style="display: flex; align-items: center;">
 					<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">同意购票须知</view>
-					<view @tap="checkAttention" style="margin-left: 16upx;color:#19A0FF ; font-size:30upx ;">点击查看须知</view>
+					<view @tap="checkAttention" style="margin-left: 16upx;color:#19A0FF ; font-size:22upx ;margin-top: 8upx;">点击查看须知</view>
 				</view>
 				<!-- 查看须知popup -->
 				<popup ref="popup2" type="center">
@@ -205,6 +206,7 @@
 					<radio class="Mp_box" value="1" :color="'#01aaef'" :checked="selectedValue===1 ? true : false" @click="Selection"></radio>
 				</view>
 			</view>
+			<view style="display: flex;font-size: 24upx;margin:0 46upx;color: #808080;margin-left: 16%;">点击立即预定表示已阅读并同意<view style="font-size: 24upx;color: #01aaef;" @tap="checkAttention"> 《购票须知》</view></view>
 		</scroll-view>
 		<view class="toPayClass">
 			<view style="display: flex;align-items: center;margin-left: 32upx;">
@@ -244,7 +246,7 @@
 				couponColor: '', //优惠券couponID，大于等于0触发价格判断事件
 				selectedValue: 0, //同意须知的选中值
 				couponCondition: '', //优惠券的满足条件值
-				isInsurance: 1, //默认选择乘车险
+				isInsurance: 0, //默认选择乘车险
 				maskState: 0, //优惠券面板显示状态
 				ticketDetail: [], //车票详情数据
 				totalPrice: 0, //车票总价格
@@ -279,7 +281,7 @@
 					//定制班车终点数组
 					that.specialEndArray = data.data.endSiteArr
 					//读取保险信息
-					that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
+					// that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
 					console.log('选择车票的班次数据', that.ticketDetail)
 					
 				}
@@ -386,7 +388,8 @@
 			turnDate(date) {
 				if (date) {
 					var setTime = date.replace('T', ' ');
-					return setTime;
+					var setTime2 = setTime.substr(0,16);
+					return setTime2;
 				}
 			},
 			//-------------------------------点击定制班车上车点-----------------------------

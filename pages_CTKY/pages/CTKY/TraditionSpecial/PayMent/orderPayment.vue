@@ -1,6 +1,7 @@
 <template>
 	<!-- 订单支付页面 -->
 	<view>
+		<view style="width: 100%;height: 248upx;background: #FC4646;position: absolute;"></view>
 		<!-- <view style="color: #000000; font-size: 26upx; position: absolute; right: 32upx; z-index: 1; top: 24upx;">倒计时：{{countDownDate}}秒</view> -->
 		<view class="cover-container">
 			<view class="MP_information1">
@@ -8,12 +9,12 @@
 				<text class="MP_text">费用包含：车票 {{insurance}}</text>
 
 				<view class="MP_selectionDate">
-					<view class="MP_title">使用时间</view>
-					<text class="MP_text">{{turnDate(orderInfo.setTime)}} &nbsp; 仅限当天</text>
+					<view class="MP_title">发车时间</view>
+					<text class="MP_text">{{turnDate(orderInfo.setTime)}}</text>
 				</view>
 
 				<view class="MP_selectionDate" :hidden="hiddenValues==0">
-					<view class="MP_title">购票人信息</view>
+					<view class="MP_title">乘客信息</view>
 					<view class="MP_userInformation" v-for="(item,index) in passengerInfo" :key="index">
 						<text>{{item.userName}}</text>
 						<text class="Mp_sex">{{item.userSex}}</text>
@@ -28,13 +29,13 @@
 				<view class="MP_selectionDate" :hidden="hiddenValues==0">
 					<view class="MP_title">费用详情</view>
 					<view class="MP_cost" v-if="adultNum>=1">
-						<text>成人票</text>
+						<text>全票</text>
 						<text class="MP_number">×{{adultNum}}</text>
 						<text class="MP_userCost">¥{{orderInfo.fare}}</text>
 					</view>
 
 					<view class="MP_cost" v-if="childrenNum>=1">
-						<text>儿童票</text>
+						<text>半票</text>
 						<text class="MP_number">×{{childrenNum}}</text>
 						<text class="MP_userCost">¥{{orderInfo.halfTicket}}</text>
 					</view>
@@ -42,15 +43,15 @@
 					<view class="MP_cost" v-if="freeTicketNum>=1">
 						<text>携带免童票</text>
 						<text class="MP_number">×{{freeTicketNum}}</text>
-						<text class="MP_userCost">¥{{orderInfo.halfTicket}}</text>
+						<text class="MP_userCost">¥0</text>
 					</view>
 
 					<!-- 保险 -->
-					<view class="MP_cost" v-if="isInsurance == 1 ">
+					<!-- <view class="MP_cost" v-if="isInsurance == 1 ">
 						<text>保险</text>
 						<text class="MP_number">×{{ticketNum}}</text>
 						<text class="MP_total">¥{{insuredPrice}}</text>
-					</view>
+					</view> -->
 
 					<!-- 优惠券 -->
 					<!-- <view class="MP_cost" v-if="orderInfo[0].couponPrice>0" v-if="false">
@@ -72,7 +73,7 @@
 
 			</view>
 
-			<view class="MP_information2">
+<!-- 			<view class="MP_information2">
 				<view class="MP_optionBar">
 					<text class="Mp-icon jdticon icon-weixinzhifu"></text>
 					<text class="Mp_title">微信</text>
@@ -86,9 +87,9 @@
 					<text class="Mp_title">支付宝</text>
 					<radio class="Mp_box" :checked="channeIndex===1" :color="'#01aaef'" @click="Selection"></radio>
 				</view>
-			</view>
+			</view> -->
 
-			<view class="MP_information3" @click="payment">支付{{totalPrice}}元
+			<view class="MP_information3" @click="getOrder">支付{{totalPrice}}元
 			</view>
 
 		</view>
@@ -98,14 +99,14 @@
 
 <script>
 	import $KyInterface from "@/common/Ctky.js"
-	import utils from "@/pages_CTKY/components/CTKY/shoyu-date/utils.filter.js";
+	import utils from "@/pages_ZXGP/components/ZXGP/shoyu-date/utils.filter.js";
 	export default {
 		data() {
 			return {
 				countDownDate: 120, //倒计时时间
 				utils: utils,
 				userInfo: [], //用户信息
-				hiddenValues: '0', //隐藏状态值
+				hiddenValues: '1', //隐藏状态值
 				channel: [{
 					name: '微信'
 				}, {
@@ -133,12 +134,12 @@
 				specialStartStation: '', //定制班车上车点
 				specialEndStation: '', //定制班车下车点
 				tickettype: '', //班车类型
-				ctkyOpenID: '',
-				weixinOpenId:'',
+				ctkyOpenID: '', //公众号的openid
+				weixinOpenId:'', //小程序的openid
 			}
 		},
 		onLoad: function(param) {
-			// console.log(param)
+			// console.log(JSON.parse(param.array))
 			var that = this;
 			that.ticketInfo = JSON.parse(param.array);
 			//定制班车上车点
@@ -162,9 +163,9 @@
 				that.isInsurance = false;
 			}
 			//读取车票信息
-			this.getTickerInfo();
+			that.getTickerInfo();
 			//读取用户信息
-			this.getUserInfo();
+			that.getUserInfo();
 			
 		},
 		onShow() {
@@ -212,9 +213,11 @@
 					key: 'userInfo',
 					success: function(data) {
 						that.userInfo = data.data;
+						console.log(data.data.openId_xcx)
 						// #ifdef MP-WEIXIN
 						that.weixinOpenId = data.data.openId_xcx;
 						// #endif
+						console.log(that.weixinOpenId)
 						//读取乘车人信息
 						that.getPassengerInfo();
 					}
@@ -225,7 +228,8 @@
 			turnDate(date) {
 				if (date) {
 					var setTime = date.replace('T', ' ');
-					return setTime;
+					var setTime2 = setTime.substr(0,16);
+					return setTime2;
 				}
 			},
 			//--------------------------读取乘车人信息--------------------------
@@ -349,9 +353,12 @@
 				companyCode = $KyInterface.KyInterface.systemName.systemNameNPAPP;
 				// #endif
 				// #ifdef MP-WEIXIN
-				companyCode = $KyInterface.KyInterface.systemName.systemNameNPH5;
+				companyCode = $KyInterface.KyInterface.systemName.systemNameNPWeiXin;
 				// #endif
 				//--------------------------发起下单请求-----------------------
+				uni.showLoading({
+				    title: '正在下单...'
+				});
 				uni.request({
 					url:$KyInterface.KyInterface.Ky_PaymentUrl.Url,
 					method:$KyInterface.KyInterface.Ky_PaymentUrl.method,
@@ -359,6 +366,7 @@
 					
 					data: {
 						companyCode: companyCode,
+						SystemName:companyCode,//公司代码
 						clientID: that.userInfo.userId, //用户ID
 						clientName: that.userInfo.nickname, //用户名
 						phoneNumber: that.userInfo.phoneNumber, //手机号码
@@ -379,22 +387,37 @@
 						carryChild: that.freeTicketNum, //携童人数
 						idNameType: that.idNameTypeStr, //乘车人信息
 						insured: that.isInsurance, //是否选择了保险
-						openId: openId,//oI1cA0k7cBdeZ_jA0fd_OdEO6kls
+						openId: openId,
 						totalPrice: that.totalPrice, //总价格
 						payParameter: '', //不需要的参数，传空
-
+						
 						getOnPoint: that.specialStartStation, //定制班车上车点
 						getOffPoint: that.specialEndStation, //定制班车下车点
+						planScheduleCode:that.orderInfo.planScheduleCode,//班次号
+						lineName: that.orderInfo.lineName,//线路名称
+						
 					},
 
 					success: (res) => {
 						console.log('下单返回结果',res)
-						
 						if (res.data) {
 							if (res.data.status == true) {
 								that.orderNum = res.data.data;
 								that.getTicketPaymentInfo(res.data.data);
-							} else if (res.data.status == false) {
+							}else if(res.data.msg == '车票预定失败,您有未完成的订单,请支付后再预定'){
+								uni.hideLoading()
+								uni.showToast({
+									title:res.data.msg,
+									duration:1500,
+									success: () => {
+										uni.switchTab({
+											url:'../../../../../pages/order/OrderList'
+										})
+									}
+								})
+								
+								
+							}else if (res.data.status == false) {
 								uni.hideLoading();
 								uni.showModal({
 									content: res.data.msg,
@@ -441,7 +464,6 @@
 							if (res.data) {
 								if (res.data.status == true) {
 									clearInterval(timer);
-									
 									var msgArray = JSON.parse(res.data.msg);
 									console.log(msgArray)
 									if (msgArray.oldState == '结束') {
@@ -456,8 +478,31 @@
 										uni.showModal({
 											content: '请在2分钟内完成支付',
 											success(res) {
-												if(res.confirm) {
+												console.log('确认',res)
+												if(res.confirm == true) {
 													that.payment();
+												}else if(res.confirm == false) {
+													uni.request({
+														url: $KyInterface.KyInterface.Ky_CancelTicket.Url,
+														method: $KyInterface.KyInterface.Ky_CancelTicket.method,
+														data: {
+															orderNumber: orderNumber,
+														},
+														success: (respones) => {
+															uni.hideLoading()
+															// console.log('取消结果', respones)
+															if (respones.data.status == true) {
+																that.showToast("您取消了支付，已自动取消订单")
+															} else {
+																that.showToast("您取消了支付，自动取消订单失败")
+															}
+														},
+														fail: (respones) => {
+															// alert(respones.data.msg)
+															uni.hideLoading()
+															that.showToast("您取消了支付，自动取消订单失败")
+														}
+													})
 												}
 											}
 										})
@@ -502,9 +547,26 @@
 						})
 						that.getTicketPaymentInfo_ticketIssue(that.orderNum);
 					} else if (res.err_msg == "get_brand_wcpay_request:cancel") {
-						uni.showToast({
-							title: '您取消了支付，请重新支付',
-							icon: 'none'
+						uni.request({
+							url: $KyInterface.KyInterface.Ky_CancelTicket.Url,
+							method: $KyInterface.KyInterface.Ky_CancelTicket.method,
+							data: {
+								orderNumber: that.orderNum,
+							},
+							success: (respones) => {
+								uni.hideLoading()
+								// console.log('取消结果', respones)
+								if (respones.data.status == true) {
+									that.showToast("您取消了支付，已自动取消订单")
+								} else {
+									that.showToast("您取消了支付，自动取消订单失败")
+								}
+							},
+							fail: (respones) => {
+								// alert(respones.data.msg)
+								uni.hideLoading()
+								that.showToast("您取消了支付，自动取消订单失败")
+							}
 						})
 					} else if (res.err_msg == "get_brand_wcpay_request:faile") {
 						uni.showToast({
@@ -608,9 +670,27 @@
 								that.getTicketPaymentInfo_ticketIssue(that.orderNum);
 							},4000)
 						}else if (res.errMsg == "requestPayment:fail cancel") {
-							setTimeout(function() {
-								that.showToast("您取消了支付，请重新支付")
-							}, 1000)
+							uni.request({
+								url: $KyInterface.KyInterface.Ky_CancelTicket.Url,
+								method: $KyInterface.KyInterface.Ky_CancelTicket.method,
+								data: {
+									orderNumber: that.orderNum,
+								},
+								success: (respones) => {
+									uni.hideLoading()
+									console.log('取消结果', respones)
+									if (respones.data.status == true) {
+										that.showToast("您取消了支付，已自动取消订单")
+									} else {
+										that.showToast("您取消了支付，自动取消订单失败")
+									}
+								},
+								fail: (respones) => {
+									// alert(respones.data.msg)
+									uni.hideLoading()
+									that.showToast("您取消了支付，自动取消订单失败")
+								}
+							})
 						}else if (res.errMsg == "requestPayment:fail errors") {
 							setTimeout(function() {
 								that.showToast("支付失败，请重新支付")
@@ -620,9 +700,27 @@
 					fail(res) {
 						console.log(res)
 						if (res.errMsg == "requestPayment:fail cancel") {
-							setTimeout(function() {
-								that.showToast("您取消了支付，请重新支付")
-							}, 1000)
+							uni.request({
+								url: $KyInterface.KyInterface.Ky_CancelTicket.Url,
+								method: $KyInterface.KyInterface.Ky_CancelTicket.method,
+								data: {
+									orderNumber: that.orderNum,
+								},
+								success: (respones) => {
+									uni.hideLoading()
+									// console.log('取消结果', respones)
+									if (respones.data.status == true) {
+										that.showToast("您取消了支付，已自动取消订单")
+									} else {
+										that.showToast("您取消了支付，自动取消订单失败")
+									}
+								},
+								fail: (respones) => {
+									// alert(respones.data.msg)
+									uni.hideLoading()
+									that.showToast("您取消了支付，自动取消订单失败")
+								}
+							})
 						}else if (res.errMsg == "requestPayment:fail errors") {
 							setTimeout(function() {
 								that.showToast("支付失败，请重新支付")
@@ -703,8 +801,9 @@
 	//整体容器样式
 	.cover-container {
 		position: relative;
+		z-index: 2;
 		top: 30upx;
-		padding: 32upx 30upx;
+		padding:150upx 30upx 32upx 30upx;
 	}
 
 	//公共样式 - 适用多个数据框

@@ -290,6 +290,7 @@
 				}, {
 					"path": "pages/CTKY/TraditionSpecial/PayMent/orderPayment",
 					"style": {
+						"navigationStyle": "custom"
 					}
 				}, {
 					"path": "pages/CTKY/TraditionSpecial/stationPicker/selectStation", //上下车点选择
@@ -400,7 +401,7 @@
 		},
 		//---------------------------------------------第三个包：公交查询------------------------------------------
 		{
-			"root": "pages_GJCX/",
+			"root": "pages_GJCX",
 			"pages": [
 				//----------------------------------公交查询--------------------------------------------
 				{

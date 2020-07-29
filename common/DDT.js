@@ -1,7 +1,7 @@
 //接口域名
-const Url = 'http://36.250.234.10:60040';
+const Url = 'http://111.231.109.113:8004';
 
-
+	
 
 //接口对象
 const DDTInterface = {

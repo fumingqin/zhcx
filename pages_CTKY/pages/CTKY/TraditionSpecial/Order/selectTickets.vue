@@ -29,22 +29,24 @@
 					<view class="markType" style="border:#1EA2FF solid 1px;color:#1EA2FF;" v-if="item.shuttleType == '普通班车' && isFlowTickets(item) == '流水'">流水</view>
 					<view style="margin-left:19upx ;font-family: SourceHanSansSC-Bold;font-weight: bold;">{{turnDate(item.setTime)}}</view>
 				</view>
-				<view style="display: flex;align-items: center;justify-content: space-between;">
+				<!-- <view style="display: flex;align-items: center;justify-content: space-between;"> -->
 					<!-- 班次：{{getScheduleNum(item)}} 这里没有班次信息，暂时不显示 -->
-					<view v-if="item.shuttleType != '定制巴士'" style="margin-left: 25upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;
+					<!-- <view v-if="item.shuttleType != '定制巴士'" style="margin-left: 25upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;
 						color: #333333;margin-bottom: 16upx;"></view>
 					<view v-if="item.shuttleType != '定制巴士'" style="margin-right: 28upx;font-size: 24upx;font-style:
 					SourceHanSansSC-Regular; color: #FC4646;">成人票￥{{item.fare}}</view>
-				</view>
-				
-				<view style="margin-left: 25upx;display: flex;align-items: center;margin-bottom: 16upx;justify-content: space-between;">
+				</view> -->
+				<view style="margin-left: 24upx;margin-bottom: 16upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;color: #333333;">线路:{{item.lineName}}</view>
+				<view style="margin-left: 24upx;display: flex;align-items: center;margin-bottom: 16upx;justify-content: space-between;">
 					<view style="display: flex;align-items: center;">
 						<image src="../../../../static/CTKY/startDot.png" style="width: 10upx ;height: 10upx;"></image>
 						<view style="margin-left: 16upx; font-size: 30upx;font-style:SourceHanSansSC-Regular ;
 						color: #333333;">{{item.startStaion}}</view>
 					</view>
 					<view v-if="item.shuttleType != '定制巴士'" style="margin-right: 28upx;font-size: 24upx;font-style:
-					SourceHanSansSC-Regular; color: #FC4646;">儿童票￥{{item.halfTicket}}</view>
+					SourceHanSansSC-Regular; color: #FC4646;">全票￥{{item.fare}}</view>
+					<!-- <view v-if="item.shuttleType != '定制巴士'" style="margin-right: 28upx;font-size: 24upx;font-style:
+					SourceHanSansSC-Regular; color: #FC4646;">儿童票￥{{item.halfTicket}}</view> -->
 					<view v-if="item.shuttleType == '定制巴士'" style="margin-right: 28upx;font-size: 24upx;font-style:
 					SourceHanSansSC-Regular; color: #FC4646;">价格￥{{item.PriceRange}}</view>
 				</view>
@@ -60,10 +62,10 @@
 				
 				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
 				font-size: 28upx;color: #666666;"
-				 v-if="item.shuttleType == '普通班车'">{{item.carType}}/约{{item.duration}}分钟/儿童半票</view>
+				 v-if="item.shuttleType == '普通班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟</view>
 				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
 				font-size: 28upx;color: #666666;"
-				 v-if="item.shuttleType == '定制班车'">{{item.carType}}/约{{item.duration}}分钟/儿童半票/站外上车</view>
+				 v-if="item.shuttleType == '定制班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟</view>
 				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
 				 font-size: 28upx;color: #666666;"
 				  v-if="item.shuttleType == '定制巴士'">{{item.SetoutTimeDesc}}</view>
@@ -308,7 +310,8 @@
 			//-------------------------------时间转换-------------------------------
 			turnDate(date) {
 				var setTime = date.replace('T', ' ');
-				return setTime;
+				var setTime2 = setTime.substr(0,16);
+				return setTime2;
 			},
 			//-------------------------------判断是否是流水班次-------------------------------
 			isFlowTickets:function(param){
