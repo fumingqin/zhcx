@@ -96,91 +96,6 @@
 			</view>
 		</view>
 		
-		<view>
-			<!-- <view v-if="applyName=='南平综合出行'" class="zh_top"> -->
-			<view v-if="applyName=='南平综合出行2'" class="zh_top">
-				<!-- 顶部滑动 -->
-				<view style="position: absolute;width: 46%;top: 90upx;padding: 0 200upx;">
-					<view class="screen">
-						<view class="screenView">
-							<view class="screenText" :class="{current:type2===0}" @click="tabClick(0)">
-								出发
-							</view>
-							<view class="screenText" :class="{current:type2===1}" @click="tabClick(1)">
-								到达
-							</view>
-						</view>
-					</view>
-				</view>
-				<view v-if="type2==0">
-					<!-- 选择出发地 -->
-					<view class="top_chooseTheRoute" hover-class="ve_hover" @tap="setOutStationTap">
-						<view class="top_text">起点</view>
-						<view>
-							<text class="setOut">{{departure}}</text>
-							<text class="jdticon icon-xia"></text>
-						</view>
-					</view>
-					<!-- 目的地 -->
-					<view class="top_destination">
-						<view class="top_text2">终点（不可选）</view>
-						<view class="destination">{{destination}}</view>
-					</view>
-					
-					<!-- 选择时间 -->
-					<view class="top_chooseTime" hover-class="ve_hover" @click="onShowDatePicker('date')">
-						<text class="dateClass">{{datestring}}&nbsp;&nbsp;&nbsp;&nbsp;{{Week}}</text>
-					</view>
-					<mx-date-picker :show="showPicker" :type="type" :value="value" :show-tips="true" :begin-text="'入住'" :end-text="'离店'"
-					 :show-seconds="true" @confirm="onSelected" @cancel="onSelected" />
-				</view>
-				
-				<view v-if="type2==1">
-					<!-- 目的地 -->
-					<view class="top_startingPoint">
-						<view class="top_text3">起点（不可选）</view>
-						<view class="startingPoint">{{destination}}</view>
-					</view>
-					<!-- 选择到达地 -->
-					<view class="top_chooseEnd" hover-class="ve_hover" @tap="setOutStationTap">
-						<view class="top_text4">终点</view>
-						<view>
-							<text class="setOut">{{departure}}</text>
-							<text class="jdticon icon-xia"></text>
-						</view>
-					</view>
-					
-					<!-- 选择时间 -->
-					<view class="top_chooseTime" hover-class="ve_hover" @click="onShowDatePicker('date')">
-						<text class="dateClass">{{datestring}}&nbsp;&nbsp;&nbsp;&nbsp;{{Week}}</text>
-					</view>
-					<mx-date-picker :show="showPicker" :type="type" :value="value" :show-tips="true" :begin-text="'入住'" :end-text="'离店'"
-					 :show-seconds="true" @confirm="onSelected" @cancel="onSelected" />
-				</view>
-				
-				<!-- 按钮 -->
-				<view class="tjButton" hover-class="ve_hover2" @click="queryClick">查询</view>
-				<!-- 弹框 -->
-				<view class="top_popup" @click="open">购票须知 ></view>
-				<!-- 弹框插件 -->
-				<uni-popup ref="popup" type="bottom">
-					<view class="te_boxVlew">
-						<view class="bv_titleView">
-							<text class="tv_text1">购票须知</text>
-							<text class="tv_text2 jdticon icon-fork " @click="close(1)"></text>
-						</view>
-						<scroll-view class="bv_content" scroll-y="ture">
-							<view class="ct_noticeText">
-								<rich-text :nodes="way"></rich-text>
-							</view>
-						</scroll-view>
-					</view>
-				</uni-popup>
-				
-				<image class="top_image" :src="background[0].imageUrl" mode="aspectFill"></image>
-			</view>
-		</view>
-		
 		<!-- 咨询动态 -->
 		<view class="notice">
 			<view class="zl_content">
@@ -548,9 +463,6 @@
 			// #ifdef  H5
 			that.getCode();
 			//#endif
-			
-			//获取当前日期
-			that.getTodayDate();
 		},
 
 		//页面触底
@@ -756,21 +668,6 @@
 				})
 				uni.stopPullDownRefresh();
 			},
-			//----------------------获取轮播图------------------------------
-			// GetRotationChart: function() {
-			// 	var that = this;
-			// 	uni.request({
-			// 		url: $DDTInterface.DDTInterface.GetRotationChart.Url,
-			// 		method: $DDTInterface.DDTInterface.GetRotationChart.method,
-			// 		data: {},
-			// 		success(res) {
-			// 			that.homePage = res.data.data;
-			// 		},
-			// 		fail(err) {
-			// 			console.log(err)
-			// 		}
-			// 	})
-			// },
 			//---------------------页面触底加载信息-----------------------------
 
 			getMore() {
@@ -787,15 +684,6 @@
 					}
 				}
 			},
-
-			//-----------------tab事件---------------------------------------
-			// tabClick(e) {
-			// 	if (e == 0) {
-			// 		this.type = 0;
-			// 	} else if (e == 1) {
-			// 		this.type = 1;
-			// 	}
-			// },
 
 			//---------------------资讯详情页-----------------------------------
 
@@ -1142,148 +1030,6 @@
 			},
 			//-------------登录过期结束--------------------
 			
-			
-			//-----------------tab事件---------------------------------------
-			tabClick(e) {
-				if (e == 0) {
-					this.type2 = 0;
-				} else if (e == 1) {
-					this.type2 = 1;
-				}
-			},
-			
-			//---------------------------------点击出发专线---------------------------------
-			setOutStationTap(){
-				var that = this;
-				//监听事件,监听下个页面返回的值
-				uni.$on('startstaionChange', function(data) {
-				    // data即为传过来的值，给上车点赋值
-					if(that.type2==0){
-						that.departure = data.data;
-						that.destination=data.data2;
-					}else if(that.type2==1){
-						that.departure = data.data2;
-						that.destination=data.data;
-					}
-				    //清除监听，不清除会消耗资源
-				    uni.$off('startstaionChange');
-				});
-				uni.navigateTo({
-					//跳转到下个页面的时候加个字段，判断当前点击的是上车点
-					url:'../../pages_ZXGP/pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick?&station=' + 'qidian' +'&type=' + this.type2
-				})
-			},
-			
-			//---------------------------------获取当前日期---------------------------------
-			getTodayDate() {
-				var date = new Date();
-				var year = date.getFullYear();
-				var month = date.getMonth() + 1;
-				var day = date.getDate();
-				var timer = year + '-' + month + '-' + day;
-				this.datestring = timer;
-			},
-			onShowDatePicker(type) { //显示
-				this.type = type;
-				this.showPicker = true;
-				this.value = this[type];
-			
-			},
-			
-			onSelected(e) { //选择
-				this.showPicker = false;
-				if (e) {
-					// this[this.type] = e.value;
-					this[this.type] = e.value.split('/')[0] + "-" + e.value.split('/')[1] + "-" + e.value.split('/')[2];
-					this.datestring = this[this.type];
-					this.queryWeek(e.date.toString().substring(0,3));
-					// console.log(this[this.type]);
-					// console.log(e.date.toString().substring(0,3));
-					// console.log(this.Week);
-					//选择的值
-					console.log('value => ' + e.value);
-					//原始的Date对象
-					console.log('date => ' + e.date);
-					this.date = e.value;
-				}
-			},
-			queryWeek(e) {
-				console.log(e);
-				switch (e) {
-					case "Mon":
-						this.Week='周一';
-						break;
-					case "Tue":
-						this.Week="周二";
-						break;
-					case "Wed":
-						this.Week="周三";
-						break;
-					case "Thu":
-						this.Week="周四";
-						break;
-					case "Fri":
-						this.Week="周五";
-						break;
-					case "Sat":
-						this.Week="周六";
-						break;
-					case "Sun":
-						this.Week="周日";
-						break;
-					default:
-						break;
-				}
-			},
-			
-			//---------------------------------点击查询---------------------------------
-			queryClick: function() {
-				var that = this;
-				if(that.departure == '请选择起点') {
-					uni.showToast({
-						title: '请选择起点',
-						icon: 'none'
-					})
-				}else if(that.departure == '请选择终点'){
-					uni.showToast({
-						title: '请选择终点',
-						icon: 'none'
-					})
-				}else {
-					var station = this.departure + "-" + this.destination;
-					if(this.historyLines) {
-						for(let i = 0; i <= this.historyLines.length;i++){
-							if(station == this.historyLines[i]) {
-								this.historyLines.splice(i,1);
-							}
-						}
-						this.historyLines.unshift(this.departure + "-" + this.destination);
-					}
-					uni.setStorage({
-						key:'historyLines',
-						data:this.historyLines,
-					})
-					//页面传参通过地址后面添加参数 this.isNormal=0是普通购票1是定制班车
-					
-					var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + this.departure +'&endStation=' + this.destination + '&date=' + this.datestring + '&isNormal=' + this.type2;
-					uni.navigateTo({
-						url:params,
-					})
-				}
-			},
-			
-			//------------------------------弹框事件-----------------------------------------
-			
-			open() {
-				// 需要在 popup 组件，指定 ref 为 popup
-				this.$refs.popup.open()
-			},
-			
-			close(e) {
-				if (e == 1) {
-					this.$refs.popup.close()
-				}
-			},
 		},
 	}
 </script>
