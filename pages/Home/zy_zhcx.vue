@@ -711,6 +711,12 @@
 
 			natTo2: function(e) {
 				var that = this;
+				// #ifdef H5
+					uni.navigateTo({
+						url: e,
+					})
+				// #endif
+				// #ifndef H5
 				if (that.userInfo !== '') {
 					uni.navigateTo({
 						url: e,
@@ -721,6 +727,7 @@
 					})
 				}
 				// console.log('是否拿到缓存', that.userInfo)
+				// #endif
 			},
 
 			//路由整合

@@ -360,8 +360,8 @@
 	.ticketView {
 		background-color: #FFFFFF;
 		border-radius: 20rpx;
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
+		// border-top-left-radius: 0;
+		// border-top-right-radius: 0;
 	}
 	//选择起始点
 	.lineClass {
