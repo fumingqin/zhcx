@@ -168,20 +168,23 @@
 			//-------------------------------加载客运班次列表数据-------------------------------
 			getTicketInfo: function(date) {
 				var that = this;
-				uni.showLoading();
+				uni.showToast({
+					title:'查询班次中...',
+					icon:'loading'
+				})
 				if (date == 'date') {
 					date = new Date();
 				}
 				that.allTicketsList = [];
 				var systemName = '';
 				// #ifdef H5
-				systemName = '南平旅游H5';
+				systemName = $KyInterface.KyInterface.systemName.systemNameNPH5;;
 				// #endif
 				// #ifdef APP-PLUS
-				systemName = '南平旅游APP';
+				systemName = $KyInterface.KyInterface.systemName.systemNameNPAPP;
 				// #endif
 				// #ifdef MP-WEIXIN
-				systemName = '南平旅游H5';
+				systemName = $KyInterface.KyInterface.systemName.systemNameNPWeiXin;
 				// #endif
 				uni.request({
 					url: $KyInterface.KyInterface.Ky_getListSchedulesInfo.Url,
