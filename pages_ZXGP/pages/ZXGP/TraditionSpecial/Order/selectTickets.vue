@@ -184,13 +184,13 @@
 				that.allTicketsList = [];
 				var systemName = '';
 				// #ifdef H5
-				systemName = $KyInterface.KyInterface.systemName.systemNameNPH5;;
+				systemName = $KyInterface.KyInterface.systemName.systemNameXYYHH5;;
 				// #endif
 				// #ifdef APP-PLUS
-				systemName = $KyInterface.KyInterface.systemName.systemNameNPAPP;
+				systemName = $KyInterface.KyInterface.systemName.systemNameXYYHAPP;
 				// #endif
 				// #ifdef MP-WEIXIN
-				systemName = $KyInterface.KyInterface.systemName.systemNameNPWeiXin;
+				systemName = $KyInterface.KyInterface.systemName.systemNameXYYHWeiXin;
 				// #endif
 				uni.request({
 					url: $KyInterface.KyInterface.Ky_getListSchedulesInfo.Url,
