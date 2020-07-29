@@ -269,42 +269,6 @@
 					},
 					{
 						IsUse: false,
-						clickURL: "/pages_BCFW/pages/BCFW/bf_chartered",
-						// ImageURL: "../../static/Home/serve/hbcfuwu.png",//暗
-						ImageURL: "../../static/Home/serve/bcfuwu.png",//亮
-						ItemTitle: "包车服务"
-					},
-					
-					// {
-					// 	IsUse: false,
-					// 	clickURL: "",
-					// 	ImageURL: "../../static/Home/serve/hwlyueche.png",//暗
-					// 	// ImageURL: "../../static/Home/serve/wlyueche.png",//亮
-					// 	ItemTitle: "网络约车"
-					// },
-					// {
-					// 	IsUse: false,
-					// 	clickURL: "",
-					// 	ImageURL: "../../static/Home/serve/hgwzuche.png",//暗
-					// 	// ImageURL: "../../static/Home/serve/gwzuche.png",//亮
-					// 	ItemTitle: "公务租车"
-					// },
-					// {
-					// 	IsUse: false,
-					// 	clickURL: "",
-					// 	ImageURL: "../../static/Home/serve/hxjkuaidi.png",//暗
-					// 	// ImageURL: "../../static/Home/serve/xjkuaidi.png",//亮
-					// 	ItemTitle: "小件快递"
-					// },
-					// {
-					// 	IsUse: false,
-					// 	clickURL: "",
-					// 	ImageURL: "../../static/Home/serve/htianqi.png",//暗
-					// 	// ImageURL: "../../static/Home/serve/tianqi.png",//亮
-					// 	ItemTitle: "天气"
-					// },
-					{
-						IsUse: false,
 						clickURL: "../../pages_GJCX/pages/HB/hangban",
 						// ImageURL: "../../static/Home/serve/hhangban.png",//暗
 						ImageURL: "../../static/Home/serve/hangban.png",//亮
@@ -317,6 +281,44 @@
 						ImageURL: "../../static/Home/serve/huoche.png",//亮
 						ItemTitle: "火车"
 					},
+					{
+						IsUse: false,
+						// clickURL: "/pages_BCFW/pages/BCFW/bf_chartered",
+						clickURL:"",
+						ImageURL: "../../static/Home/serve/hbcfuwu.png",//暗
+						// ImageURL: "../../static/Home/serve/bcfuwu.png",//亮
+						ItemTitle: "包车服务"
+					},
+					
+					{
+						IsUse: false,
+						clickURL: "",
+						ImageURL: "../../static/Home/serve/hwlyueche.png",//暗
+						// ImageURL: "../../static/Home/serve/wlyueche.png",//亮
+						ItemTitle: "网络约车"
+					},
+					// {
+					// 	IsUse: false,
+					// 	clickURL: "",
+					// 	ImageURL: "../../static/Home/serve/hgwzuche.png",//暗
+					// 	// ImageURL: "../../static/Home/serve/gwzuche.png",//亮
+					// 	ItemTitle: "公务租车"
+					// },
+					{
+						IsUse: false,
+						clickURL: "",
+						ImageURL: "../../static/Home/serve/hxjkuaidi.png",//暗
+						// ImageURL: "../../static/Home/serve/xjkuaidi.png",//亮
+						ItemTitle: "小件快递"
+					},
+					// {
+					// 	IsUse: false,
+					// 	clickURL: "",
+					// 	ImageURL: "../../static/Home/serve/htianqi.png",//暗
+					// 	// ImageURL: "../../static/Home/serve/tianqi.png",//亮
+					// 	ItemTitle: "天气"
+					// },
+				
 					{
 						IsUse: false,
 						clickURL: "",
@@ -355,9 +357,10 @@
 				// 	},
 					// {
 						IsUse: true,
-						clickURL: "/pages_LYFW/pages/LYFW/scenicSpotTickets/ticketsList",
-						ImageURL: "../../static/Home/serve/jqgoupiao.png",//亮
-						// ImageURL: "../../static/Home/serve/hjqgoupiao.png",//暗
+						// clickURL: "/pages_LYFW/pages/LYFW/scenicSpotTickets/ticketsList",
+						clickURL:"",
+						// ImageURL: "../../static/Home/serve/jqgoupiao.png",//亮
+						ImageURL: "../../static/Home/serve/hjqgoupiao.png",//暗
 						ItemTitle: "景区购票"
 					}
 					// {

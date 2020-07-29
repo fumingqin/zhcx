@@ -80,8 +80,8 @@
 </template>
 
 <script>
-	import uQRCode from '@/pages_ZXGP/components/ZXGP/uni-qrcode/uqrcode.js'
-	import tkiQrcode from '@/pages_ZXGP/components/ZXGP/tki-qrcode/tki-qrcode.vue'
+	import uQRCode from '@/pages_CTKY/components/CTKY/uni-qrcode/uqrcode.js'
+	import tkiQrcode from '@/pages_CTKY/components/CTKY/tki-qrcode/tki-qrcode.vue'
 	export default {
 		components: {tkiQrcode},
 		
