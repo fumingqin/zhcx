@@ -297,7 +297,7 @@
 				{
 					"path": "pages/CTKY/TraditionSpecial/PayMent/CTKYPaySuccess",
 					"style": {
-
+						"navigationStyle": "custom"
 					}
 				}, {
 					"path": "pages/CTKY/TraditionSpecial/PayMent/CTKYPayFail",
@@ -1236,7 +1236,7 @@
 				{
 					"path": "pages/ZXGP/TraditionSpecial/PayMent/CTKYPaySuccess",
 					"style": {
-			
+						"navigationStyle": "custom"
 					}
 				}, {
 					"path": "pages/ZXGP/TraditionSpecial/PayMent/CTKYPayFail",
