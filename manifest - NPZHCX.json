@@ -1,5 +1,5 @@
 {
-    "name" : "武夷股份特惠班线",
+    "name" : "南平综合出行",
     "appid" : "__UNI__506FF45",
     "description" : "",
     "versionName" : "1.0.0",
@@ -92,8 +92,7 @@
                         "appid" : "wxb6e7a1abe313216a",
                         "UniversalLinks" : "https://zntc.145u.net/ulink/"
                     }
-                },
-                "push" : {}
+                }
             },
             "icons" : {
                 "android" : {
@@ -143,7 +142,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wxb9df0ad8d98f94a1",
+        "appid" : "wx37b8f978e30050e4",
         "setting" : {
             "es6" : false,
             "postcss" : true,

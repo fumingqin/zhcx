@@ -23,8 +23,8 @@
 		<view class="ctky_View" v-for="(item,index) in allTicketsList" :key="index" @click="ticketDetail(allTicketsList[index])">
 			<view class="ctky_View_Left">
 				<view style="display: flex;align-items: center;margin:20upx 25upx;">
-					<view class="markType" style="border:#1EA2FF solid 1px;color:#1EA2FF;" v-if="item.shuttleType == '普通班车' && isFlowTickets(item) == '普通'">传统</view>
-					<view class="markType" style="border:#FF5A00 solid 1px;color:#FF5A00;" v-if="item.shuttleType == '定制班车'">定制</view>
+					<view class="markType" style="border:#1EA2FF solid 1px;color:#1EA2FF;" v-if="item.shuttleType == '普通班车' && isFlowTickets(item) == '普通'">普通班车</view>
+					<view class="markType" style="border:#FF5A00 solid 1px;color:#FF5A00;" v-if="item.shuttleType == '定制班车'">定制班车</view>
 					<view class="busMarkType" style="border:#FF5A00 solid 1px;color:#FF5A00;" v-if="item.shuttleType == '定制巴士'">定制巴士</view>
 					<view class="markType" style="border:#1EA2FF solid 1px;color:#1EA2FF;" v-if="item.shuttleType == '普通班车' && isFlowTickets(item) == '流水'">流水</view>
 					<view style="margin-left:19upx ;font-family: SourceHanSansSC-Bold;font-weight: bold;">{{turnDate(item.setTime)}}</view>
@@ -33,8 +33,6 @@
 					<!-- 班次：{{getScheduleNum(item)}} 这里没有班次信息，暂时不显示 -->
 					<!-- <view v-if="item.shuttleType != '定制巴士'" style="margin-left: 25upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;
 						color: #333333;margin-bottom: 16upx;"></view>
-					<view v-if="item.shuttleType != '定制巴士'" style="margin-right: 28upx;font-size: 24upx;font-style:
-					SourceHanSansSC-Regular; color: #FC4646;">成人票￥{{item.fare}}</view>
 				</view> -->
 				<view style="margin-left: 24upx;margin-bottom: 16upx;font-size: 30upx;font-style:SourceHanSansSC-Regular ;color: #333333;">线路:{{item.lineName}}</view>
 				<view style="margin-left: 24upx;display: flex;align-items: center;margin-bottom: 16upx;justify-content: space-between;">
@@ -60,15 +58,24 @@
 					SourceHanSansSC-Light; color: #666666;">余{{item.remainingVotes}}张</view>
 				</view>
 				
-				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
-				font-size: 28upx;color: #666666;"
-				 v-if="item.shuttleType == '普通班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟</view>
-				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
-				font-size: 28upx;color: #666666;"
-				 v-if="item.shuttleType == '定制班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟</view>
-				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
-				 font-size: 28upx;color: #666666;"
+				<view style="margin-left: 25upx;margin-bottom: 10upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
+				font-size: 28upx;color: #666666;margin-top: 6upx;"
+				 v-if="item.shuttleType == '普通班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟/{{item.planScheduleCode}}</view>
+				<view style="margin-left: 25upx;margin-bottom: 10upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
+				font-size: 28upx;color: #666666;margin-top: 6upx;"
+				 v-if="item.shuttleType == '定制班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟/{{item.planScheduleCode}}</view>
+				<view style="margin-left: 25upx;margin-bottom: 10upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
+				 font-size: 28upx;color: #666666;margin-top: 6upx;"
 				  v-if="item.shuttleType == '定制巴士'">{{item.SetoutTimeDesc}}</view>
+				  
+				<!-- 途径站点 -->
+				<view class="st_routeSite" v-if="item.shuttleType == '普通班车'">
+					<view style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+						<text>途径站点:</text>
+						<text v-for="(item2,index2) in routeSite" :key="index2" v-if="index2<4">{{item2}}<text v-if="index2<3">/</text></text>
+						<text>...</text>
+					</view>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -84,6 +91,7 @@
 		},
 		data() {
 			return {
+				routeSite: ['延平站点1','延平站点2','延平站点3','延平站点3','延平站点3',],
 				utils: utils,
 				dateArray: [], //时间轴的数量的数组
 				selectIndex: '', //选中的下标
@@ -93,6 +101,7 @@
 				value: '',
 				startStation: '', //出发站
 				endStation: '', //终点站
+				isNormal:'',//状态
 				departureData: [], //班次数据
 				stationArray: [],
 				isEndores:'',//是否是改签
@@ -104,7 +113,10 @@
 			}
 		},
 		onLoad(param) {
-			
+			uni.showToast({
+				title: '查询班次中...',
+				icon: 'none'
+			})
 			var that = this;
 			if(param.isEndores) {//当前是改签
 				that.isEndores = param.isEndores;
@@ -125,6 +137,10 @@
 				
 				that.startStation = param.startStation;
 				that.endStation = param.endStation;
+				that.isNormal = param.isNormal;
+				console.log('起点',that.startStation)
+				console.log('终点',that.endStation)
+				console.log('状态',that.isNormal)
 				//如果传过来的参数没有时间就获取当前时间
 				if (param.date == 'date') {//二维码扫码进来
 				// #ifdef H5
@@ -168,20 +184,23 @@
 			//-------------------------------加载客运班次列表数据-------------------------------
 			getTicketInfo: function(date) {
 				var that = this;
-				uni.showLoading();
+				uni.showToast({
+					title:'查询班次中...',
+					icon:'loading'
+				})
 				if (date == 'date') {
 					date = new Date();
 				}
 				that.allTicketsList = [];
 				var systemName = '';
 				// #ifdef H5
-				systemName = '南平旅游H5';
+				systemName = $KyInterface.KyInterface.systemName.systemNameNPH5;;
 				// #endif
 				// #ifdef APP-PLUS
-				systemName = '南平旅游APP';
+				systemName = $KyInterface.KyInterface.systemName.systemNameNPAPP;
 				// #endif
 				// #ifdef MP-WEIXIN
-				systemName = '南平旅游H5';
+				systemName = $KyInterface.KyInterface.systemName.systemNameNPWeiXin;
 				// #endif
 				uni.request({
 					url: $KyInterface.KyInterface.Ky_getListSchedulesInfo.Url,
@@ -195,7 +214,7 @@
 					},
 					success: (res) => {
 						// uni.hideLoading();
-						// console.log('客运班次信息',res);
+						console.log('客运班次信息',res);
 						//非空判断
 						if (res.data.status == true) {
 							if(res.data.data){
@@ -204,20 +223,35 @@
 								for(i; i < res.data.data.length;i++){
 									that.allTicketsList.push(res.data.data[i])
 								}
-								// console.log(that.allTicketsList)
+								console.log('客运班次信息2',that.allTicketsList)
 								//加载定制巴士班次列表数据
-								that.getSpecialBusTicketInfo(date);
+								// that.getSpecialBusTicketInfo(date);
+								uni.hideLoading();
 							}else if(res.data.data.length == 0) {
 								//加载定制巴士班次列表数据
-								that.getSpecialBusTicketInfo(date);
+								// that.getSpecialBusTicketInfo(date);
+								uni.showToast({
+									title: '暂无班次信息',
+									icon: 'none'
+								})
+								uni.hideLoading();
 							}
 						} else if (res.data.status == false){
 							//加载定制巴士班次列表数据
-							that.getSpecialBusTicketInfo(date);
+							// that.getSpecialBusTicketInfo(date);
+							uni.showToast({
+								title: '暂无班次信息',
+								icon: 'none'
+							})
+							uni.hideLoading();
 						}
 					},
 					fail(res) {
 						console.log(res);
+						uni.showToast({
+							title: '服务器异常，班次列表数据出错',
+							icon: 'none'
+						})
 						uni.hideLoading();
 					}
 				});
@@ -285,7 +319,7 @@
 			ForwardRankingDate:function(param){
 				for (let i = 0; i < param.length - 1; i++){
 					for (let j = 0; j < param.length - 1 - i; j++) {
-						if (Date.parse(this.turnDate(param[j].setTime)) > Date.parse(this.turnDate(param[j+1].setTime))) {
+						if (Date.parse(this.turnDate(param[j].setTime2)) > Date.parse(this.turnDate(param[j+1].setTime2))) {
 							var temp = param[j];
 							param[j] = param[j + 1];
 							param[j + 1] = temp;
@@ -376,7 +410,7 @@
 								week: week,
 								date: nowdate,
 								longDate: longdate,
-							});
+							});x
 						}
 					}
 				}
@@ -707,6 +741,8 @@
 	}
 
 	.scrollClass {
+		position: sticky;
+		top: 0;
 		height: 109upx;
 		width: 86%;
 		white-space: nowrap; //外层写这俩
@@ -723,10 +759,10 @@
 	}
 
 	.markType {
-		width: 65upx;
+		width: 128upx;
 		height: 37upx;
 		line-height: 37rpx;
-		border-radius: 14upx;
+		border-radius: 20upx;
 		text-align: center;
 		align-items: center;
 		font-size: 24upx;
@@ -797,5 +833,17 @@
 		flex-direction: column;
 		width: 100%;
 		padding: 0;
+	}
+	
+	.st_routeSite{
+		margin-left: 25upx;
+		margin-bottom: 20upx;
+		font-style: SourceHanSansSC-Light;
+		font-weight: lighter;
+		font-size: 28upx;
+		color: #666666;
+		display: flex;
+		width: 660upx;
+		margin-top: 6upx;
 	}
 </style>

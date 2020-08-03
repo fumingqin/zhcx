@@ -2,9 +2,9 @@
 	<view>
 		<view v-if="applyName=='南平综合出行'">
 			<!-- 轮播图-->
-			<swiper class="swi" circular autoplay style="background-color: #65C36D;">
-				<swiper-item class="swiItem" v-for="(item,index) in homePage" :key="index">
-					<image :src="item.ImageURL" mode="aspectFill" />
+			<swiper class="swi bc_GRZX" circular autoplay>
+				<swiper-item class="swiItem" v-for="(item,index) in background" :key="index">
+					<image :src="item.imageUrl" mode="aspectFill" />
 				</swiper-item>
 			</swiper>
 			<!-- app -->
@@ -96,91 +96,6 @@
 			</view>
 		</view>
 		
-		<view>
-			<!-- <view v-if="applyName=='南平综合出行'" class="zh_top"> -->
-			<view v-if="applyName=='南平综合出行2'" class="zh_top">
-				<!-- 顶部滑动 -->
-				<view style="position: absolute;width: 46%;top: 90upx;padding: 0 200upx;">
-					<view class="screen">
-						<view class="screenView">
-							<view class="screenText" :class="{current:type2===0}" @click="tabClick(0)">
-								出发
-							</view>
-							<view class="screenText" :class="{current:type2===1}" @click="tabClick(1)">
-								到达
-							</view>
-						</view>
-					</view>
-				</view>
-				<view v-if="type2==0">
-					<!-- 选择出发地 -->
-					<view class="top_chooseTheRoute" hover-class="ve_hover" @tap="setOutStationTap">
-						<view class="top_text">起点</view>
-						<view>
-							<text class="setOut">{{departure}}</text>
-							<text class="jdticon icon-xia"></text>
-						</view>
-					</view>
-					<!-- 目的地 -->
-					<view class="top_destination">
-						<view class="top_text2">终点（不可选）</view>
-						<view class="destination">{{destination}}</view>
-					</view>
-					
-					<!-- 选择时间 -->
-					<view class="top_chooseTime" hover-class="ve_hover" @click="onShowDatePicker('date')">
-						<text class="dateClass">{{datestring}}&nbsp;&nbsp;&nbsp;&nbsp;{{Week}}</text>
-					</view>
-					<mx-date-picker :show="showPicker" :type="type" :value="value" :show-tips="true" :begin-text="'入住'" :end-text="'离店'"
-					 :show-seconds="true" @confirm="onSelected" @cancel="onSelected" />
-				</view>
-				
-				<view v-if="type2==1">
-					<!-- 目的地 -->
-					<view class="top_startingPoint">
-						<view class="top_text3">起点（不可选）</view>
-						<view class="startingPoint">{{destination}}</view>
-					</view>
-					<!-- 选择到达地 -->
-					<view class="top_chooseEnd" hover-class="ve_hover" @tap="setOutStationTap">
-						<view class="top_text4">终点</view>
-						<view>
-							<text class="setOut">{{departure}}</text>
-							<text class="jdticon icon-xia"></text>
-						</view>
-					</view>
-					
-					<!-- 选择时间 -->
-					<view class="top_chooseTime" hover-class="ve_hover" @click="onShowDatePicker('date')">
-						<text class="dateClass">{{datestring}}&nbsp;&nbsp;&nbsp;&nbsp;{{Week}}</text>
-					</view>
-					<mx-date-picker :show="showPicker" :type="type" :value="value" :show-tips="true" :begin-text="'入住'" :end-text="'离店'"
-					 :show-seconds="true" @confirm="onSelected" @cancel="onSelected" />
-				</view>
-				
-				<!-- 按钮 -->
-				<view class="tjButton" hover-class="ve_hover2" @click="queryClick">查询</view>
-				<!-- 弹框 -->
-				<view class="top_popup" @click="open">购票须知 ></view>
-				<!-- 弹框插件 -->
-				<uni-popup ref="popup" type="bottom">
-					<view class="te_boxVlew">
-						<view class="bv_titleView">
-							<text class="tv_text1">购票须知</text>
-							<text class="tv_text2 jdticon icon-fork " @click="close(1)"></text>
-						</view>
-						<scroll-view class="bv_content" scroll-y="ture">
-							<view class="ct_noticeText">
-								<rich-text :nodes="way"></rich-text>
-							</view>
-						</scroll-view>
-					</view>
-				</uni-popup>
-				
-				<image class="top_image" :src="background[0].imageUrl" mode="aspectFill"></image>
-			</view>
-		</view>
-		
 		<!-- 咨询动态 -->
 		<view class="notice">
 			<view class="zl_content">
@@ -217,14 +132,14 @@
 					<view class="ct_content1" @click="godetail(sixPalaceList[0].ticketId)">
 						<!-- <image class="ct_image1" :src="sixPalaceList[0].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text1" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">{{sixPalaceList[0].ticketTitle}}</text> -->
-						<image class="ct_image1" src="http://zntc.145u.net/UpLoadImages/DDT/巾帼文明线.jpg" mode="aspectFill"></image>
+						<image class="ct_image1" :src="NanpingStyle[0].imageUrl" mode="aspectFill"></image>
 						<!-- <text class="ct_text1" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">巾帼文明线</text> -->
 					</view>
 					<!-- 稻田摸鱼 -->
 					<view class="ct_content2" @click="godetail(sixPalaceList[1].ticketId)">
 						<!-- <image class="ct_image2" :src="sixPalaceList[1].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text2" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[1].ticketTitle}}</text> -->
-						<image class="ct_image2" src="http://zntc.145u.net/UpLoadImages/DDT/公共自行车.jpg" mode="aspectFill"></image>
+						<image class="ct_image2" :src="NanpingStyle[1].imageUrl" mode="aspectFill"></image>
 						<!-- <text class="ct_text2" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">公共自行车</text> -->
 					</view>
 				</view>
@@ -234,21 +149,21 @@
 					<view class="ct_content3" @click="godetail(sixPalaceList[2].ticketId)">
 						<!-- <image class="ct_image3" :src="sixPalaceList[2].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text3" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[2].ticketTitle}}</text> -->
-						<image class="ct_image3" src="http://zntc.145u.net/UpLoadImages/DDT/古雷助力车01.jpg" mode="aspectFill"></image>
+						<image class="ct_image3" :src="NanpingStyle[2].imageUrl" mode="aspectFill"></image>
 						<!-- <text class="ct_text3" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">古雷助力车</text> -->
 					</view>
 					<!-- 泉州洛阳桥 -->
 					<view class="ct_content4" @click="godetail(sixPalaceList[3].ticketId)">
 						<!-- <image class="ct_image4" :src="sixPalaceList[3].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text4" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[3].ticketTitle}}</text> -->
-						<image class="ct_image4" src="http://zntc.145u.net/UpLoadImages/DDT/南站实拍图.jpg" mode="aspectFill"></image>
+						<image class="ct_image4" :src="NanpingStyle[3].imageUrl" mode="aspectFill"></image>
 						<!-- <text class="ct_text4" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">客运南站</text> -->
 					</view>
 					<!-- 七彩官畲 -->
 					<view class="ct_content5" @click="godetail(sixPalaceList[4].ticketId)">
 						<!-- <image class="ct_image5" :src="sixPalaceList[4].ticketImage[0]" mode="aspectFill"></image>
 						<text class="ct_text5" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[4].ticketTitle}}</text> -->
-						<image class="ct_image5" src="http://zntc.145u.net/UpLoadImages/DDT/双层公交.jpg" mode="aspectFill"></image>
+						<image class="ct_image5" :src="NanpingStyle[4].imageUrl" mode="aspectFill"></image>
 						<!-- <text class="ct_text5" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">双层公交</text> -->
 					</view>
 				</view>
@@ -331,6 +246,21 @@
 				swiperCurrent: 0,
 				consultingService: [], //新闻资讯
 				imgXXDT: [{
+					imageUrl: '',
+				}], //咨询动态
+				NanpingStyle: [{
+					imageUrl: '',
+				},
+				{
+					imageUrl: '',
+				},
+				{
+					imageUrl: '',
+				},
+				{
+					imageUrl: '',
+				},
+				{
 					imageUrl: '',
 				}], //咨询动态
 				background:[{
@@ -500,7 +430,7 @@
 				}
 			})
 			// #endif
-			this.GetRotationChart();
+			// this.GetRotationChart();
 			this.loadData();
 			//#ifdef APP-PLUS
 			this.loadService();
@@ -533,9 +463,6 @@
 			// #ifdef  H5
 			that.getCode();
 			//#endif
-			
-			//获取当前日期
-			that.getTodayDate();
 		},
 
 		//页面触底
@@ -556,7 +483,7 @@
 				const index = e.detail.current;
 				this.swiperCurrent = index;
 			},
-
+			
 			TitleJump: function(e, Url) {
 				if(Url=="../../pages_DDQC/pages/Bus/TicketPurchase"){
 					Url="../../pages_DDQC/pages/Bus/TicketPurchase?id="+this.userInfo.userId;
@@ -731,27 +658,15 @@
 							return item.type == '新闻资讯';
 						})
 						this.background = res.data.data.filter(item => {
-							return item.type == '背景图';
+							return item.type == '轮播图';
+						})
+						this.NanpingStyle = res.data.data.filter(item => {
+							return item.type == '南平风采';
 						})
 						// console.log(this.imgXXDT)
 					}
 				})
 				uni.stopPullDownRefresh();
-			},
-			//----------------------获取轮播图------------------------------
-			GetRotationChart: function() {
-				var that = this;
-				uni.request({
-					url: $DDTInterface.DDTInterface.GetRotationChart.Url,
-					method: $DDTInterface.DDTInterface.GetRotationChart.method,
-					data: {},
-					success(res) {
-						that.homePage = res.data.data;
-					},
-					fail(err) {
-						console.log(err)
-					}
-				})
 			},
 			//---------------------页面触底加载信息-----------------------------
 
@@ -769,15 +684,6 @@
 					}
 				}
 			},
-
-			//-----------------tab事件---------------------------------------
-			// tabClick(e) {
-			// 	if (e == 0) {
-			// 		this.type = 0;
-			// 	} else if (e == 1) {
-			// 		this.type = 1;
-			// 	}
-			// },
 
 			//---------------------资讯详情页-----------------------------------
 
@@ -805,6 +711,12 @@
 
 			natTo2: function(e) {
 				var that = this;
+				// #ifdef H5
+					uni.navigateTo({
+						url: e,
+					})
+				// #endif
+				// #ifndef H5
 				if (that.userInfo !== '') {
 					uni.navigateTo({
 						url: e,
@@ -815,6 +727,7 @@
 					})
 				}
 				// console.log('是否拿到缓存', that.userInfo)
+				// #endif
 			},
 
 			//路由整合
@@ -1124,148 +1037,6 @@
 			},
 			//-------------登录过期结束--------------------
 			
-			
-			//-----------------tab事件---------------------------------------
-			tabClick(e) {
-				if (e == 0) {
-					this.type2 = 0;
-				} else if (e == 1) {
-					this.type2 = 1;
-				}
-			},
-			
-			//---------------------------------点击出发专线---------------------------------
-			setOutStationTap(){
-				var that = this;
-				//监听事件,监听下个页面返回的值
-				uni.$on('startstaionChange', function(data) {
-				    // data即为传过来的值，给上车点赋值
-					if(that.type2==0){
-						that.departure = data.data;
-						that.destination=data.data2;
-					}else if(that.type2==1){
-						that.departure = data.data2;
-						that.destination=data.data;
-					}
-				    //清除监听，不清除会消耗资源
-				    uni.$off('startstaionChange');
-				});
-				uni.navigateTo({
-					//跳转到下个页面的时候加个字段，判断当前点击的是上车点
-					url:'../../pages_ZXGP/pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick?&station=' + 'qidian' +'&type=' + this.type2
-				})
-			},
-			
-			//---------------------------------获取当前日期---------------------------------
-			getTodayDate() {
-				var date = new Date();
-				var year = date.getFullYear();
-				var month = date.getMonth() + 1;
-				var day = date.getDate();
-				var timer = year + '-' + month + '-' + day;
-				this.datestring = timer;
-			},
-			onShowDatePicker(type) { //显示
-				this.type = type;
-				this.showPicker = true;
-				this.value = this[type];
-			
-			},
-			
-			onSelected(e) { //选择
-				this.showPicker = false;
-				if (e) {
-					// this[this.type] = e.value;
-					this[this.type] = e.value.split('/')[0] + "-" + e.value.split('/')[1] + "-" + e.value.split('/')[2];
-					this.datestring = this[this.type];
-					this.queryWeek(e.date.toString().substring(0,3));
-					// console.log(this[this.type]);
-					// console.log(e.date.toString().substring(0,3));
-					// console.log(this.Week);
-					//选择的值
-					console.log('value => ' + e.value);
-					//原始的Date对象
-					console.log('date => ' + e.date);
-					this.date = e.value;
-				}
-			},
-			queryWeek(e) {
-				console.log(e);
-				switch (e) {
-					case "Mon":
-						this.Week='周一';
-						break;
-					case "Tue":
-						this.Week="周二";
-						break;
-					case "Wed":
-						this.Week="周三";
-						break;
-					case "Thu":
-						this.Week="周四";
-						break;
-					case "Fri":
-						this.Week="周五";
-						break;
-					case "Sat":
-						this.Week="周六";
-						break;
-					case "Sun":
-						this.Week="周日";
-						break;
-					default:
-						break;
-				}
-			},
-			
-			//---------------------------------点击查询---------------------------------
-			queryClick: function() {
-				var that = this;
-				if(that.departure == '请选择起点') {
-					uni.showToast({
-						title: '请选择起点',
-						icon: 'none'
-					})
-				}else if(that.departure == '请选择终点'){
-					uni.showToast({
-						title: '请选择终点',
-						icon: 'none'
-					})
-				}else {
-					var station = this.departure + "-" + this.destination;
-					if(this.historyLines) {
-						for(let i = 0; i <= this.historyLines.length;i++){
-							if(station == this.historyLines[i]) {
-								this.historyLines.splice(i,1);
-							}
-						}
-						this.historyLines.unshift(this.departure + "-" + this.destination);
-					}
-					uni.setStorage({
-						key:'historyLines',
-						data:this.historyLines,
-					})
-					//页面传参通过地址后面添加参数 this.isNormal=0是普通购票1是定制班车
-					
-					var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + this.departure +'&endStation=' + this.destination + '&date=' + this.datestring + '&isNormal=' + this.type2;
-					uni.navigateTo({
-						url:params,
-					})
-				}
-			},
-			
-			//------------------------------弹框事件-----------------------------------------
-			
-			open() {
-				// 需要在 popup 组件，指定 ref 为 popup
-				this.$refs.popup.open()
-			},
-			
-			close(e) {
-				if (e == 1) {
-					this.$refs.popup.close()
-				}
-			},
 		},
 	}
 </script>
