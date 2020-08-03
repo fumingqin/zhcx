@@ -140,16 +140,16 @@
 			</popup>
 
 			<!-- 乘车险 -->
-			<!-- <view class="orderCommonClass">
+			<view class="orderCommonClass">
 				<view style="display: flex; align-items: center;">
 					<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">购买乘车险</view>
 					<view style="margin-left: 16upx;color:#FC4B4B ; font-size:30upx ;">{{InsurePrice}}元</view>
 				</view>
 				<view style="display: flex;margin-right: 41upx;align-items: center;">
-					<view style="font-size: 30upx;color: #2C2D2D;">已选{{passengerNum}}份</view>
+					<view style="font-size: 30upx;color: #2C2D2D;">{{passengerNum}}份</view>
 					<radio class="Mp_box" value="1" :color="'#01aaef'" :checked="isInsurance===1 ? true : false" @click="insuranceTap"></radio>
 				</view>
-			</view> -->
+			</view>
 
 			<!-- 购票须知 -->
 			<view class="orderCommonClass">
@@ -312,7 +312,7 @@
 				couponColor: '', //优惠券couponID，大于等于0触发价格判断事件
 				selectedValue: 0, //同意须知的选中值
 				couponCondition: '', //优惠券的满足条件值
-				isInsurance: 0, //默认选择乘车险
+				isInsurance: 1, //默认选择乘车险
 				maskState: 0, //优惠券面板显示状态
 				ticketDetail: [], //车票详情数据
 				totalPrice: 0, //车票总价格
@@ -347,7 +347,7 @@
 					//定制班车终点数组
 					that.specialEndArray = data.data.endSiteArr
 					//读取保险信息
-					// that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
+					that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
 					console.log('选择车票的班次数据', that.ticketDetail)
 					
 				}
