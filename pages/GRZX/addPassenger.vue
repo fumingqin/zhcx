@@ -107,14 +107,14 @@
 					</view>
 				</view>
 				
-				<view class="itemClass borderTop">
+				<!-- <view class="itemClass borderTop">
 					<view class="fontStyle">特殊凭证</view>
 					<view class="inputClass">
 						<picker name="prove"  mode="selector" @change="proveChange" :range="proveType" :value="user.prove">
 							{{selector}}
 						</picker>
 					</view>	
-				</view>
+				</view> -->
 				
 			</view>
 			

@@ -25,10 +25,18 @@
 				phoneNumber:'',
 				captchaCode:'',
 				bindPhoneImg:'',
+				type:'',//判断是H5绑定手机号还是app微信授权
+				urlData: '', //用来判断进入该页面的地址
 	        }
 	    },
-	    onLoad() {	
+	    onLoad(options) {	
 			this.loadImg();
+			uni.showToast({
+				title: '首次授权需要绑定手机号',
+				icon: 'none',
+			})
+			this.type = options.type;
+			this.urlData = options.urlData;
 	    },
 	    methods: {
 			//--------------------------------加载背景图--------------------------
@@ -50,12 +58,12 @@
 			//--------------------------------只能输入数字--------------------------
 			judgeNum(val){  
 				var regPos = /^\d+(\.\d+)?$/; //非负浮点数
-				    var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
-				    if(regPos.test(val) || regNeg.test(val)) {
-				        return true;
-				    } else {
-				        return false;
-				    }
+				var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+				if(regPos.test(val) || regNeg.test(val)) {
+					return true;
+				} else {
+					return false;
+				}
 			},
 			
 			//--------------------------------输入手机号时触发--------------------------
@@ -88,8 +96,18 @@
 				this[key] = e.detail.value;
 			},
 			
-			//--------------------------------绑定手机--------------------------
-			bindPhone(){	 
+			//--------------------判断是H5还是app登录------------------------
+			bindPhone(){
+				// #ifndef H5
+					this.appbindPhone();
+				//#endif
+				// #ifdef H5
+					this.H5bindPhone();
+				//#endif
+			},
+			
+			//--------------------------------H5绑定手机--------------------------
+			H5bindPhone(){	 
 				var that=this;
 				var list=uni.getStorageSync('captchaCode')	//验证码和手机号
 				console.log(list,"list")
@@ -164,6 +182,8 @@
 												title:'绑定成功！',
 												icon:'success',
 											})
+											uni.removeStorageSync('captchaCode');//清除缓存
+											uni.removeStorageSync('wxuserInfo');//清除缓存
 											setTimeout(function(){
 												uni.navigateBack();
 											},500);
@@ -188,6 +208,144 @@
 						title:"验证码输入错误，请重新输入",
 						icon:"none"
 					})
+				}
+			},
+			
+			//--------------------------------qq微信登录绑定手机--------------------------
+			appbindPhone(){
+				var that=this;
+				var list=uni.getStorageSync('captchaCode')	//验证码和手机号
+				var userInfo=uni.getStorageSync('appUserInfo')	//验证码和手机号
+				var phone=that.phoneNumber;
+				var code=that.captchaCode;
+				if(phone==null||phone==""){
+					uni.showToast({
+						title:"请输入手机号码",
+						icon:"none"
+					})
+				}else if(code==null||code==""){
+					uni.showToast({
+						title:"请输入验证码",
+						icon:"none"
+					})
+				}else if(list==null||list==""){
+					uni.showToast({
+						title:"验证码已过期，请重新获取",
+						icon:"none"
+					})
+				}else if(phone==list.phone&&code==list.code){
+					if(that.type=="appWxLogin"){
+						that.wxbindPhone(userInfo,phone);
+					}else if(that.type=="appQQLogin"){
+						that.qqbindPhone(userInfo,phone);
+					}else if(that.type=="appleLogin"){
+						that.applebindPhone(userInfo,phone);
+					}
+				}else{
+					uni.showToast({
+						title:"验证码输入错误，请重新输入",
+						icon:"none"
+					})
+				}
+			},
+			
+			//--------------------------------app微信登录绑定手机--------------------------
+			wxbindPhone(userInfo,phone){
+				var that=this;
+				uni.showLoading({
+					mask:true,
+					title:'正在绑定中...'
+				})
+				uni.request({
+					url:that.$GrzxInter.Interface.login.value,
+					data:{
+						phoneNumber:phone,
+						systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+						openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
+					},
+					method:that.$GrzxInter.Interface.login.method,
+					success(res1) {
+						uni.request({
+							url:that.$GrzxInter.Interface.changeInfo.value,
+							data:{
+								userId:res1.data.data.userId,
+								phoneNumber:phone,
+								nickname:userInfo.nickName,//微信昵称
+								address:userInfo.province+userInfo.city,//微信地址
+								openId_wx:res1.data.data.openId_wx,
+								gender:userInfo.gender,//微信性别
+								openId_qq:userInfo.openId,//微信oenid
+								// openId_qq:res1.data.data.openId_qq,
+								openId_xcx:res1.data.data.openId_xcx,
+								birthday:res1.data.data.birthday,
+								autograph:res1.data.data.autograph,
+								systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+								openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
+							},
+							method:that.$GrzxInter.Interface.changeInfo.method,
+							success(res) {
+								console.log(res,"res")
+								uni.request({
+									url:that.$GrzxInter.Interface.changeInfoPortrait.value,
+									data:{
+										userId:res.data.data.userId,
+										portrait:userInfo.avatarUrl,//微信头像
+									},
+									method:that.$GrzxInter.Interface.changeInfoPortrait.method,
+									success(res3) {
+										console.log(res3);
+										uni.setStorageSync('userInfo',res3.data.data)
+										uni.hideLoading();
+										uni.showToast({
+											title:'绑定成功！',
+											icon:'success',
+										})
+										uni.removeStorageSync('captchaCode');//清除缓存
+										uni.removeStorageSync('appUserInfo');//清除缓存
+										setTimeout(function(){
+											that.returnPage();
+										},500);
+									},
+									fail(err){
+										uni.hideLoading();
+									}
+								})
+							},
+							fail(err){
+								uni.hideLoading();
+							}
+						})
+					},
+					fail(err){
+						uni.hideLoading();
+					}
+				})
+				
+			},
+			
+			//--------------------------------appqq登录绑定手机--------------------------
+			qqbindPhone(userInfo){
+				var that=this;
+				that.returnPage();
+			},
+			//--------------------------------app苹果登录绑定手机--------------------------
+			applebindPhone(){
+				
+			},
+			
+			//--------------------------------返回首页--------------------------
+			returnPage(){
+				var that=this;
+				if (that.urlData == 1) {
+					uni.switchTab({ //返回首页
+						url: '/pages/Home/zy_zhcx',
+					})
+				} else if (that.urlData == 2) {
+					uni.switchTab({ //返回订单页
+						url: '/pages/order/OrderList',
+					})
+				} else {
+					uni.navigateBack(); //返回上一页
 				}
 			},
 			
@@ -237,8 +395,7 @@
 								},300000);
 						    }
 						 }) 
-					  }
-							
+						}
 					}
 				}else{
 					uni.showToast({

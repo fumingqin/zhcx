@@ -3,16 +3,18 @@
 		<!-- 背景图 -->
 		<image :src="background" class="backClass"></image>
 		<image src="../../static/GRZX/loginReturn.png" class="returnClass" @click="returnClick"></image>
+
 		<view class="inputContent">
+			<!-- 手机号 -->
 			<view class="inputItem phoneNum">
 				<image src="../../static/GRZX/shouji.png" class="iconClass1"></image>
 				<input type="number" placeholder="手机号码" maxlength="11" class="inputClass" data-key="phoneNumber" @input="inputChange1" />
 			</view>
+			<!-- 验证码 -->
 			<view class="inputItem Captcha">
 				<image src="../../static/GRZX/yanzhengma.png" class="iconClass2"></image>
 				<input type="number" placeholder="输入验证码" maxlength="4" class="inputClass" data-key="captchaCode" @input="inputChange2" />
 			</view>
-
 			<!-- 按钮颜色和发送验证码的样式 -->
 			<view class="getCode style1" @click="getCodeClick" id="Code">{{textCode}}</view>
 			<text class="fontStyle" @click="loginClick">确定</text>
@@ -22,61 +24,81 @@
 		<!-- logo -->
 		<image :src="logo" class="logoClass"></image>
 
-		<!-- <view class="loginMode">第三方登录</view>
+		<!-- 第三方登录 -->
+		<view class="loginMode">第三方登录</view>
 		<view class="leftLine"></view>
-		<view class="rightLine"></view> -->
+		<view class="rightLine"></view>
 		<!-- <image src="../../static/GRZX/qqLogo.png" class="qqClass" @click="qqLogin"></image> -->
-		<!-- <image src="../../static/GRZX/wxLogo.png" class="wxClass" @click="wxLogin"></image> -->
-		<!-- <image src="../../static/GRZX/wxLogo.png" class="wxClass1" @click="wxLogin"></image> -->
+		<!-- 苹果登录 -->
+		<image src="../../static/GRZX/appleLogo.png" class="appleClass" @click="appleLogin" v-if="platform=='ios'"></image>
+		<image src="../../static/GRZX/wxLogo.png" class="wxClass" @click="wxLogin" v-if="platform=='ios'"></image>
+		<image src="../../static/GRZX/wxLogo.png" class="wxClass1" v-if="platform!='ios'" @click="wxLogin" ></image>
 	</view>
 </template>
 
 <script>
 	// #ifdef APP-PLUS
-	const jyJPush = uni.requireNativePlugin('JY-JPush');
+	//const jyJPush = uni.requireNativePlugin('JY-JPush');
 	// #endif
 	import $DDTInterface from '@/common/DDT.js'
-	import { pathToBase64, base64ToPath } from '@/components/GRZX/js_sdk/gsq-image-tools/image-tools/index.js';
 	export default {
 		data() {
 			return {
-				textCode: "获取验证码",
-				phoneNumber: '',
-				captchaCode: '',
-				imgHeight: '',
-				urlData: '',
-				background: '',
-				logo: '',
-				
-				state:true,	//是否允许点击
+				textCode: "获取验证码", //获取验证码
+				phoneNumber: '', //手机号
+				captchaCode: '', //验证码
+				imgHeight: '', //背景图高度
+				urlData: '', //用来判断进入该页面的地址
+				background: '', //背景图路径
+				logo: '', //logo路径
+
+				state: true, //是否允许点击
+				system: '', 	// 系统版本
+				platform: '',   // 平台
 			}
 		},
 		onLoad(options) {
-			this.loadImg();
-			this.urlData = options.urlData;
-			this.load();
+			this.loadImg();//加载图片
+			this.urlData = options.urlData;//用来判断进入该页面的地址
+			this.load();//加载页面高度
+			
+			var that=this;
+			// 先判断 系统版本
+			uni.getSystemInfo({
+				success: (res) => {
+					console.log("系统",res);
+					that.system = res.system;
+					that.platform = res.platform;
+				}
+			})
+		},
+		onUnload() {
+			uni.hideLoading();//退出页面时，关闭所有的弹窗
 		},
 		methods: {
-			//---------------加载图片----------------
+			//----------------------------------加载图片----------------------------------
 			loadImg: function() {
 				var that = this;
-				that.$ChangeImage.GetImage("南平综合出行","南平背景图").then(function(data) {
+				that.$ChangeImage.GetImage("南平综合出行", "南平背景图").then(function(data) {
 					that.background = data;
 				});
-				that.$ChangeImage.GetImage("南平综合出行","nanpinglogo").then(function(data) {
+				that.$ChangeImage.GetImage("南平综合出行", "nanpinglogo").then(function(data) {
 					that.logo = data;
 				});
 			},
-			//---------------加载页面高度----------------
+
+			//----------------------------------加载页面高度----------------------------------
 			load: function() {
 				var that = this;
 				uni.getSystemInfo({
-					success: function(res) { // res - 各种参数
+					success: function(res) { // res - 各种系统参数
 						that.imgHeight = res.windowHeight;
 					}
 				});
 			},
-			judgeNum: function(val) { //只能输入数字
+
+			//-------------------------------------判断是否为数字----------------------------------
+			judgeNum: function(val) {
 				var regPos = /^\d+(\.\d+)?$/; //非负浮点数
 				var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
 				if (regPos.test(val) || regNeg.test(val)) {
@@ -85,6 +107,8 @@
 					return false;
 				}
 			},
+
+			//-------------------------------------监听input的变化----------------------------------
 			inputChange1: function(e) {
 				var num = e.detail.value;
 				if (this.judgeNum(num)) {
@@ -98,6 +122,8 @@
 				const key = e.currentTarget.dataset.key;
 				this[key] = e.detail.value;
 			},
+
+			//-------------------------------------监听input的变化----------------------------------
 			inputChange2: function(e) {
 				var num = e.detail.value;
 				if (this.judgeNum(num)) {
@@ -111,7 +137,9 @@
 				const key = e.currentTarget.dataset.key;
 				this[key] = e.detail.value;
 			},
-			loginClick: function() { //登录按钮
+
+			//-------------------------------------登录按钮----------------------------------
+			loginClick: function() {
 				uni.showLoading({
 					title: '登录中...'
 				})
@@ -134,52 +162,56 @@
 							icon: "none"
 						})
 					} else {
-						uni.getStorage({
-							key: 'captchaCode',
-							success(res) {
-								if (captcha == res.data.code && phone == res.data.phone) {
-									uni.request({
-										// url:'http://111.231.109.113:8002/api/person/login',
-										url: that.$GrzxInter.Interface.login.value,
-										data: {
-											phoneNumber: phone,
-										},
-										method: that.$GrzxInter.Interface.login.method,
-										success(res) {
-											console.log(res)
-											uni.removeStorageSync('captchaCode');
-											uni.setStorageSync('userInfo', res.data.data);
-											// #ifdef APP-PLUS
-											that.setJYJPushAlias(res.data.data.phoneNumber);
-											// #endif
-											that.LoginLog(res.data.data.userId,res.data.data.phoneNumber);
-											uni.hideLoading();
-											that.successReturn();//登陆成功后返回
-											//that.registerBike(res.data.data.userId, res.data.data.phoneNumber) //注册自行车用户
-										}
-									})
-								} else {
-									uni.showToast({
-										title: "验证码错误",
-										icon: "none"
-									})
-								}
-							},
-							fail() {
-								uni.showToast({
-									title: "验证码已过期，请重新获取",
-									icon: "none"
-								})
-							}
-						})
+						that.requestInter(phone, captcha);
 					}
 				}
 			},
+
+			//-------------------------------------请求登录接口----------------------------------
+			requestInter: function(phone, captcha) {
+				var that = this;
+				uni.getStorage({
+					key: 'captchaCode',
+					success(res) {
+						if (captcha == res.data.code && phone == res.data.phone) {
+							uni.request({
+								url: that.$GrzxInter.Interface.login.value,
+								data: {
+									phoneNumber: phone,
+								},
+								method: that.$GrzxInter.Interface.login.method,
+								success(res) {
+									console.log(res)
+									uni.removeStorageSync('captchaCode');
+									uni.setStorageSync('userInfo', res.data.data);
+									//that.LoginLog(res.data.data.userId, res.data.data.phoneNumber);
+									uni.hideLoading();
+									that.successReturn(); //登陆成功后返回
+									//that.registerBike(res.data.data.userId, res.data.data.phoneNumber) //注册自行车用户
+								}
+							})
+						} else {
+							uni.showToast({
+								title: "验证码错误",
+								icon: "none"
+							})
+						}
+					},
+					fail() {
+						uni.showToast({
+							title: "验证码已过期，请重新获取",
+							icon: "none"
+						})
+					}
+				})
+			},
+
 			//-------------------------------------登陆成功后返回----------------------------------
-			successReturn(){
+			successReturn: function() {
+				var that = this;
 				uni.showToast({
 					title: "登录成功!",
-					icon: "none"
+					icon: "success"
 				})
 				if (that.urlData == 1) {
 					uni.switchTab({ //返回首页
@@ -194,6 +226,7 @@
 					uni.navigateBack(); //返回上一页
 				}
 			},
+
 			//-------------------------------------用户注册自行车----------------------------------
 			registerBike: function(id, phone) {
 				var that = this;
@@ -214,6 +247,7 @@
 					}
 				})
 			},
+
 			//-------------------------------------检查是否实名----------------------------------
 			checkRealName: function(id) {
 				console.log(id, 'checkRealName')
@@ -259,53 +293,140 @@
 					}
 				})
 			},
+
 			//-------------------------------------微信授权登录----------------------------------
 			wxLogin: function() {
-				var thethat = this;
+				var that = this;
 				uni.login({
 					provider: 'weixin',
 					success: function(loginRes) {
 						uni.getUserInfo({
 							provider: 'weixin',
 							success: function(res) {
-								res.userInfo.phoneNumber = "";
-								uni.setStorage({
-									key: "userInfo",
-									data: res.userInfo
-								});
-								uni.showToast({
-									title: '授权成功',
-									icon: "none"
-								});
-								//绑定手机号
-								uni.getStorage({
-									key: 'userInfo',
-									success: function(res1) {
-										if (res1.data.phoneNumber == "" || res1.data.phoneNumber == null) {
-											uni.showToast({
-												title: '请绑定手机号',
-												icon: 'none',
-											})
-											setTimeout(function() {
-												uni.navigateTo({
-													url: '/pages/GRZX/wxLogin'
-												})
-											}, 500);
-										}
-									}
-								})
+								that.requestInterface(res.userInfo,"wx");
 							},
 							fail: function() {
-
+								uni.showToast({
+									title: '获取用户信息失败',
+									icon: "none"
+								});
 							}
 						})
+					},
+					fail() {
+						uni.showToast({
+							title: '获取失败',
+							icon: "none"
+						});
 					}
 				})
-
 			},
+			
+			//-------------------------------------QQ微信授权登录请求接口----------------------------------
+			requestInterface:function(userInfo,type){
+				var that=this;
+				if(type=="wx"){ //微信授权登录
+					uni.request({
+						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_qq.value,
+						data:{
+							openId_qq:userInfo.openId,
+						},
+						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_qq.method,
+						success(res) {
+							if(!res.data.status&&res.data.msg=="获取用户信息失败,不存在该openID用户信息"){
+								uni.setStorageSync('appUserInfo',userInfo);
+								uni.navigateTo({
+									url: '/pages/GRZX/wxLogin?type=appWxLogin&&urlData='+that.urlData,
+								})
+							}else if(res.data.status){
+								uni.setStorageSync('userInfo',res.data.data);
+								setTimeout(function(){
+									that.successReturn(); //登陆成功后返回
+								},500);
+							}
+						},
+						fail() {
+								
+						}
+					})
+				}else if(type=="qq"){  //QQ授权登录
+					uni.request({
+						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_qq.value,
+						data:{
+							openId_qq:userInfo.openId,
+						},
+						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_qq.method,
+						success(res) {
+							if(!res.data.status&&res.data.msg=="获取用户信息失败,不存在该openID用户信息"){
+								uni.setStorageSync('appUserInfo',userInfo);
+								uni.navigateTo({
+									url: '/pages/GRZX/wxLogin?type=appQQLogin&&urlData='+that.urlData,
+								})
+							}else if(res.data.status){
+								that.successReturn(); //登陆成功后返回
+							}
+						},
+						fail() {
+								
+						}
+					})
+				}else if(type=="apple"){  //苹果授权登录
+					uni.request({
+						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_qq.value,
+						data:{
+							openId_qq:userInfo.openId,
+						},
+						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_qq.method,
+						success(res) {
+							if(!res.data.status&&res.data.msg=="获取用户信息失败,不存在该openID用户信息"){
+								uni.setStorageSync('appUserInfo',userInfo);
+								uni.navigateTo({
+									url: '/pages/GRZX/wxLogin?type=appleLogin&&urlData='+that.urlData,
+								})
+							}else if(res.data.status){
+								that.successReturn(); //登陆成功后返回
+							}
+						},
+						fail() {
+								
+						}
+					})
+				}
+			},
+			//-------------------------------------苹果授权登录----------------------------------
+			appleLogin:function(){
+				var that = this;
+				uni.login({
+					provider: 'apple',
+					success: function(loginRes) {
+						console.log("苹果信息",loginRes);
+						uni.getUserInfo({
+							provider: 'apple',
+							success: function(res) {
+								console.log("苹果用户信息",res);
+								that.requestInterface(res.userInfo,"apple");
+							},
+							fail: function() {
+								uni.showToast({
+									title: '获取用户信息失败',
+									icon: "none"
+								});
+							}
+						})
+					},
+					fail(err) {
+						console.log("获取失败",err);
+						uni.showToast({
+							title: '获取失败',
+							icon: "none"
+						});
+					}
+				})
+			},
+			
 			//-------------------------------------QQ授权登录----------------------------------
 			qqLogin: function() {
-				var thethat = this;
+				var that = this;
 				uni.getProvider({
 					service: 'oauth',
 					success: function(res) {
@@ -337,7 +458,7 @@
 											})
 
 											if (list != null || list != "") {
-												thethat.login(list);
+												that.login(list);
 											}
 											uni.showToast({
 												title: '授权成功',
@@ -345,7 +466,7 @@
 											});
 											uni.switchTab({
 												//url:'/pages/GRZX/user',
-												url: thethat.$GrzxInter.Route.user.url,
+												url: that.$GrzxInter.Route.user.url,
 											})
 
 										}
@@ -356,16 +477,20 @@
 					}
 				})
 			},
+
 			//-------------------------------------获取验证码----------------------------------
 			getCodeClick: function(e) {
 				var that = this;
-				const {phoneNumber,captchaCode} = this;
+				const {
+					phoneNumber,
+					captchaCode
+				} = this;
 				if (that.judgeNum(that.phoneNumber)) {
 					var timer = null, //定时器
-					second = 59; //倒计时的时间
-					if (that.textCode == "获取验证码"&&that.state) {
+						second = 60; //倒计时的时间
+					if (that.textCode == "获取验证码" && that.state) {
 						that.state = false;
-						that.getCode(timer,second,that.phoneNumber);
+						that.getCode(timer, second, that.phoneNumber);
 					}
 				} else {
 					uni.showToast({
@@ -374,15 +499,16 @@
 					})
 				}
 			},
+
 			//-------------------------------------获取验证码的请求----------------------------
-			getCode: function(timer,second,phoneNumber) {
-				var that=this;
+			getCode: function(timer, second, phoneNumber) {
+				var that = this;
 				timer = setInterval(function() {
 					second--;
 					if (second <= 0) {
 						that.textCode = "获取验证码";
 						clearInterval(timer);
-						second = 59;
+						second = 60;
 						that.state = true;
 					} else {
 						that.textCode = second + "秒后重发";
@@ -397,7 +523,7 @@
 					success: (res) => {
 						console.log(res, "340");
 						console.log(res.data.data);
-						if(res.data.status==false){ //发送验证码次数上限
+						if (res.data.status == false) { //发送验证码次数上限
 							that.state = true;
 							that.textCode = "获取验证码";
 							clearInterval(timer);
@@ -405,7 +531,7 @@
 								title: "今日验证码发送次数已上限!",
 								icon: "none"
 							})
-						}else{ //成功发送验证码
+						} else { //成功发送验证码
 							uni.setStorage({
 								key: 'captchaCode',
 								data: {
@@ -426,6 +552,7 @@
 					}
 				})
 			},
+
 			//-------------------------------------返回按钮------------------------------------
 			returnClick: function() {
 				var that = this;
@@ -442,6 +569,7 @@
 					uni.navigateBack(); //返回上一页
 				}
 			},
+
 			//-----------------------------------判断是否为base64格式----------------------------
 			isBase64: function(str) {
 				if (str === '' || str.trim() === '') {
@@ -453,8 +581,10 @@
 					return false;
 				}
 			},
-			//-----------------------------------获得7日后的日期----------------------------
-			getSpecialTime: function() {
+
+			//-----------------------------------获得n日后的日期----------------------------
+			getSpecialTime: function(n) {
+				var num = parseInt(n, 10); //n天
 				var date = new Date();
 				var currentDate = JSON.stringify(date).substring(1, 11);
 				var arry = currentDate.split("-");
@@ -463,7 +593,6 @@
 				var day = parseInt(arry[2], 10);
 				//月份的方法：getMonth()从 Date 对象返回月份 (0 ~ 11)。
 				var structDate = new Date(year, month - 1, day);
-				var num = parseInt(7, 10); //7天
 				//setDate增减天数
 				structDate.setDate(structDate.getDate() + num);
 				//如果月份长度少于2，则前加 0 补位   
@@ -480,26 +609,28 @@
 				}
 				var newDate = structDate.getFullYear() + "-" + month + "-" + day;
 			},
+
 			//---------------------推送时使用----------------------------
-			setJYJPushAlias: function(phoneNumber) {
-				var that = this;
-				jyJPush.deleteJYJPushAlias({
-				//  可以不用传值进去，但是需要配置这项数据
-				}, result=> {
-					jyJPush.setJYJPushAlias({
-						userAlias: phoneNumber,
-					}, result => {
-						//  设置成功或者失败，都会通过这个result回调返回数据；数据格式保持极光返回的安卓/iOS数据一致
-						//  注：若没有返回任何数据，考虑是否初始化完成
-						console.log(result);
-						jyJPush.getRegistrationID(
-						//  返回的数据会有registrationID，errorCode
-						result => {
-							console.log(result)
-						});
-					});
-				});
-			},
+			// setJYJPushAlias: function(phoneNumber) {
+			// 	var that = this;
+			// 	jyJPush.deleteJYJPushAlias({
+			// 		//  可以不用传值进去，但是需要配置这项数据
+			// 	}, result => {
+			// 		jyJPush.setJYJPushAlias({
+			// 			userAlias: phoneNumber,
+			// 		}, result => {
+			// 			//  设置成功或者失败，都会通过这个result回调返回数据；数据格式保持极光返回的安卓/iOS数据一致
+			// 			//  注：若没有返回任何数据，考虑是否初始化完成
+			// 			console.log(result);
+			// 			jyJPush.getRegistrationID(
+			// 				//  返回的数据会有registrationID，errorCode
+			// 				result => {
+			// 					console.log(result)
+			// 				});
+			// 		});
+			// 	});
+			// },
+
 			// ----------------------------登录时写日志--------------------------------
 			LoginLog: function(UserID, Phone) {
 				var that = this;
@@ -532,8 +663,7 @@
 										SystemType: res1.platform,
 										SystemVersion: res1.system,
 									},
-									success(res) {
-									},
+									success(res) {},
 									fail(err) {
 										console.log(err)
 									}
@@ -543,6 +673,8 @@
 					}
 				})
 			},
+
+
 		}
 	}
 </script>
@@ -607,7 +739,7 @@
 		//登录区域的样式
 		width: 90.4%;
 		//height: 874upx;
-		height: 700upx;
+		height: 800upx;
 		position: absolute;
 		top: 324upx;
 		left: 4.8%;
@@ -666,7 +798,7 @@
 		//微信1
 		position: absolute;
 		left: 44%;
-		top: 1015upx;
+		top: 1022upx;
 		width: 67upx;
 		height: 54upx;
 	}
@@ -679,11 +811,19 @@
 		width: 47upx;
 		height: 50upx;
 	}
+	.appleClass {
+		//QQ
+		position: absolute;
+		left: 60%;
+		top: 1015upx;
+		width: 50upx;
+		height: 54upx;
+	}
 
 	.loginMode {
 		//第三方登录
 		position: absolute;
-		top: 900upx;
+		top: 945upx;
 		width: 100%;
 		text-align: center;
 		font-size: 30upx;
@@ -695,7 +835,7 @@
 		height: 1upx;
 		width: 22.48%;
 		position: absolute;
-		top: 920upx;
+		top: 965upx;
 		left: 12.73%;
 	}
 
@@ -704,7 +844,7 @@
 		height: 1upx;
 		width: 22.48%;
 		position: absolute;
-		top: 920upx;
+		top: 965upx;
 		left: 64.78%;
 	}
 
@@ -748,7 +888,7 @@
 		width: 90%;
 		padding: 25upx 0;
 		border-radius: 20upx;
-		background:linear-gradient(54deg,rgba(255,128,8,1) 0%,rgba(255,200,55,1) 100%);  //南平综合出行
+		background: linear-gradient(54deg, rgba(255, 128, 8, 1) 0%, rgba(255, 200, 55, 1) 100%); //南平综合出行
 		//background: linear-gradient(54deg, rgba(53, 199, 98, 1) 0%, rgba(6, 161, 54, 1) 100%); //漳州达达通
 	}
 </style>
