@@ -238,7 +238,7 @@
 							ItemTitle: "在线客服"
 						},
 						{
-							IsUse: false,
+							IsUse: true,
 							clickURL: "",
 							ImageURL: "../../static/GRZX/ServiceIcon/tb_QQKF.png",
 							ItemTitle: "QQ客服"
@@ -469,7 +469,7 @@
 					// #ifdef APP-PLUS
 					setTimeout(function() {
 						uni.navigateTo({
-							url: that.$GrzxInter.Route.userLogin.url,
+							url: that.$GrzxInter.Route.userLogin.url+'?urlData=1',
 						})
 					}, 500);
 					// #endif
