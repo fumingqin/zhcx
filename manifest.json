@@ -92,7 +92,8 @@
                         "appid" : "wxb6e7a1abe313216a",
                         "UniversalLinks" : "https://zntc.145u.net/ulink/"
                     }
-                }
+                },
+                "push" : {}
             },
             "icons" : {
                 "android" : {
