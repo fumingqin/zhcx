@@ -58,15 +58,24 @@
 					SourceHanSansSC-Light; color: #666666;">余{{item.remainingVotes}}张</view>
 				</view>
 				
-				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
-				font-size: 28upx;color: #666666;"
+				<view style="margin-left: 25upx;margin-bottom: 10upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
+				font-size: 28upx;color: #666666;margin-top: 6upx;"
 				 v-if="item.shuttleType == '普通班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟/{{item.planScheduleCode}}</view>
-				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
-				font-size: 28upx;color: #666666;"
+				<view style="margin-left: 25upx;margin-bottom: 10upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
+				font-size: 28upx;color: #666666;margin-top: 6upx;"
 				 v-if="item.shuttleType == '定制班车'">{{item.carType}}/约{{(item.duration.slice(0,-2))}}分钟/{{item.planScheduleCode}}</view>
-				<view style="margin-left: 25upx;margin-bottom: 20upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
-				 font-size: 28upx;color: #666666;"
+				<view style="margin-left: 25upx;margin-bottom: 10upx;font-style: SourceHanSansSC-Light;font-weight: lighter;
+				 font-size: 28upx;color: #666666;margin-top: 6upx;"
 				  v-if="item.shuttleType == '定制巴士'">{{item.SetoutTimeDesc}}</view>
+				  
+				<!-- 途径站点 -->
+				<view class="st_routeSite" v-if="item.shuttleType == '普通班车'">
+					<view style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+						<text>途径站点:</text>
+						<text v-for="(item2,index2) in routeSite" :key="index2" v-if="index2<4">{{item2}}<text v-if="index2<3">/</text></text>
+						<text>...</text>
+					</view>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -82,6 +91,7 @@
 		},
 		data() {
 			return {
+				routeSite: ['延平站点1','延平站点2','延平站点3','延平站点3','延平站点3',],
 				utils: utils,
 				dateArray: [], //时间轴的数量的数组
 				selectIndex: '', //选中的下标
@@ -823,5 +833,17 @@
 		flex-direction: column;
 		width: 100%;
 		padding: 0;
+	}
+	
+	.st_routeSite{
+		margin-left: 25upx;
+		margin-bottom: 20upx;
+		font-style: SourceHanSansSC-Light;
+		font-weight: lighter;
+		font-size: 28upx;
+		color: #666666;
+		display: flex;
+		width: 660upx;
+		margin-top: 6upx;
 	}
 </style>
