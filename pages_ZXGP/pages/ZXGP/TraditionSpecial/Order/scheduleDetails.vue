@@ -35,10 +35,19 @@
 					<image src="../../../../static/ZXGP/right.png" style="width: 11upx;height: 21upx;margin-left: 10upx;"></image>
 				</view>
 			</view> -->
+			
+			<!-- 查看所有途经点 -->
+			<view class="orderCommonClass" @tap="approachPoint">
+				<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">查看所有途径点</view>
+				<view style="display: flex;margin-right: 41upx;align-items: center;">
+					<view style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;">{{routeSite.length}}个站点</view>
+					<image src="../../../../static/ZXGP/right.png" style="width: 11upx;height: 21upx;margin-left: 10upx;"></image>
+				</view>
+			</view>
 
 			<!-- 上下车点选择,0是普通购票不显示上下车点选择 -->
 			<!-- v-if="ticketDetail.shuttleType == '定制班车'" -->
-			<view class="stationContentView" v-if="ticketDetail.shuttleType == '定制班车'">
+			<view class="stationContentView">
 				<view class="boarding" style="border-bottom:#EAEAEA solid 1px;" @tap="startStationTap">
 					<view style="margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">上车点</view>
 					<view style="display: flex;align-items: center;">
@@ -131,16 +140,16 @@
 			</popup>
 
 			<!-- 乘车险 -->
-			<!-- <view class="orderCommonClass">
+			<view class="orderCommonClass">
 				<view style="display: flex; align-items: center;">
 					<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">购买乘车险</view>
 					<view style="margin-left: 16upx;color:#FC4B4B ; font-size:30upx ;">{{InsurePrice}}元</view>
 				</view>
 				<view style="display: flex;margin-right: 41upx;align-items: center;">
-					<view style="font-size: 30upx;color: #2C2D2D;">已选{{passengerNum}}份</view>
+					<view style="font-size: 30upx;color: #2C2D2D;">{{passengerNum}}份</view>
 					<radio class="Mp_box" value="1" :color="'#01aaef'" :checked="isInsurance===1 ? true : false" @click="insuranceTap"></radio>
 				</view>
-			</view> -->
+			</view>
 
 			<!-- 购票须知 -->
 			<view class="orderCommonClass">
@@ -205,7 +214,7 @@
 					<radio class="Mp_box" value="1" :color="'#01aaef'" :checked="selectedValue===1 ? true : false" @click="Selection"></radio>
 				</view>
 			</view>
-			<view style="display: flex;font-size: 24upx;margin:0 46upx;color: #808080;margin-left: 16%;">点击立即预定表示已阅读并同意<view style="font-size: 24upx;color: #01aaef;" @tap="checkAttention"> 《购票须知》</view></view>
+			<view style="display: flex;font-size: 24upx;margin:0 46upx;color: #808080;margin-left: 16%;margin-bottom: 50upx;">点击立即预定表示已阅读并同意<view style="font-size: 24upx;color: #01aaef;" @tap="checkAttention"> 《购票须知》</view></view>
 		</scroll-view>
 		<view class="toPayClass">
 			<view style="display: flex;align-items: center;margin-left: 32upx;">
@@ -214,6 +223,24 @@
 			</view>
 			<view @tap="reserveTap" class="orderReserve" :class="{tapColor:selectedValue == 1}">立即预定</view>
 		</view>
+		
+		<!-- 查看须知popup -->
+		<popup ref="popup3" type="center">
+			<view class="boxView2">
+				<view class="titleView2">
+					<text class="Nb_text3">所有途径点</text>
+					<text class="Nb_text4 jdticon icon-fork " @click="close2(3)"></text>
+				</view>
+				<scroll-view class="noticeBox2" scroll-y="ture">
+					<view class="tv_title">
+						<view style="padding-left: 20upx;padding-top: 48upx;" v-for="(item,index) in routeSite" :key="index">
+							<image src="../../../../static/ZXGP/startDot.png" style="width: 20upx ;height: 20upx;"></image>
+							<text class="ti_text">{{item.site}}</text>
+						</view>
+					</view>
+				</scroll-view>
+			</view>
+		</popup>
 	</view>
 </template>
 
@@ -226,6 +253,46 @@
 		},
 		data() {
 			return {
+				routeSite: [{
+						site: '延平站点1',
+					},
+					{
+						site: '延平站点2',
+					},
+					{
+						site: '延平站点3',
+					},
+					{
+						site: '延平站点4',
+					},
+					{
+						site: '延平站点5',
+					},
+					{
+						site: '延平站点6',
+					},
+					{
+						site: '延平站点7',
+					},
+					{
+						site: '延平站点8',
+					},
+					{
+						site: '延平站点9',
+					},
+					{
+						site: '延平站点10',
+					},
+					{
+						site: '延平站点11',
+					},
+					{
+						site: '延平站点12',
+					},
+					{
+						site: '延平站点13',
+					}
+				],
 				title: '',
 				isNormal: 0, //判断是普通购票还是定制班车:1是普通0是定制
 				count: 1,
@@ -245,7 +312,7 @@
 				couponColor: '', //优惠券couponID，大于等于0触发价格判断事件
 				selectedValue: 0, //同意须知的选中值
 				couponCondition: '', //优惠券的满足条件值
-				isInsurance: 0, //默认选择乘车险
+				isInsurance: 1, //默认选择乘车险
 				maskState: 0, //优惠券面板显示状态
 				ticketDetail: [], //车票详情数据
 				totalPrice: 0, //车票总价格
@@ -280,7 +347,7 @@
 					//定制班车终点数组
 					that.specialEndArray = data.data.endSiteArr
 					//读取保险信息
-					// that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
+					that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
 					console.log('选择车票的班次数据', that.ticketDetail)
 					
 				}
@@ -472,6 +539,14 @@
 			},
 			close(e) {
 				this.$refs.popup2.close()
+			},
+			
+			approachPoint(){
+				this.$refs.popup3.open()
+			},
+			
+			close2(e) {
+				this.$refs.popup3.close()
 			},
 			//-------------------------------跳转到地图标点-----------------------------
 			checkLocation() {
@@ -954,7 +1029,7 @@
 		bottom: 0;
 		display: flex;
 		align-items: center;
-		z-index: 1010;
+		// z-index: 1010;
 		background: #FFFFFF;
 		justify-content: space-between;
 	}
@@ -995,5 +1070,53 @@
 	
 	.button_1::after {
 		border: none;
+	}
+	
+	//途径点弹框
+	.boxView2 {
+		width: 90%;
+		padding: 16upx 40upx;
+		padding-bottom: 92upx;
+		background: #FFFFFF;
+		border-radius:20upx;
+		z-index: 999;
+	
+		.titleView2 {
+			margin: 24upx 0;
+			text-align: center;
+			width: 560upx;
+	
+			//弹框标题
+			.Nb_text3 {
+				position: relative;
+				font-size: 38upx;
+				font-weight: bold;
+				top: 8upx;
+				margin-bottom: 16upx;
+			}
+	
+			//弹框关闭按钮
+			.Nb_text4 {
+				margin-top: 8upx;
+				float: right;
+				color: #333;
+				padding-top: 16upx;
+				font-size: 32upx;
+			}
+		}
+		
+		.noticeBox2{
+			line-height: 32upx;
+			height: 586upx;
+			.tv_title{
+				display: block;
+				width: 100%;
+				
+				.ti_text{
+					padding-left: 20upx;
+					font-size: 32upx;
+				}
+			}
+		}
 	}
 </style>

@@ -47,11 +47,11 @@
 					</view>
 
 					<!-- 保险 -->
-					<!-- <view class="MP_cost" v-if="isInsurance == 1 ">
+					<view class="MP_cost" v-if="isInsurance == 1 ">
 						<text>保险</text>
 						<text class="MP_number">×{{ticketNum}}</text>
 						<text class="MP_total">¥{{insuredPrice}}</text>
-					</view> -->
+					</view>
 
 					<!-- 优惠券 -->
 					<!-- <view class="MP_cost" v-if="orderInfo[0].couponPrice>0" v-if="false">
@@ -114,7 +114,7 @@
 				}],
 				insurance: '', //保险
 				isInsurance: '', //是否有保险
-				insuredPrice: '',//保险价格
+				insuredPrice: '0',//保险价格
 				channeIndex: 0, //选择支付方式
 				orderInfo: [], //订单数据
 				passengerInfo: [], //乘车人信息

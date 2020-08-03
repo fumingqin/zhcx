@@ -79,11 +79,21 @@
 				
 				<view class="hp_view">
 					<view class="hp_Line"></view>
+					<view class="hp_text">特惠须知</view>
+					<view class="hp_Line2"></view>
+				</view>
+				
+				<view class="ct_noticeText ct_noticeText2">
+					<rich-text :nodes="way2"></rich-text>
+				</view>
+				
+				<view class="hp_view">
+					<view class="hp_Line"></view>
 					<view class="hp_text">购票须知</view>
 					<view class="hp_Line2"></view>
 				</view>
 				
-				<view class="ct_noticeText">
+				<view class="ct_noticeText ct_noticeText3">
 					<rich-text :nodes="way"></rich-text>
 				</view>
 			</view>
@@ -121,6 +131,7 @@
 				}], //背景图
 				applyName:'',
 				way:'',
+				way2:'',
 				mainArray:'',
 			}
 		},
@@ -198,8 +209,22 @@
 						systemName:this.applyName,
 					},
 					success: (res) => {
-						// console.log('购票须知',res)
+						console.log('购票须知',res)
 						this.way=res.data.data.msg;
+						// console.log('购票须知2',this.way)
+					}
+				})
+				
+				uni.request({
+					url: $Zxgp.KyInterface.Cs_getByTitle.Url,
+					method: $Zxgp.KyInterface.Cs_getByTitle.method,
+					data:{
+						title:'兴业专线',
+						systemName:this.applyName,
+					},
+					success: (res) => {
+						console.log('兴业专线',res)
+						this.way2=res.data.data.msg;
 						// console.log('购票须知2',this.way)
 					}
 				})
@@ -744,7 +769,7 @@
 		color: #FFFFFF;
 		text-align: justify;
 		line-height: 54upx;
-		margin: 32upx 60upx;
+		// margin: 32upx 60upx;
 		font-size: 26upx;
 		z-index: 2;
 	}
@@ -792,5 +817,13 @@
 			}
 		}
 	
+	}
+	
+	.ct_noticeText2{
+		margin: 32upx 60upx 0 60upx;
+	}
+	
+	.ct_noticeText3{
+		margin: 32upx 60upx;
 	}
 </style>

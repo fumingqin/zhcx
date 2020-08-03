@@ -43,7 +43,7 @@
 								<!-- #endif -->
 								<view class="at_button at_btDelete" v-if="item.state=='7'" @tap="open3(item.orderNumber,'2')">取消</view>
 								<view class="at_button at_btDelete" v-if="item.state=='4'" @tap="open2(item.orderNumber,'2')">退票</view>
-								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
+								<!-- <view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view> -->
 								<view class="at_button at_btDelete" v-if="item.state=='支付正常' || item.state=='改签'" @tap="open2(item,'cs2tui')">退票</view>
 								<view class="at_button at_btDelete" v-if="item.state=='尚未支付'" @tap="open3(item.orderNumber,'cs2')">取消</view>
 								<view class="at_button at_btToPay" v-if="item.state=='7'" @tap="keYunPay(item,item.carType)">去支付</view>
@@ -83,7 +83,7 @@
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
-								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
+								<!-- <view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view> -->
 								<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
 							</view>
 						</view>
@@ -122,7 +122,7 @@
 								<view class="at_button at_btDelete" v-if="item.state=='4'" @click="busLocation(item)">车辆位置</view>
 								<!-- #endif -->
 								<view class="at_button at_btDelete" v-if="item.carType=='定制巴士'" @tap="open2(item,'cs2tui')">退票</view>
-								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
+								<!-- <view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view> -->
 								<view class="at_button at_btDetails" @click="keYunDetail(item)">详情</view>
 								<!-- <view class="at_button at_btDelete" v-if="item.carType=='普通班车' || item.carType=='定制班车'" @tap="endorse(item)">改签</view> -->
 							</view>
@@ -159,7 +159,7 @@
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
-								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
+								<!-- <view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view> -->
 								<view class="at_button at_btDelete" v-if="item.carType=='普通班车' || item.carType=='定制班车'" @tap="open3(item.orderNumber,'2')">取消</view>
 								<view class="at_button at_btDelete" v-if="item.carType=='定制巴士'" @tap="open3(item.orderNumber,'cs2')">取消</view>
 								<view class="at_button at_btToPay" @tap="keYunPay(item,item.carType)">去支付</view>
@@ -197,7 +197,7 @@
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
-								<view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view>
+								<!-- <view class="at_button at_btDelete" @click="KyComplain(item)">投诉</view> -->
 								<view class="at_button at_btDetails" @tap="keYunDetail(item)">详情</view>
 							</view>
 						</view>
