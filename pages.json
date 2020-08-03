@@ -1280,7 +1280,7 @@
 			// 	"text": "服务"
 			// },
 			{
-				"pagePath": "pages/order/OrderList",
+				"pagePath": "pages/order/newOrderList",
 				"text": "订单"
 			},
 
