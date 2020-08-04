@@ -380,6 +380,7 @@
 									url: '/pages/GRZX/wxLogin?type=appQQLogin&&urlData='+that.urlData,
 								})
 							}else if(res.data.status){
+								uni.setStorageSync('userInfo',res.data.data);
 								that.successReturn(); //登陆成功后返回
 							}
 						},
@@ -402,6 +403,7 @@
 									url: '/pages/GRZX/wxLogin?type=appleLogin&&urlData='+that.urlData,
 								})
 							}else if(res.data.status){
+								uni.setStorageSync('userInfo',res.data.data);
 								that.successReturn(); //登陆成功后返回
 							}
 						},
@@ -449,59 +451,39 @@
 			//-------------------------------------QQ授权登录----------------------------------
 			qqLogin: function() {
 				var that = this;
-				uni.showLoading({
-					title:'授权登录中...',
-					mask:true,
-				})
-				uni.getProvider({
-					service: 'oauth',
-					success: function(res) {
-						if (~res.provider.indexOf('qq')) {
-							uni.login({
+				if(that.whetherClick){
+					that.whetherClick=false;
+					uni.showLoading({
+						title:'授权登录中...',
+						mask:true,
+					})
+					uni.login({
+						provider: 'qq',
+						success: function(loginRes) {
+							uni.getUserInfo({
 								provider: 'qq',
-								success: function(loginRes) {
-									uni.getUserInfo({
-										provider: 'qq',
-										success(logRes) {
-											console.log(logRes, "logRes")
-											var sex;
-											if (logRes.userInfo.gender == "男") {
-												sex = 1;
-											}
-											if (logRes.userInfo.gender == "女") {
-												sex = 2;
-											}
-											var list = {
-												nickName: logRes.userInfo.nickname,
-												openId: logRes.userInfo.openid,
-												avatarUrl: logRes.userInfo.figureurl_qq_2,
-												gender: sex,
-											}
-											console.log(list, "list")
-											uni.setStorage({
-												key: 'userInfo',
-												data: list
-											})
-
-											if (list != null || list != "") {
-												that.login(list);
-											}
-											uni.showToast({
-												title: '授权成功',
-												icon: "none"
-											});
-											uni.switchTab({
-												//url:'/pages/GRZX/user',
-												url: that.$GrzxInter.Route.user.url,
-											})
-
-										}
-									})
+								success: function(res) {
+									console.log(res,"qq用户信息");
+									that.requestInterface(res.userInfo,"qq");
+								},
+								fail: function() {
+									uni.hideLoading();
+									uni.showToast({
+										title: '获取用户信息失败',
+										icon: "none"
+									});
 								}
+							})
+						},
+						fail() {
+							uni.hideLoading();
+							uni.showToast({
+								title: '获取失败',
+								icon: "none"
 							});
 						}
-					}
-				})
+					})
+				}
 			},
 
 			//-------------------------------------获取验证码----------------------------------

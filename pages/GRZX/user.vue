@@ -458,6 +458,7 @@
 				// ---------------APP,WX--------------
 				//#ifndef H5
 				var user = uni.getStorageSync('userInfo');
+				console.log(user,"用户信息");
 				if (user.userId == "" || user.userId == null) {
 					uni.showToast({
 						title: '请先登录',
@@ -476,7 +477,9 @@
 					})
 					// #endif
 				} else {
-					that.$GrzxInter.navToHome();//返回首页
+					uni.navigateTo({
+						url: that.$GrzxInter.Route.personal.url,
+					})
 				}
 				//#endif
 				// ---------------H5--------------
@@ -490,12 +493,9 @@
 						icon: 'none'
 					})
 					setTimeout(function() {
-						uni.switchTab({
-							url: '/pages/Home/zy_zhcx',
-						})
+						that.$GrzxInter.navToHome();//返回首页
 					}, 500);
 				} else {
-					console.log(user1, "3333")
 					uni.navigateTo({
 						url: that.$GrzxInter.Route.personal.url,
 					})

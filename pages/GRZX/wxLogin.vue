@@ -331,9 +331,83 @@
 			},
 			
 			//--------------------------------appqq登录绑定手机--------------------------
-			qqbindPhone(userInfo){
+			qqbindPhone(userInfo,phone){
 				var that=this;
-				that.returnPage();
+				uni.showLoading({
+					mask:true,
+					title:'正在绑定中...'
+				})
+				var gender=0;
+				if(userInfo.gender=="男"){
+					gender=1;
+				}else if(userInfo.gender=="女"){
+					gender=2;
+				}
+				uni.request({
+					url:that.$GrzxInter.Interface.login.value,
+					data:{
+						phoneNumber:phone,
+						systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+						openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
+					},
+					method:that.$GrzxInter.Interface.login.method,
+					success(res1) {
+						uni.request({
+							url:that.$GrzxInter.Interface.changeInfo.value,
+							data:{
+								userId:res1.data.data.userId,
+								phoneNumber:phone,
+								nickname:userInfo.nickName,//qq昵称
+								address:userInfo.province+userInfo.city,//qq地址
+								openId_wx:res1.data.data.openId_wx,
+								gender:gender,//qq性别
+								openId_qq:userInfo.openId,
+								openId_xcx:res1.data.data.openId_xcx,
+								openId_ios:res1.data.data.openId_ios,
+								openId_app:res1.data.data.openId_app, 
+								birthday:res1.data.data.birthday,
+								autograph:res1.data.data.autograph,
+								systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+								openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
+							},
+							method:that.$GrzxInter.Interface.changeInfo.method,
+							success(res) {
+								console.log(res,"res")
+								uni.request({
+									url:that.$GrzxInter.Interface.changeInfoPortrait.value,
+									data:{
+										userId:res.data.data.userId,
+										portrait:userInfo.figureurl_2,//qq头像
+									},
+									method:that.$GrzxInter.Interface.changeInfoPortrait.method,
+									success(res3) {
+										console.log(res3);
+										uni.setStorageSync('userInfo',res3.data.data)
+										uni.hideLoading();
+										uni.showToast({
+											title:'绑定成功！',
+											icon:'success',
+										})
+										uni.removeStorageSync('captchaCode');//清除缓存
+										uni.removeStorageSync('appUserInfo');//清除缓存
+										setTimeout(function(){
+											that.returnPage();
+										},500);
+									},
+									fail(err){
+										uni.hideLoading();
+									}
+								})
+							},
+							fail(err){
+								uni.hideLoading();
+							}
+						})
+					},
+					fail(err){
+						uni.hideLoading();
+					}
+				})
 			},
 			//--------------------------------app苹果登录绑定手机--------------------------
 			applebindPhone(){

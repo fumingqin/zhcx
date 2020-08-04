@@ -152,6 +152,7 @@
 										that.nickname =res1.data.data.nickname;
 									}
 									// ------------3.性别-------------
+									that.gender=res1.data.data.gender;
 									if(res1.data.data.gender==null||res1.data.data.gender==""){
 										that.selector="请选择";
 									}else{
