@@ -83,6 +83,8 @@
 				openId_qq:'',
 				openId_wx:'',
 				openId_xcx:'',
+				openId_ios:'',
+				openId_app:'',
 				phoneNumber:'',
 				port:'',
 				
@@ -181,7 +183,11 @@
 									that.openId_wx=res1.data.data.openId_wx;
 									// ------------10.openId_wx-------------
 									that.openId_xcx=res1.data.data.openId_xcx;
-									// ------------11.手机号-------------
+									// ------------11.openId_ios-------------
+									that.openId_ios=res1.data.data.openId_ios;
+									// ------------12.openId_app-------------
+									that.openId_app=res1.data.data.openId_app;
+									// ------------13.手机号-------------
 									that.phoneNumber=res1.data.data.phoneNumber;
 									uni.hideLoading();
 								}
@@ -302,6 +308,8 @@
 							openId_qq:that.openId_qq,
 							openId_wx:that.openId_wx,
 							openId_xcx:that.openId_xcx,
+							openId_app:that.openId_app,
+							openId_ios:that.openId_ios,
 							address:that.address,
 							nickname:that.nickname,
 							birthday:that.birthday,

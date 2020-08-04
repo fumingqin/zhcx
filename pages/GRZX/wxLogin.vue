@@ -96,6 +96,12 @@
 				this[key] = e.detail.value;
 			},
 			
+			//测试................................................
+			// bindPhone(){
+			// 	var userInfo=uni.getStorageSync('appUserInfo')	//验证码和手机号
+			// 	this.wxbindPhone(userInfo,'15260769755');
+			// },
+			
 			//--------------------判断是H5还是app登录------------------------
 			bindPhone(){
 				// #ifndef H5
@@ -234,11 +240,11 @@
 						icon:"none"
 					})
 				}else if(phone==list.phone&&code==list.code){
-					if(that.type=="appWxLogin"){
+					if(that.type=="appWxLogin"){ //app微信授权登录
 						that.wxbindPhone(userInfo,phone);
-					}else if(that.type=="appQQLogin"){
+					}else if(that.type=="appQQLogin"){//appQQ授权登录
 						that.qqbindPhone(userInfo,phone);
-					}else if(that.type=="appleLogin"){
+					}else if(that.type=="appleLogin"){//app苹果授权登录
 						that.applebindPhone(userInfo,phone);
 					}
 				}else{
@@ -274,9 +280,10 @@
 								address:userInfo.province+userInfo.city,//微信地址
 								openId_wx:res1.data.data.openId_wx,
 								gender:userInfo.gender,//微信性别
-								openId_qq:userInfo.openId,//微信oenid
-								// openId_qq:res1.data.data.openId_qq,
+								openId_qq:res1.data.data.openId_qq,
 								openId_xcx:res1.data.data.openId_xcx,
+								openId_ios:res1.data.data.openId_ios,
+								openId_app:userInfo.openId, //微信oenid
 								birthday:res1.data.data.birthday,
 								autograph:res1.data.data.autograph,
 								systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
@@ -336,16 +343,12 @@
 			//--------------------------------返回首页--------------------------
 			returnPage(){
 				var that=this;
-				if (that.urlData == 1) {
-					uni.switchTab({ //返回首页
-						url: '/pages/Home/zy_zhcx',
-					})
-				} else if (that.urlData == 2) {
+				if (that.urlData == 2) {
 					uni.switchTab({ //返回订单页
 						url: '/pages/order/OrderList',
 					})
 				} else {
-					uni.navigateBack(); //返回上一页
+					that.$GrzxInter.navToHome();//返回首页
 				}
 			},
 			

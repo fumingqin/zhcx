@@ -333,10 +333,7 @@
 			// ---------------------------跳转订单的点击-----------------------
 			orderClick(e) {
 				uni.setStorageSync('currentNum', e)
-				uni.switchTab({
-					url: '/pages/order/OrderList',
-					// url: '/pages/order/newOrderList',
-				})
+				this.$GrzxInter.navToOrderList();
 			},
 			
 			// --------------------------设置，通知，扫一扫--------------------
@@ -479,9 +476,7 @@
 					})
 					// #endif
 				} else {
-					uni.navigateTo({
-						url: that.$GrzxInter.Route.personal.url,
-					})
+					that.$GrzxInter.navToHome();//返回首页
 				}
 				//#endif
 				// ---------------H5--------------
