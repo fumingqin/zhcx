@@ -113,7 +113,7 @@
 	.cover-container {
 		position: absolute;
 		margin: 0 24upx;
-		margin-top: 88upx;
+		margin-top: 176upx;
 		margin-bottom: 52upx;
 		width: 702upx;
 		height: 90%;
