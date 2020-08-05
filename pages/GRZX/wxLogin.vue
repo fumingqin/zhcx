@@ -40,7 +40,7 @@
 	    },
 	    methods: {
 			//--------------------------------加载背景图--------------------------
-			loadImg(){
+			loadImg:function(){
 				var that = this;
 				that.$ChangeImage.GetImage("南平综合出行","绑定手机号").then(function(data) {
 					that.bindPhoneImg = data;
@@ -48,7 +48,7 @@
 			},
 			
 			//--------------------------------返回个人中心--------------------------
-			returnClick(){		
+			returnClick:function(){		
 				uni.switchTab({
 					// url:'/pages/GRZX/user',
 					url:theSelf.$GrzxInter.Route.user.url,
@@ -56,7 +56,7 @@
 			},
 			
 			//--------------------------------只能输入数字--------------------------
-			judgeNum(val){  
+			judgeNum:function(val){  
 				var regPos = /^\d+(\.\d+)?$/; //非负浮点数
 				var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
 				if(regPos.test(val) || regNeg.test(val)) {
@@ -67,7 +67,7 @@
 			},
 			
 			//--------------------------------输入手机号时触发--------------------------
-			inputChange1(e){
+			inputChange1:function(e){
 				var num=e.detail.value;
 				if(this.judgeNum(num)){
 					
@@ -82,7 +82,7 @@
 			},
 			
 			//--------------------------------输入验证码时触发--------------------------
-			inputChange2(e){
+			inputChange2:function(e){
 				var num=e.detail.value;
 				if(this.judgeNum(num)){
 					
@@ -96,8 +96,14 @@
 				this[key] = e.detail.value;
 			},
 			
+			//测试................................................
+			// bindPhone(){
+			// 	var userInfo=uni.getStorageSync('appUserInfo')	//验证码和手机号
+			// 	this.login(this.type,userInfo,'15260769755');
+			// },
+			
 			//--------------------判断是H5还是app登录------------------------
-			bindPhone(){
+			bindPhone:function(){
 				// #ifndef H5
 					this.appbindPhone();
 				//#endif
@@ -107,14 +113,10 @@
 			},
 			
 			//--------------------------------H5绑定手机--------------------------
-			H5bindPhone(){	 
+			H5bindPhone:function(){	 
 				var that=this;
 				var list=uni.getStorageSync('captchaCode')	//验证码和手机号
-				console.log(list,"list")
-				var openid=uni.getStorageSync('scenicSpotOpenId')	//openid
-				console.log(openid,"openid")
 				var userInfo=uni.getStorageSync('wxuserInfo') //微信授权获取到的微信的个人信息
-				console.log(userInfo,"userInfo")
 				var phone=this.phoneNumber;
 				var code=this.captchaCode;
 				if(phone==null||phone==""){
@@ -133,76 +135,7 @@
 						icon:"none"
 					})
 				}else if(phone==list.phone&&code==list.code){
-					//调用绑定手机号接口
-					uni.showLoading({
-						mask:true,
-						title:'正在绑定中...'
-					})
-					uni.request({
-						url:that.$GrzxInter.Interface.login.value,
-						data:{
-							phoneNumber:phone,
-							systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
-							openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
-						},
-						method:that.$GrzxInter.Interface.login.method,
-						success(res1) {
-							console.log(userInfo.headimgurl,'headimgurl')
-							uni.request({
-								url:that.$GrzxInter.Interface.changeInfo.value,
-								data:{
-									userId:res1.data.data.userId,
-									phoneNumber:phone,
-									nickname:userInfo.nickname,
-									address:userInfo.province+userInfo.city,
-									openId_wx:userInfo.openid,
-									gender:res1.data.data.gender,
-									openId_qq:res1.data.data.openId_qq,
-									openId_xcx:res1.data.data.openId_xcx,
-									birthday:res1.data.data.birthday,
-									autograph:res1.data.data.autograph,
-									systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
-									openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
-								},
-								method:that.$GrzxInter.Interface.changeInfo.method,
-								success(res) {
-									console.log(res,"res")
-									uni.request({
-										url:that.$GrzxInter.Interface.changeInfoPortrait.value,
-										data:{
-											userId:res.data.data.userId,
-											portrait:userInfo.headimgurl,
-										},
-										method:that.$GrzxInter.Interface.changeInfoPortrait.method,
-										success(res3) {
-											console.log(res3);
-											uni.setStorageSync('userInfo',res3.data.data)
-											uni.hideLoading();
-											uni.showToast({
-												title:'绑定成功！',
-												icon:'success',
-											})
-											uni.removeStorageSync('captchaCode');//清除缓存
-											uni.removeStorageSync('wxuserInfo');//清除缓存
-											setTimeout(function(){
-												uni.navigateBack();
-											},500);
-										},
-										fail(err){
-											uni.hideLoading();
-										}
-									})
-								},
-								fail(err){
-									uni.hideLoading();
-								}
-							})
-						},
-						fail(err){
-							uni.hideLoading();
-						}
-					})
-					
+					this.login('H5',userInfo,phone);
 				}else{
 					uni.showToast({
 						title:"验证码输入错误，请重新输入",
@@ -211,8 +144,8 @@
 				}
 			},
 			
-			//--------------------------------qq微信登录绑定手机--------------------------
-			appbindPhone(){
+			//--------------------------------APP-qq微信苹果登录绑定手机--------------------------
+			appbindPhone:function(){
 				var that=this;
 				var list=uni.getStorageSync('captchaCode')	//验证码和手机号
 				var userInfo=uni.getStorageSync('appUserInfo')	//验证码和手机号
@@ -234,13 +167,7 @@
 						icon:"none"
 					})
 				}else if(phone==list.phone&&code==list.code){
-					if(that.type=="appWxLogin"){
-						that.wxbindPhone(userInfo,phone);
-					}else if(that.type=="appQQLogin"){
-						that.qqbindPhone(userInfo,phone);
-					}else if(that.type=="appleLogin"){
-						that.applebindPhone(userInfo,phone);
-					}
+					that.login(that.type,userInfo,phone);
 				}else{
 					uni.showToast({
 						title:"验证码输入错误，请重新输入",
@@ -249,8 +176,8 @@
 				}
 			},
 			
-			//--------------------------------app微信登录绑定手机--------------------------
-			wxbindPhone(userInfo,phone){
+			//--------------------------------获取用户信息--------------------------
+			login:function(type,userInfo,phone){
 				var that=this;
 				uni.showLoading({
 					mask:true,
@@ -264,52 +191,118 @@
 						openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 					},
 					method:that.$GrzxInter.Interface.login.method,
-					success(res1) {
-						uni.request({
-							url:that.$GrzxInter.Interface.changeInfo.value,
-							data:{
-								userId:res1.data.data.userId,
+					success(res) {
+						var data=res.data.data;
+						var user = new Object();
+						if(type=='appWxLogin'){
+							user={
+								userId:data.userId,
 								phoneNumber:phone,
 								nickname:userInfo.nickName,//微信昵称
 								address:userInfo.province+userInfo.city,//微信地址
-								openId_wx:res1.data.data.openId_wx,
+								openId_wx:data.openId_wx,
 								gender:userInfo.gender,//微信性别
-								openId_qq:userInfo.openId,//微信oenid
-								// openId_qq:res1.data.data.openId_qq,
-								openId_xcx:res1.data.data.openId_xcx,
-								birthday:res1.data.data.birthday,
-								autograph:res1.data.data.autograph,
-								systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
-								openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
+								openId_qq:data.openId_qq,
+								openId_xcx:data.openId_xcx,
+								openId_ios:data.openId_ios,
+								openId_app:userInfo.openId, //微信 oenid
+								birthday:data.birthday,
+								autograph:data.autograph,
+								portrait:userInfo.avatarUrl,//微信头像
+							}
+						}else if(type=='appQQLogin'){
+							var gender=0;
+							if(userInfo.gender=="男"){
+								gender=1;
+							}else if(userInfo.gender=="女"){
+								gender=2;
+							}
+							user={
+								userId:data.userId,
+								phoneNumber:phone,
+								nickname:userInfo.nickName,//qq昵称
+								address:userInfo.province+userInfo.city,//qq地址
+								openId_wx:data.openId_wx,
+								gender:gender,//qq性别
+								openId_qq:userInfo.openId, //qq openid
+								openId_xcx:data.openId_xcx,
+								openId_ios:data.openId_ios,
+								openId_app:data.openId_app, 
+								birthday:data.birthday,
+								autograph:data.autograph,
+								portrait:userInfo.figureurl_2,//微信头像
+							}
+						}else if(type=='H5'){
+							user={
+								userId:data.userId,
+								phoneNumber:phone,
+								nickname:userInfo.nickname,
+								address:userInfo.province+userInfo.city,
+								openId_wx:userInfo.openid,//H5 openid
+								gender:data.gender,
+								openId_qq:data.openId_qq,
+								openId_xcx:data.openId_xcx,
+								openId_ios:data.openId_ios,
+								openId_app:data.openId_app, 
+								birthday:data.birthday,
+								autograph:data.autograph,
+								portrait:userInfo.headimgurl,//微信头像
+							}
+						}else if(type=="appleLogin"){
+						}
+						that.changeInfo(user);
+					},
+					fail(err){
+						uni.hideLoading();
+					}
+				})
+			},
+				
+			//--------------------------------修改用户信息--------------------------
+			changeInfo:function(userInfo){
+				var that=this;
+				uni.request({
+					url:that.$GrzxInter.Interface.changeInfo.value,
+					data:{
+						userId:userInfo.userId,
+						phoneNumber:userInfo.phoneNumber,
+						nickname:userInfo.nickname,//微信昵称
+						address:userInfo.address,//微信地址
+						openId_wx:userInfo.openId_wx,
+						gender:userInfo.gender,//微信性别
+						openId_qq:userInfo.openId_qq,
+						openId_xcx:userInfo.openId_xcx,
+						openId_ios:userInfo.openId_ios,
+						openId_app:userInfo.openId_app, //微信oenid
+						birthday:userInfo.birthday,
+						autograph:userInfo.autograph,
+						systemname:that.$GrzxInter.systemConfig.applyName,//应用名称
+						openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
+					},
+					method:that.$GrzxInter.Interface.changeInfo.method,
+					success(res) {
+						console.log(res,"res")
+						uni.request({
+							url:that.$GrzxInter.Interface.changeInfoPortrait.value,
+							data:{
+								userId:userInfo.userId,
+								portrait:userInfo.portrait,//微信头像
 							},
-							method:that.$GrzxInter.Interface.changeInfo.method,
-							success(res) {
-								console.log(res,"res")
-								uni.request({
-									url:that.$GrzxInter.Interface.changeInfoPortrait.value,
-									data:{
-										userId:res.data.data.userId,
-										portrait:userInfo.avatarUrl,//微信头像
-									},
-									method:that.$GrzxInter.Interface.changeInfoPortrait.method,
-									success(res3) {
-										console.log(res3);
-										uni.setStorageSync('userInfo',res3.data.data)
-										uni.hideLoading();
-										uni.showToast({
-											title:'绑定成功！',
-											icon:'success',
-										})
-										uni.removeStorageSync('captchaCode');//清除缓存
-										uni.removeStorageSync('appUserInfo');//清除缓存
-										setTimeout(function(){
-											that.returnPage();
-										},500);
-									},
-									fail(err){
-										uni.hideLoading();
-									}
+							method:that.$GrzxInter.Interface.changeInfoPortrait.method,
+							success(res3) {
+								console.log(res3);
+								uni.setStorageSync('userInfo',res3.data.data)
+								uni.hideLoading();
+								uni.showToast({
+									title:'绑定成功！',
+									icon:'success',
 								})
+								uni.removeStorageSync('captchaCode');//清除缓存
+								uni.removeStorageSync('appUserInfo');//清除缓存
+								uni.removeStorageSync('wxuserInfo');//清除缓存
+								setTimeout(function(){
+									that.returnPage();
+								},500);
 							},
 							fail(err){
 								uni.hideLoading();
@@ -323,34 +316,29 @@
 				
 			},
 			
-			//--------------------------------appqq登录绑定手机--------------------------
-			qqbindPhone(userInfo){
+			//--------------------------------返回--------------------------
+			returnPage:function(){
 				var that=this;
-				that.returnPage();
-			},
-			//--------------------------------app苹果登录绑定手机--------------------------
-			applebindPhone(){
-				
-			},
-			
-			//--------------------------------返回首页--------------------------
-			returnPage(){
-				var that=this;
-				if (that.urlData == 1) {
-					uni.switchTab({ //返回首页
-						url: '/pages/Home/zy_zhcx',
-					})
-				} else if (that.urlData == 2) {
-					uni.switchTab({ //返回订单页
-						url: '/pages/order/OrderList',
-					})
-				} else {
-					uni.navigateBack(); //返回上一页
-				}
+				// #ifdef H5
+					uni.navigateBack();
+				//#endif
+				// #ifndef H5
+					if (that.urlData == 2) {
+						uni.switchTab({ //返回订单页
+							url: '/pages/order/OrderList',
+						})
+					} else if (that.urlData == 1) {
+						that.$GrzxInter.navToHome();//返回首页
+					} else {
+						uni.navigateBack({
+							delta:2,
+						})
+					}
+				//#endif
 			},
 			
 			//--------------------------------获取验证码--------------------------
-			getCodeClick(e){	
+			getCodeClick:function(e){	
 				var self=this;
 				const {phoneNumber, captchaCode} = this;		
 				if(self.judgeNum(self.phoneNumber)){

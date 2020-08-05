@@ -69,10 +69,17 @@
 				 v-if="item.shuttleType == '定制巴士'">{{item.SetoutTimeDesc}}</view>
 
 				<!-- 途径站点 -->
+				<view class="st_routeSite" v-if="item.shuttleType == '定制班车'">
+					<view style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+						<text>途径站点:</text>
+						<text v-for="(item2,index2) in item.starSiteArr" :key="index2" v-if="index2<4">{{item2.SiteName}}<text v-if="index2<3">/</text></text>
+						<text>...</text>
+					</view>
+				</view>
 				<view class="st_routeSite" v-if="item.shuttleType == '普通班车'">
 					<view style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
 						<text>途径站点:</text>
-						<text v-for="(item2,index2) in routeSite" :key="index2" v-if="index2<4">{{item2}}<text v-if="index2<3">/</text></text>
+						<text v-for="(item2,index2) in item.endSiteArr" :key="index2" v-if="index2<4">{{item2.SiteName}}<text v-if="index2<3">/</text></text>
 						<text>...</text>
 					</view>
 				</view>
@@ -91,7 +98,6 @@
 		},
 		data() {
 			return {
-				routeSite: ['延平站点1','延平站点2','延平站点3','延平站点3','延平站点3',],
 				utils: utils,
 				dateArray: [], //时间轴的数量的数组
 				selectIndex: '', //选中的下标

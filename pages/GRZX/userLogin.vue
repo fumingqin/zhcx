@@ -55,6 +55,7 @@
 				state: true, //是否允许点击
 				system: '', 	// 系统版本
 				platform: '',   // 平台
+				whetherClick:true,//是否允许点击
 			}
 		},
 		onLoad(options) {
@@ -71,6 +72,9 @@
 					that.platform = res.platform;
 				}
 			})
+		},
+		onShow() {
+			this.whetherClick=true;
 		},
 		onUnload() {
 			uni.hideLoading();//退出页面时，关闭所有的弹窗
@@ -136,8 +140,8 @@
 				}
 				const key = e.currentTarget.dataset.key;
 				this[key] = e.detail.value;
-			},
-
+			},		
+			
 			//-------------------------------------登录按钮----------------------------------
 			loginClick: function() {
 				uni.showLoading({
@@ -213,18 +217,20 @@
 					title: "登录成功!",
 					icon: "success"
 				})
-				if (that.urlData == 1) {
-					uni.switchTab({ //返回首页
-						url: '/pages/Home/zy_zhcx',
-					})
-				} else if (that.urlData == 2) {
-					uni.switchTab({ //返回订单页
-						url: '/pages/order/OrderList',
-					})
-				} else {
-					console.log("返回上一页")
-					uni.navigateBack(); //返回上一页
-				}
+				setTimeout(function(){
+					if (that.urlData == 1) {
+						uni.switchTab({ //返回首页zy_zhcx
+							url: '/pages/Home/zxgpHomePage',
+						})
+					} else if (that.urlData == 2) {
+						uni.switchTab({ //返回订单页
+							url: '/pages/order/OrderList',
+						})
+					} else {
+						console.log("返回上一页")
+						uni.navigateBack(); //返回上一页
+					}
+				},500);
 			},
 
 			//-------------------------------------用户注册自行车----------------------------------
@@ -297,29 +303,38 @@
 			//-------------------------------------微信授权登录----------------------------------
 			wxLogin: function() {
 				var that = this;
-				uni.login({
-					provider: 'weixin',
-					success: function(loginRes) {
-						uni.getUserInfo({
-							provider: 'weixin',
-							success: function(res) {
-								that.requestInterface(res.userInfo,"wx");
-							},
-							fail: function() {
-								uni.showToast({
-									title: '获取用户信息失败',
-									icon: "none"
-								});
-							}
-						})
-					},
-					fail() {
-						uni.showToast({
-							title: '获取失败',
-							icon: "none"
-						});
-					}
-				})
+				if(that.whetherClick){
+					that.whetherClick=false;
+					uni.showLoading({
+						title:'授权登录中...',
+						mask:true,
+					})
+					uni.login({
+						provider: 'weixin',
+						success: function(loginRes) {
+							uni.getUserInfo({
+								provider: 'weixin',
+								success: function(res) {
+									that.requestInterface(res.userInfo,"wx");
+								},
+								fail: function() {
+									uni.hideLoading();
+									uni.showToast({
+										title: '获取用户信息失败',
+										icon: "none"
+									});
+								}
+							})
+						},
+						fail() {
+							uni.hideLoading();
+							uni.showToast({
+								title: '获取失败',
+								icon: "none"
+							});
+						}
+					})
+				}
 			},
 			
 			//-------------------------------------QQ微信授权登录请求接口----------------------------------
@@ -327,12 +342,13 @@
 				var that=this;
 				if(type=="wx"){ //微信授权登录
 					uni.request({
-						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_qq.value,
+						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_app.value,
 						data:{
-							openId_qq:userInfo.openId,
+							openId_app:userInfo.openId,
 						},
-						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_qq.method,
+						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_app.method,
 						success(res) {
+							uni.hideLoading();
 							if(!res.data.status&&res.data.msg=="获取用户信息失败,不存在该openID用户信息"){
 								uni.setStorageSync('appUserInfo',userInfo);
 								uni.navigateTo({
@@ -346,7 +362,7 @@
 							}
 						},
 						fail() {
-								
+							uni.hideLoading();	
 						}
 					})
 				}else if(type=="qq"){  //QQ授权登录
@@ -357,45 +373,54 @@
 						},
 						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_qq.method,
 						success(res) {
+							uni.hideLoading();
 							if(!res.data.status&&res.data.msg=="获取用户信息失败,不存在该openID用户信息"){
 								uni.setStorageSync('appUserInfo',userInfo);
 								uni.navigateTo({
 									url: '/pages/GRZX/wxLogin?type=appQQLogin&&urlData='+that.urlData,
 								})
 							}else if(res.data.status){
+								uni.setStorageSync('userInfo',res.data.data);
 								that.successReturn(); //登陆成功后返回
 							}
 						},
 						fail() {
-								
+							uni.hideLoading();	
 						}
 					})
 				}else if(type=="apple"){  //苹果授权登录
 					uni.request({
-						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_qq.value,
+						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_app.value,
 						data:{
-							openId_qq:userInfo.openId,
+							openId_ios:userInfo.openId,
 						},
-						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_qq.method,
+						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_app.method,
 						success(res) {
+							uni.hideLoading();
 							if(!res.data.status&&res.data.msg=="获取用户信息失败,不存在该openID用户信息"){
 								uni.setStorageSync('appUserInfo',userInfo);
 								uni.navigateTo({
 									url: '/pages/GRZX/wxLogin?type=appleLogin&&urlData='+that.urlData,
 								})
 							}else if(res.data.status){
+								uni.setStorageSync('userInfo',res.data.data);
 								that.successReturn(); //登陆成功后返回
 							}
 						},
 						fail() {
-								
+							uni.hideLoading();	
 						}
 					})
 				}
 			},
+			
 			//-------------------------------------苹果授权登录----------------------------------
 			appleLogin:function(){
 				var that = this;
+				uni.showLoading({
+					title:'授权登录中...',
+					mask:true,
+				})
 				uni.login({
 					provider: 'apple',
 					success: function(loginRes) {
@@ -427,55 +452,39 @@
 			//-------------------------------------QQ授权登录----------------------------------
 			qqLogin: function() {
 				var that = this;
-				uni.getProvider({
-					service: 'oauth',
-					success: function(res) {
-						if (~res.provider.indexOf('qq')) {
-							uni.login({
+				if(that.whetherClick){
+					that.whetherClick=false;
+					uni.showLoading({
+						title:'授权登录中...',
+						mask:true,
+					})
+					uni.login({
+						provider: 'qq',
+						success: function(loginRes) {
+							uni.getUserInfo({
 								provider: 'qq',
-								success: function(loginRes) {
-									uni.getUserInfo({
-										provider: 'qq',
-										success(logRes) {
-											console.log(logRes, "logRes")
-											var sex;
-											if (logRes.userInfo.gender == "男") {
-												sex = 1;
-											}
-											if (logRes.userInfo.gender == "女") {
-												sex = 2;
-											}
-											var list = {
-												nickName: logRes.userInfo.nickname,
-												openId: logRes.userInfo.openid,
-												avatarUrl: logRes.userInfo.figureurl_qq_2,
-												gender: sex,
-											}
-											console.log(list, "list")
-											uni.setStorage({
-												key: 'userInfo',
-												data: list
-											})
-
-											if (list != null || list != "") {
-												that.login(list);
-											}
-											uni.showToast({
-												title: '授权成功',
-												icon: "none"
-											});
-											uni.switchTab({
-												//url:'/pages/GRZX/user',
-												url: that.$GrzxInter.Route.user.url,
-											})
-
-										}
-									})
+								success: function(res) {
+									console.log(res,"qq用户信息");
+									that.requestInterface(res.userInfo,"qq");
+								},
+								fail: function() {
+									uni.hideLoading();
+									uni.showToast({
+										title: '获取用户信息失败',
+										icon: "none"
+									});
 								}
+							})
+						},
+						fail() {
+							uni.hideLoading();
+							uni.showToast({
+								title: '获取失败',
+								icon: "none"
 							});
 						}
-					}
-				})
+					})
+				}
 			},
 
 			//-------------------------------------获取验证码----------------------------------
@@ -556,11 +565,9 @@
 			//-------------------------------------返回按钮------------------------------------
 			returnClick: function() {
 				var that = this;
-				if (that.urlData == 1) {
-					uni.switchTab({ //返回首页
-						url: '/pages/Home/zy_zhcx',
-					})
-				} else if (that.urlData == 2) {
+				if(that.urlData == 1){
+					that.$GrzxInter.navToHome();//返回首页
+				}else if (that.urlData == 2) {
 					uni.switchTab({ //返回订单页
 						url: '/pages/order/OrderList',
 					})
@@ -673,7 +680,6 @@
 					}
 				})
 			},
-
 
 		}
 	}

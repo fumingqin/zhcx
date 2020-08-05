@@ -116,6 +116,12 @@ const Interface={
 		method:'POST',
 		pages: [],
 	}, 
+	GetUserInfoByOpenId_app:{
+		value:Url+'/api/person/GetUserInfoByOpenId_app',
+		name:'App微信授权和ios苹果登录',
+		method:'POST',
+		pages: [],
+	}, 
 	SearchVersion:{
 		value:Url+'/api/person/SearchVersion',
 		name:'获取版本号',
@@ -336,11 +342,39 @@ const GetImage={
 	pages: [],
 }
 
+//返回主页
+function navToHome(){
+	if($oSit.Interface.system.appName=="专线购票小程序"){
+		uni.switchTab({
+			url:'/pages/Home/zxgpHomePage',//兴业银行小程序的主页（专线购票）
+		})
+	}else if($oSit.Interface.system.appName=="南平综合出行"){
+		uni.switchTab({
+			url:'/pages/Home/zy_zhcx',//南平综合出行
+		})
+	}
+}
+
+//跳转订单列表
+function navToOrderList(){
+	if($oSit.Interface.system.appName=="专线购票小程序"){
+		uni.switchTab({
+			url: '/pages/order/newOrderList',
+		})
+	}else if($oSit.Interface.system.appName=="南平综合出行"){
+		uni.switchTab({
+			url: '/pages/order/OrderList',
+		})
+	}
+}
+
 // 接口声明区
 export default {
 	Interface,
 	Route,
 	GetImage,
 	appConfig,
-	systemConfig
+	systemConfig,
+	navToHome,
+	navToOrderList
 }
