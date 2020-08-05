@@ -273,10 +273,10 @@
 			//给车票类型赋值，0：普通购票，不显示上下车点选择 1:定制班车，显示上下车点选择
 			// this.isNormal = e.isNormal;
 			that.startStation = '', //定制班车上车点
-				that.endStation = '', //定制班车下车点
-				uni.setNavigationBarTitle({
-					title: '填写订单'
-				});
+			that.endStation = '', //定制班车下车点
+			uni.setNavigationBarTitle({
+				title: '填写订单'
+			});
 			//---------------------读取订单数据-----------------
 			uni.getStorage({
 				key: 'ticketDate',
@@ -729,9 +729,10 @@
 					url: '../PayMent/orderPayment?array=' + JSON.stringify(array)
 				})
 			},
-
+			
+			//------------------------计算途径点----------------------------------
 			removal: function(e) {
-				//用于本页面的查看所有途径站点
+				//****用于本页面的查看所有途径站点****//
 				var arr1 = [];
 				var arr2 = [];
 				//去重
@@ -750,7 +751,7 @@
 						// console.log('去重复',this.mainArray)
 					}
 				}
-				//途径点去重(用于后期路线规划)
+				//****途径点去重(用于后期路线规划)****//
 				var approachPoint = [];
 				approachPoint = arr3;
 				for (var i = 0; i < arr3.length; i++) {
@@ -759,42 +760,43 @@
 						i = i - 1;
 					}
 				}
-				// for(var i =0; i<arr3.length; i++){
-				// 	if(!obj[arr3[i].SiteName]){
-				// 		if(obj[arr3[i].SiteName !== 0]){
-				// 			approachPoint.push(arr1[i])
-				// 			obj[arr3[i].SiteName] = true;
-				// 		}
-
-				// 	}
-				// }
 				console.log('途径点去重', approachPoint)
-
-				//用于选择上下车点（approachPoint1是上车点，approachPoint2是下车点）
+				
+				//****用于选择上下车点（approachPoint1是上车点，approachPoint2是下车点）****//
+				var c =[];
+				var obj={};
+				let arr4 = Array.from(new Set(arr1))
+				for(var i =0; i<arr4.length; i++){
+					if(!obj[arr4[i].SiteName]){
+						c.push(arr4[i])
+						obj[arr4[i].SiteName] = true;
+					}
+				}
+				console.log('途径点去重2', c)
 				var a = [];
-				a = approachPoint.slice();
+				a = c.slice();
+				// a = c;
 				this.approachPoint1 = a; //终点
-				this.approachPoint1.shift();
-
+				// this.approachPoint1.shift();
+				for (var i = 0; i < a.length; i++) {
+					if (a[i].SiteName == this.ticketDetail.startStaion) {
+						a.splice(i, 1);
+						i = i - 1;
+					}
+				}
 				var b = [];
-				b = approachPoint.slice();
+				b = c.slice();
+				// b = c;
 				this.approachPoint2 = b; //起点
-				this.approachPoint2.pop();
-
+				for (var i = 0; i < b.length; i++) {
+					if (b[i].SiteName == this.ticketDetail.endStation) {
+						b.splice(i, 1);
+						i = i - 1;
+					}
+				}
+				// this.approachPoint2.pop();
 				console.log('终点', this.approachPoint1)
 				console.log('起点', this.approachPoint2)
-				// for (var i = 0; i < arr1.length; i++) {
-				// 	for (var j = 0; j < arr2.length; j++) {
-				// 		if (arr2[j].SiteName == arr1[i]) {
-				// 			arr2.splice(j, 1);
-				// 			j = j - 1;
-				// 		}
-				// 	}
-				// }
-				// this.mainArray1=arr1;
-				// this.mainArray2=arr2;
-				// this.mainArrayLength=arr1.length+arr2.length;
-				// console.log('筛选',arr1,arr2)
 			},
 		}
 	}

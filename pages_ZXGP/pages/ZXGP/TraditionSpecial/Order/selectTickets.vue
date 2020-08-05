@@ -79,8 +79,8 @@
 				<view class="st_routeSite" v-if="item.shuttleType == '普通班车'">
 					<view style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
 						<text>途径站点:</text>
-						<text v-for="(item2,index2) in item.endSiteArr" :key="index2" v-if="index2<4">{{item2.SiteName}}<text v-if="index2<3">/</text></text>
-						<text>...</text>
+						<text v-for="(item2,index2) in item.endSiteArr" :key="index2" v-if="index2<4">{{item2.SiteName}}<text v-if="index2<3 && item2.length<3">/</text></text>
+						<text v-if="item2.length<3">...</text>
 					</view>
 				</view>
 			</view>
@@ -238,6 +238,12 @@
 								// that.getSpecialBusTicketInfo(date);
 								uni.showToast({
 									title: '暂无班次信息',
+									icon: 'none'
+								})
+								uni.hideLoading();
+							} else if (res.data.msg == '服务器无法处理请求。 ---> 未将对象引用设置到对象的实例。') {
+								uni.showToast({
+									title: '服务器异常,请联系客服',
 									icon: 'none'
 								})
 								uni.hideLoading();

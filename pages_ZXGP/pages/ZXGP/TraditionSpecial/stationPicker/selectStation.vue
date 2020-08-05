@@ -80,16 +80,20 @@
 				var that = this;
 				//给选择的下标赋值
 				that.startSelectIndex = e;
+				console.log('上车点下标赋值',that.startSelectIndex)
 				//取出上车站点
 				that.startStation = that.startStationList[e].SiteName;
+				console.log('上车点取出上车站点',that.startStation)
 			},
 			//--------------------------选中下车点---------------------------
 			endStationClick(e){
 				var that = this;
 				//给选择的下标赋值
 				that.endSelectIndex = e;
+				console.log('下车点下标赋值',that.endSelectIndex)
 				//取出下车站点
 				that.endStation = that.endStationList[e].SiteName;
+				console.log('下车点取出下车站点',that.endStation)	
 			},
 			//--------------------------数组去重---------------------------
 			arrayDistinct:function(array){
