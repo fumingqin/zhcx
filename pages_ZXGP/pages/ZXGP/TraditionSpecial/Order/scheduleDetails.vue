@@ -155,10 +155,10 @@
 			<view class="orderCommonClass">
 				<view style="display: flex; align-items: center;">
 					<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">同意购票须知</view>
-					<view @tap="checkAttention" style="margin-left: 16upx;color:#19A0FF ; font-size:30upx ;">点击查看须知</view>
+					<view @tap="checkAttention" style="margin-left: 16upx;color:#19A0FF ; font-size:24upx; margin-top: 6upx;">点击查看须知</view>
 				</view>
 				<!-- 查看须知popup -->
-				<popup ref="popup2" type="center">
+				<popup ref="popup2" type="bottom">
 					<view class="boxView">
 						<view class="titleView">
 							<text class="Nb_text1">用户须知</text>
