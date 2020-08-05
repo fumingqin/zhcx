@@ -17,7 +17,7 @@
 						<view class="textCLass" style="font-size: 32upx;color: #333333;">{{ticketDetail.startStaion}}→
 							{{ticketDetail.endStation}}</view>
 						<view class="textCLass" style="font-size: 28upx;color: #FC4646;">半票￥{{ticketDetail.halfTicket}}</view>
-						
+
 					</view>
 					<!-- 车型-儿童半价 -->
 					<view class="ticketContent">
@@ -35,19 +35,31 @@
 					<image src="../../../../static/ZXGP/right.png" style="width: 11upx;height: 21upx;margin-left: 10upx;"></image>
 				</view>
 			</view> -->
-			
+
 			<!-- 查看所有途经点 -->
 			<view class="orderCommonClass" @tap="approachPoint">
 				<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">查看所有途径点</view>
 				<view style="display: flex;margin-right: 41upx;align-items: center;">
-					<view style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;">{{routeSite.length}}个站点</view>
+					<view style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;">{{mainArray.length}}个站点</view>
 					<image src="../../../../static/ZXGP/right.png" style="width: 11upx;height: 21upx;margin-left: 10upx;"></image>
 				</view>
 			</view>
 
 			<!-- 上下车点选择,0是普通购票不显示上下车点选择 -->
 			<!-- v-if="ticketDetail.shuttleType == '定制班车'" -->
-			<view class="stationContentView">
+			<view class="stationContentView" v-if="ticketDetail.shuttleType == '普通班车'">
+				<view class="boarding" @tap="endStationTap">
+					<view style="margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">下车点</view>
+					<view style="display: flex;align-items: center;">
+						<view style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;text-align: right;">{{endStation}}</view>
+						<image src="../../../../static/ZXGP/right.png" style="width: 11upx;height: 21upx;margin-left: 10upx;"></image>
+					</view>
+				</view>
+			</view>
+
+			<!-- 上下车点选择,0是普通购票不显示上下车点选择 -->
+			<!-- v-if="ticketDetail.shuttleType == '定制班车'" -->
+			<view class="stationContentView" v-if="ticketDetail.shuttleType == '定制班车'">
 				<view class="boarding" style="border-bottom:#EAEAEA solid 1px;" @tap="startStationTap">
 					<view style="margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">上车点</view>
 					<view style="display: flex;align-items: center;">
@@ -174,7 +186,9 @@
 					<radio class="Mp_box" value="1" :color="'#01aaef'" :checked="selectedValue===1 ? true : false" @click="Selection"></radio>
 				</view>
 			</view>
-			<view style="display: flex;font-size: 24upx;margin:0 46upx;color: #808080;margin-left: 16%;margin-bottom: 50upx;">点击立即预定表示已阅读并同意<view style="font-size: 24upx;color: #01aaef;" @tap="checkAttention"> 《购票须知》</view></view>
+			<view style="display: flex;font-size: 24upx;margin:0 46upx;color: #808080;margin-left: 16%;margin-bottom: 50upx;">点击立即预定表示已阅读并同意<view
+				 style="font-size: 24upx;color: #01aaef;" @tap="checkAttention"> 《购票须知》</view>
+			</view>
 		</scroll-view>
 		<view class="toPayClass">
 			<view style="display: flex;align-items: center;margin-left: 32upx;">
@@ -183,7 +197,7 @@
 			</view>
 			<view @tap="reserveTap" class="orderReserve" :class="{tapColor:selectedValue == 1}">立即预定</view>
 		</view>
-		
+
 		<!-- 查看须知popup -->
 		<popup ref="popup3" type="center">
 			<view class="boxView2">
@@ -193,9 +207,9 @@
 				</view>
 				<scroll-view class="noticeBox2" scroll-y="ture">
 					<view class="tv_title">
-						<view style="padding-left: 20upx;padding-top: 48upx;" v-for="(item,index) in routeSite" :key="index">
+						<view style="padding-left: 20upx;padding-top: 48upx;" v-for="(item,index) in mainArray" :key="index">
 							<image src="../../../../static/ZXGP/startDot.png" style="width: 20upx ;height: 20upx;"></image>
-							<text class="ti_text">{{item.site}}</text>
+							<text class="ti_text">{{item}}</text>
 						</view>
 					</view>
 				</scroll-view>
@@ -214,47 +228,7 @@
 		},
 		data() {
 			return {
-				way:'',
-				routeSite: [{
-						site: '延平站点1',
-					},
-					{
-						site: '延平站点2',
-					},
-					{
-						site: '延平站点3',
-					},
-					{
-						site: '延平站点4',
-					},
-					{
-						site: '延平站点5',
-					},
-					{
-						site: '延平站点6',
-					},
-					{
-						site: '延平站点7',
-					},
-					{
-						site: '延平站点8',
-					},
-					{
-						site: '延平站点9',
-					},
-					{
-						site: '延平站点10',
-					},
-					{
-						site: '延平站点11',
-					},
-					{
-						site: '延平站点12',
-					},
-					{
-						site: '延平站点13',
-					}
-				],
+				way: '',
 				title: '',
 				isNormal: 0, //判断是普通购票还是定制班车:1是普通0是定制
 				count: 1,
@@ -282,16 +256,20 @@
 				shuttleType: '', //班车类型'定制班车''普通班车'
 				sepecialStartArray: [], //定制班车起点数组
 				specialEndArray: [], //定制班车终点数组
-				InsurePrice:'0',//保险价格
-				adultNum:0,//成人数
-				applyName:'',
+				InsurePrice: '0', //保险价格
+				adultNum: 0, //成人数
+				applyName: '',
+				shuttleType: '',
+				mainArray: [],
+				approachPoint1: '', //终点
+				approachPoint2: '', //起点
 			}
 		},
 
 		onLoad(e) {
 			var that = this;
 			//加载应用名称
-			that.applyName=that.$oSit.Interface.system.applyName;
+			that.applyName = that.$oSit.Interface.system.applyName;
 			//给车票类型赋值，0：普通购票，不显示上下车点选择 1:定制班车，显示上下车点选择
 			// this.isNormal = e.isNormal;
 			that.startStation = '', //定制班车上车点
@@ -306,15 +284,16 @@
 					that.ticketDetail = data.data; //车票数组
 					that.totalPrice = data.data.fare; //价格
 					that.shuttleType = data.data.shuttleType; //班车类型
-					
-					//定制班车起点数组
+					//班车起点数组
 					that.sepecialStartArray = data.data.starSiteArr;
-					//定制班车终点数组
-					that.specialEndArray = data.data.endSiteArr
+					//班车终点数组
+					that.specialEndArray = data.data.endSiteArr;
+					//班车类型
+					that.shuttleType = data.data.shuttleType
 					//读取保险信息
 					that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
-					console.log('选择车票的班次数据', that.ticketDetail)
-					
+					console.log('选择车票的班次数据', that.ticketDetail);
+					that.removal(that.ticketDetail);
 				}
 			})
 		},
@@ -376,48 +355,49 @@
 						that.endStation = "请选择下车点"
 					}
 				})
-				
+
 				uni.request({
 					url: $Zxgp.KyInterface.Cs_getByTitle.Url,
 					method: $Zxgp.KyInterface.Cs_getByTitle.method,
-					data:{
-						title:'用户购票须知',
-						systemName:this.applyName,
+					data: {
+						title: '用户购票须知',
+						systemName: this.applyName,
 					},
 					success: (res) => {
-						console.log('用户购票须知',res)
-						this.way=res.data.data.msg;
+						console.log('用户购票须知', res)
+						this.way = res.data.data.msg;
 						// console.log('购票须知2',this.way)
 					}
 				})
 			},
+
 			//--------------------------获取保险信息--------------------------
-			getExecuteScheduleInfoForSellByID:function(orderInfo){
+			getExecuteScheduleInfoForSellByID: function(orderInfo) {
 				var that = this;
 				uni.showLoading({
-					title:'加载中...'
+					title: '加载中...'
 				})
-				
+
 				uni.request({
-					url:$KyInterface.KyInterface.Ky_getExecuteScheduleInfoForSellByID.Url,
-					method:$KyInterface.KyInterface.Ky_getExecuteScheduleInfoForSellByID.method,
-					header:$KyInterface.KyInterface.Ky_getExecuteScheduleInfoForSellByID.header,
-					data:{
-						systemName:$KyInterface.KyInterface.systemName.systemName,
-						scheduleCompanyCode:orderInfo.scheduleCompanyCode,
-						ExecuteScheduleID:orderInfo.executeScheduleID,
-						StartSiteID:orderInfo.startSiteID,
-						EndSiteID:orderInfo.endSiteID,
+					url: $KyInterface.KyInterface.Ky_getExecuteScheduleInfoForSellByID.Url,
+					method: $KyInterface.KyInterface.Ky_getExecuteScheduleInfoForSellByID.method,
+					header: $KyInterface.KyInterface.Ky_getExecuteScheduleInfoForSellByID.header,
+					data: {
+						systemName: $KyInterface.KyInterface.systemName.systemName,
+						scheduleCompanyCode: orderInfo.scheduleCompanyCode,
+						ExecuteScheduleID: orderInfo.executeScheduleID,
+						StartSiteID: orderInfo.startSiteID,
+						EndSiteID: orderInfo.endSiteID,
 					},
 					success(res) {
 						uni.hideLoading();
-						console.log('保险数据',res);
+						console.log('保险数据', res);
 						var respones = res.data;
-						if(respones.Successed == true){
+						if (respones.Successed == true) {
 							that.InsurePrice = respones.ScheduleInfos[0].InsurePrice;
 							//计算价格
 							that.calculateTotalPrice();
-						}else {
+						} else {
 							that.InsurePrice = 0;
 							//计算价格
 							that.calculateTotalPrice();
@@ -433,7 +413,7 @@
 			turnDate(date) {
 				if (date) {
 					var setTime = date.replace('T', ' ');
-					var setTime2 = setTime.substr(0,16);
+					var setTime2 = setTime.substr(0, 16);
 					return setTime2;
 				}
 			},
@@ -443,8 +423,9 @@
 				var stationArray = {
 					startStaionIndex: that.startStaionIndex,
 					endStationIndex: that.endStationIndex,
-					specialStartArray: that.sepecialStartArray,
-					specialEndArray: that.specialEndArray
+					specialStartArray: that.approachPoint2,
+					specialEndArray: that.approachPoint1,
+					shuttleType: that.shuttleType,
 				}
 				//跳转到选择上车点页面
 				uni.navigateTo({
@@ -457,8 +438,9 @@
 				var stationArray = {
 					startStaionIndex: that.startStaionIndex,
 					endStationIndex: that.endStationIndex,
-					specialStartArray: that.sepecialStartArray,
-					specialEndArray: that.specialEndArray
+					specialStartArray: that.approachPoint2,
+					specialEndArray: that.approachPoint1,
+					shuttleType: that.shuttleType,
 				}
 				//跳转到选择下车点页面
 				uni.navigateTo({
@@ -519,11 +501,11 @@
 			close(e) {
 				this.$refs.popup2.close()
 			},
-			
-			approachPoint(){
+
+			approachPoint() {
 				this.$refs.popup3.open()
 			},
-			
+
 			close2(e) {
 				this.$refs.popup3.close()
 			},
@@ -539,20 +521,20 @@
 				// 	showCancel:false,
 				// })
 				// // #endif
-				
+
 				// // #ifndef MP-WEIXIN
 				// uni.navigateTo({
 				// 	url: '../MapMark/specialMark?specialArray=' + JSON.stringify(this.ticketDetail)
 				// })
 				// // #endif
-				
+
 				// if (that.ticketDetail.starSiteArr && that.ticketDetail.endSiteArr) {
 				// 	if (this.ticketDetail.shuttleType == '普通班车') { //普通班车
 				// 		uni.navigateTo({
 				// 			url: '../MapMark/traditionCarMark?traditionArray=' + JSON.stringify(this.ticketDetail)
 				// 		})
 				// 	} else if (this.ticketDetail.shuttleType == '定制班车') { //定制班车
-						
+
 				// 	}
 				// }
 			},
@@ -577,7 +559,7 @@
 						//#endif
 						//#ifdef MP-WEIXIN
 						uni.navigateTo({
-							url:'/pages/Home/wxAuthorize',
+							url: '/pages/Home/wxAuthorize',
 						})
 						// #endif
 					},
@@ -610,22 +592,22 @@
 						// #endif
 						//#ifdef MP-WEIXIN
 						uni.navigateTo({
-							url:'/pages/Home/wxAuthorize',
+							url: '/pages/Home/wxAuthorize',
 						})
 						// #endif
 					},
 					success() {
 						//跳转到添加乘客页面
-						if(param == '成人'){
+						if (param == '成人') {
 							uni.navigateTo({
 								url: '../../../../../pages/GRZX/addPassenger?type=add',
 							})
-						}else if(param == '免童'){
+						} else if (param == '免童') {
 							uni.navigateTo({
 								url: '../../../../../pages/GRZX/addFreeChildren?type=add',
 							})
 						}
-						
+
 					}
 				})
 
@@ -660,7 +642,7 @@
 							//将半价儿童票加入数组
 							childArray.push(that.passengerInfo[i]);
 							childNum++;
-						} else if(that.passengerInfo[i].userType == '成人'){
+						} else if (that.passengerInfo[i].userType == '成人') {
 							//将成人票加入数组
 							adultArray.push(that.passengerInfo[i]);
 							adultNum++;
@@ -678,7 +660,7 @@
 			//-------------------------------------点击订单预定-----------------------------------
 			reserveTap() {
 				var that = this;
-				if(that.shuttleType == '普通班车') {
+				if (that.shuttleType == '普通班车') {
 					that.startStation = " "
 					that.endStation = " "
 				}
@@ -707,7 +689,7 @@
 					} else {
 						that.jumpTo();
 					}
-				}else {
+				} else {
 					if (that.passengerInfo.length == 0) {
 						uni.showToast({
 							title: '请选择乘车人',
@@ -718,7 +700,7 @@
 							title: '免童/儿童不可单独购票',
 							icon: 'none'
 						})
-					}else if (that.selectedValue == 0) {
+					} else if (that.selectedValue == 0) {
 						uni.showToast({
 							title: '请同意购买须知',
 							icon: 'none'
@@ -735,18 +717,85 @@
 				that.calculateTotalPrice();
 				//请求成功之后跳转到支付页面,传是否选择保险1:选择 0:未选择
 				var array = {
-					isInsurance: that.isInsurance,//是否选择了保险
-					totalPrice: that.totalPrice,//总价格
-					shuttleType: that.shuttleType,//班车类型
-					getOnPoint: that.startStation,//起点
-					getOffPoint: that.endStation,//终点
-					insuredPrice: that.InsurePrice,//保险价格
+					isInsurance: that.isInsurance, //是否选择了保险
+					totalPrice: that.totalPrice, //总价格
+					shuttleType: that.shuttleType, //班车类型
+					getOnPoint: that.startStation, //起点
+					getOffPoint: that.endStation, //终点
+					insuredPrice: that.InsurePrice, //保险价格
 				}
 				console.log(array)
 				uni.navigateTo({
 					url: '../PayMent/orderPayment?array=' + JSON.stringify(array)
 				})
-			}
+			},
+
+			removal: function(e) {
+				//用于本页面的查看所有途径站点
+				var arr1 = [];
+				var arr2 = [];
+				//去重
+				var arr1 = e.starSiteArr;
+				var arr2 = e.endSiteArr;
+				arr1.push(...arr2)
+				console.log('去重复', arr1)
+				let arr3 = Array.from(new Set(arr1))
+				for (var i = 0; i < arr3.length; i++) {
+					var a = this.mainArray.filter(item => {
+						return item == arr3[i].SiteName;
+					})
+					if (a == '') {
+						var SiteName = arr3[i].SiteName
+						this.mainArray.push(SiteName);
+						// console.log('去重复',this.mainArray)
+					}
+				}
+				//途径点去重(用于后期路线规划)
+				var approachPoint = [];
+				approachPoint = arr3;
+				for (var i = 0; i < arr3.length; i++) {
+					if (arr3[i].SiteName == approachPoint[i].SiteName && arr3[i].Latitude==0 && arr3[i].Longitude==0) {
+						arr3.splice(i, 1);
+						i = i - 1;
+					}
+				}
+				// for(var i =0; i<arr3.length; i++){
+				// 	if(!obj[arr3[i].SiteName]){
+				// 		if(obj[arr3[i].SiteName !== 0]){
+				// 			approachPoint.push(arr1[i])
+				// 			obj[arr3[i].SiteName] = true;
+				// 		}
+
+				// 	}
+				// }
+				console.log('途径点去重', approachPoint)
+
+				//用于选择上下车点（approachPoint1是上车点，approachPoint2是下车点）
+				var a = [];
+				a = approachPoint.slice();
+				this.approachPoint1 = a; //终点
+				this.approachPoint1.shift();
+
+				var b = [];
+				b = approachPoint.slice();
+				this.approachPoint2 = b; //起点
+				this.approachPoint2.pop();
+
+				console.log('终点', this.approachPoint1)
+				console.log('起点', this.approachPoint2)
+				// for (var i = 0; i < arr1.length; i++) {
+				// 	for (var j = 0; j < arr2.length; j++) {
+				// 		if (arr2[j].SiteName == arr1[i]) {
+				// 			arr2.splice(j, 1);
+				// 			j = j - 1;
+				// 		}
+				// 	}
+				// }
+				// this.mainArray1=arr1;
+				// this.mainArray2=arr2;
+				// this.mainArrayLength=arr1.length+arr2.length;
+				// console.log('筛选',arr1,arr2)
+			},
 		}
 	}
 </script>
@@ -1046,25 +1095,25 @@
 			background: #FC4646;
 		}
 	}
-	
+
 	.button_1::after {
 		border: none;
 	}
-	
+
 	//途径点弹框
 	.boxView2 {
 		width: 90%;
 		padding: 16upx 40upx;
 		padding-bottom: 92upx;
 		background: #FFFFFF;
-		border-radius:20upx;
+		border-radius: 20upx;
 		z-index: 999;
-	
+
 		.titleView2 {
 			margin: 24upx 0;
 			text-align: center;
 			width: 560upx;
-	
+
 			//弹框标题
 			.Nb_text3 {
 				position: relative;
@@ -1073,7 +1122,7 @@
 				top: 8upx;
 				margin-bottom: 16upx;
 			}
-	
+
 			//弹框关闭按钮
 			.Nb_text4 {
 				margin-top: 8upx;
@@ -1083,15 +1132,16 @@
 				font-size: 32upx;
 			}
 		}
-		
-		.noticeBox2{
+
+		.noticeBox2 {
 			line-height: 32upx;
 			height: 586upx;
-			.tv_title{
+
+			.tv_title {
 				display: block;
 				width: 100%;
-				
-				.ti_text{
+
+				.ti_text {
 					padding-left: 20upx;
 					font-size: 32upx;
 				}

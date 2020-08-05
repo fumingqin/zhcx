@@ -41,14 +41,26 @@
 			<view class="orderCommonClass" @tap="approachPoint">
 				<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">查看所有途径点</view>
 				<view style="display: flex;margin-right: 41upx;align-items: center;">
-					<view style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;">{{routeSite.length}}个站点</view>
+					<view style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;">{{mainArray.length}}个站点</view>
 					<image src="../../../../static/CTKY/right.png" style="width: 11upx;height: 21upx;margin-left: 10upx;"></image>
 				</view>
 			</view>
 			
 			<!-- 上下车点选择,0是普通购票不显示上下车点选择 -->
 			<!-- v-if="ticketDetail.shuttleType == '定制班车'" -->
-			<view class="stationContentView">
+			<view class="stationContentView" v-if="ticketDetail.shuttleType == '普通班车'">
+				<view class="boarding" @tap="endStationTap">
+					<view style="margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">下车点</view>
+					<view style="display: flex;align-items: center;">
+						<view @tap="endStationTap" style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;text-align: right;">{{endStation}}</view>
+						<image src="/pages_CTKY/static/CTKY/right.png" style="width: 11upx;height: 21upx;margin-left: 10upx;"></image>
+					</view>
+				</view>
+			</view>
+			
+			<!-- 上下车点选择,0是普通购票不显示上下车点选择 -->
+			<!-- v-if="ticketDetail.shuttleType == '定制班车'" -->
+			<view class="stationContentView" v-if="ticketDetail.shuttleType == '定制班车'">
 				<view class="boarding" style="border-bottom:#EAEAEA solid 1px;" @tap="startStationTap">
 					<view style="margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">上车点</view>
 					<view style="display: flex;align-items: center;">
@@ -194,9 +206,9 @@
 				</view>
 				<scroll-view class="noticeBox2" scroll-y="ture">
 					<view class="tv_title">
-						<view style="padding-left: 20upx;padding-top: 48upx;" v-for="(item,index) in routeSite" :key="index">
+						<view style="padding-left: 20upx;padding-top: 48upx;" v-for="(item,index) in mainArray" :key="index">
 							<image src="../../../../static/CTKY/startDot.png" style="width: 20upx ;height: 20upx;"></image>
-							<text class="ti_text">{{item.site}}</text>
+							<text class="ti_text">{{item}}</text>
 						</view>
 					</view>
 				</scroll-view>
@@ -216,46 +228,6 @@
 		data() {
 			return {
 				way:'',
-				routeSite: [{
-						site: '延平站点1',
-					},
-					{
-						site: '延平站点2',
-					},
-					{
-						site: '延平站点3',
-					},
-					{
-						site: '延平站点4',
-					},
-					{
-						site: '延平站点5',
-					},
-					{
-						site: '延平站点6',
-					},
-					{
-						site: '延平站点7',
-					},
-					{
-						site: '延平站点8',
-					},
-					{
-						site: '延平站点9',
-					},
-					{
-						site: '延平站点10',
-					},
-					{
-						site: '延平站点11',
-					},
-					{
-						site: '延平站点12',
-					},
-					{
-						site: '延平站点13',
-					}
-				],
 				title: '',
 				isNormal: 0, //判断是普通购票还是定制班车:1是普通0是定制
 				count: 1,
@@ -286,6 +258,10 @@
 				InsurePrice:'0',//保险价格
 				adultNum:0,//成人数
 				applyName:'',
+				shuttleType: '',
+				mainArray: [],
+				approachPoint1: '', //终点
+				approachPoint2: '', //起点
 			}
 		},
 
@@ -315,6 +291,7 @@
 					//读取保险信息
 					// that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
 					console.log('选择车票的班次数据', that.ticketDetail)
+					that.removal(that.ticketDetail);
 					
 				}
 			})
@@ -444,8 +421,9 @@
 				var stationArray = {
 					startStaionIndex: that.startStaionIndex,
 					endStationIndex: that.endStationIndex,
-					specialStartArray: that.sepecialStartArray,
-					specialEndArray: that.specialEndArray
+					specialStartArray: that.approachPoint2,
+					specialEndArray: that.approachPoint1,
+					shuttleType: that.shuttleType,
 				}
 				//跳转到选择上车点页面
 				uni.navigateTo({
@@ -458,8 +436,9 @@
 				var stationArray = {
 					startStaionIndex: that.startStaionIndex,
 					endStationIndex: that.endStationIndex,
-					specialStartArray: that.sepecialStartArray,
-					specialEndArray: that.specialEndArray
+					specialStartArray: that.approachPoint2,
+					specialEndArray: that.approachPoint1,
+					shuttleType: that.shuttleType,
 				}
 				//跳转到选择下车点页面
 				uni.navigateTo({
@@ -743,7 +722,75 @@
 				uni.navigateTo({
 					url: '../PayMent/orderPayment?array=' + JSON.stringify(array)
 				})
-			}
+			},
+			
+			
+			removal: function(e) {
+				//用于本页面的查看所有途径站点
+				var arr1 = [];
+				var arr2 = [];
+				//去重
+				var arr1 = e.starSiteArr;
+				var arr2 = e.endSiteArr;
+				arr1.push(...arr2)
+				console.log('去重复', arr1)
+				let arr3 = Array.from(new Set(arr1))
+				for (var i = 0; i < arr3.length; i++) {
+					var a = this.mainArray.filter(item => {
+						return item == arr3[i].SiteName;
+					})
+					if (a == '') {
+						var SiteName = arr3[i].SiteName
+						this.mainArray.push(SiteName);
+						// console.log('去重复',this.mainArray)
+					}
+				}
+				//途径点去重(用于后期路线规划)
+				var approachPoint = [];
+				approachPoint = arr3;
+				for (var i = 0; i < arr3.length; i++) {
+					if (arr3[i].SiteName == approachPoint[i].SiteName && arr3[i].Latitude==0 && arr3[i].Longitude==0) {
+						arr3.splice(i, 1);
+						i = i - 1;
+					}
+				}
+				// for(var i =0; i<arr3.length; i++){
+				// 	if(!obj[arr3[i].SiteName]){
+				// 		if(obj[arr3[i].SiteName !== 0]){
+				// 			approachPoint.push(arr1[i])
+				// 			obj[arr3[i].SiteName] = true;
+				// 		}
+			
+				// 	}
+				// }
+				console.log('途径点去重', approachPoint)
+			
+				//用于选择上下车点（approachPoint1是上车点，approachPoint2是下车点）
+				var a = [];
+				a = approachPoint.slice();
+				this.approachPoint1 = a; //终点
+				this.approachPoint1.shift();
+			
+				var b = [];
+				b = approachPoint.slice();
+				this.approachPoint2 = b; //起点
+				this.approachPoint2.pop();
+			
+				console.log('终点', this.approachPoint1)
+				console.log('起点', this.approachPoint2)
+				// for (var i = 0; i < arr1.length; i++) {
+				// 	for (var j = 0; j < arr2.length; j++) {
+				// 		if (arr2[j].SiteName == arr1[i]) {
+				// 			arr2.splice(j, 1);
+				// 			j = j - 1;
+				// 		}
+				// 	}
+				// }
+				// this.mainArray1=arr1;
+				// this.mainArray2=arr2;
+				// this.mainArrayLength=arr1.length+arr2.length;
+				// console.log('筛选',arr1,arr2)
+			},
 		}
 	}
 </script>
