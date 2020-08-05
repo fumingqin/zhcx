@@ -333,10 +333,7 @@
 			// ---------------------------跳转订单的点击-----------------------
 			orderClick(e) {
 				uni.setStorageSync('currentNum', e)
-				uni.switchTab({
-					url: '/pages/order/OrderList',
-					// url: '/pages/order/newOrderList',
-				})
+				this.$GrzxInter.navToOrderList();
 			},
 			
 			// --------------------------设置，通知，扫一扫--------------------
@@ -461,6 +458,7 @@
 				// ---------------APP,WX--------------
 				//#ifndef H5
 				var user = uni.getStorageSync('userInfo');
+				console.log(user,"用户信息");
 				if (user.userId == "" || user.userId == null) {
 					uni.showToast({
 						title: '请先登录',
@@ -495,12 +493,9 @@
 						icon: 'none'
 					})
 					setTimeout(function() {
-						uni.switchTab({
-							url: '/pages/Home/zy_zhcx',
-						})
+						that.$GrzxInter.navToHome();//返回首页
 					}, 500);
 				} else {
-					console.log(user1, "3333")
 					uni.navigateTo({
 						url: that.$GrzxInter.Route.personal.url,
 					})

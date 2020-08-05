@@ -177,6 +177,8 @@ export default{
 								openId_wx:res1.data.data.openId_wx,
 								gender:that.userInfo.gender,
 								openId_qq:res1.data.data.openId_qq,
+								openId_ios:res1.data.data.openId_ios,
+								openId_app:res1.data.data.openId_app,
 								openId_xcx:that.openId_xcx,
 								birthday:res1.data.data.birthday,
 								autograph:res1.data.data.autograph,
@@ -221,16 +223,7 @@ export default{
 			})
 		},
 		returnClick(){
-			var that=this;
-			if(that.$GrzxInter.systemConfig.appName=="专线购票小程序"){
-				uni.switchTab({
-					url:'/pages/Home/zxgpHomePage',//兴业银行小程序的主页（专线购票）
-				})
-			}else{
-				uni.switchTab({
-					url:that.$GrzxInter.Route.home.url,
-				})
-			}
+			this.$GrzxInter.navToHome();//返回首页
 		}
 	}	
 }

@@ -30,9 +30,9 @@ async function GetImage(systemName,type) {
 //request请求
 function request (model,systemName,openidtype,type) {
   return new Promise(function (resolve, reject) {
-	  console.log("系统名称",systemName)
-	  console.log("应用类型","XCX")
-	  console.log("访问地址",Url+'/api/zhcx/getImage')
+	  // console.log("系统名称",systemName)
+	  // console.log("应用类型","XCX")
+	  // console.log("访问地址",Url+'/api/zhcx/getImage')
     uni.request({
     	url:Url+'/api/zhcx/getImage',
     	data:{
@@ -43,7 +43,7 @@ function request (model,systemName,openidtype,type) {
     	},
     	method:'POST',
     	success(res){
-    		console.log("获取图片",res)
+    		// console.log("获取图片",res)
 			resolve(res.data.data.imageUrl)
     	},
     	fail(err){
