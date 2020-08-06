@@ -766,72 +766,72 @@
 			
 			//------------------------计算途径点----------------------------------
 			removal: function(e) {
-				//****用于本页面的查看所有途径站点****//
-				var arr1 = [];
-				var arr2 = [];
-				//去重
-				var arr1 = e.starSiteArr;
-				var arr2 = e.endSiteArr;
-				arr1.push(...arr2)
-				console.log('去重复', arr1)
-				let arr3 = Array.from(new Set(arr1))
-				for (var i = 0; i < arr3.length; i++) {
-					var a = this.mainArray.filter(item => {
-						return item == arr3[i].SiteName;
-					})
-					if (a == '') {
-						var SiteName = arr3[i].SiteName
-						this.mainArray.push(SiteName);
-						// console.log('去重复',this.mainArray)
-					}
-				}
+				// //****用于本页面的查看所有途径站点****//
+				// var arr1 = [];
+				// var arr2 = [];
+				// //去重
+				// var arr1 = e.starSiteArr;
+				// var arr2 = e.endSiteArr;
+				// arr1.push(...arr2)
+				// console.log('去重复', arr1)
+				// let arr3 = Array.from(new Set(arr1))
+				// for (var i = 0; i < arr3.length; i++) {
+				// 	var a = this.mainArray.filter(item => {
+				// 		return item == arr3[i].SiteName;
+				// 	})
+				// 	if (a == '') {
+				// 		var SiteName = arr3[i].SiteName
+				// 		this.mainArray.push(SiteName);
+				// 		// console.log('去重复',this.mainArray)
+				// 	}
+				// }
 				
-				//****途径点去重(用于后期路线规划)****//
-				var approachPoint = [];
-				approachPoint = arr3;
-				for (var i = 0; i < arr3.length; i++) {
-					if (arr3[i].SiteName == approachPoint[i].SiteName && arr3[i].Latitude==0 && arr3[i].Longitude==0) {
-						arr3.splice(i, 1);
-						i = i - 1;
-					}
-				}
-				console.log('途径点去重', approachPoint)
+				// //****途径点去重(用于后期路线规划)****//
+				// var approachPoint = [];
+				// approachPoint = arr3;
+				// for (var i = 0; i < arr3.length; i++) {
+				// 	if (arr3[i].SiteName == approachPoint[i].SiteName && arr3[i].Latitude==0 && arr3[i].Longitude==0) {
+				// 		arr3.splice(i, 1);
+				// 		i = i - 1;
+				// 	}
+				// }
+				// console.log('途径点去重', approachPoint)
 				
-				//****用于选择上下车点（approachPoint1是上车点，approachPoint2是下车点）****//
-				var c =[];
-				var obj={};
-				let arr4 = Array.from(new Set(arr1))
-				for(var i =0; i<arr4.length; i++){
-					if(!obj[arr4[i].SiteName]){
-						c.push(arr4[i])
-						obj[arr4[i].SiteName] = true;
-					}
-				}
-				console.log('途径点去重2', c)
-				var a = [];
-				a = c.slice();
-				// a = c;
-				this.approachPoint1 = a; //终点
-				// this.approachPoint1.shift();
-				for (var i = 0; i < a.length; i++) {
-					if (a[i].SiteName == this.ticketDetail.startStaion) {
-						a.splice(i, 1);
-						i = i - 1;
-					}
-				}
-				var b = [];
-				b = c.slice();
-				// b = c;
-				this.approachPoint2 = b; //起点
-				for (var i = 0; i < b.length; i++) {
-					if (b[i].SiteName == this.ticketDetail.endStation) {
-						b.splice(i, 1);
-						i = i - 1;
-					}
-				}
-				// this.approachPoint2.pop();
-				console.log('终点', this.approachPoint1)
-				console.log('起点', this.approachPoint2)
+				// //****用于选择上下车点（approachPoint1是上车点，approachPoint2是下车点）****//
+				// var c =[];
+				// var obj={};
+				// let arr4 = Array.from(new Set(arr1))
+				// for(var i =0; i<arr4.length; i++){
+				// 	if(!obj[arr4[i].SiteName]){
+				// 		c.push(arr4[i])
+				// 		obj[arr4[i].SiteName] = true;
+				// 	}
+				// }
+				// console.log('途径点去重2', c)
+				// var a = [];
+				// a = c.slice();
+				// // a = c;
+				// this.approachPoint1 = a; //终点
+				// // this.approachPoint1.shift();
+				// for (var i = 0; i < a.length; i++) {
+				// 	if (a[i].SiteName == this.ticketDetail.startStaion) {
+				// 		a.splice(i, 1);
+				// 		i = i - 1;
+				// 	}
+				// }
+				// var b = [];
+				// b = c.slice();
+				// // b = c;
+				// this.approachPoint2 = b; //起点
+				// for (var i = 0; i < b.length; i++) {
+				// 	if (b[i].SiteName == this.ticketDetail.endStation) {
+				// 		b.splice(i, 1);
+				// 		i = i - 1;
+				// 	}
+				// }
+				// // this.approachPoint2.pop();
+				// console.log('终点', this.approachPoint1)
+				// console.log('起点', this.approachPoint2)
 				
 				//****途径站点(用于查询所有途径点)****//
 				var routeSite = e.lineViaSiteDesc.split(",");
