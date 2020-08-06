@@ -29,12 +29,15 @@
 								
 									<view class="at_contentFrame">扫码上车</view>
 									<view class="at_contentFrame">线上购票</view>
+									<view class="at_contentFrame">{{item.carType}}</view>
+									
 								
 								<text class="at_contentPrice">¥{{item.totalPrice}}</text>
 							</view>
 						 
 							<view class="at_contentView">							
 								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
+								<text class="at_contentText">下车点：&nbsp;{{item.getOnPoint}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>		
 							<view class="at_buttonView">
@@ -74,12 +77,15 @@
 								
 									<view class="at_contentFrame">扫码上车</view>
 									<view class="at_contentFrame">线上购票</view>
+									<view class="at_contentFrame">{{item.carType}}</view>
+									
 								
 								<text class="at_contentPrice">¥{{item.totalPrice}}</text>
 							</view>
 						 
 							<view class="at_contentView">							
 								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
+								<text class="at_contentText">下车点：&nbsp;{{item.getOnPoint}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -108,12 +114,14 @@
 								
 									<view class="at_contentFrame">扫码上车</view>
 									<view class="at_contentFrame">线上购票</view>
+									<view class="at_contentFrame">{{item.carType}}</view>
 								
 								<text class="at_contentPrice">¥{{item.totalPrice}}</text>
 							</view>
 						 
 							<view class="at_contentView">							
 								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
+								<text class="at_contentText">下车点：&nbsp;{{item.getOnPoint}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -150,12 +158,14 @@
 								
 									<view class="at_contentFrame">扫码上车</view>
 									<view class="at_contentFrame">线上购票</view>
+									<view class="at_contentFrame">{{item.carType}}</view>
 								
 								<text class="at_contentPrice">¥{{item.totalPrice}}</text>
 							</view>
 						 
 							<view class="at_contentView">							
 								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
+								<text class="at_contentText">下车点：&nbsp;{{item.getOnPoint}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -188,12 +198,15 @@
 								
 									<view class="at_contentFrame">扫码上车</view>
 									<view class="at_contentFrame">线上购票</view>
+									<view class="at_contentFrame">{{item.carType}}</view>
+									
 								
 								<text class="at_contentPrice">¥{{item.totalPrice}}</text>
 							</view>
 						 
 							<view class="at_contentView">							
 								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
+								<text class="at_contentText">下车点：&nbsp;{{item.getOnPoint}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -600,8 +613,8 @@
 								var array = {
 									carType:res.data.bookLogs[i].Rep_BookLogType,
 									bookTime:that.turnDate(res.data.bookLogs[i].BookTime),
-									startSiteName:res.data.bookLogs[i].StartSiteName,
-									endSiteName:res.data.bookLogs[i].EndSiteName,
+									startSiteName:res.data.bookLogs[i].getOffPoint,
+									endSiteName:res.data.bookLogs[i].getOnPoint,
 									state:res.data.bookLogs[i].Rep_BookLogState,
 									setOutTime:that.turnDate(res.data.bookLogs[i].SetoutTime),
 									totalPrice:res.data.bookLogs[i].TotalPrice,
@@ -697,8 +710,8 @@
 					carType:res.carType,
 					state: res.state,
 					totalPrice: res.totalPrice,
-					startSiteName: res.startSiteName,
-					endSiteName: res.endSiteName,
+					startSiteName: res.getOffPoint,
+					endSiteName: res.getOnPoint,
 					fullTicket: res.fullTicket,
 					halfTicket: res.halfTicket,
 					carryChild: res.carryChild,
