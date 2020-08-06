@@ -37,7 +37,7 @@
 						 
 							<view class="at_contentView">							
 								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
-								<text class="at_contentText">下车点：&nbsp;{{item.getOnPoint}}</text>
+								<text class="at_contentText">下车点：&nbsp;{{item.getOffPoint}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>		
 							<view class="at_buttonView">
@@ -85,7 +85,7 @@
 						 
 							<view class="at_contentView">							
 								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
-								<text class="at_contentText">下车点：&nbsp;{{item.getOnPoint}}</text>
+								<text class="at_contentText">下车点：&nbsp;{{item.getOffPoint}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -121,7 +121,7 @@
 						 
 							<view class="at_contentView">							
 								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
-								<text class="at_contentText">下车点：&nbsp;{{item.getOnPoint}}</text>
+								<text class="at_contentText">下车点：&nbsp;{{item.getOffPoint}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -165,7 +165,7 @@
 						 
 							<view class="at_contentView">							
 								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
-								<text class="at_contentText">下车点：&nbsp;{{item.getOnPoint}}</text>
+								<text class="at_contentText">下车点：&nbsp;{{item.getOffPoint}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -206,7 +206,7 @@
 						 
 							<view class="at_contentView">							
 								<text class="at_contentText">发车时间：&nbsp;{{gettime(item.setOutTime)}}</text>
-								<text class="at_contentText">下车点：&nbsp;{{item.getOnPoint}}</text>
+								<text class="at_contentText">下车点：&nbsp;{{item.getOffPoint}}</text>
 								<text class="at_contentText">班次：&nbsp;{{getScheduleNum(item)}}</text>
 							</view>
 							<view class="at_buttonView">
@@ -613,8 +613,8 @@
 								var array = {
 									carType:res.data.bookLogs[i].Rep_BookLogType,
 									bookTime:that.turnDate(res.data.bookLogs[i].BookTime),
-									startSiteName:res.data.bookLogs[i].getOffPoint,
-									endSiteName:res.data.bookLogs[i].getOnPoint,
+									startSiteName:res.data.bookLogs[i].getOnPoint,
+									endSiteName:res.data.bookLogs[i].getOffPoint,
 									state:res.data.bookLogs[i].Rep_BookLogState,
 									setOutTime:that.turnDate(res.data.bookLogs[i].SetoutTime),
 									totalPrice:res.data.bookLogs[i].TotalPrice,
@@ -710,8 +710,8 @@
 					carType:res.carType,
 					state: res.state,
 					totalPrice: res.totalPrice,
-					startSiteName: res.getOffPoint,
-					endSiteName: res.getOnPoint,
+					startSiteName: res.getOnPoint,
+					endSiteName: res.getOffPoint,
 					fullTicket: res.fullTicket,
 					halfTicket: res.halfTicket,
 					carryChild: res.carryChild,
@@ -847,6 +847,7 @@
 										},1500)
 									}
 								})
+								this.selectorChange();
 							}else {
 								uni.showToast({
 									title: respones.data.msg
@@ -1717,6 +1718,7 @@
 								})
 								this.close2()
 								this.toFinished();
+								this.selectorChange();
 							}
 							
 						},
@@ -1725,6 +1727,7 @@
 								title: '退票失败，网络异常',
 								icon: 'none',
 							})
+							this.selectorChange();
 							uni.hideLoading()
 						}
 					})
@@ -1754,6 +1757,7 @@
 								})
 								this.close2()
 								this.toFinished();
+								this.selectorChange();
 							}
 							
 						},
@@ -1762,6 +1766,7 @@
 								title: '退票失败，网络异常',
 								icon: 'none',
 							})
+							this.selectorChange();
 							uni.hideLoading()
 						}
 					})
