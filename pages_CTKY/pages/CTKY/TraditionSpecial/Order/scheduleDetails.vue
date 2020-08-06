@@ -295,6 +295,20 @@
 					
 				}
 			})
+			
+			uni.removeStorage({
+				key: 'ticketDate',
+				success: function(res) {
+					console.log('success');
+				}
+			});
+			
+			uni.removeStorage({
+				key: 'CTKYStationList',
+				success: function(res) {
+					console.log('success');
+				}
+			})
 		},
 		onShow() {
 			//读取乘车人信息

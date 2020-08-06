@@ -3,26 +3,42 @@
 		<view class="colorView"></view>
 		
 		<!-- 上车点 -->
-		<view class="stationContentView" v-if="stationArray.shuttleType=='定制班车'">
+		<view v-if="stationArray.shuttleType=='定制班车'">
+			<view class="stationContentView">
+				
+				<!-- 标题：当前上车点 -->
+				<view class="titleView">当前上车点</view>
+				<!-- 放置站点的view -->
+				<view class="stationView">
+					<view class="deSelect" :class="{'select':startSelectIndex == index}" @tap="startStationClick(index)" v-for="(item,index) in startStationList" :key="index">
+						<text class="deSelectColor" :class="{'selectColor' : startSelectIndex == index}">{{item.SiteName}}</text>
+					</view>	
+				</view>
+			</view>
 			
-			<!-- 标题：当前上车点 -->
-			<view class="titleView">当前上车点</view>
-			<!-- 放置站点的view -->
-			<view class="stationView">
-				<view class="deSelect" :class="{'select':startSelectIndex == index}" @tap="startStationClick(index)" v-for="(item,index) in startStationList" :key="index">
-					<text class="deSelectColor" :class="{'selectColor' : startSelectIndex == index}">{{item.SiteName}}</text>
+			<!-- 选择下车点 -->
+			<view class="stationContentView" style="margin-top: 20rpx;">
+				<!-- 标题：选择下车点 -->
+				<view class="titleView">选择下车点</view>
+				<!-- 放置站点的view -->
+				<view class="stationView">
+					<view class="deSelect" :class="{'select':endSelectIndex == index}" @tap="endStationClick(index)" v-for="(item,index) in endStationList" :key="index">
+						<text class="deSelectColor" :class="{'selectColor' : endSelectIndex == index}">{{item.SiteName}}</text>
+					</view>
 				</view>
 			</view>
 		</view>
 		
-		<!-- 选择下车点 -->
-		<view class="stationContentView" style="margin-top: 20rpx;">
-			<!-- 标题：选择下车点 -->
-			<view class="titleView">选择下车点</view>
-			<!-- 放置站点的view -->
-			<view class="stationView">
-				<view class="deSelect" :class="{'select':endSelectIndex == index}" @tap="endStationClick(index)" v-for="(item,index) in endStationList" :key="index">
-					<text class="deSelectColor" :class="{'selectColor' : endSelectIndex == index}">{{item.SiteName}}</text>
+		<view v-if="stationArray.shuttleType=='普通班车'">
+			<!-- 选择下车点 -->
+			<view class="stationContentView" style="margin-top: 20rpx;">
+				<!-- 标题：选择下车点 -->
+				<view class="titleView">选择下车点</view>
+				<!-- 放置站点的view -->
+				<view class="stationView">
+					<view class="deSelect" :class="{'select':endSelectIndex == index}" @tap="endStationClick2(index)" v-for="(item,index) in endStationList2" :key="index">
+						<text class="deSelectColor" :class="{'selectColor' : endSelectIndex == index}">{{item}}</text>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -43,6 +59,7 @@
 				endSelectIndex:0,//记录下车点点击下标
 				startStationList:[],//上车点数组
 				endStationList:[],//下车点数组
+				endStationList2:[],//普通班车下车点数组
 				default:'',
 				startStation:'',//上车点
 				endStation:'',//下车点
@@ -55,23 +72,35 @@
 			var stationArray = JSON.parse(param.stationArray);
 			that.stationArray = stationArray;
 			console.log(that.stationArray)
-			
-			//保存上车点数组
-			that.startStationList = that.arrayDistinct(stationArray.specialStartArray);
-			//保存下车点数组
-			that.endStationList = that.arrayDistinct(stationArray.specialEndArray);
-			that.default = that.endStationList.length-1;
-			console.log(that.default)
-			if(stationArray.startStaionIndex == "" && stationArray.endStationIndex == "") {
-				//定位已选择的上车点
-				that.startSelectIndex = 0;
-				//定位已选择的下车点
-				that.endSelectIndex = that.default;
-			}else {
-				//定位已选择的上车点
-				that.startSelectIndex = stationArray.startStaionIndex;
-				//定位已选择的下车点
-				that.endSelectIndex = stationArray.endStationIndex;
+			if(stationArray.shuttleType=='定制班车'){
+				//保存上车点数组
+				that.startStationList = that.arrayDistinct(stationArray.specialStartArray);
+				//保存下车点数组
+				that.endStationList = that.arrayDistinct(stationArray.specialEndArray);
+				that.default = that.endStationList.length-1;
+				console.log(that.default)
+				if(stationArray.startStaionIndex == "" && stationArray.endStationIndex == "") {
+					//定位已选择的上车点
+					that.startSelectIndex = 0;
+					//定位已选择的下车点
+					that.endSelectIndex = that.default;
+				}else {
+					//定位已选择的上车点
+					that.startSelectIndex = stationArray.startStaionIndex;
+					//定位已选择的下车点
+					that.endSelectIndex = stationArray.endStationIndex;
+				}
+			}else if(stationArray.shuttleType=='普通班车'){
+				//保存下车点数组
+				that.endStationList2 = stationArray.specialEndArray;
+				console.log(that.endStationList2)
+				if(stationArray.endStationIndex == "") {
+					//定位已选择的下车点
+					that.endSelectIndex = 0;
+				}else {
+					//定位已选择的下车点
+					that.endSelectIndex = stationArray.endStationIndex;
+				}
 			}
 		},
 		methods: {
@@ -95,6 +124,17 @@
 				that.endStation = that.endStationList[e].SiteName;
 				console.log('下车点取出下车站点',that.endStation)	
 			},
+			
+			//--------------------------普通班车选中下车点---------------------------
+			endStationClick2(e){
+				var that = this;
+				//给选择的下标赋值
+				that.endSelectIndex = e;
+				console.log('下车点下标赋值',that.endSelectIndex)
+				//取出下车站点
+				that.endStation = that.endStationList2[e];
+				console.log('下车点取出下车站点',that.endStation)	
+			},
 			//--------------------------数组去重---------------------------
 			arrayDistinct:function(array){
 			    let siteNameArr = [];
@@ -106,29 +146,58 @@
 			    });
 			    return distinctArr
 			},
+			
+			arrayDistinct2:function(array){
+			    let siteNameArr = [];
+			    for(let item of array){
+					siteNameArr.push(item);
+			    }
+			    let distinctArr = array.filter((x,index) => {
+					return siteNameArr.indexOf(x.item) == index
+			    });
+			    return distinctArr
+			},
 			//---------------------------点击完成---------------------------
 			doneClick(){
 				var that = this;
-				//获取选中站点的下标
-				let startSelectIndex = that.startSelectIndex;
-				let endSelectIndex = that.endSelectIndex;
-				// console.log(that.startSelectIndex)
-				//点击完成时如果只选中了下车点没有选上车点，给上车点赋值上次选中的值
-				if(that.startStation == '') {
-					that.startStation = that.startStationList[startSelectIndex].SiteName;
+				if(that.stationArray.shuttleType=='定制班车'){
+					//获取选中站点的下标
+					let startSelectIndex = that.startSelectIndex;
+					let endSelectIndex = that.endSelectIndex;
+					// console.log(that.startSelectIndex)
+					//点击完成时如果只选中了下车点没有选上车点，给上车点赋值上次选中的值
+					if(that.startStation == '') {
+						that.startStation = that.startStationList[startSelectIndex].SiteName;
+					}
+					//点击完成时如果只选中了上车点没有选下车点，给下车点赋值上次选中的值
+					if(that.endStation == '') {
+						that.endStation = that.endStationList[endSelectIndex].SiteName;
+					}
+					//将上下车点放到一个数组中
+					var stationArray = {
+						//上车点名称和下标
+						startStation:that.startStation,
+						startStationIndex:startSelectIndex,
+						//下车点名称和下标
+						endStation:that.endStation,
+						endStationIndex:endSelectIndex,
+					}
 				}
-				//点击完成时如果只选中了上车点没有选下车点，给下车点赋值上次选中的值
-				if(that.endStation == '') {
-					that.endStation = that.endStationList[endSelectIndex].SiteName;
-				} 
-				//将上下车点放到一个数组中
-				var stationArray = {
-					//上车点名称和下标
-					startStation:that.startStation,
-					startStationIndex:startSelectIndex,
-					//下车点名称和下标
-					endStation:that.endStation,
-					endStationIndex:endSelectIndex,
+				
+				if(that.stationArray.shuttleType=='普通班车'){
+					//获取选中站点的下标
+					let endSelectIndex = that.endSelectIndex;
+					// console.log(that.startSelectIndex)
+					//点击完成时如果只选中了上车点没有选下车点，给下车点赋值上次选中的值
+					if(that.endStation == '') {
+						that.endStation = that.endStationList2[endSelectIndex];
+					}
+					//将上下车点放到一个数组中
+					var stationArray = {
+						//下车点名称和下标
+						endStation:that.endStation,
+						endStationIndex:endSelectIndex,
+					}
 				}
 				//将上下车点数组保存到缓存
 				uni.setStorage({

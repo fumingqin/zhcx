@@ -69,18 +69,10 @@
 				 v-if="item.shuttleType == '定制巴士'">{{item.SetoutTimeDesc}}</view>
 
 				<!-- 途径站点 -->
-				<view class="st_routeSite" v-if="item.shuttleType == '定制班车'">
+				<view class="st_routeSite">
 					<view style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
 						<text>途径站点:</text>
-						<text v-for="(item2,index2) in item.starSiteArr" :key="index2" v-if="index2<4">{{item2.SiteName}}<text v-if="index2<3">/</text></text>
-						<text>...</text>
-					</view>
-				</view>
-				<view class="st_routeSite" v-if="item.shuttleType == '普通班车'">
-					<view style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
-						<text>途径站点:</text>
-						<text v-for="(item2,index2) in item.endSiteArr" :key="index2" v-if="index2<4">{{item2.SiteName}}<text v-if="index2<3 && item2.length<3">/</text></text>
-						<text v-if="item2.length<3">...</text>
+						<text>{{turnValue(item.lineViaSiteDesc)}}</text>
 					</view>
 				</view>
 			</view>
@@ -728,6 +720,14 @@
 				}
 			},
 			//#endif  
+			
+			//-------------------------------转换-------------------------------
+			turnValue(value) {
+				if(value) {
+					var setValue = value.replace(/,/g,'、');
+					return setValue;
+				}
+			},
 		}
 	}
 </script>

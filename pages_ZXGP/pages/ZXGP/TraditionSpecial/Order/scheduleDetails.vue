@@ -40,7 +40,7 @@
 			<view class="orderCommonClass" @tap="approachPoint">
 				<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">查看所有途径点</view>
 				<view style="display: flex;margin-right: 41upx;align-items: center;">
-					<view style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;">{{mainArray.length}}个站点</view>
+					<view style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;">{{routeSite.length}}个站点</view>
 					<image src="../../../../static/ZXGP/right.png" style="width: 11upx;height: 21upx;margin-left: 10upx;"></image>
 				</view>
 			</view>
@@ -48,7 +48,7 @@
 			<!-- 上下车点选择,0是普通购票不显示上下车点选择 -->
 			<!-- v-if="ticketDetail.shuttleType == '定制班车'" -->
 			<view class="stationContentView" v-if="ticketDetail.shuttleType == '普通班车'">
-				<view class="boarding" @tap="endStationTap">
+				<view class="boarding" @tap="endStationTap2">
 					<view style="margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">下车点</view>
 					<view style="display: flex;align-items: center;">
 						<view style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;text-align: right;">{{endStation}}</view>
@@ -207,7 +207,7 @@
 				</view>
 				<scroll-view class="noticeBox2" scroll-y="ture">
 					<view class="tv_title">
-						<view style="padding-left: 20upx;padding-top: 48upx;" v-for="(item,index) in mainArray" :key="index">
+						<view style="padding-left: 20upx;padding-top: 48upx;" v-for="(item,index) in routeSite" :key="index">
 							<image src="../../../../static/ZXGP/startDot.png" style="width: 20upx ;height: 20upx;"></image>
 							<text class="ti_text">{{item}}</text>
 						</view>
@@ -263,6 +263,8 @@
 				mainArray: [],
 				approachPoint1: '', //终点
 				approachPoint2: '', //起点
+				routeSite:[],//途径点
+				selectRoutePoint:[],//普通班车下车点
 			}
 		},
 
@@ -294,6 +296,20 @@
 					that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
 					console.log('选择车票的班次数据', that.ticketDetail);
 					that.removal(that.ticketDetail);
+				}
+			})
+			
+			uni.removeStorage({
+				key: 'ticketDate',
+				success: function(res) {
+					console.log('success');
+				}
+			});
+			
+			uni.removeStorage({
+				key: 'CTKYStationList',
+				success: function(res) {
+					console.log('success');
 				}
 			})
 		},
@@ -423,8 +439,10 @@
 				var stationArray = {
 					startStaionIndex: that.startStaionIndex,
 					endStationIndex: that.endStationIndex,
-					specialStartArray: that.approachPoint2,
-					specialEndArray: that.approachPoint1,
+					specialStartArray: that.sepecialStartArray,
+					specialEndArray: that.specialEndArray,
+					// specialStartArray: that.approachPoint2,
+					// specialEndArray: that.approachPoint1,
 					shuttleType: that.shuttleType,
 				}
 				//跳转到选择上车点页面
@@ -438,8 +456,10 @@
 				var stationArray = {
 					startStaionIndex: that.startStaionIndex,
 					endStationIndex: that.endStationIndex,
-					specialStartArray: that.approachPoint2,
-					specialEndArray: that.approachPoint1,
+					specialStartArray: that.sepecialStartArray,
+					specialEndArray: that.specialEndArray,
+					// specialStartArray: that.approachPoint2,
+					// specialEndArray: that.approachPoint1,
 					shuttleType: that.shuttleType,
 				}
 				//跳转到选择下车点页面
@@ -447,6 +467,21 @@
 					url: '../stationPicker/selectStation?stationArray=' + JSON.stringify(stationArray)
 				})
 			},
+			
+			//-------------------------------普通班车下车点-----------------------------
+			endStationTap2() {
+				var that = this;
+				var stationArray = {
+					endStationIndex: that.endStationIndex,
+					specialEndArray: that.selectRoutePoint,
+					shuttleType: that.shuttleType,
+				}
+				//跳转到选择下车点页面
+				uni.navigateTo({
+					url: '../stationPicker/selectStation?stationArray=' + JSON.stringify(stationArray)
+				})
+			},
+			
 			//-------------------------------删除乘车人-----------------------------
 			deleteInfo(e) {
 				console.log(e)
@@ -751,6 +786,7 @@
 						// console.log('去重复',this.mainArray)
 					}
 				}
+				
 				//****途径点去重(用于后期路线规划)****//
 				var approachPoint = [];
 				approachPoint = arr3;
@@ -797,6 +833,25 @@
 				// this.approachPoint2.pop();
 				console.log('终点', this.approachPoint1)
 				console.log('起点', this.approachPoint2)
+				
+				//****途径站点(用于查询所有途径点)****//
+				var routeSite = e.lineViaSiteDesc.split(",");
+				this.routeSite=routeSite
+				console.log('分割', this.routeSite)
+				
+				//筛选普通班车下车点途径站点
+				var d = [];
+				d = routeSite.slice();
+				// a = c;
+				this.selectRoutePoint = d; //终点
+				// this.approachPoint1.shift();
+				for (var i = 0; i < this.selectRoutePoint.length; i++) {
+					if (this.selectRoutePoint[i]== this.ticketDetail.startStaion) {
+						this.selectRoutePoint.splice(i, 1);
+						i = i - 1;
+					}
+				}
+				console.log('分割下车点',this.selectRoutePoint)
 			},
 		}
 	}
