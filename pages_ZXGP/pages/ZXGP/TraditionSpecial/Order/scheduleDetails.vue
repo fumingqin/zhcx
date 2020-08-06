@@ -266,6 +266,7 @@
 				routeSite:[],//途径点
 				selectRoutePoint:[],//普通班车下车点
 				ordinaryBoarding:'',//普通班车上车点
+				appName:'',
 			}
 		},
 
@@ -273,10 +274,12 @@
 			var that = this;
 			//加载应用名称
 			that.applyName = that.$oSit.Interface.system.applyName;
+			that.appName = that.$oSit.Interface.system.appName;
 			//给车票类型赋值，0：普通购票，不显示上下车点选择 1:定制班车，显示上下车点选择
 			// this.isNormal = e.isNormal;
 			that.startStation = '', //定制班车上车点
 			that.endStation = '', //定制班车下车点
+			console.log(that.endStation)
 			uni.setNavigationBarTitle({
 				title: '填写订单'
 			});
@@ -381,6 +384,22 @@
 						// console.log('购票须知2',this.way)
 					}
 				})
+				
+				// uni.request({
+				// 	url: $KyInterface.KyInterface.Ky_getExecuteScheduleInfoForSellByID.Url,
+				// 	method: $KyInterface.KyInterface.Ky_getExecuteScheduleInfoForSellByID.method,
+				// 	data: {
+				// 		systemName: this.applyName,
+				// 		scheduleCompanyCode: this.ticketDetail.scheduleCompanyCode,
+				// 		ExecuteScheduleID:this.ticketDetail.planScheduleCode,
+				// 		StartSiteID:this.startStation,
+				// 		EndSiteID:this.endStation,
+				// 	},
+				// 	success: (res) => {
+				// 		console.log('请求价格2', this.ticketDetail.scheduleCompanyCode)
+				// 		console.log('请求价格', res)
+				// 	}
+				// })
 			},
 
 			//--------------------------获取保险信息--------------------------
@@ -699,9 +718,9 @@
 				//当选中用户须知且选择了上下车点和乘客之后发送请求
 				if (that.ticketDetail.starSiteArr.length > 2 || that.ticketDetail.endSiteArr.length > 2) {
 					if (that.startStation == '请选择上车点' && that.endStation == '请选择下车点') {
-						uni.showModal({
-							title: '友情提示',
-							content: '未选择上下车点，请选择上下车点',
+						uni.showToast({
+							title: '未选择上下车点，请选择上下车点',
+							icon: 'none'
 						})
 					} else if (that.passengerInfo.length == 0) {
 						uni.showToast({
@@ -722,7 +741,12 @@
 						that.jumpTo();
 					}
 				} else {
-					if (that.passengerInfo.length == 0) {
+					if (that.endStation == '请选择下车点') {
+						uni.showToast({
+							title: '未选择下车点，请选择下车点',
+							icon: 'none'
+						})
+					} else if (that.passengerInfo.length == 0) {
 						uni.showToast({
 							title: '请选择乘车人',
 							icon: 'none'
