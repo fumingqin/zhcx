@@ -265,6 +265,7 @@
 				approachPoint2: '', //起点
 				routeSite:[],//途径点
 				selectRoutePoint:[],//普通班车下车点
+				ordinaryBoarding:'',//普通班车上车点
 			}
 		},
 
@@ -290,21 +291,16 @@
 					that.sepecialStartArray = data.data.starSiteArr;
 					//班车终点数组
 					that.specialEndArray = data.data.endSiteArr;
+					//普通班车的起点数据
+					that.ordinaryBoarding = data.data.startStaion;
 					//班车类型
-					that.shuttleType = data.data.shuttleType
+					that.shuttleType = data.data.shuttleType;
 					//读取保险信息
 					that.getExecuteScheduleInfoForSellByID(that.ticketDetail);
 					console.log('选择车票的班次数据', that.ticketDetail);
 					that.removal(that.ticketDetail);
 				}
 			})
-			
-			uni.removeStorage({
-				key: 'ticketDate',
-				success: function(res) {
-					console.log('success');
-				}
-			});
 			
 			uni.removeStorage({
 				key: 'CTKYStationList',
@@ -474,6 +470,7 @@
 				var stationArray = {
 					endStationIndex: that.endStationIndex,
 					specialEndArray: that.selectRoutePoint,
+					specialStartArray: that.ordinaryBoarding,
 					shuttleType: that.shuttleType,
 				}
 				//跳转到选择下车点页面
@@ -695,10 +692,10 @@
 			//-------------------------------------点击订单预定-----------------------------------
 			reserveTap() {
 				var that = this;
-				if (that.shuttleType == '普通班车') {
-					that.startStation = " "
-					that.endStation = " "
-				}
+				// if (that.shuttleType == '普通班车') {
+				// 	that.startStation = " "
+				// 	that.endStation = " "
+				// }
 				//当选中用户须知且选择了上下车点和乘客之后发送请求
 				if (that.ticketDetail.starSiteArr.length > 2 || that.ticketDetail.endSiteArr.length > 2) {
 					if (that.startStation == '请选择上车点' && that.endStation == '请选择下车点') {
@@ -751,6 +748,8 @@
 				//计算价格
 				that.calculateTotalPrice();
 				//请求成功之后跳转到支付页面,传是否选择保险1:选择 0:未选择
+				console.log(that.startStation)
+				console.log(that.endStation)
 				var array = {
 					isInsurance: that.isInsurance, //是否选择了保险
 					totalPrice: that.totalPrice, //总价格

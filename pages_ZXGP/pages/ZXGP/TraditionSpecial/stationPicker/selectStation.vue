@@ -91,6 +91,8 @@
 					that.endSelectIndex = stationArray.endStationIndex;
 				}
 			}else if(stationArray.shuttleType=='普通班车'){
+				//保存上车点数组
+				that.startStationList = that.stationArray.specialStartArray;
 				//保存下车点数组
 				that.endStationList2 = stationArray.specialEndArray;
 				console.log(that.endStationList2)
@@ -186,6 +188,8 @@
 						//下车点名称和下标
 						endStation:that.endStation,
 						endStationIndex:endSelectIndex,
+						//上车点名称和下标
+						startStation:that.startStationList,
 					}
 				}
 				//将上下车点数组保存到缓存
