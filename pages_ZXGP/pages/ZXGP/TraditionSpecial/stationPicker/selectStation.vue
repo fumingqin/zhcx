@@ -31,7 +31,7 @@
 		
 		<view v-if="stationArray.shuttleType=='普通班车'">
 			<!-- 选择下车点 -->
-			<view class="stationContentView" style="margin-top: 20rpx;">
+			<view class="stationContentView" style="margin-top: -44rpx;">
 				<!-- 标题：选择下车点 -->
 				<view class="titleView">选择下车点</view>
 				<!-- 放置站点的view -->
@@ -143,17 +143,6 @@
 			    }
 			    let distinctArr = array.filter((x,index) => {
 					return siteNameArr.indexOf(x.SiteName) == index
-			    });
-			    return distinctArr
-			},
-			
-			arrayDistinct2:function(array){
-			    let siteNameArr = [];
-			    for(let item of array){
-					siteNameArr.push(item);
-			    }
-			    let distinctArr = array.filter((x,index) => {
-					return siteNameArr.indexOf(x.item) == index
 			    });
 			    return distinctArr
 			},

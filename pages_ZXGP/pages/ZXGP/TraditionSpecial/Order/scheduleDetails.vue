@@ -38,7 +38,7 @@
 
 			<!-- 查看所有途经点 -->
 			<view class="orderCommonClass" @tap="approachPoint">
-				<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">查看所有途径点</view>
+				<view style="margin-left: 41upx;margin-top: 35upx;margin-bottom: 35upx;font-size:SourceHanSansSC-Regular ;color: #2C2D2D;font-size: 30upx;">查看所有途经点</view>
 				<view style="display: flex;margin-right: 41upx;align-items: center;">
 					<view style="font-size: 28upx;font-family: SourceHanSansSC-Light;color: #999999;">{{routeSite.length}}个站点</view>
 					<image src="../../../../static/ZXGP/right.png" style="width: 11upx;height: 21upx;margin-left: 10upx;"></image>
@@ -202,7 +202,7 @@
 		<popup ref="popup3" type="center">
 			<view class="boxView2">
 				<view class="titleView2">
-					<text class="Nb_text3">所有途径点</text>
+					<text class="Nb_text3">所有途经点</text>
 					<text class="Nb_text4 jdticon icon-fork " @click="close2(3)"></text>
 				</view>
 				<scroll-view class="noticeBox2" scroll-y="ture">
@@ -1200,7 +1200,7 @@
 
 				.ti_text {
 					padding-left: 20upx;
-					font-size: 32upx;
+					font-size: 30upx;
 				}
 			}
 		}
