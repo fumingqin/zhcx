@@ -359,6 +359,8 @@
 				uni.showLoading({
 				    title: '正在下单...'
 				});
+				console.log(that.specialStartStation)
+				console.log(that.specialEndStation)
 				uni.request({
 					url:$KyInterface.KyInterface.Ky_PaymentUrl.Url,
 					method:$KyInterface.KyInterface.Ky_PaymentUrl.method,

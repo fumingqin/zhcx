@@ -69,11 +69,10 @@
 				 v-if="item.shuttleType == '定制巴士'">{{item.SetoutTimeDesc}}</view>
 
 				<!-- 途径站点 -->
-				<view class="st_routeSite" v-if="item.shuttleType == '普通班车'">
+				<view class="st_routeSite">
 					<view style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
 						<text>途径站点:</text>
-						<text v-for="(item2,index2) in routeSite" :key="index2" v-if="index2<4">{{item2}}<text v-if="index2<3">/</text></text>
-						<text>...</text>
+						<text>{{turnValue(item.lineViaSiteDesc)}}</text>
 					</view>
 				</view>
 			</view>
@@ -91,7 +90,6 @@
 		},
 		data() {
 			return {
-				routeSite: ['延平站点1','延平站点2','延平站点3','延平站点3','延平站点3',],
 				utils: utils,
 				dateArray: [], //时间轴的数量的数组
 				selectIndex: '', //选中的下标
@@ -232,6 +230,12 @@
 								// that.getSpecialBusTicketInfo(date);
 								uni.showToast({
 									title: '暂无班次信息',
+									icon: 'none'
+								})
+								uni.hideLoading();
+							} else if (res.data.msg == '服务器无法处理请求。 ---> 未将对象引用设置到对象的实例。') {
+								uni.showToast({
+									title: '服务器异常,请联系客服',
 									icon: 'none'
 								})
 								uni.hideLoading();
@@ -716,6 +720,14 @@
 				}
 			},
 			//#endif  
+			
+			//-------------------------------转换-------------------------------
+			turnValue(value) {
+				if(value) {
+					var setValue = value.replace(/,/g,'、');
+					return setValue;
+				}
+			},
 		}
 	}
 </script>

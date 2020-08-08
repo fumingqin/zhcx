@@ -3,7 +3,7 @@
 		<view class="colorView"></view>
 		
 		<!-- 上车点 -->
-		<view class="stationContentView">
+		<view class="stationContentView" v-if="stationArray.shuttleType=='定制班车'">
 			
 			<!-- 标题：当前上车点 -->
 			<view class="titleView">当前上车点</view>
