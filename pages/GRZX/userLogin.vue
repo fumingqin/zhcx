@@ -326,10 +326,10 @@
 								}
 							})
 						},
-						fail() {
+						fail(err) {
 							uni.hideLoading();
 							uni.showToast({
-								title: '获取失败',
+								title: '获取失败'+err,
 								icon: "none"
 							});
 						}
