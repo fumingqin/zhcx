@@ -28,7 +28,7 @@
 		<view class="loginMode">第三方登录</view>
 		<view class="leftLine"></view>
 		<view class="rightLine"></view>
-		<!-- <image src="../../static/GRZX/qqLogo.png" class="qqClass" @click="qqLogin"></image> -->
+		<image src="../../static/GRZX/qqLogo.png" class="qqClass" @click="qqLogin"></image>
 		<!-- 苹果登录 -->
 		<image src="../../static/GRZX/appleLogo.png" class="appleClass" @click="appleLogin" v-if="platform=='ios'"></image>
 		<image src="../../static/GRZX/wxLogo.png" class="wxClass" @click="wxLogin" v-if="platform=='ios'"></image>
@@ -319,11 +319,12 @@
 											success: function(res) {
 												that.requestInterface(res.userInfo,"wx");
 											},
-											fail: function() {
+											fail: function(err1) {
 												uni.hideLoading();
-												uni.showToast({
+												console.log(err1,'获取用户信息失败');
+												uni.showModal({
 													title: '获取用户信息失败',
-													icon: "none"
+													content: JSON.stringify(err1)
 												});
 											}
 										})
@@ -331,10 +332,6 @@
 									fail(err) {
 										uni.hideLoading();
 										console.log(err,"获取失败");
-										// uni.showToast({
-										// 	title: '获取失败'+err,
-										// 	icon: "none"
-										// });
 										uni.showModal({  
 											title: '获取失败',  
 											content: JSON.stringify(err)  
