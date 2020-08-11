@@ -200,6 +200,8 @@
 				// #ifdef MP-WEIXIN
 				systemName = $KyInterface.KyInterface.systemName.systemNameXYYHWeiXin;
 				// #endif
+				console.log(that.startStation)
+				console.log(that.endStation)
 				uni.request({
 					url: $KyInterface.KyInterface.Ky_getListSchedulesInfo.Url,
 					method: $KyInterface.KyInterface.Ky_getListSchedulesInfo.method,
@@ -212,14 +214,15 @@
 					},
 					success: (res) => {
 						// uni.hideLoading();
-						console.log('客运班次信息', res);
 						//非空判断
 						if (res.data.status == true) {
 							if (res.data.data) {
 								that.departureData = res.data.data;
 								let i = 0;
 								for (i; i < res.data.data.length; i++) {
-									that.allTicketsList.push(res.data.data[i])
+									if(res.data.data[i].startStaion == that.startStation && res.data.data[i].endStation == that.endStation){
+										that.allTicketsList.push(res.data.data[i])
+									}
 								}
 								console.log('客运班次信息2', that.allTicketsList)
 								//加载定制巴士班次列表数据

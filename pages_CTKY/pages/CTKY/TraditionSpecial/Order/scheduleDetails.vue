@@ -14,8 +14,9 @@
 					</view>
 					<!-- 站点-余票 -->
 					<view class="ticketContent">
-						<view class="textCLass" style="font-size: 32upx;color: #333333;">{{ticketDetail.startStaion}}→
-							{{ticketDetail.endStation}}</view>
+						<view class="textCLass" style="font-size: 32upx;color: #333333;">{{ticketDetail.lineName}}</view>
+						<!-- <view class="textCLass" style="font-size: 32upx;color: #333333;">{{ticketDetail.startStaion}}→
+							{{ticketDetail.endStation}}</view> -->
 						<view class="textCLass" style="font-size: 28upx;color: #FC4646;">半票￥{{ticketDetail.halfTicket}}</view>
 						
 					</view>
