@@ -71,7 +71,7 @@
 				<!-- 途径站点 -->
 				<view class="st_routeSite">
 					<view style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
-						<text>途经站点:</text>
+						<text>途径站点:</text>
 						<text>{{turnValue(item.lineViaSiteDesc)}}</text>
 					</view>
 				</view>

@@ -100,6 +100,12 @@ const KyInterface = {
 		method:'POST',
 		header:{'content-type':'application/x-www-form-urlencoded'},
 	},
+	Ky_getExecuteScheduleInfoForSellByID:{
+		Url: scheduleUrl + '/getExecuteScheduleInfoForSellByID',
+		name:'客运-请求价格',
+		method:'POST',
+		header:{'content-type':'application/x-www-form-urlencoded'},
+	},
 	Ky_PaymentUrl:{
 		Url: Url + '/api/ky/SellTicket_NoBill_Booking',
 		name:'客运-下单',
