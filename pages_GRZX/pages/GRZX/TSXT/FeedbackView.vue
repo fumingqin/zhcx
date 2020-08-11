@@ -24,7 +24,7 @@
 		</view>
 		<!-- 插图 -->
 		<view class="chatu">
-			<image src="../../static/npzhcx.png" class="npzhcx-image"></image>
+			<!-- <image src="../../static/npzhcx.png" class="npzhcx-image"></image> -->
 		</view>
 		<!-- 用户评论 -->
 		<view class="user-talk">
@@ -34,7 +34,7 @@
 			<!-- 到时v-for判断写这个地方 -->
 			<view>
 				<view class="user-talkinfo">
-					<image src="../../static/10053092_111926377363_2.jpg" class="user-topimage"></image>
+					<!-- <image src="../../static/10053092_111926377363_2.jpg" class="user-topimage"></image> -->
 					<text class="user-name">叮当猫</text>
 					<text class="user-time">21:10</text>
 				</view>
@@ -42,8 +42,8 @@
 					漳州也是依托旅游拓展经济,希望不要再出什么30天无理由退货了
 				</view>
 				<view class="user-image-view">
-					<image src="../../static/10053092_111926377363_2.jpg" class="user-image"></image>
-					<image src="../../static/qq.png" class="user-image"></image>
+					<!-- <image src="../../static/10053092_111926377363_2.jpg" class="user-image"></image> -->
+					<!-- <image src="../../static/qq.png" class="user-image"></image> -->
 				</view>
 				<view class="huifu">
 					<view class="huifu-view">
@@ -51,7 +51,7 @@
 						<text class="huifu-info">您好!感谢您的意见和建议，同时感谢您的支持，在今后的使用过程中有任何疑问，可随时拨打400-88-96301向我们进行详细反馈，我们将竭诚24小时为您服务。</text>
 						<!-- 评论图片 -->
 						<view class="pinglun-image-view" @click="gotoFeedback">
-							<image src="../../static/pinlun.png" class="pinglun-image"></image>
+							<!-- <image src="../../static/pinlun.png" class="pinglun-image"></image> -->
 						</view>
 					</view>
 				</view>

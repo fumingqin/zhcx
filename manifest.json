@@ -33,6 +33,8 @@
                     "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCOUNT_MANAGER\"/>",
+                    "<uses-permission android:name=\"android.permission.BIND_INPUT_METHOD\"/>",
                     "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
                     "<uses-permission android:name=\"android.permission.CAMERA\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
@@ -88,7 +90,7 @@
                     },
                     "weixin" : {
                         "appid" : "wx4394e02214803063",
-                        "appsecret" : "b3eefe07d67874ce91ab50a22bea8bb6",
+                        "appsecret" : "07be2a96f2ddc3d1eb5f0ab0c0c90f2d",
                         "UniversalLinks" : "https://zntc.145u.net/ulink/"
                     },
                     "apple" : {}
