@@ -2123,7 +2123,7 @@
 			gettime2:function(param){
 					let array=param.split(':');
 					var a=array[0]+":"+array[1];
-					return a;
+					return param;
 			},
 			//-------------------------判断订单状态-------------------------
 			getCtkyOrderStatus(param) {
@@ -4687,7 +4687,8 @@
 
 			.at_icon {
 				position: relative;
-				top: 6upx;
+				top: 16upx;
+				right: 20upx;
 				width: 40upx;
 				height: 34upx;
 			}
