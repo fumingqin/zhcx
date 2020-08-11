@@ -182,6 +182,8 @@
 								url: that.$GrzxInter.Interface.login.value,
 								data: {
 									phoneNumber: phone,
+									systemname:that.$GrzxInter.systemConfig.appName,//应用名称
+									openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 								},
 								method: that.$GrzxInter.Interface.login.method,
 								success(res) {
@@ -349,13 +351,16 @@
 				var that=this;
 				if(type=="wx"){ //微信授权登录
 					uni.request({
-						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_app.value,
+						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.value,
 						data:{
-							openId_app:userInfo.openId,
+							openid:userInfo.openId,
+							systemname:that.$GrzxInter.systemConfig.appName,//应用名称
+							openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 						},
-						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_app.method,
+						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.method,
 						success(res) {
 							uni.hideLoading();
+							console.log(res,"提示！！！！");
 							if(!res.data.status&&res.data.msg=="获取用户信息失败,不存在该openID用户信息"){
 								uni.setStorageSync('appUserInfo',userInfo);
 								uni.navigateTo({
@@ -374,11 +379,13 @@
 					})
 				}else if(type=="qq"){  //QQ授权登录
 					uni.request({
-						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_qq.value,
+						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.value,
 						data:{
-							openId_qq:userInfo.openId,
+							openid:userInfo.openId,
+							systemname:that.$GrzxInter.systemConfig.appName,//应用名称
+							openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 						},
-						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_qq.method,
+						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.method,
 						success(res) {
 							uni.hideLoading();
 							if(!res.data.status&&res.data.msg=="获取用户信息失败,不存在该openID用户信息"){
@@ -397,11 +404,13 @@
 					})
 				}else if(type=="apple"){  //苹果授权登录
 					uni.request({
-						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_app.value,
+						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.value,
 						data:{
-							openId_ios:userInfo.openId,
+							openid:userInfo.openId,
+							systemname:that.$GrzxInter.systemConfig.appName,//应用名称
+							openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 						},
-						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_app.method,
+						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.method,
 						success(res) {
 							uni.hideLoading();
 							if(!res.data.status&&res.data.msg=="获取用户信息失败,不存在该openID用户信息"){
