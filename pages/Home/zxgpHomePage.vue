@@ -64,7 +64,7 @@
 				<!-- 按钮 -->
 				<view class="tjButton" hover-class="ve_hover2" @click="queryClick">查询</view>
 				
-
+				
 				
 				<view class="zl_recommend">
 					<view>
