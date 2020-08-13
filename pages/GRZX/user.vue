@@ -56,15 +56,7 @@
 			<view style="display: flex; flex-wrap: wrap;">
 				<view v-for="(item,index) in serviceList" :key="index">
 					<view class="itemClass" v-if="item.ItemTitle!='在线客服'&&item.IsUse" hover-class="btn_Click" @click="operateClick(item.ItemTitle)">
-						<image :src="item.ImageURL" v-if="item.ItemTitle=='乘客管理'" class="XXGLicon"></image>
-						<image :src="item.ImageURL" v-if="item.ItemTitle=='站点拍照'" class="ZDPZicon"></image>
-						<image :src="item.ImageURL" v-if="item.ItemTitle=='我的投诉'" class="WDTSicon"></image>
-						<image :src="item.ImageURL" v-if="item.ItemTitle=='紧急联系人'" class="JJLXRicon"></image>
-						<image :src="item.ImageURL" v-if="item.ItemTitle=='实名认证'" class="SMRZicon"></image>
-						<image :src="item.ImageURL" v-if="item.ItemTitle=='更换手机号'" class="GHSJHicon"></image>
-						<image :src="item.ImageURL" v-if="item.ItemTitle=='电话客服'" class="DHKFicon"></image>
-						<image :src="item.ImageURL" v-if="item.ItemTitle=='意见反馈'" class="YJFKicon"></image>
-						<image :src="item.ImageURL" v-if="item.ItemTitle=='QQ客服'" class="QQKFicon"></image>
+						<image :src="item.ImageURL" :class="item.style"></image>
 						<text class="fontStyle">{{item.ItemTitle}}</text>
 					</view>
 					<view class="itemClass" style="position: relative;" v-if="item.ItemTitle=='在线客服'&&item.IsUse">
@@ -153,57 +145,66 @@
 						IsUse: true,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_XXGL.png",
-						ItemTitle: "乘客管理"
+						ItemTitle: "乘客管理",
+						style:"XXGLicon",
 					},{
 						IsUse: false,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_ZDPZ.png",
-						ItemTitle: "站点拍照"
+						ItemTitle: "站点拍照",
+						style:"ZDPZicon",
 					},
 					{
 						IsUse: true,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_WDTS.png",
-						ItemTitle: "我的投诉"
+						ItemTitle: "我的投诉",
+						style:"WDTSicon",
 					},
 					{
 						IsUse: false,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_JJLXR.png",
-						ItemTitle: "紧急联系人"
+						ItemTitle: "紧急联系人",
+						style:"JJLXRicon",
 					},
 					{
 						IsUse: false,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_SMRZ.png",
-						ItemTitle: "实名认证"
+						ItemTitle: "实名认证",
+						style:"SMRZicon",
 					},
 					{
 						IsUse: false,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_GHSJH.png",
-						ItemTitle: "更换手机号"
+						ItemTitle: "更换手机号",
+						style:"GHSJHicon",
 					},
 					//#ifdef H5
 					{
 						IsUse: true,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_DHKF.png",
-						ItemTitle: "电话客服"
+						ItemTitle: "电话客服",
+						style:"DHKFicon",
 					},
 					//#endif
 					{
 						IsUse: true,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_YJFK.png",
-						ItemTitle: "意见反馈"
+						ItemTitle: "意见反馈",
+						style:"YJFKicon",
 					},
 					//#ifdef MP-WEIXIN
 					{
 						IsUse: true,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_ZXKF.png",
-						ItemTitle: "在线客服"
+						ItemTitle: "在线客服",
+						style:"ZXKFicon",
 					},
 					//#endif
 					//#ifdef APP-PLUS
@@ -211,7 +212,8 @@
 						IsUse: true,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_QQKF.png",
-						ItemTitle: "QQ客服"
+						ItemTitle: "QQ客服",
+						style:"QQKFicon",
 					},
 					//#endif
 					]
