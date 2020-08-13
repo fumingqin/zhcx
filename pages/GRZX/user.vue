@@ -55,55 +55,23 @@
 			<!-- ========================更多服务的功能模块============================ -->
 			<view style="display: flex; flex-wrap: wrap;">
 				<view v-for="(item,index) in serviceList" :key="index">
-					<view class="itemClass" @click="infoClick" v-if="item.ItemTitle=='乘客管理'&&item.IsUse" hover-class="btn_Click">
-						<image :src="item.ImageURL" class="XXGLicon"></image>
+					<view class="itemClass" v-if="item.ItemTitle!='在线客服'&&item.IsUse" hover-class="btn_Click" @click="operateClick(item.ItemTitle)">
+						<image :src="item.ImageURL" v-if="item.ItemTitle=='乘客管理'" class="XXGLicon"></image>
+						<image :src="item.ImageURL" v-if="item.ItemTitle=='站点拍照'" class="ZDPZicon"></image>
+						<image :src="item.ImageURL" v-if="item.ItemTitle=='我的投诉'" class="WDTSicon"></image>
+						<image :src="item.ImageURL" v-if="item.ItemTitle=='紧急联系人'" class="JJLXRicon"></image>
+						<image :src="item.ImageURL" v-if="item.ItemTitle=='实名认证'" class="SMRZicon"></image>
+						<image :src="item.ImageURL" v-if="item.ItemTitle=='更换手机号'" class="GHSJHicon"></image>
+						<image :src="item.ImageURL" v-if="item.ItemTitle=='电话客服'" class="DHKFicon"></image>
+						<image :src="item.ImageURL" v-if="item.ItemTitle=='意见反馈'" class="YJFKicon"></image>
+						<image :src="item.ImageURL" v-if="item.ItemTitle=='QQ客服'" class="QQKFicon"></image>
 						<text class="fontStyle">{{item.ItemTitle}}</text>
 					</view>
-					<view class="itemClass" @click="pictureClick" v-if="item.ItemTitle=='站点拍照'&&item.IsUse" hover-class="btn_Click">
-						<image :src="item.ImageURL" class="ZDPZicon"></image>
-						<text class="fontStyle">{{item.ItemTitle}}</text>
-					</view>
-					<view class="itemClass" @click="complaintClick" v-if="item.ItemTitle=='我的投诉'&&item.IsUse" hover-class="btn_Click">
-						<image :src="item.ImageURL" class="WDTSicon"></image>
-						<text class="fontStyle">{{item.ItemTitle}}</text>
-					</view>
-					<view class="itemClass" @click="addContact" v-if="item.ItemTitle=='紧急联系人'&&item.IsUse" hover-class="btn_Click">
-						<image :src="item.ImageURL" class="JJLXRicon"></image>
-						<text class="fontStyle">{{item.ItemTitle}}</text>
-					</view>
-					
-					<view class="itemClass" @click="realName" v-if="item.ItemTitle=='实名认证'&&item.IsUse" hover-class="btn_Click">
-						<image :src="item.ImageURL" class="SMRZicon"></image>
-						<text class="fontStyle">{{item.ItemTitle}}</text>
-					</view>
-					<view class="itemClass" @click="replacePhoneNum" v-if="item.ItemTitle=='更换手机号'&&item.IsUse" hover-class="btn_Click">
-						<image :src="item.ImageURL" class="GHSJHicon"></image>
-						<text class="fontStyle">{{item.ItemTitle}}</text>
-					</view>
-					<!-- #ifdef H5 -->
-					<view class="itemClass" @click="phoneClick" v-if="item.ItemTitle=='电话客服'&&item.IsUse" hover-class="btn_Click">
-						<image :src="item.ImageURL" class="DHKFicon"></image>
-						<text class="fontStyle">{{item.ItemTitle}}</text>
-					</view>
-					<!-- #endif -->
-					<view class="itemClass" @click="feedbackClick" v-if="item.ItemTitle=='意见反馈'&&item.IsUse" hover-class="btn_Click">
-						<image :src="item.ImageURL" class="YJFKicon"></image>
-						<text class="fontStyle">{{item.ItemTitle}}</text>
-					</view>
-					
-					<!-- #ifdef MP-WEIXIN -->
-					<view class="itemClass" style="position: relative;" v-if="item.ItemTitle=='在线客服'&&item.IsUse"> 
+					<view class="itemClass" style="position: relative;" v-if="item.ItemTitle=='在线客服'&&item.IsUse">
 						<image :src="item.ImageURL" class="ZXKFicon"></image>
 						<button open-type="contact" class="contactClass" hover-class="btn_Click"></button>
 						<text class="fontStyle">{{item.ItemTitle}}</text>
 					</view>
-					<!-- #endif -->
-					<!-- #ifdef APP-PLUS -->
-					<view class="itemClass" @click="QQClick" v-if="item.ItemTitle=='QQ客服'&&item.IsUse" hover-class="btn_Click">
-						<image :src="item.ImageURL" class="QQKFicon"></image>
-						<text class="fontStyle">{{item.ItemTitle}}</text>
-					</view>
-					<!-- #endif -->
 				</view>
 			</view>
 			<!-- ========================更多服务的功能模块============================ -->
@@ -201,7 +169,7 @@
 					{
 						IsUse: false,
 						clickURL: "",
-						ImageURL: "../../static/GRZX/ServiceIcon/tb_JXLXR.png",
+						ImageURL: "../../static/GRZX/ServiceIcon/tb_JJLXR.png",
 						ItemTitle: "紧急联系人"
 					},
 					{
@@ -216,30 +184,37 @@
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_GHSJH.png",
 						ItemTitle: "更换手机号"
 					},
+					//#ifdef H5
 					{
 						IsUse: true,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_DHKF.png",
 						ItemTitle: "电话客服"
 					},
+					//#endif
 					{
 						IsUse: true,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_YJFK.png",
 						ItemTitle: "意见反馈"
 					},
+					//#ifdef MP-WEIXIN
 					{
 						IsUse: true,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_ZXKF.png",
 						ItemTitle: "在线客服"
 					},
+					//#endif
+					//#ifdef APP-PLUS
 					{
 						IsUse: true,
 						clickURL: "",
 						ImageURL: "../../static/GRZX/ServiceIcon/tb_QQKF.png",
 						ItemTitle: "QQ客服"
-					},]
+					},
+					//#endif
+					]
 			},
 			
 			// ---------------------------加载数据----------------------------
@@ -312,16 +287,24 @@
 					success(res) {
 						// console.log('获取实名信息成功',res)
 						if (res.data.status == true) {
-							if (res.data.data.RealNameStatus == 0) {
-								that.RealNameStatus = '未实名';
-							} else if (res.data.data.RealNameStatus == 1) {
-								that.RealNameStatus = '已实名';
-							} else if (res.data.data.RealNameStatus == 2) {
-								that.RealNameStatus = '未通过';
-							} else if (res.data.data.RealNameStatus == 3) {
-								that.RealNameStatus = '认证中';
-							} else if (res.data.data.RealNameStatus == 4) {
-								that.RealNameStatus = '资料待完善';
+							switch (res.data.data.RealNameStatus){
+								case 0:
+									that.RealNameStatus = '未实名';
+									break;
+								case 1:
+									that.RealNameStatus = '已实名';
+									break;
+								case 2:
+									that.RealNameStatus = '未通过';
+									break;
+								case 3:
+									that.RealNameStatus = '认证中';
+									break;
+								case 4:
+									that.RealNameStatus = '资料待完善';
+									break;
+								default:
+									return '';
 							}
 						} else {
 							uni.showToast({
@@ -361,6 +344,41 @@
 							});
 						}
 					})
+				}
+			},
+			
+			// ---------------------------点击操作----------------------------
+			operateClick(e){
+				switch(e) {
+					case '乘客管理':
+						this.infoClick();
+						break;
+					case '站点拍照':
+						this.pictureClick();
+						break;
+					case '我的投诉':
+						this.complaintClick();
+						break;
+					case '紧急联系人':
+						this.addContact();
+						break;		
+					case '实名认证':
+						this.realName();
+						break;
+					case '更换手机号':
+						this.replacePhoneNum();
+						break;
+					case '电话客服':
+						this.phoneClick();
+						break;
+					case '意见反馈':
+						this.feedbackClick();
+						break;
+					case 'QQ客服':
+						this.QQClick();
+						break;
+					default:
+						return '';
 				}
 			},
 			
