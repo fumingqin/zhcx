@@ -7,8 +7,9 @@
 			<view class="MP_information1">
 				<view class="MP_title">{{orderInfo.startStaion}} - {{orderInfo.endStation}}</view>
 				<text class="MP_text">费用包含：车票 {{insurance}}</text>
-				<text class="MP_text" v-if="orderInfo.shuttleType=='定制班车'">上下车点:{{specialStartStation}}/{{specialEndStation}}</text>
-				<text class="MP_text" v-if="orderInfo.shuttleType=='普通班车'">下车点:{{specialEndStation}}</text>
+				<text class="MP_text" v-if="orderInfo.shuttleType=='定制班车'">上车点: {{specialStartStation}}</text>
+				<text class="MP_text" v-if="orderInfo.shuttleType=='定制班车'">下车点: {{specialEndStation}}</text>
+				<text class="MP_text" v-if="orderInfo.shuttleType=='普通班车'">下车点: {{specialEndStation}}</text>
 				<view class="MP_selectionDate">
 					<view class="MP_title">发车时间</view>
 					<text class="MP_text">{{turnDate(orderInfo.setTime)}}</text>
