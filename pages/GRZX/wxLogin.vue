@@ -1,8 +1,7 @@
 <template>
     <view class="content">
-		<!-- <image src="../../static/GRZX/btnReturn.png" class="returnClass" @click="returnClick"></image> -->
-		<image :src="bindPhoneImg" class="backClass"></image>
-		<text class="titleClass">手机绑定</text>
+		<!-- <image :src="bindPhoneImg" class="backClass"></image> -->
+		<text class="titleClass btn_color">手机绑定</text>
 		<view class="inputItem phoneNum">
 			<image src="../../static/GRZX/shouji.png" class="iconClass1"></image>
 			<input type="number" placeholder="手机号码" maxlength="11" class="inputClass" data-key="phoneNumber" @input="inputChange1" />
@@ -10,9 +9,9 @@
 		<view class="inputItem Captcha">
 			<image src="../../static/GRZX/yanzhengma.png" class="iconClass2"></image>
 			<input type="number" placeholder="输入验证码" maxlength="4" class="inputClass" data-key="captchaCode" @input="inputChange2" />
-			<view class="getCode style" @click="getCodeClick" id="Code">{{textCode}}</view>
+			<view class="getCode btn_color btn_borderColor" @click="getCodeClick" id="Code">{{textCode}}</view>
 		</view>
-		<button type="warn" @click="bindPhone" class="btnClass">确定</button>
+		<button @click="bindPhone" class="btnClass btn_background btn_fontColor">确定</button>
     </view>
 </template>
 
@@ -47,14 +46,6 @@
 				});
 			},
 			
-			//--------------------------------返回个人中心--------------------------
-			returnClick:function(){		
-				uni.switchTab({
-					// url:'/pages/GRZX/user',
-					url:theSelf.$GrzxInter.Route.user.url,
-				})
-			},
-			
 			//--------------------------------只能输入数字--------------------------
 			judgeNum:function(val){  
 				var regPos = /^\d+(\.\d+)?$/; //非负浮点数
@@ -69,9 +60,7 @@
 			//--------------------------------输入手机号时触发--------------------------
 			inputChange1:function(e){
 				var num=e.detail.value;
-				if(this.judgeNum(num)){
-					
-				}else{
+				if(!this.judgeNum(num)){
 					uni.showToast({
 						title : '请输入正确的手机号码',
 						icon : 'none',
@@ -84,9 +73,7 @@
 			//--------------------------------输入验证码时触发--------------------------
 			inputChange2:function(e){
 				var num=e.detail.value;
-				if(this.judgeNum(num)){
-					
-				}else{
+				if(!this.judgeNum(num)){
 					uni.showToast({
 						title : '请输入正确的验证码',
 						icon : 'none',
@@ -448,14 +435,8 @@
 		line-height: 64upx;
 		height: 64upx;
 	}
-	.style{
-		border:1px solid #ED1C24;
-		color: #ED1C24;
-	}
+	
 	.btnClass{
-		// position: absolute;
-		// top:495upx;
-		// left: 5%;
 		margin-top: 50upx;
 		margin-left: 5%;
 		width: 90%;
@@ -474,10 +455,12 @@
 		height: 350upx;
 	}
 	.titleClass{
-		color: #FC4646;
 		font-size: 48upx;
-		margin-top:10upx;
+		margin-top:30upx;
 		margin-left: 6%;
+		/* #ifndef H5 */
+		margin-top:140upx;
+		/* #endif */
 	}
 </style>
 

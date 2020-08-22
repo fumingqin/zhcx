@@ -1,6 +1,6 @@
 /* 红色按钮 */
 .btn_background{
-	background-color: #FC4646;
+	background-color: #FFAF2A;
 }
 
 /* 白色字体 */
@@ -8,9 +8,19 @@
 	color: #FFFFFF;
 }
 
+/* 黄色字体 */
+.btn_color{
+	color: #FFAF2A;
+}
+
+/* 黄色边框字体 */
+.btn_borderColor{
+	border:1px solid #FFAF2A;
+}
+
 /* 个人中心重置按钮 */
 .btn_GRZX_CZ{
-	color: #FC4646; /* 红色字体 */
+	color: #FFAF2A; /* 红色字体 */
 	background-color: #FFFFFF; /* 白底 */
 }
 
