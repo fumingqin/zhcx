@@ -1,18 +1,18 @@
 <template>
 	<view>
 		<!-- 搜索框 -->
-		<view class="search-view">
+		<!-- <view class="search-view">
 			<image src="../../../../static/Home/Search.png" class="search-image"></image>
 			<input type="text" placeholder="请输入问题" class="search-input" />
-		</view>
+		</view> -->
 		<!-- 猜你想问 -->
-		<view class="guess-view">
+		<!-- <view class="guess-view">
 			<view class="top-text">
 				猜你想问
 			</view>
 			<view class="guess-middle">
 				<view v-for="(item,index) in Typetext" :key="index" class="text-list">
-					<view v-if="item.check" class="itemClass">{{item.text}}</view>
+					<view v-if="item.check" class="fontSize">{{item.text}}</view>
 				</view>
 				<view v-if="!openType" class="btnClass" @click="openList">
 					<image src="../../../static/GRZX/shangjiantou.png" class="jiantou"></image>
@@ -21,38 +21,36 @@
 					<image src="../../../static/GRZX/xiajiantou.png" class="jiantou"></image>
 				</view>
 			</view>
-		</view>
-		<!-- 插图 -->
-		<view class="chatu">
-			<!-- <image src="../../static/npzhcx.png" class="npzhcx-image"></image> -->
-		</view>
-		<!-- 用户评论 -->
+		</view> -->
+		<!-- 用户反馈 -->
 		<view class="user-talk">
 			<view class="top-text">
-				用户评论
+				用户反馈
 			</view>
-			<!-- 到时v-for判断写这个地方 -->
-			<view>
+			<view v-for="(item,index) in feedList" :key="index" :class="index==0?'':'bt'" class="mb">
 				<view class="user-talkinfo">
-					<!-- <image src="../../static/10053092_111926377363_2.jpg" class="user-topimage"></image> -->
-					<text class="user-name">叮当猫</text>
-					<text class="user-time">21:10</text>
+					<image :src="headImg" class="user-topimage"></image>
+					<text class="user-name">{{userName}}</text>
+					<text class="user-time">{{item.time}}</text>
 				</view>
+				
 				<view class="talkinfo">
-					漳州也是依托旅游拓展经济,希望不要再出什么30天无理由退货了
+					{{item.feedText}}
 				</view>
-				<view class="user-image-view">
-					<!-- <image src="../../static/10053092_111926377363_2.jpg" class="user-image"></image> -->
-					<!-- <image src="../../static/qq.png" class="user-image"></image> -->
-				</view>
-				<view class="huifu">
+				<!-- <view class="user-image-view"></view> -->
+				<view class="huifu" v-if="item.replyContent!=''">
 					<view class="huifu-view">
-						<text class="huifu-user">漳州达达通小弟:</text>
-						<text class="huifu-info">您好!感谢您的意见和建议，同时感谢您的支持，在今后的使用过程中有任何疑问，可随时拨打400-88-96301向我们进行详细反馈，我们将竭诚24小时为您服务。</text>
-						<!-- 评论图片 -->
-						<view class="pinglun-image-view" @click="gotoFeedback">
-							<!-- <image src="../../static/pinlun.png" class="pinglun-image"></image> -->
-						</view>
+						<text class="huifu-user">{{item.responder}}:</text>
+						<text class="huifu-info">{{item.replyContent}}</text>
+					</view>
+					<view class="huifu-time">
+						{{item.replyTime}}
+					</view>
+				</view>
+				
+				<view class="typeInfo">
+					<view class="itemClass" v-for="(item1,index1) in item.typeList" :key="index1">
+						{{item1}}
 					</view>
 				</view>
 			</view>
@@ -64,34 +62,84 @@
 	export default {
 		data() {
 			return {
-				openType:false,//默认关闭
-				Typetext: [{
-						text: '什么是助力车套餐?',
-						check:true
-					},
-					{
-						text: '功能不全,会闪退',
-						check:true
-					},
-					{
-						text: '无法按时退款,退款时间延迟?',
-						check:true
-					},
-					{
-						text: '优惠力度不大,免单金额怎么处理!',
-						check:false
-					},
-					{
-						text: '用户体验不顺畅,提升功能!',
-						check:false
-					},
-					{
-						text: '如何自动续费?',
-						check:false
-					}],
+				//openType:false,//默认关闭
+				// Typetext: [{
+				// 		text: '什么是助力车套餐?',
+				// 		check:true
+				// 	},
+				// 	{
+				// 		text: '功能不全,会闪退',
+				// 		check:true
+				// 	},
+				// 	{
+				// 		text: '无法按时退款,退款时间延迟?',
+				// 		check:true
+				// 	},
+				// 	{
+				// 		text: '优惠力度不大,免单金额怎么处理!',
+				// 		check:false
+				// 	},
+				// 	{
+				// 		text: '用户体验不顺畅,提升功能!',
+				// 		check:false
+				// 	},
+				// 	{
+				// 		text: '如何自动续费?',
+				// 		check:false
+				// 	}],
+				
+				feedList:[],	//反馈列表	
+				userName:'',	//用户昵称
+				headImg:'',		//用户头像
 			}
 		},
+		onLoad() {
+			uni.getStorage({
+				key:'userInfo',
+				success: (res) => {
+					this.userName = res.data.nickname;
+					this.headImg = res.data.portrait;
+				},
+				fail: (err) => {
+					uni.showToast({
+						title: '您当前暂未登录',
+						icon:'none',
+					});
+				}
+			})
+		},
+		onShow() {
+			this.loadFeedList();
+		},
 		methods: {
+			//----------------------------加载反馈列表----------------------------
+			loadFeedList(){
+				this.feedList=[{
+					feedText:'漳州也是依托旅游拓展经济,希望不要再出什么30天无理由退货了',
+					typeList:["用户体验","车票定价","功能建议"],
+					time:'2020-02-02 21:10',
+					replyContent:'您好!感谢您的意见和建议，同时感谢您的支持，在今后的使用过程中有任何疑问，可随时拨打400-88-96301向我们进行详细反馈，我们将竭诚24小时为您服务。',
+					responder:'客服回复',
+					replyTime:'2020-02-02 21:10',
+				},
+				{
+					feedText:'漳州也是依托旅游拓展经济,希望不要再出什么30天无理由退货了',
+					typeList:["用户体验","车票"],
+					time:'2020-02-02 21:10',
+					replyContent:'',
+					responder:'',
+					replyTime:'2020-02-02 21:10',
+				},
+				{
+					feedText:'漳州也是依托旅游拓展经济,希望不要再出什么30天无理由退货了',
+					typeList:["用户体验"],
+					time:'2020-02-02 21:10',
+					replyContent:'您好!感谢您的意见和建议，同时感谢您的支持，在今后的使用过程中有任何疑问，可随时拨打400-88-96301向我们进行详细反馈，我们将竭诚24小时为您服务。',
+					responder:'客服回复',
+					replyTime:'2020-02-02 21:10',
+				}]
+			},
+			
 			gotoFeedback:function(){
 				uni.navigateTo({
 					url:'Feedback'
@@ -187,9 +235,9 @@
 
 	.user-talk {
 		background-color: #FFFFFF;
-		height: 949upx;
 		border-radius: 20upx;
-		margin: 0 30upx 30upx 30upx;
+		margin: 25upx;
+		padding-bottom: 15upx;
 	}
 
 	.user-topimage {
@@ -200,8 +248,8 @@
 	}
 
 	.user-talkinfo {
-		margin-left: 30upx;
-		margin-top: 30upx;
+		padding-left: 30upx;
+		padding-top: 20upx;
 		display: flex;
 	}
 
@@ -209,19 +257,18 @@
 		font-size: 32upx;
 		color: #333333;
 		padding-left: 20upx;
-		/* position: absolute;
-	left: 154upx;
-	top: 1181upx; */
+		width: 40%;
+		display: block;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 	}
 
 	.user-time {
 		font-size: 28upx;
 		color: #999999;
-		margin-left: 353upx;
 		margin-top: 3upx;
-		/* 	position: absolute;
-	left: 610upx;
-	top: 1181upx; */
+		margin-left: 10upx;
 	}
 
 	.talkinfo {
@@ -230,15 +277,9 @@
 		margin-left: 124upx;
 		font-size: 34upx;
 		color: #9F9C9F;
-		/* 	position: absolute;
-	left: 154upx;
-	font-size: 30upx; */
 	}
 
 	.user-image-view {
-		/* 	position: absolute;
-	left: 134upx;
-	top: 1379upx; */
 		margin-left: 108upx;
 		margin-top: 40upx;
 	}
@@ -250,18 +291,15 @@
 	}
 
 	.huifu {
-		width: 539upx;
-		height: 295upx;
+		width: 77%;
 		background-color: #F5F9FC;
 		margin-left: 124upx;
 		margin-top: 25upx;
-		/* 	position: absolute;
-	left: 154upx;
-	top: 1631upx; */
+		border-radius: 20upx;
 	}
 
 	.huifu-view {
-		padding: 27upx 42upx 25upx 25upx;
+		padding: 27upx 27upx 10upx 27upx;
 		text-align: justify;
 	}
 
@@ -274,11 +312,14 @@
 		font-size: 30upx;
 		color: #999999;
 	}
+	
+	.huifu-time{
+		font-size: 30upx;
+		color: #999999;
+		padding:0 0 10upx 27upx;
+	}
 
 	.pinglun-image-view {
-/* 		position: absolute;
-		left: 579upx;
-		top: 1869upx; */
 		margin-left: 420upx;
 	}
 
@@ -286,7 +327,26 @@
 		width: 129upx;
 		height: 129upx;
 	}
-	.itemClass{
+	.fontSize{
 		font-size: 30upx;
+	}
+	
+	.typeInfo{
+		display: flex;
+		flex-direction: row;
+		margin: 20upx 0 10upx 15%;
+	}
+	.itemClass{
+		font-size: 24upx;
+		padding: 10upx 20upx;
+		background-color: #e7e7e7;
+		border-radius: 30upx;
+		margin-left: 20upx;
+	}
+	.mb{
+		margin-bottom: 30upx;
+	}
+	.bt{
+		border-top: 1upx solid #e6e6e6;
 	}
 </style>

@@ -14,93 +14,18 @@
 				</view>
 			</view>
 		</view>
+
+		<view>
+			<view class="itemClass" v-for="(item,index) in complaintList" :key="index" v-if="item.cm_auditStatus == type">
+				<text class="fontStyle fontSize">{{item.cm_title}}</text>
+				<text class="fontStyle">投诉对象：{{item.cm_name}}</text>
+				<text class="fontStyle">投诉时间：{{item.cm_createTime}}</text>
+				<text class="fontStyle">投诉内容：{{item.cm_info}}</text>
+				<text class="statusClass">{{formatState(item.cm_auditStatus)}}</text>
+				<view class="btnClass" @click="gotoStatus(item)">详细</view>
+			</view>
+		</view>
 		
-		<!-- 审核中 -->
-		<view v-if="type==0">
-			<!-- 暂无数据 -->
-			<view class="pd_image" v-if="complaintListIndex1==0">
-				<view>
-					<image class="im_image" src="../../../../static/Order/tslb.gif"></image>
-				</view>
-				<view>
-					<text class="im_text">暂无数据</text>
-				</view>
-			</view>
-			<view class="order-view" v-for="(item,index) in complaintList" :key="index" v-if="item.cm_status==0">
-				<view class="cm_titleView">
-					<image v-if="item.cm_choice=='包车'" class="cm_icon" src="../../../../static/Order/baoche.png" mode="aspectFill"></image>
-					<image v-if="item.cm_choice=='旅游'" class="cm_icon" src="../../../../static/Order/lvyou.png" mode="aspectFill"></image>
-					<image v-if="item.cm_choice=='客车'" class="cm_icon" src="../../../../static/Order/keche.png" mode="aspectFill"></image>
-					<image v-if="item.cm_choice=='出驻车'" class="cm_icon" src="../../../../static/Order/Car1.png" mode="aspectFill"></image>
-					<image v-if="item.cm_choice=='公交'" class="cm_icon" src="../../../../static/Order/gongjiao.png" mode="aspectFill"></image>
-					<text class="cm_title">{{item.cm_choice}}</text>
-					<text class="cm_status">{{item.or_Type}}</text>
-				</view>
-				<view class="order-info">
-					<text class="order_contentText">投诉对象：{{item.username}}</text>
-					<text class="order_contentText">投诉时间：{{item.cm_createTime}}</text>
-					<text class="order_contentText">投诉内容：{{item.cm_info}}</text>
-				</view>
-				<view class="order-bottom" @click="gotoStatus">详细</view>
-			</view>
-		</view>
-		<!-- 已通过 -->
-		<view v-if="type==1">
-			<!-- 暂无数据 -->
-			<view class="pd_image" v-if="complaintListIndex2==0">
-				<view>
-					<image class="im_image" src="../../../../static/Order/tslb.gif"></image>
-				</view>
-				<view>
-					<text class="im_text">暂无数据</text>
-				</view>
-			</view>
-			<view class="order-view" v-for="(item,index) in complaintList" :key="index" v-if="item.cm_status==1">
-				<view class="cm_titleView">
-					<image v-if="item.cm_choice=='包车'" class="cm_icon" src="../../../../static/Order/baoche.png" mode="aspectFill"></image>
-					<image v-if="item.cm_choice=='旅游'" class="cm_icon" src="../../../../static/Order/lvyou.png" mode="aspectFill"></image>
-					<image v-if="item.cm_choice=='客车'" class="cm_icon" src="../../../../static/Order/keche.png" mode="aspectFill"></image>
-					<image v-if="item.cm_choice=='出驻车'" class="cm_icon" src="../../../../static/Order/Car1.png" mode="aspectFill"></image>
-					<image v-if="item.cm_choice=='公交车'" class="cm_icon" src="../../../../static/Order/gongjiao.png" mode="aspectFill"></image>
-					<text class="cm_title">{{item.cm_choice}}</text>
-					<text class="cm_status">{{item.or_Type}}</text>
-				</view>
-				<view class="order-info">
-					<text class="order_contentText">投诉对象：{{item.username}}</text>
-					<text class="order_contentText">投诉时间：{{item.cm_createTime}}</text>
-					<text class="order_contentText">投诉内容：{{item.cm_info}}</text>
-				</view>
-				<view class="order-bottom" @click="gotoStatus">详细</view>
-			</view>
-		</view>
-		<!-- 未通过 -->
-		<view v-if="type==2">
-			<view class="pd_image" v-if="complaintListIndex3==0">
-				<view>
-					<image class="im_image" src="../../../../static/Order/tslb.gif"></image>
-				</view>
-				<view>
-					<text class="im_text">暂无数据</text>
-				</view>
-			</view>
-			<view class="order-view" v-for="(item,index) in complaintList" :key="index" v-if="item.cm_status==2">
-				<view class="cm_titleView">
-					<image v-if="item.cm_choice=='包车'" class="cm_icon" src="../../../../static/Order/baoche.png" mode="aspectFill"></image>
-					<image v-if="item.cm_choice=='旅游'" class="cm_icon" src="../../../../static/Order/lvyou.png" mode="aspectFill"></image>
-					<image v-if="item.cm_choice=='客车'" class="cm_icon" src="../../../../static/Order/keche.png" mode="aspectFill"></image>
-					<image v-if="item.cm_choice=='出驻车'" class="cm_icon" src="../../../../static/Order/Car1.png" mode="aspectFill"></image>
-					<image v-if="item.cm_choice=='公交车'" class="cm_icon" src="../../../../static/Order/gongjiao.png" mode="aspectFill"></image>
-					<text class="cm_title">{{item.cm_choice}}</text>
-					<text class="cm_status">{{item.or_Type}}</text>
-				</view>
-				<view class="order-info">
-					<text class="order_contentText">投诉对象：{{item.username}}</text>
-					<text class="order_contentText">投诉时间：{{item.cm_createTime}}</text>
-					<text class="order_contentText">投诉内容：{{item.cm_info}}</text>
-				</view>
-				<view class="order-bottom" @click="gotoStatus">详细</view>
-			</view>
-		</view>
 	</view>
 </template>
 
@@ -109,63 +34,52 @@
 		data() {
 			return {
 				type: 0, //默认审核中
-				complaintListIndex1: 1, //判断是否有数据
-				complaintListIndex2: 1, //判断是否有数据
-				complaintListIndex3: 1, //判断是否有数据
 				complaintList: [{
-						username: '小叮当1',
-						cm_createTime: '2020.7.23 9:00',
-						cm_choice: '包车',
-						cm_info: '投诉内容投诉内容投诉内容投诉内容内容投诉内容1',
-						cm_status: 0,
-						cm_number: 1,
-						or_Type: '审核中'
-					},
-					{
-						username: '小叮当2',
-						cm_createTime: '2020.7.23 9:00',
-						cm_choice: '公交车',
-						cm_info: '投诉内容投诉内容投诉内容投诉内容内容投诉内容2',
-						cm_status: 1,
-						cm_number: 2,
-						or_Type: '投诉成功'
-					},
-					{
-						username: '小叮当3',
-						cm_createTime: '2020.7.23 9:00',
-						cm_choice: '旅游',
-						cm_info: '投诉内容投诉内容投诉内容投诉内容内容投诉内容3',
-						cm_status: 2,
-						cm_number: 3,
-						or_Type: '投诉失败'
-					}
-				]
+					cm_title:'定制客运',
+					cm_name: '小叮当1',
+					cm_createTime: '2020.7.23 9:00',
+					cm_info: '投诉内容投诉内容投诉内容投诉内容内容投诉内容1',
+					cm_auditStatus:0,
+					cm_id:1001,
+				},
+				{
+					cm_title:'定制客运',
+					cm_name: '小叮当2',
+					cm_createTime: '2020.7.23 9:00',
+					cm_info: '投诉内容投诉内容投诉内容投诉内容内容投诉内容2',
+					cm_auditStatus:1,
+					cm_id:1002,
+					cm_reply:'感谢您的意见，我们衷心为您服务，如有不妥当的地方请多包涵，谢谢您的支持和理解，我们正在完善软件的用户体验。',
+				},
+				{
+					cm_title:'定制客运',
+					cm_name: '小叮当3',
+					cm_createTime: '2020.7.23 9:00',
+					cm_info: '投诉内容投诉内容投诉内容投诉内容内容投诉内容3',
+					cm_auditStatus:2,
+					cm_id:1003,
+					cm_reply:'审核失败！请重新提交',
+				}]
 			}
 		},
 		methods: {
 			// 顶部Tab
 			tabClick(e) {
-				if (e == 0) {
-					this.type = 0;
-				} else if (e == 1) {
-					this.type = 1;
-				} else if (e == 2) {
-					this.type = 2;
-				}
+				this.type = e;
 			},
-			gotoStatus: function() {
-				var that = this;
+			gotoStatus(e) {
+				uni.setStorageSync('complaintDetail',e)
 				uni.navigateTo({
-					url: 'complaintStatus?cm_number=' + that.cm_number
+					url: './complaintStatus'
 				})
 			},
-			formatState: function(status) {
+			formatState(status) {
 				switch (status) {
 					case 0:
 						return '审核中';
 						break;
 					case 1:
-						return '投诉完成';
+						return '投诉成功';
 						break;
 					case 2:
 						return '投诉失败';
@@ -190,7 +104,6 @@
 		position: sticky;
 		top: 0;
 		z-index: 999;
-
 		.screenView {
 			left: 0;
 			display: flex;
@@ -199,9 +112,7 @@
 			z-index: 10;
 			position: sticky;
 			top: 0;
-			// background-color: #F5F5F5;
 			margin-top: 20upx;
-
 			.screenText {
 				flex: 1;
 				display: flex;
@@ -211,13 +122,8 @@
 				font-size: 30upx;
 				color: #333333;
 				position: relative;
-
-
-
 				&.current {
 					color: #4CD964;
-					// background-color: #FFFFFF;
-
 					&:after {
 						content: '';
 						position: absolute;
@@ -232,113 +138,46 @@
 			}
 		}
 	}
-
-	// 暂无数据
-	.pd_image {
-		text-align: center;
-		line-height: 50%;
-		padding-top: 250upx;
-
-		.im_image {
-			width: 273upx;
-			height: 296upx;
-		}
-
-		.im_text {
-			font-size: 30upx;
-			color: #999999;
-			line-height: 106upx;
-		}
-	}
-
-	.order-view {
+	
+	.itemClass{
+		margin: 30upx 5% 0 5%;
 		background-color: #FFFFFF;
 		border-radius: 20upx;
-		margin: 40upx 28upx 0 28upx;
-		padding: 30upx 30upx 150upx 30upx;
-	}
-
-	.cm_titleView {
-		position: relative;
-
-		.cm_icon {
-			position: relative;
-			top: 4upx;
-			width: 34upx;
-			height: 38upx;
-		}
-
-		.cm_title {
-			margin-left: 24upx;
-			font-size: 36upx;
-			font-weight: bold;
-		}
-
-		.cm_status {
-			position: absolute;
-			right: 0;
-			font-size: 30upx;
-			color: red;
-			// top: 6upx;
-		}
-	}
-
-	.order-icon {
-		margin-top: 30upx;
-		margin-left: 30upx;
-		width: 34upx;
-		height: 38upx;
-	}
-
-	.order-title {
-		font-size: 37upx;
-		font-weight: 500;
-		margin-left: 20upx;
-		margin-top: 24upx;
-		width: 384upx;
-	}
-
-	.order-top {
-		display: flex;
-		flex-direction: row;
-		margin-top: 10upx;
-	}
-
-	.order-status {
-		font-size: 29upx;
-		margin-top: 30upx;
-		margin-left: 68upx;
-		color: red;
-	}
-
-	.order-info {
 		display: flex;
 		flex-direction: column;
-		margin-left: 56upx;
-		margin-top: 12upx;
+		position: relative;
+		.fontStyle{
+			font-size: 30upx;
+			color: #333333;
+			padding: 20upx 0 0 7%;
+			width: 80%;
+			display: block;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+		.fontSize{
+			font-size: 40upx;
+			font-weight: bold;
+		}
+		.btnClass{
+			margin: 20upx 0 30upx 65%;
+			padding: 18upx 0upx;
+			border-radius: 15upx;
+			width: 28%;
+			text-align: center;
+			border: 1upx solid #999999;
+			color: #414141;
+			font-size: 32upx;
+		}
+		.mt{
+			margin-top: 10upx;
+		}
+		.statusClass{
+			position: absolute;
+			right: 7%;
+			top: 25upx;
+			color: #414141;
+		}
 	}
-
-	.order_contentText {
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		width: 550upx;
-		margin-top: 16upx;
-		color: #66686A;
-		font-size: 30upx;
-	}
-	
-	.order-bottom {
-		float: right;
-		border: 2upx solid #dddddd;
-		border-radius: 10upx;
-		padding: 16upx 0upx;
-		width: 134upx;
-		text-align: center;
-		margin-top: 32upx;
-		color: #66686A;
-		font-size: 32upx;
-		margin-right: 20upx;
-	}
-	
 </style>
