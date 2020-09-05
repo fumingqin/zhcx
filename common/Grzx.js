@@ -86,21 +86,15 @@ const Interface={
 		method:'POST',
 		pages: [],
 	},
-	BindPersonInfoOpenID_wxAndPhoneNumber:{
-		value:Url+'/api/person/BindPersonInfoOpenID_wxAndPhoneNumber',
-		name:'微信openid，绑定手机号',
-		method:'POST',
-		pages: [],
-	},
+	// BindPersonInfoOpenID_wxAndPhoneNumber:{
+	// 	value:Url+'/api/person/BindPersonInfoOpenID_wxAndPhoneNumber',
+	// 	name:'微信openid，绑定手机号',
+	// 	method:'POST',
+	// 	pages: [],
+	// },
 	changeInfoPortrait:{
 		value:Url+'/api/person/changeInfoPortrait',
 		name:'只修改头像',
-		method:'POST',
-		pages: [],
-	},
-	GetUserInfoByOpenId_wx:{
-		value:Url+'/api/person/GetUserInfoByOpenId_wx',
-		name:'通过微信的openid获取用户信息',
 		method:'POST',
 		pages: [],
 	},
@@ -110,18 +104,24 @@ const Interface={
 		method:'POST',
 		pages: [],
 	 },
-	GetUserInfoByOpenId_qq:{
-		value:Url+'/api/person/GetUserInfoByOpenId_qq',
-		name:'通过qq的openid获取用户信息',
-		method:'POST',
-		pages: [],
-	}, 
-	GetUserInfoByOpenId_app:{
-		value:Url+'/api/person/GetUserInfoByOpenId_app',
-		name:'App微信授权和ios苹果登录',
-		method:'POST',
-		pages: [],
-	}, 
+	// GetUserInfoByOpenId_wx:{
+	// 	value:Url+'/api/person/GetUserInfoByOpenId_wx',
+	// 	name:'通过微信的openid获取用户信息',
+	// 	method:'POST',
+	// 	pages: [],
+	// },
+	// GetUserInfoByOpenId_qq:{
+	// 	value:Url+'/api/person/GetUserInfoByOpenId_qq',
+	// 	name:'通过qq的openid获取用户信息',
+	// 	method:'POST',
+	// 	pages: [],
+	// }, 
+	// GetUserInfoByOpenId_app:{
+	// 	value:Url+'/api/person/GetUserInfoByOpenId_app',
+	// 	name:'App微信授权和ios苹果登录',
+	// 	method:'POST',
+	// 	pages: [],
+	// }, 
 	SearchVersion:{
 		value:Url+'/api/person/SearchVersion',
 		name:'获取版本号',
@@ -184,7 +184,7 @@ const Interface={
 	},
 	getByTitle:{
 		value: Url + '/api/ky/getByTitle',
-		name:'获取',
+		name:'获取乘车须知',
 		method:'POST',//GET-POST
 		pages:[]
 	},

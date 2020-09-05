@@ -329,31 +329,31 @@
 				if(self.judgeNum(self.phoneNumber)){
 					var timer=null,second=59; //倒计时的时间
 					if(self.textCode == "获取验证码"){
-					  self.textCode = second+"秒后重发";
-					  if(self.textCode == "59秒后重发"){
-						  timer=setInterval(function(){
-						  second--;
-						  if(second<=0){	
-						  	self.textCode = "获取验证码";
-						  	clearInterval(timer);
-						  	second=59;	
-						  }
-						  else{			
-						  	self.textCode = second+"秒后重发";
-						  }},1000)
-						 uni.request({
+						self.textCode = second+"秒后重发";
+						if(self.textCode == "59秒后重发"){
+							timer=setInterval(function(){
+							second--;
+							if(second<=0){	
+								self.textCode = "获取验证码";
+								clearInterval(timer);
+								second=59;	
+							}
+							else{			
+								self.textCode = second+"秒后重发";
+							}
+						  },1000)
+						uni.request({
 							url:self.$GrzxInter.Interface.getLoginCode.value,
 							data:{
 								phoneNumber:self.phoneNumber,
 							},
 							method:self.$GrzxInter.Interface.getLoginCode.method,
-							
 							success:(res)=>{
 						 		console.log(res.data.data,'158');
 								var listCode={
-										phone:self.phoneNumber,
-										code:res.data.data,
-									};
+									phone:self.phoneNumber,
+									code:res.data.data,
+								};
 								uni.setStorageSync('captchaCode',listCode)
 								uni.showToast({
 									title:"验证码已发送，仅在5分钟内有效!",

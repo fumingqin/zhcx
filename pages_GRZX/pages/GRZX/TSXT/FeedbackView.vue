@@ -249,7 +249,7 @@
 
 	.user-talkinfo {
 		padding-left: 30upx;
-		padding-top: 20upx;
+		padding-top: 30upx;
 		display: flex;
 	}
 
@@ -344,7 +344,7 @@
 		margin-left: 20upx;
 	}
 	.mb{
-		margin-bottom: 30upx;
+		margin-bottom: 40upx;
 	}
 	.bt{
 		border-top: 1upx solid #e6e6e6;
