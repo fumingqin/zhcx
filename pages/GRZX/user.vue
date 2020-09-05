@@ -1,7 +1,6 @@
 <template>
 	<view class="content">
 		<view class="backImg">
-			<!-- 顶部背景图 -->
 			
 			<!-- #ifdef APP-PLUS -->
 			<image src="../../static/GRZX/set.png" class="setClass" @click="navTo('set')"></image>
