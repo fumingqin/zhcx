@@ -28,23 +28,60 @@ export default {
 			openType2:false,//默认不开启列表
 			textmarn:0,//字数
 			btncheck:false,//默认提交按钮样式
+			userInfo:'',	//用户信息
 		}
+	},
+	onLoad(){
+		uni.getStorage({
+			key:'userInfo',
+			success: res => {
+				this.userInfo = res.data;
+			}
+		})
 	},
 	methods: {
 		//字数统计
 		Inputtext:function(e){
 			this.textmarn=e.detail.cursor; 
 		},
-		successClick:function(){
-			var type='';
-			for(var i=0;i<this.typetext.length;i++)
-			{
-				type+=this.typetext[i] + ',';
+		successClick:function(e){
+			if(this.complaintInfo == ""){
+				uni.showToast({
+					icon:'none',
+					title:'请先描述问题'
+				})
+			}else{
+				uni.request({
+					url: this.$GrzxInter.Interface.Add_Complaint.value,
+					method: this.$GrzxInter.Interface.Add_Complaint.method,
+					data: {
+						userID : this.userInfo.userId,		//用户id
+						ComplaintContent : this.complaintInfo,		//投诉内容
+						Phone : this.userInfo.phoneNumber,	//用户手机号
+						DriverID : '2000001',		//司机ID
+						DriverName:'测试司机',					//司机姓名
+						AppType : this.$GrzxInter.systemConfig.openidtype,	//应用类型
+						ProjectCode : this.$GrzxInter.newApplyName,		//项目名称
+					},
+					success: res => {
+						uni.showToast({
+							title: res.data.msg,
+							icon:'none'
+						});
+						if(res.data.status){
+							setTimeout(function(){
+								uni.navigateBack();
+							},500)
+						}
+					},
+					fail: () => {
+						uni.showToast({
+							title: '网络连接失败',
+							icon:'none'
+						});
+					},
+				});
 			}
-			type=type.substring(0,type.length-1)
-			console.log(type)
-			
-			console.log(this.complaintInfo);
 		}
 	}
 }

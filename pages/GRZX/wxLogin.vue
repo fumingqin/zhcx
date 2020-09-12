@@ -183,18 +183,18 @@
 						var user = new Object();
 						if(type=='appWxLogin'){
 							user={
-								userId:data.userId,
+								userId:data.UserId,
 								phoneNumber:phone,
 								nickname:userInfo.nickName,//微信昵称
 								address:userInfo.province+userInfo.city,//微信地址
-								openId_wx:data.openId_wx,
+								openId_wx:data.OpenId_wx,
 								gender:userInfo.gender,//微信性别
-								openId_qq:data.openId_qq,
-								openId_xcx:data.openId_xcx,
-								openId_ios:data.openId_ios,
+								openId_qq:data.OpenId_qq,
+								openId_xcx:data.OpenId_xcx,
+								openId_ios:data.OpenId_ios,
 								openId_app:userInfo.openId, //微信 oenid
-								birthday:data.birthday,
-								autograph:data.autograph,
+								birthday:data.Birthday,
+								autograph:data.Autograph,
 								portrait:userInfo.avatarUrl,//微信头像
 							}
 						}else if(type=='appQQLogin'){
@@ -205,34 +205,34 @@
 								gender=2;
 							}
 							user={
-								userId:data.userId,
+								userId:data.UserId,
 								phoneNumber:phone,
 								nickname:userInfo.nickName,//qq昵称
 								address:userInfo.province+userInfo.city,//qq地址
-								openId_wx:data.openId_wx,
+								openId_wx:data.OpenId_wx,
 								gender:gender,//qq性别
 								openId_qq:userInfo.openId, //qq openid
-								openId_xcx:data.openId_xcx,
-								openId_ios:data.openId_ios,
-								openId_app:data.openId_app, 
-								birthday:data.birthday,
-								autograph:data.autograph,
+								openId_xcx:data.OpenId_xcx,
+								openId_ios:data.OpenId_ios,
+								openId_app:data.OpenId_app, 
+								birthday:data.Birthday,
+								autograph:data.Autograph,
 								portrait:userInfo.figureurl_2,//微信头像
 							}
 						}else if(type=='H5'){
 							user={
-								userId:data.userId,
+								userId:data.UserId,
 								phoneNumber:phone,
 								nickname:userInfo.nickname,
 								address:userInfo.province+userInfo.city,
 								openId_wx:userInfo.openid,//H5 openid
-								gender:data.gender,
-								openId_qq:data.openId_qq,
-								openId_xcx:data.openId_xcx,
-								openId_ios:data.openId_ios,
-								openId_app:data.openId_app, 
-								birthday:data.birthday,
-								autograph:data.autograph,
+								gender:data.Gender,
+								openId_qq:data.OpenId_qq,
+								openId_xcx:data.OpenId_xcx,
+								openId_ios:data.OpenId_ios,
+								openId_app:data.OpenId_app, 
+								birthday:data.Birthday,
+								autograph:data.Autograph,
 								portrait:userInfo.headimgurl,//微信头像
 							}
 						}else if(type=="appleLogin"){

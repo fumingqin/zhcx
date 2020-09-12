@@ -15,17 +15,20 @@
 			</view>
 		</view>
 
-		<view>
-			<view class="itemClass" v-for="(item,index) in complaintList" :key="index" v-if="item.cm_auditStatus == type">
-				<text class="fontStyle fontSize">{{item.cm_title}}</text>
-				<text class="fontStyle">投诉对象：{{item.cm_name}}</text>
-				<text class="fontStyle">投诉时间：{{item.cm_createTime}}</text>
-				<text class="fontStyle">投诉内容：{{item.cm_info}}</text>
-				<text class="statusClass">{{formatState(item.cm_auditStatus)}}</text>
+		<view v-if="show">
+			<view class="itemClass" v-for="(item,index) in complaintList" :key="index" v-if="formatType(item.IsReply) == type">
+				<text class="fontStyle fontSize">{{item.ProjectType}}</text>
+				<text class="fontStyle">投诉对象：{{item.DriverName}}</text>
+				<text class="fontStyle">投诉时间：{{formateTime(item.CreatetTime)}}</text>
+				<text class="fontStyle">投诉内容：{{item.ComplaintContent}}</text>
+				<text class="statusClass">{{formatState(item.IsReply)}}</text>
 				<view class="btnClass" @click="gotoStatus(item)">详细</view>
 			</view>
 		</view>
 		
+		<view class="noneData" v-if="!show">
+			您当前暂无投诉
+		</view>
 	</view>
 </template>
 
@@ -33,52 +36,87 @@
 	export default {
 		data() {
 			return {
+				show:false,		//是否显示
 				type: 0, //默认审核中
-				complaintList: [{
-					cm_title:'定制客运',
-					cm_name: '小叮当1',
-					cm_createTime: '2020.7.23 9:00',
-					cm_info: '投诉内容投诉内容投诉内容投诉内容内容投诉内容1',
-					cm_auditStatus:0,
-					cm_id:1001,
-				},
-				{
-					cm_title:'定制客运',
-					cm_name: '小叮当2',
-					cm_createTime: '2020.7.23 9:00',
-					cm_info: '投诉内容投诉内容投诉内容投诉内容内容投诉内容2',
-					cm_auditStatus:1,
-					cm_id:1002,
-					cm_reply:'感谢您的意见，我们衷心为您服务，如有不妥当的地方请多包涵，谢谢您的支持和理解，我们正在完善软件的用户体验。',
-				},
-				{
-					cm_title:'定制客运',
-					cm_name: '小叮当3',
-					cm_createTime: '2020.7.23 9:00',
-					cm_info: '投诉内容投诉内容投诉内容投诉内容内容投诉内容3',
-					cm_auditStatus:2,
-					cm_id:1003,
-					cm_reply:'审核失败！请重新提交',
-				}]
+				complaintList: [],	//投诉列表
+				userId:'',		//用户id
 			}
 		},
+		onLoad() {
+			uni.setNavigationBarTitle({
+				title:'我的投诉',
+			})
+			const userInfo = uni.getStorageSync('userInfo') || '';
+			if(userInfo == ""){
+				uni.showToast({
+					title: '您当前暂未登录',
+					icon:'none',
+				});
+			}else{
+				this.userId = userInfo.userId;
+			}
+		},
+		onShow() {
+			this.loadComplaintList();
+		},
 		methods: {
-			// 顶部Tab
+			//-------------------------------顶部Tab-------------------------------
 			tabClick(e) {
 				this.type = e;
+				var list=this.complaintList.filter(item => {
+					return this.formatType(item.IsReply) == e; //条件
+				})
+				if(list.length > 0){
+					this.show = true;
+				}else{
+					this.show = false;
+				}
 			},
+			
+			//-------------------------------投诉详情-------------------------------
 			gotoStatus(e) {
 				uni.setStorageSync('complaintDetail',e)
 				uni.navigateTo({
 					url: './complaintStatus'
 				})
 			},
+			
+			//-------------------------------加载投诉列表-------------------------------
+			loadComplaintList(status) {
+				uni.showLoading({
+					title:'加载中...'
+				})
+				uni.request({
+					url: this.$GrzxInter.Interface.GetMyComplaintList.value,
+					method: this.$GrzxInter.Interface.GetMyComplaintList.method,
+					data: {
+						userID : this.userId,
+					},
+					success: res => {
+						console.log(res);
+						this.complaintList = res.data.data;
+						var list=this.complaintList.filter(item => {
+							return this.formatType(item.IsReply) == 0; //条件
+						})
+						if(list.length > 0){
+							this.show = true;
+						}else{
+							this.show = false;
+						}
+					},
+					complete: () => {
+						uni.hideLoading();
+					}
+				});
+			},
+			
+			//-------------------------------格式化审核状态-------------------------------
 			formatState(status) {
 				switch (status) {
-					case 0:
+					case false:
 						return '审核中';
 						break;
-					case 1:
+					case true:
 						return '投诉成功';
 						break;
 					case 2:
@@ -87,6 +125,27 @@
 					default:
 						return '';
 				}
+			},
+			formatType(status){
+				switch (status) {
+					case false:
+						return 0;
+						break;
+					case true:
+						return 1;
+						break;
+					case 2:
+						return 2;
+						break;
+					default:
+						return '';
+				}
+			},
+			
+			//---------------------------------格式化时间---------------------------------
+			formateTime(time){
+				let date=time.replace('T',' ');
+				return date.substring(0,16);
 			},
 		}
 	}
@@ -179,5 +238,12 @@
 			top: 25upx;
 			color: #414141;
 		}
+	}
+	
+	.noneData{
+		color: #5a5a5b;
+		display: flex; 
+		justify-content: center;
+		margin-top: 400upx;
 	}
 </style>

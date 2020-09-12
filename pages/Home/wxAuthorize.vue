@@ -175,18 +175,18 @@ export default{
 						uni.request({
 							url:that.$GrzxInter.Interface.changeInfo.value,
 							data:{
-								userId:res1.data.data.userId,
+								userId:res1.data.data.UserId,
 								phoneNumber:data.purePhoneNumber,
 								nickname:that.userInfo.nickName,
 								address:that.userInfo.province+that.userInfo.city,
-								openId_wx:res1.data.data.openId_wx,
+								openId_wx:res1.data.data.OpenId_wx,
 								gender:that.userInfo.gender,
-								openId_qq:res1.data.data.openId_qq,
-								openId_ios:res1.data.data.openId_ios,
-								openId_app:res1.data.data.openId_app,
+								openId_qq:res1.data.data.OpenId_qq,
+								openId_ios:res1.data.data.OpenId_ios,
+								openId_app:res1.data.data.OpenId_app,
 								openId_xcx:that.openId_xcx,
-								birthday:res1.data.data.birthday,
-								autograph:res1.data.data.autograph,
+								birthday:res1.data.data.Birthday,
+								autograph:res1.data.data.Autograph,
 								systemname:that.$GrzxInter.systemConfig.appName,//应用名称
 								openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 							},
@@ -196,7 +196,7 @@ export default{
 								uni.request({
 									url:that.$GrzxInter.Interface.changeInfoPortrait.value,
 									data:{
-										userId:res2.data.data.userId,
+										userId:res1.data.data.UserId,
 										portrait:that.userInfo.avatarUrl,
 									},
 									method:that.$GrzxInter.Interface.changeInfoPortrait.method,

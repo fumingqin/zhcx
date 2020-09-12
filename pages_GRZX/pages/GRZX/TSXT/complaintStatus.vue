@@ -14,7 +14,7 @@
 				类别
 			</view>
 			<view class="type-text">
-				{{cm_Detail.cm_title}}
+				{{cm_Detail.ProjectType}}
 			</view>
 		</view>
 		
@@ -23,16 +23,24 @@
 				投诉内容
 			</view>
 			<view class="complaintinfo-text">
-				{{cm_Detail.cm_info}}
+				{{cm_Detail.ComplaintContent}}
 			</view>
 		</view>
 		
-		<view class="backinfo" v-if="cm_Detail.cm_auditStatus != 0">
+		<view class="backinfo" v-if="cm_Detail.IsReply">
 			<view class="top-text">
 				回复内容 
 			</view>
 			<view class="complaintinfo-text">
-				{{cm_Detail.cm_reply}} 
+				{{cm_Detail.ReplyContent}} 
+			</view>
+		</view>
+		<view class="backinfo" v-if="cm_Detail.IsReply">
+			<view class="top-text">
+				回复时间 
+			</view>
+			<view class="complaintinfo-text">
+				{{formateTime(cm_Detail.ReplyTime)}} 
 			</view>
 		</view>
 	</view>
@@ -60,11 +68,15 @@
 			uniSteps
 		},
 		onLoad() {
+			uni.setNavigationBarTitle({
+				title:'投诉详情',
+			})
 			uni.getStorage({
 				key:'complaintDetail',
 				success:res=>{
 					this.cm_Detail = res.data;
 					this.load();
+					uni.removeStorageSync('complaintDetail');
 				},
 				fail: () => {
 					uni.showToast({
@@ -76,14 +88,16 @@
 		},
 		methods: {
 			load(){
-				if(this.cm_Detail.cm_auditStatus == 1){
+				if(this.cm_Detail.IsReply){
 					this.options[2].title="投诉成功";
 					this.active=2;
 				}
-				if(this.cm_Detail.cm_auditStatus == 2){
-					this.options[2].title="投诉失败";
-					this.active=2;
-				}
+			},
+			
+			//---------------------------------格式化时间---------------------------------
+			formateTime(time){
+				let date=time.replace('T',' ');
+				return date.substring(0,16);
 			},
 		}
 	}

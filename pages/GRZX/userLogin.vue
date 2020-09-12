@@ -187,8 +187,25 @@
 								method: that.$GrzxInter.Interface.login.method,
 								success(res) {
 									console.log(res)
+									let data = res.data.data;
+									var user = new Object();
+									user = {
+										address : data.Address,
+										autograph : data.Autograph,
+										birthday : data.Birthday,
+										gender : data.Gender,
+										openId_app : data.OpenId_app,
+										openId_ios : data.OpenId_ios,
+										openId_qq : data.OpenId_qq,
+										openId_wx : data.OpenId_wx,
+										openId_xcx : data.OpenId_xcx,
+										phoneNumber : data.PhoneNumber,
+										portrait : data.Portrait,
+										userId : data.UserId,
+										nickname : data.Nickname,
+									};
+									uni.setStorageSync('userInfo', user);
 									uni.removeStorageSync('captchaCode');
-									uni.setStorageSync('userInfo', res.data.data);
 									//that.LoginLog(res.data.data.userId, res.data.data.phoneNumber);
 									uni.hideLoading();
 									that.successReturn(); //登陆成功后返回

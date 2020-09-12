@@ -1,29 +1,7 @@
 <template>
 	<view>
-		<!-- 搜索框 -->
-		<!-- <view class="search-view">
-			<image src="../../../../static/Home/Search.png" class="search-image"></image>
-			<input type="text" placeholder="请输入问题" class="search-input" />
-		</view> -->
-		<!-- 猜你想问 -->
-		<!-- <view class="guess-view">
-			<view class="top-text">
-				猜你想问
-			</view>
-			<view class="guess-middle">
-				<view v-for="(item,index) in Typetext" :key="index" class="text-list">
-					<view v-if="item.check" class="fontSize">{{item.text}}</view>
-				</view>
-				<view v-if="!openType" class="btnClass" @click="openList">
-					<image src="../../../static/GRZX/shangjiantou.png" class="jiantou"></image>
-				</view>
-				<view v-if="openType" class="btnClass" @click="closeList">
-					<image src="../../../static/GRZX/xiajiantou.png" class="jiantou"></image>
-				</view>
-			</view>
-		</view> -->
 		<!-- 用户反馈 -->
-		<view class="user-talk">
+		<view class="user-talk" v-if="show">
 			<view class="top-text">
 				用户反馈
 			</view>
@@ -31,29 +9,34 @@
 				<view class="user-talkinfo">
 					<image :src="headImg" class="user-topimage"></image>
 					<text class="user-name">{{userName}}</text>
-					<text class="user-time">{{item.time}}</text>
+					<text class="user-time">{{formateTime(item.SuggestionTime)}}</text>
 				</view>
-				
 				<view class="talkinfo">
-					{{item.feedText}}
+					{{item.Suggestion}}
 				</view>
-				<!-- <view class="user-image-view"></view> -->
-				<view class="huifu" v-if="item.replyContent!=''">
+				<view class="huifu" v-if="item.IsReply">
 					<view class="huifu-view">
-						<text class="huifu-user">{{item.responder}}:</text>
-						<text class="huifu-info">{{item.replyContent}}</text>
+						<text class="huifu-user">{{item.Responder}}:</text>
+						<text class="huifu-info">{{item.ReplyContent}}</text>
 					</view>
 					<view class="huifu-time">
-						{{item.replyTime}}
+						{{formateTime(item.ReplyTime)}}
 					</view>
 				</view>
-				
-				<view class="typeInfo">
+				<!-- <view class="typeInfo">
 					<view class="itemClass" v-for="(item1,index1) in item.typeList" :key="index1">
 						{{item1}}
 					</view>
-				</view>
+				</view> -->
 			</view>
+		</view>
+		
+		<view class="noneData" v-if="!show">
+			您当前暂无反馈
+		</view>
+		
+		<view class="boxClass">
+			<button class="feedClass btn_background" @click="feedClick">前往反馈</button>
 		</view>
 	</view>
 </template>
@@ -62,51 +45,28 @@
 	export default {
 		data() {
 			return {
-				//openType:false,//默认关闭
-				// Typetext: [{
-				// 		text: '什么是助力车套餐?',
-				// 		check:true
-				// 	},
-				// 	{
-				// 		text: '功能不全,会闪退',
-				// 		check:true
-				// 	},
-				// 	{
-				// 		text: '无法按时退款,退款时间延迟?',
-				// 		check:true
-				// 	},
-				// 	{
-				// 		text: '优惠力度不大,免单金额怎么处理!',
-				// 		check:false
-				// 	},
-				// 	{
-				// 		text: '用户体验不顺畅,提升功能!',
-				// 		check:false
-				// 	},
-				// 	{
-				// 		text: '如何自动续费?',
-				// 		check:false
-				// 	}],
-				
+				show:false,		//是否显示
 				feedList:[],	//反馈列表	
 				userName:'',	//用户昵称
 				headImg:'',		//用户头像
+				userId:'',		//用户id
 			}
 		},
 		onLoad() {
-			uni.getStorage({
-				key:'userInfo',
-				success: (res) => {
-					this.userName = res.data.nickname;
-					this.headImg = res.data.portrait;
-				},
-				fail: (err) => {
-					uni.showToast({
-						title: '您当前暂未登录',
-						icon:'none',
-					});
-				}
+			uni.setNavigationBarTitle({
+				title:'反馈列表',
 			})
+			const userInfo = uni.getStorageSync('userInfo') || '';
+			if(userInfo == ""){
+				uni.showToast({
+					title: '您当前暂未登录',
+					icon:'none',
+				});
+			}else{
+				this.userName = userInfo.nickname;
+				this.headImg = userInfo.portrait;
+				this.userId = userInfo.userId;
+			}
 		},
 		onShow() {
 			this.loadFeedList();
@@ -114,52 +74,43 @@
 		methods: {
 			//----------------------------加载反馈列表----------------------------
 			loadFeedList(){
-				this.feedList=[{
-					feedText:'漳州也是依托旅游拓展经济,希望不要再出什么30天无理由退货了',
-					typeList:["用户体验","车票定价","功能建议"],
-					time:'2020-02-02 21:10',
-					replyContent:'您好!感谢您的意见和建议，同时感谢您的支持，在今后的使用过程中有任何疑问，可随时拨打400-88-96301向我们进行详细反馈，我们将竭诚24小时为您服务。',
-					responder:'客服回复',
-					replyTime:'2020-02-02 21:10',
-				},
-				{
-					feedText:'漳州也是依托旅游拓展经济,希望不要再出什么30天无理由退货了',
-					typeList:["用户体验","车票"],
-					time:'2020-02-02 21:10',
-					replyContent:'',
-					responder:'',
-					replyTime:'2020-02-02 21:10',
-				},
-				{
-					feedText:'漳州也是依托旅游拓展经济,希望不要再出什么30天无理由退货了',
-					typeList:["用户体验"],
-					time:'2020-02-02 21:10',
-					replyContent:'您好!感谢您的意见和建议，同时感谢您的支持，在今后的使用过程中有任何疑问，可随时拨打400-88-96301向我们进行详细反馈，我们将竭诚24小时为您服务。',
-					responder:'客服回复',
-					replyTime:'2020-02-02 21:10',
-				}]
+				uni.showLoading({
+					title:'加载中...'
+				})
+				uni.request({
+					url: this.$GrzxInter.Interface.GetMySuggestionList.value,
+					method: this.$GrzxInter.Interface.GetMySuggestionList.method,
+					data: {
+						userID : this.userId,
+					},
+					success: res => {
+						console.log(res);
+						if(res.data.data.length > 0){
+							this.show = true;
+						}
+						this.feedList = res.data.data;
+					},
+					fail: () => {},
+					complete: () => {
+						uni.hideLoading();
+					}
+				});
+				
 			},
 			
-			gotoFeedback:function(){
+			//---------------------------------前往反馈---------------------------------
+			feedClick(){
 				uni.navigateTo({
-					url:'Feedback'
+					url:'./Feedback'
 				})
 			},
-			openList:function(){
-				for(var i=0;i<this.Typetext.length;i++){
-					this.Typetext[i].check=true;
-				}
-				this.openType=true;
+			
+			//---------------------------------格式化时间---------------------------------
+			formateTime(time){
+				let date=time.replace('T',' ');
+				return date.substring(0,16);
 			},
-			closeList:function(){
-				for(var i=0;i<this.Typetext.length;i++){
-				if(i>1){
-					this.Typetext[i].check=false;
-				}
-				this.openType=false;
-			}
 		}
-	},
 }
 </script>
 
@@ -238,6 +189,7 @@
 		border-radius: 20upx;
 		margin: 25upx;
 		padding-bottom: 15upx;
+		margin-bottom: 140upx;
 	}
 
 	.user-topimage {
@@ -273,7 +225,6 @@
 
 	.talkinfo {
 		width: 544upx;
-		height: 83upx;
 		margin-left: 124upx;
 		font-size: 34upx;
 		color: #9F9C9F;
@@ -344,9 +295,28 @@
 		margin-left: 20upx;
 	}
 	.mb{
-		margin-bottom: 40upx;
+		margin-bottom: 25upx;
 	}
 	.bt{
 		border-top: 1upx solid #e6e6e6;
+	}
+	
+	.boxClass{
+		width: 100%;
+		position: fixed;
+		bottom: 0upx;
+		left: 0%;
+		background-color: #F4F6F8;
+	}
+	.feedClass{
+		width: 90%;
+		margin: 20upx 5%;
+		color: #FFFFFF;
+	}
+	.noneData{
+		color: #5a5a5b;
+		display: flex; 
+		justify-content: center;
+		margin-top: 400upx;
 	}
 </style>

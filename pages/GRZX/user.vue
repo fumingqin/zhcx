@@ -240,17 +240,31 @@
 								method: that.$GrzxInter.Interface.login.method,
 								success(res) {
 									console.log(res,'res')
-									// that.checkIDRealName(res.data.data.userId);
-									uni.setStorageSync('userInfo', res.data.data);
-									that.userInfo = res.data.data;
-
-									if (res.data.data.nickname == "" || res.data.data.nickname == null) {
+									let data = res.data.data;
+									var user = new Object();
+									user = {
+										address : data.Address,
+										autograph : data.Autograph,
+										birthday : data.Birthday,
+										gender : data.Gender,
+										openId_app : data.OpenId_app,
+										openId_ios : data.OpenId_ios,
+										openId_qq : data.OpenId_qq,
+										openId_wx : data.OpenId_wx,
+										openId_xcx : data.OpenId_xcx,
+										phoneNumber : data.PhoneNumber,
+										portrait : data.Portrait,
+										userId : data.UserId,
+										nickname : data.Nickname,
+									};
+									uni.setStorageSync('userInfo', user);
+									that.userInfo = user;
+									if (user.nickname == "" || user.nickname == null) {
 										that.nickname="请输入昵称";
-										// that.nickname = res.data.data.phoneNumber;
 									} else {
-										that.nickname = res.data.data.nickname;
+										that.nickname = user.nickname;
 									}
-									var base64 = res.data.data.portrait;
+									var base64 = user.portrait;
 									if (that.isBase64(base64)) {
 										base64ToPath(base64)
 											.then(path => {
@@ -261,7 +275,7 @@
 									} else {
 										that.port = base64;
 									}
-									that.userId = res.data.data.userId;
+									that.userId = user.userId;
 								},
 								fail(err) {
 									console.log(err);

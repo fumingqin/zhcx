@@ -3,13 +3,13 @@
 		<!-- 上边view -->
 		<view class="top-view">
 			<!-- 上边类型 -->
-			<view style="display: flex;flex-direction: row;flex-wrap: wrap;">
+			<!-- <view style="display: flex;flex-direction: row;flex-wrap: wrap;">
 				<view v-for="(item,index) in typeList" :key="index" @click="change(index)">
 					<view class="top-view-Type">
 						<view :class="item.checked?'changefontStyle btn_background':'fontStyle'">{{item.text}}</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<!-- 文本域 -->
 			<view class="top-view-textarea">
 				<textarea v-model="ideaContent" placeholder="请描述问题，更快帮您解决问题" maxlength="500" @input="Inputtext" />
@@ -31,7 +31,8 @@
 			</view>
 		</view>
 		<!-- 提交 -->
-		<view class="btnClass" :class="btncheck?'changecolor2 btn_background':'changecolor1'" @click="successClick(btncheck)">提交</view>
+		<view class="btnClass changecolor2 btn_background" @click="successClick">提交</view>
+		<!-- <view class="btnClass" :class="btncheck?'changecolor2 btn_background':'changecolor1'" @click="successClick(btncheck)">提交</view> -->
 	</view>
 </template>
 
@@ -41,7 +42,7 @@ import robbyImageUpload from '@/pages_GRZX/components/GRZX/robby-image-upload/ro
 export default {
 	data() {
 		return {
-			port:[],//存储图片base64
+			pictureArray:[],//存储图片base64
 			ideaContent:'',//存储内容
 			textmarn:0,//字数
 			btncheck:false,//提交按钮是否变换
@@ -85,29 +86,55 @@ export default {
 			detailInfo: { //详细信息
 				imageData: [], //图像日期	
 			},
+			
+			userInfo:'',	//用户信息
+			systemType:'',	//系统类型
 		}
 	},
 	components: {
 		robbyImageUpload, // 导入图片上传
 	},
+	onLoad() {
+		uni.setNavigationBarTitle({
+			title:'意见反馈',
+		})
+		uni.getStorage({
+			key:'userInfo',
+			success: res => {
+				this.userInfo = res.data;
+			}
+		})
+		try {
+		    const res = uni.getSystemInfoSync();
+			if(res.platform == 'ios'){
+				//当前是iOS系统
+				this.systemType = 1;
+			}else {
+				//当前是Android系统
+				this.system = 0;
+			}
+		} catch (e) {
+		    // error
+		}
+	},
 	methods: {
 		deleteImage: function(e){
 			console.log(e)
-			var index = this.port.findIndex(item => {
+			var index = this.pictureArray.findIndex(item => {
 				for(var i=0;i<e.allImages.length;i++){
 					if(item ==this.typeList[i].text) {
 						return true;
 					}
 				}
 			})
-			this.port.splice(index,1);
+			this.pictureArray.splice(index,1);
 		},
 		addImage: function(e){
 			console.log(e)
 			for(var i=0;i<e.allImages.length;i++){
 				pathToBase64(e.allImages[i])
 				.then(base64 => {
-					this.port.push(base64);
+					this.pictureArray.push(base64);
 				})
 			}
 		},
@@ -150,24 +177,44 @@ export default {
 			}
 		},
 		successClick:function(e){
-			if(!this.btncheck){
-				uni.showToast({
-					icon:'none',
-					title:'请选择意见类型，谢谢'
-				})
-			}else if(this.ideaContent==""){
+			if(this.ideaContent==""){
 				uni.showToast({
 					icon:'none',
 					title:'请填写意见，谢谢'
 				})
 			}else{
-				var type='';
-				for(var i=0;i<this.checkedType.length;i++)
-				{
-					type+=this.checkedType[i] + ',';
-				}
-				type=type.substring(0,type.length-1)
-				console.log(type)
+				uni.request({
+					url: this.$GrzxInter.Interface.Add_Suggestion.value,
+					method: this.$GrzxInter.Interface.Add_Suggestion.method,
+					data: {
+						userID : this.userInfo.userId,		//用户id
+						SuggestionPicture : this.pictureArray,		//反馈图片
+						Suggestion : this.ideaContent,		//反馈内容
+						Phone : this.userInfo.phoneNumber,	//用户手机号
+						SystemType : this.systemType,		//系统类型
+						SuggestionType:'',					//反馈类型
+						AppType : this.$GrzxInter.systemConfig.openidtype,	//应用类型
+						ProjectCode : this.$GrzxInter.newApplyName,		//项目名称
+					},
+					success: res => {
+						console.log(res,"反馈");
+						uni.showToast({
+							title: res.data.msg,
+							icon:'none'
+						});
+						if(res.data.status){
+							setTimeout(function(){
+								uni.navigateBack();
+							},500)
+						}
+					},
+					fail: () => {
+						uni.showToast({
+							title: '网络连接失败',
+							icon:'none'
+						});
+					},
+				});
 			}
 		}
 	},
@@ -212,6 +259,7 @@ export default {
 		margin-left: 43upx;
 		margin-top: 30upx;
 		font-size: 32upx;
+		padding-top: 20upx;
 	}
 	.top-view-bottomtext{
 		font-size: 28upx;
@@ -234,8 +282,9 @@ export default {
 		}
 	}
 	.btnClass{
-		margin-top: 20upx;
-		margin-left: 4%;
+		position: fixed;
+		bottom: 20upx;
+		left: 4%;
 		width: 92%;
 		text-align: center;
 		font-size: 34upx;
