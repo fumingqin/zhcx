@@ -9,11 +9,10 @@
 			</swiper>
 			<!-- app -->
 			<view class="zl_swi " circular>
-				<view class="swiItem" style="display: flex;align-items: center;" v-for="(item,index) in swiperItem" :key="index">
-					<view style="display: flex;width: 50%;justify-content: center;" v-for="(ArrItem,index1) in item.ItemArr" :key="index1">
-						<view style="display: flex;justify-content: center;flex-direction: column;align-items: center;" @click="TitleJump(ArrItem.IsUse,ArrItem.clickURL)">
-							<image v-if="ArrItem.ItemTitle=='邵泰专线'" style="width: 318upx;height: 188upx;padding-left: 14upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
-							<image v-if="ArrItem.ItemTitle=='客运查询'" style="width: 318upx;height: 188upx;padding-right: 14upx;" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
+				<view class="swiItem" v-for="(item,index) in swiperItem" :key="index">
+					<view class="sw_content" v-for="(ArrItem,index1) in item.ItemArr" :key="index1">
+						<view class="co_image" @click="TitleJump(ArrItem.IsUse,ArrItem.clickURL)">
+							<image :class="ArrItem.system" mode="aspectFit" :src="ArrItem.ImageURL" lazy-load="true"></image>
 						</view>
 					</view>
 				</view>
@@ -27,16 +26,9 @@
 				<view class="zl_noContent">
 					<swiper class="swi2" vertical circular autoplay display-multiple-items="2" disable-touch="true">
 						<swiper-item v-for="(item,index) in consultingService" :key="index" :item-id="index" v-if="item.Type!='计费规则'">
-							<!-- <scroll-view scroll-y> -->
 							<view class="zl_noText" @click="newsClick(item)">{{item.Title}}</view>
-							<!-- </scroll-view> -->
 						</swiper-item>
 					</swiper>
-					<!-- <view class="zl_label">
-						<view class="la_label" v-for="(item,index) in Announcement.LabelContent" :key="index" v-if="index<2">
-							<text class="la_background" style="background-color: #e8f6e9;border-radius:20px;" @click="Jump">{{item.lc_text}}</text>
-						</view>
-					</view> -->
 				</view>
 			</view>
 		</view>
@@ -54,89 +46,31 @@
 				<view class="zl_contentImage1">
 					<!-- 泉州小西埕 -->
 					<view class="ct_content1" @click="godetail(sixPalaceList[0].ticketId)">
-						<!-- <image class="ct_image1" :src="sixPalaceList[0].ticketImage[0]" mode="aspectFill"></image>
-						<text class="ct_text1" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">{{sixPalaceList[0].ticketTitle}}</text> -->
 						<image class="ct_image1" :src="NanpingStyle[0].imageUrl" mode="aspectFill"></image>
-						<!-- <text class="ct_text1" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">巾帼文明线</text> -->
 					</view>
 					<!-- 稻田摸鱼 -->
 					<view class="ct_content2" @click="godetail(sixPalaceList[1].ticketId)">
-						<!-- <image class="ct_image2" :src="sixPalaceList[1].ticketImage[0]" mode="aspectFill"></image>
-						<text class="ct_text2" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[1].ticketTitle}}</text> -->
 						<image class="ct_image2" :src="NanpingStyle[1].imageUrl" mode="aspectFill"></image>
-						<!-- <text class="ct_text2" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">公共自行车</text> -->
 					</view>
 				</view>
 
 				<view class="zl_contentImage2">
 					<!-- 泉州钟楼 -->
 					<view class="ct_content3" @click="godetail(sixPalaceList[2].ticketId)">
-						<!-- <image class="ct_image3" :src="sixPalaceList[2].ticketImage[0]" mode="aspectFill"></image>
-						<text class="ct_text3" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[2].ticketTitle}}</text> -->
 						<image class="ct_image3" :src="NanpingStyle[2].imageUrl" mode="aspectFill"></image>
-						<!-- <text class="ct_text3" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">古雷助力车</text> -->
 					</view>
 					<!-- 泉州洛阳桥 -->
 					<view class="ct_content4" @click="godetail(sixPalaceList[3].ticketId)">
-						<!-- <image class="ct_image4" :src="sixPalaceList[3].ticketImage[0]" mode="aspectFill"></image>
-						<text class="ct_text4" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[3].ticketTitle}}</text> -->
 						<image class="ct_image4" :src="NanpingStyle[3].imageUrl" mode="aspectFill"></image>
-						<!-- <text class="ct_text4" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">客运南站</text> -->
 					</view>
 					<!-- 七彩官畲 -->
 					<view class="ct_content5" @click="godetail(sixPalaceList[4].ticketId)">
-						<!-- <image class="ct_image5" :src="sixPalaceList[4].ticketImage[0]" mode="aspectFill"></image>
-						<text class="ct_text5" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;width: 124upx;">{{sixPalaceList[4].ticketTitle}}</text> -->
 						<image class="ct_image5" :src="NanpingStyle[4].imageUrl" mode="aspectFill"></image>
-						<!-- <text class="ct_text5" style="background:rgba(0,0,0,1);opacity:0.7;border-radius:4px;margin-left: 10upx;margin-bottom: 21upx;">双层公交</text> -->
 					</view>
 				</view>
 			</view>
 		</view>
 
-		<!-- 新闻资讯 -->
-		<!-- <view class="titNp">新闻资讯</view>
-		<view class="guess-section">
-			<view v-for="(item, index) in goodsList" :key="index" class="guess-item" @click="informationTo(item.aid)">
-				<view class="image-wrapper">
-					<image :src="item.imageUrl" mode="aspectFill"></image>
-				</view>
-				<view class="title clamp">{{item.title}}</view>
-				<view>
-					<image class="Portrait" src="../../static/GRZX/missing-face.png" mode="aspectFill"></image>
-					<text class="price">{{item.reportTime}}</text>
-					<text class="price-zan">阅读{{item.viewsCount+1080}}</text>
-				</view>
-			</view>
-		</view> -->
-
-		<!-- <view style="width: 100%; float: left; text-align: center; font-size: 24upx; padding: 16upx 0; color: #aaa; background: #FFFFFF;">
-			<text v-if="current==0" :hidden="disStatus== 1">{{loadingType== 0 ? loadingText.down : (loadingType === 1 ? loadingText.refresh : loadingText.nomore)}}</text>
-			<text v-if="current==0" :hidden="disStatus== 0">暂无历史数据</text>
-		</view> -->
-
-		<!-- tab按钮 -->
-		<!-- <view class="zc_TabBackground">
-			<view class="tb_tab">
-				<view class="tb_button">
-					<view class="tb_button2" :class="{current:type===0}" @click="tabClick(0)"></view>
-				</view>
-				<view class="tb_button3">
-					<view class="tb_button4" :class="{current:type===1}" @click="tabClick(1)"></view>
-				</view>
-			</view>
-		</view> -->
-		<view class="zl_recommend" v-if="applyName=='南平综合出行2'">
-			<view>
-				<view class="zl_reContent">
-					<text class="zl_reTitle">应用合作</text>
-				</view>
-				<view style="padding: 40rpx 0;display: flex;justify-content: center;">
-					<text style="font-size: 30rpx;">客服热线：</text>
-					<text style="font-size: 30rpx;color: #65C36D;">0596-2100000</text>
-				</view>
-			</view>
-		</view>
 		<!-- 服务协议和隐私政策 -->
 		<uni-popup ref="centerPopup" type="center">
 			<view class="centerClass">
@@ -216,12 +150,14 @@
 								IsUse: true,
 								clickURL: "",
 								ImageURL: "../../static/Home/stcx.png",
-								ItemTitle: "邵泰专线"
+								ItemTitle: "邵泰专线",
+								system:'STZXIcon'
 							},{
 								IsUse: true,
 								clickURL: "",
 								ImageURL: "../../static/Home/kyzx.png",
-								ItemTitle: "客运查询"
+								ItemTitle: "客运查询",
+								system:'KYCXIcon'
 							}
 						]
 					},
@@ -298,15 +234,6 @@
 			that.getCode();
 			//#endif
 		},
-
-		//页面触底
-		// onReachBottom() {
-		// 	uni.showLoading({
-		// 		title: '加载更多中...',
-		// 		icon: 'loading'
-		// 	})
-		// 	this.getMore();
-		// },
 		components: {
 			uniPopup,
 			MxDatePicker,
@@ -419,38 +346,6 @@
 			},
 			//----------------------接口数据-------------------------------
 			loadData: function() {
-				//请求新闻资讯
-				// uni.request({
-				// 	url: $lyfw.Interface.currency_zhly.value,
-				// 	method: $lyfw.Interface.currency_zhly.method,
-				// 	success: (e) => {
-				// 		console.log(e)
-				// 		if (e.data.msg == '获取成功') {
-				// 			if (e.data.data.length == 0) {
-				// 				this.disStatus = 1;
-				// 			} else {
-				// 				this.goodsList = e.data.data;
-				// 				this.disStatus = 0;
-				// 			}
-				// 		} else {
-				// 			uni.hideLoading()
-				// 			uni.stopPullDownRefresh()
-				// 			this.goodsList = '';
-				// 			uni.showToast({
-				// 				title: '获取失败',
-				// 				icon: 'none'
-				// 			})
-				// 		}
-				// 	},
-				// 	fail: function() {
-				// 		uni.hideLoading()
-				// 		uni.stopPullDownRefresh()
-				// 		uni.showToast({
-				// 			title: '网络异常，请检查网络后尝试',
-				// 			icon: 'none'
-				// 		})
-				// 	}
-				// })
 
 				//请求六宫格数据
 				uni.request({
@@ -905,27 +800,9 @@
 		opacity: 0.75;
 	}
 
-	// .wx-swiper-dots {
-	// 	position: relative;
-	// 	left: unset !important;
-	// 	right: 0;
-	// }
-
-	// .wx-swiper-dots.wx-swiper-dots-horizontal {
-	// 	margin-bottom: 5rpx;
-	// }
-
 	.wx-swiper-dots.wx-swiper-dots-horizontal {
 		margin-bottom: -5rpx;
 	}
-
-	// 选中指示点的样式
-	// .zl_swi .wx-swiper-dot.wx-swiper-dot-active {
-	// 	width: 40upx;
-	// 	height: 15upx;
-	// 	border-radius: 15upx;
-	// 	// opacity: 0.75;
-	// }
 
 	.zc_TabBackground {
 		background-color: #FFFFFF;
@@ -1018,8 +895,36 @@
 			height: 100%;
 			overflow: hidden;
 			background-color: #FFFFFF;
-
+			display: flex;
+			align-items: center;
+			
+			.sw_content{
+				display: flex;
+				width: 50%;
+				justify-content: center;
+				
+				.co_image{
+					display: flex;
+					justify-content: center;
+					flex-direction: column;
+					align-items: center;
+				}
+			}
 		}
+	}
+	
+	.STZXIcon{
+		width: 318upx;
+		height: 188upx;
+		padding-left: 16upx;
+		padding-top: 6upx;
+	}
+	
+	.KYCXIcon{
+		width: 318upx;
+		height: 188upx;
+		padding-right: 16upx;
+		padding-top: 6upx;
 	}
 
 	//咨询动态
