@@ -1,13 +1,20 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		//--------------------主页--------------------
+		//--------------------邵泰专线主页--------------------
 		{
 			"path": "pages/Home/zy_ztcx",
 			"style": {
 				"navigationStyle": "custom"
 			}
 		},
-		//--------------------专线购票--------------------
+		//--------------------南平综合出行主页--------------------
+		{
+			"path": "pages/Home/zy_zhcx",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		//--------------------兴业银行主页--------------------
 		{
 			"path": "pages/Home/zxgpHomePage",
 			"style": {
@@ -15,14 +22,6 @@
 				"navigationStyle": "custom"
 			}
 		},
-		//--------------------主页--------------------
-		{
-			"path": "pages/Home/zy_zhcx",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-
 		//--------------------引导页--------------------
 		{
 			"path": "pages/Home/guidePage",
@@ -178,12 +177,12 @@
 				"navigationBarTitleText": "服务"
 			}
 		}
-
-		, {
-			"path": "pages/order/newOrderList",
-			"style": {}
-		}
-	],
+       
+        ,{
+            "path" : "pages/order/newOrderList",
+            "style" : {}
+        }
+    ],
 
 	"subPackages": [
 		//---------------------------------------------第一个包：传统客运------------------------------------------
@@ -225,7 +224,8 @@
 					"style": {
 						"navigationBarTitleText": "客运"
 					}
-				}, {
+				}
+				, {
 					"path": "pages/CTKY/TraditionSpecial/stationPicker/homeSattionPick",
 					"style": {
 						"navigationBarTitleText": "选择站点"
@@ -406,14 +406,16 @@
 				{
 					"path": "pages/GJCX/busH5",
 					"style": {}
-				}, {
-					"path": "pages/HC/huoche",
-					"style": {}
-				}, {
-					"path": "pages/HB/hangban",
-					"style": {}
 				}
-			]
+			    ,{
+                    "path" : "pages/HC/huoche",
+                    "style" : {}
+                }
+                ,{
+                    "path" : "pages/HB/hangban",
+                    "style" : {}
+                }
+            ]
 		},
 		//---------------------------------------------第四个包：包车服务------------------------------------------
 		{
@@ -515,7 +517,7 @@
 				},
 				{
 					"path": "pages/LYFW/currency/imgPreview3",
-
+				
 					"style": {
 						"navigationBarTitleText": "查看图片"
 					}
@@ -934,7 +936,7 @@
 					"path": "pages/GRZX/TSXT/FeedbackView", //软件许可及服务协议
 					"style": {}
 				}
-
+				
 			]
 		},
 		//---------------------------------------------第七个包：达达通------------------------------------------
@@ -1013,18 +1015,18 @@
 					"path": "pages/GRZY/zy_newsScreening",
 					"style": {
 						"navigationBarTitleText": "资讯列表",
-						"navigationBarTextStyle": "White",
-						"navigationBarBackgroundColor": "#ff9012"
+						"navigationBarTextStyle":"White",
+						"navigationBarBackgroundColor":"#ff9012"
 					}
 				}, {
 					"path": "pages/RentBike/Payment",
 					"style": {
 						"navigationBarTitleText": "支付",
-						"navigationBarTextStyle": "White",
-						"navigationBarBackgroundColor": "#65C36D",
+						"navigationBarTextStyle":"White",
+						"navigationBarBackgroundColor":"#65C36D",
 						"app-plus": {
 							"titleNView": {
-								"autoBackButton": false,
+								"autoBackButton":false,
 								"buttons": [{
 									"text": "刷新",
 									"type": "transparent",
@@ -1033,53 +1035,59 @@
 								}]
 							}
 						}
-					}
+					} 
 				},
 				{
-					"path": "pages/GRZY/zy_QRcode",
-					"style": {}
-				}, {
-					"path": "pages/GRZY/zy_commuterCard",
-					"style": {}
+				    "path" : "pages/GRZY/zy_QRcode",
+				    "style" : {}
+				}
+				,{
+				    "path" : "pages/GRZY/zy_commuterCard",
+				    "style" : {}
 				},
 				{
 					"path": "pages/GRZY/zy_topUpRecord",
 					"style": {
 						"navigationBarTitleText": "充值记录"
 					}
-				}, {
-					"path": "pages/GRZY/newsDetail",
-					"style": {
-						"navigationBarTitleText": "新闻详情",
-						"navigationBarTextStyle": "White",
-						"navigationBarBackgroundColor": "#ff9012"
-					}
-				}, {
-					"path": "pages/GRZY/refundRecord",
-					"style": {}
-				}, {
-					"path": "pages/Bus/BusSeach",
-					"style": {
-						"navigationBarTitleText": " 公交查询",
-						"navigationBarTextStyle": "White",
-						"navigationBarBackgroundColor": "#65C36D"
-					}
-				}, {
-					"path": "pages/RentBike/BillingRule",
-					"style": {
-						"navigationBarTitleText": "计费规则",
-						"navigationBarTextStyle": "White",
-						"navigationBarBackgroundColor": "#65C36D"
-					}
-				}, {
-					"path": "pages/Bus/TicketPurchase",
-					"style": {
-						"navigationBarTitleText": "车票订购",
-						"navigationBarTextStyle": "White",
-						"navigationBarBackgroundColor": "#65C36D"
-					}
 				}
-			]
+			    ,{
+                    "path" : "pages/GRZY/newsDetail",
+                    "style" : {
+						"navigationBarTitleText": "新闻详情",
+						"navigationBarTextStyle":"White",
+						"navigationBarBackgroundColor":"#ff9012"
+					}
+                }
+                ,{
+                    "path" : "pages/GRZY/refundRecord",
+                    "style" : {}
+                }
+                ,{
+                    "path" : "pages/Bus/BusSeach",
+                   "style" : {
+                   	"navigationBarTitleText": " 公交查询",
+                   	"navigationBarTextStyle":"White",
+                   	"navigationBarBackgroundColor":"#65C36D"
+                   }
+                }
+                ,{
+                    "path" : "pages/RentBike/BillingRule",
+                    "style" : {
+						"navigationBarTitleText": "计费规则",
+						"navigationBarTextStyle":"White",
+						"navigationBarBackgroundColor":"#65C36D"
+					}
+                }
+                ,{
+                    "path" : "pages/Bus/TicketPurchase",
+                    "style" : {
+						"navigationBarTitleText": "车票订购",
+						"navigationBarTextStyle":"White",
+						"navigationBarBackgroundColor":"#65C36D"
+					}
+                }
+            ]
 		},
 		//---------------------------------------------第八个包：检测预约------------------------------------------
 		{
@@ -1114,9 +1122,9 @@
 				}
 			]
 		},
-
+		
 		//---------------------------------------------第十一个包：专线购票------------------------------------------
-
+		
 		{
 			"root": "pages_ZXGP/",
 			"pages": [
@@ -1155,7 +1163,8 @@
 					"style": {
 						"navigationBarTitleText": "客运"
 					}
-				}, {
+				}
+				, {
 					"path": "pages/ZXGP/TraditionSpecial/stationPicker/homeSattionPick",
 					"style": {
 						"navigationBarTitleText": "选择站点"
@@ -1239,7 +1248,7 @@
 				}, {
 					"path": "pages/ZXGP/TraditionSpecial/PayMent/CTKYPayFail",
 					"style": {
-
+			
 					}
 				}
 			]
@@ -1262,21 +1271,22 @@
 		//#ifdef APP-PLUS
 		"fontSize": "16px",
 		//#endif
-		"list": [{
+		"list": [
+			{
 				// "pagePath": "pages/Home/zxgpHomePage",
-				"pagePath": "pages/Home/zxgpHomePage",
+				"pagePath": "pages/Home/zy_zhcx",
 				"text": "首页"
 			},
 			{
 				"pagePath": "pages/GRZX/notice",
 				"text": "通知"
 			},
-			// {
-			// 	"pagePath": "pages/Home/serve",
-			// 	"text": "服务"
-			// },
 			{
-				"pagePath": "pages/order/newOrderList",
+				"pagePath": "pages/Home/serve",
+				"text": "服务"
+			},
+			{
+				"pagePath": "pages/order/OrderList",
 				"text": "订单"
 			},
 

@@ -1,5 +1,5 @@
 {
-    "name" : "武夷股份特惠班线",
+    "name" : "南平综合出行",
     "appid" : "__UNI__506FF45",
     "description" : "",
     "versionName" : "1.0.0",
@@ -18,9 +18,9 @@
         /* 模块配置 */
         "modules" : {
             "Maps" : {},
+            "OAuth" : {},
             "Share" : {},
-            "Payment" : {},
-            "OAuth" : {}
+            "Payment" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -33,8 +33,6 @@
                     "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCOUNT_MANAGER\"/>",
-                    "<uses-permission android:name=\"android.permission.BIND_INPUT_METHOD\"/>",
                     "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
                     "<uses-permission android:name=\"android.permission.CAMERA\"/>",
                     "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
@@ -80,28 +78,21 @@
                 "ad" : {},
                 "payment" : {
                     "weixin" : {
-                        "appid" : "wx4394e02214803063",
+                        "appid" : "wxb6e7a1abe313216a",
                         "UniversalLinks" : "https://zntc.145u.net/ulink/"
                     }
                 },
                 "oauth" : {
                     "qq" : {
                         "appid" : "1110314303"
-                    },
-                    "weixin" : {
-                        "appid" : "wx4394e02214803063",
-                        "appsecret" : "07be2a96f2ddc3d1eb5f0ab0c0c90f2d",
-                        "UniversalLinks" : "https://zntc.145u.net/ulink/"
-                    },
-                    "apple" : {}
+                    }
                 },
                 "share" : {
                     "weixin" : {
-                        "appid" : "wx4394e02214803063",
+                        "appid" : "wxb6e7a1abe313216a",
                         "UniversalLinks" : "https://zntc.145u.net/ulink/"
                     }
-                },
-                "push" : {}
+                }
             },
             "icons" : {
                 "android" : {
@@ -151,7 +142,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wxb9df0ad8d98f94a1",
+        "appid" : "wx37b8f978e30050e4",
         "setting" : {
             "es6" : false,
             "postcss" : true,
