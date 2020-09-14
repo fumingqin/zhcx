@@ -441,6 +441,17 @@
 						uni.hideLoading();
 					}
 				})
+				
+				// uni.request({
+				// 	url: $Zxgp.KyInterface.GetAllLine.Url,
+				// 	method: $Zxgp.KyInterface.GetAllLine.method,
+				// 	data: {
+				// 		// systemname: this.applyName
+				// 	},
+				// 	success: (res) => {
+				// 		console.log('请求线路查询的数据：', res)
+				// 	},
+				// })
 			},
 			quick:function(item){
 				var params='/pages_ZXGP/pages/ZXGP/TraditionSpecial/Order/selectTickets?&startStation=' + item.StartSiteName +'&endStation=' + item.EndSiteName + '&date=' + this.datestring + '&isNormal=' + this.type2;

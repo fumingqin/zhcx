@@ -11,6 +11,7 @@ const Interface = {
 			// Url : 'https://zntc.145u.net:9099',
 			Url : 'https://zntc.145u.net:9099', //综合出行
 		// #endif
+			Url2:"http://36.250.234.10:60032", //定制客运
 	},
 	
 	system:{
