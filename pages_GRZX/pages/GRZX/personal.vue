@@ -120,92 +120,72 @@
 				uni.getStorage({
 					key:'userInfo',
 					success(res){
-						var phone=res.data.phoneNumber;
-						if(phone!=""&&phone!=null&&res.data!=""){
-							uni.request({
-								url:that.$GrzxInter.Interface.login.value,
-								data:{
-									phoneNumber:res.data.phoneNumber,
-									systemname:that.$GrzxInter.systemConfig.appName,//应用名称
-									openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
-								},
-								method:that.$GrzxInter.Interface.login.method,
-								success(res1) {
-									console.log(res1,"108")
-									// ------------1.头像-------------
-									var base64=res1.data.data.portrait;
-									that.port=res1.data.data.portrait;
-									if(that.isBase64(base64)){
-										base64ToPath(base64)
-										  .then(path => {
-										    that.portrait=path;
-										  })
-										  .catch(error => {
-										  })
-									}else{
-										that.portrait=base64;
-									}
-									// ------------2.昵称-------------
-									if(res1.data.data.nickname==null||res1.data.data.nickname==""){
-										that.nickname="";
-									}else{
-										that.nickname =res1.data.data.nickname;
-									}
-									// ------------3.性别-------------
-									that.gender=res1.data.data.gender;
-									if(res1.data.data.gender==null||res1.data.data.gender==""){
-										that.selector="请选择";
-									}else{
-										that.selector=that.genderSex[res1.data.data.gender];
-									}
-									// ------------4.生日-------------
-									if(res1.data.data.birthday==null||res1.data.data.birthday==""){
-										that.birthday="请选择";
-									}else{
-										that.birthday =res1.data.data.birthday.substring(0,10);
-									}
-									// ------------5.地址-------------
-									if(res1.data.data.address==null||res1.data.data.address==""){
-										that.address="";
-									}else{
-										that.address =res1.data.data.address;
-									}
-									// ------------6.签名-------------
-									if(res1.data.data.autograph==null||res1.data.data.autograph==""){
-										that.autograph="";
-									}else{
-										that.autograph =res1.data.data.autograph;
-									}
-									// ------------7.用户Id-------------
-									that.userId=res1.data.data.userId;
-									// ------------8.openId_qq-------------
-									that.openId_qq=res1.data.data.openId_qq;
-									// ------------9.openId_wx-------------
-									that.openId_wx=res1.data.data.openId_wx;
-									// ------------10.openId_wx-------------
-									that.openId_xcx=res1.data.data.openId_xcx;
-									// ------------11.openId_ios-------------
-									that.openId_ios=res1.data.data.openId_ios;
-									// ------------12.openId_app-------------
-									that.openId_app=res1.data.data.openId_app;
-									// ------------13.手机号-------------
-									that.phoneNumber=res1.data.data.phoneNumber;
-									uni.hideLoading();
-								}
-							})
+						let data = res.data;
+						// ------------1.头像-------------
+						var base64=data.portrait;
+						that.port=data.portrait;
+						if(that.isBase64(base64)){
+							base64ToPath(base64)
+							  .then(path => {
+							    that.portrait=path;
+							  })
+							  .catch(error => {
+							  })
 						}else{
-							uni.showToast({
-								title:'信息获取失败',
-								icon:'none'
-							})
+							that.portrait=base64;
 						}
+						// ------------2.昵称-------------
+						if(data.nickname==null||data.nickname==""){
+							that.nickname="";
+						}else{
+							that.nickname =data.nickname;
+						}
+						// ------------3.性别-------------
+						that.gender=data.gender;
+						if(data.gender==null||data.gender==""){
+							that.selector="请选择";
+						}else{
+							that.selector=that.genderSex[data.gender];
+						}
+						// ------------4.生日-------------
+						if(data.birthday==null||data.birthday==""){
+							that.birthday="请选择";
+						}else{
+							that.birthday =data.birthday.substring(0,10);
+						}
+						// ------------5.地址-------------
+						if(data.address==null||data.address==""){
+							that.address="";
+						}else{
+							that.address =data.address;
+						}
+						// ------------6.签名-------------
+						if(data.autograph==null||data.autograph==""){
+							that.autograph="";
+						}else{
+							that.autograph =data.autograph;
+						}
+						// ------------7.用户Id-------------
+						that.userId=data.userId;
+						// ------------8.openId_qq-------------
+						that.openId_qq=data.openId_qq;
+						// ------------9.openId_wx-------------
+						that.openId_wx=data.openId_wx;
+						// ------------10.openId_wx-------------
+						that.openId_xcx=data.openId_xcx;
+						// ------------11.openId_ios-------------
+						that.openId_ios=data.openId_ios;
+						// ------------12.openId_app-------------
+						that.openId_app=data.openId_app;
+						// ------------13.手机号-------------
+						that.phoneNumber=data.phoneNumber;
+						uni.hideLoading();
 					}
 				})	
 			},
 			
 			// --------------------------------------2.性别------------------------------------
 			genderChange : function(e){
-				//console.log(e.detail.value,"sex")
 				if(e.detail.value==0){
 					this.selector="请选择";
 				}else{
@@ -219,14 +199,12 @@
 				this.birthday = e.detail.value;
 			},
 			
-			// -----------------
 			// --------------------------------------4.获得日期------------------------------------
 			getDate(type) {
 				const date = new Date();
 				let year = date.getFullYear();
 				let month = date.getMonth() + 1;
 				let day = date.getDate();
-
 				if (type === 'start') {
 					year = year - 60;
 				} else if (type === 'end') {

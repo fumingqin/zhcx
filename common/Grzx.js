@@ -15,11 +15,15 @@ import $oSit from '@/common/overallSituation.js';
 	const Url=$oSit.Interface.address.Url;
 // #endif
 
+const Url1 = 'http://36.250.234.10:60032';
+
 const systemConfig={
 	appName:$oSit.Interface.system.appName,	
 	applyName:$oSit.Interface.system.applyName,		//应用名称
 	openidtype:$oSit.Interface.system.openidtype,	//应用类型：app，小程序，公众号
 }
+
+const newApplyName = '定制客运';
 
 const appConfig={
 	wxConfig:{
@@ -45,7 +49,7 @@ const Interface={
 		pages: [],
 	},
 	login:{
-		value:Url+'/api/person/login',
+		value:Url1+'/api/person/login',
 		name:'用户登录',
 		method:'POST',
 		pages: [],
@@ -75,7 +79,7 @@ const Interface={
 		pages: [],
 	},
 	getLoginCode:{
-		value:Url+'/api/person/getLoginCode',
+		value:Url1+'/api/person/getLoginCode',
 		name:'获取手机验证码',
 		method:'POST',
 		pages: [],
@@ -86,21 +90,15 @@ const Interface={
 		method:'POST',
 		pages: [],
 	},
-	BindPersonInfoOpenID_wxAndPhoneNumber:{
-		value:Url+'/api/person/BindPersonInfoOpenID_wxAndPhoneNumber',
-		name:'微信openid，绑定手机号',
-		method:'POST',
-		pages: [],
-	},
+	// BindPersonInfoOpenID_wxAndPhoneNumber:{
+	// 	value:Url+'/api/person/BindPersonInfoOpenID_wxAndPhoneNumber',
+	// 	name:'微信openid，绑定手机号',
+	// 	method:'POST',
+	// 	pages: [],
+	// },
 	changeInfoPortrait:{
 		value:Url+'/api/person/changeInfoPortrait',
 		name:'只修改头像',
-		method:'POST',
-		pages: [],
-	},
-	GetUserInfoByOpenId_wx:{
-		value:Url+'/api/person/GetUserInfoByOpenId_wx',
-		name:'通过微信的openid获取用户信息',
 		method:'POST',
 		pages: [],
 	},
@@ -110,18 +108,24 @@ const Interface={
 		method:'POST',
 		pages: [],
 	 },
-	GetUserInfoByOpenId_qq:{
-		value:Url+'/api/person/GetUserInfoByOpenId_qq',
-		name:'通过qq的openid获取用户信息',
-		method:'POST',
-		pages: [],
-	}, 
-	GetUserInfoByOpenId_app:{
-		value:Url+'/api/person/GetUserInfoByOpenId_app',
-		name:'App微信授权和ios苹果登录',
-		method:'POST',
-		pages: [],
-	}, 
+	// GetUserInfoByOpenId_wx:{
+	// 	value:Url+'/api/person/GetUserInfoByOpenId_wx',
+	// 	name:'通过微信的openid获取用户信息',
+	// 	method:'POST',
+	// 	pages: [],
+	// },
+	// GetUserInfoByOpenId_qq:{
+	// 	value:Url+'/api/person/GetUserInfoByOpenId_qq',
+	// 	name:'通过qq的openid获取用户信息',
+	// 	method:'POST',
+	// 	pages: [],
+	// }, 
+	// GetUserInfoByOpenId_app:{
+	// 	value:Url+'/api/person/GetUserInfoByOpenId_app',
+	// 	name:'App微信授权和ios苹果登录',
+	// 	method:'POST',
+	// 	pages: [],
+	// }, 
 	SearchVersion:{
 		value:Url+'/api/person/SearchVersion',
 		name:'获取版本号',
@@ -184,44 +188,51 @@ const Interface={
 	},
 	getByTitle:{
 		value: Url + '/api/ky/getByTitle',
-		name:'获取',
+		name:'获取乘车须知',
 		method:'POST',//GET-POST
 		pages:[]
 	},
 	
+	//------------------------------------意见反馈------------------------------------
+	Add_Suggestion:{
+		value: Url1 + '/api/Suggestion/Add_Suggestion',
+		name:'添加意见反馈',
+		method:'POST',//GET-POST
+		pages:[]
+	},
+	GetMySuggestionList:{
+		value: Url1 + '/api/Suggestion/GetMySuggestionList',
+		name:'查询意见反馈列表',
+		method:'POST',//GET-POST
+		pages:[]
+	},
 	
-	//-----------------------达达通start------------------------
-	// RegistUser:{
-	// 	value: ddtUrl + '/api/SmartBikePerson/RegistUser',
-	// 	name:'达达通注册自行车用户',
-	// 	method:'POST',//GET-POST
-	// 	pages:[]
-	// },
-	// GetUserByUserID:{
-	// 	value: ddtUrl + '/api/SmartBikePerson/GetUserByUserID',
-	// 	name:'通过用户Id获取用户是否实名',
-	// 	method:'POST',//GET-POST
-	// 	pages:[]
-	// },
-	// UpdateRealNamePhoto:{
-	// 	value: ddtUrl + '/api/SmartBikePerson/UpdateRealNamePhoto',
-	// 	name:'自行车用户上传实名认证照片',
-	// 	method:'POST',//GET-POST
-	// 	pages:[]
-	// },
-	// UserVerified:{
-	// 	value: ddtUrl + '/api/SmartBikePerson/UserVerified',
-	// 	name:'自行车用户实名认证',
-	// 	method:'POST',//GET-POST
-	// 	pages:[]
-	// },
-	// GetEnrollment:{
-	// 	value: ddtUrl + '/api/Purse/GetEnrollment',
-	// 	name:'钱包注册新用户',
-	// 	method:'POST',//GET-POST
-	// 	pages:[]
-	// },
-	//-----------------------达达通end------------------------
+	//------------------------------------我的投诉------------------------------------
+	Add_Complaint:{
+		value: Url1 + '/api/Complaint/Add_Complaint',
+		name:'添加投诉',
+		method:'POST',//GET-POST
+		pages:[]
+	},
+	
+	GetMyComplaintList:{
+		value: Url1 + '/api/Complaint/GetMyComplaintList',
+		name:'通过userID获取投诉列表',
+		method:'POST',//GET-POST
+		pages:[]
+	},
+	GetThisComplaint:{
+		value: Url1 + '/api/Complaint/GetThisComplaint',
+		name:'通过AID获取投诉',
+		method:'POST',//GET-POST
+		pages:[]
+	},
+	GetComplaintbyOrderID:{
+		value: Url1 + '/api/Complaint/GetComplaintbyOrderID',
+		name:'通过订单号获取投诉列表',
+		method:'POST',//GET-POST
+		pages:[]
+	},
 }
 
 const MainPackage='/pages/GRZX';   //主包
@@ -274,7 +285,7 @@ const Route={
 		name:'我的收藏页面',
 	},
 	complaint:{
-		url:SubPackage+'/gz_complaintList',
+		url:SubPackage+'/TSXT/complaintList',
 		name:'我的投诉页面',
 	},
 	coupon:{
@@ -286,8 +297,8 @@ const Route={
 		name:'推文详情页面',
 	},
 	feedback:{
-		url:SubPackage+'/feedback',
-		name:'意见反馈页面',
+		url:SubPackage+'/TSXT/FeedbackView',
+		name:'意见反馈列表',
 	},
 	history:{
 		url:SubPackage+'/history',
@@ -376,5 +387,6 @@ export default {
 	appConfig,
 	systemConfig,
 	navToHome,
-	navToOrderList
+	navToOrderList,
+	newApplyName,
 }

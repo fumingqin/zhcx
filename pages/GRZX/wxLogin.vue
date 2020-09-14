@@ -1,8 +1,7 @@
 <template>
     <view class="content">
-		<!-- <image src="../../static/GRZX/btnReturn.png" class="returnClass" @click="returnClick"></image> -->
-		<image :src="bindPhoneImg" class="backClass"></image>
-		<text class="titleClass">手机绑定</text>
+		<!-- <image :src="bindPhoneImg" class="backClass"></image> -->
+		<text class="titleClass btn_color">手机绑定</text>
 		<view class="inputItem phoneNum">
 			<image src="../../static/GRZX/shouji.png" class="iconClass1"></image>
 			<input type="number" placeholder="手机号码" maxlength="11" class="inputClass" data-key="phoneNumber" @input="inputChange1" />
@@ -10,9 +9,9 @@
 		<view class="inputItem Captcha">
 			<image src="../../static/GRZX/yanzhengma.png" class="iconClass2"></image>
 			<input type="number" placeholder="输入验证码" maxlength="4" class="inputClass" data-key="captchaCode" @input="inputChange2" />
-			<view class="getCode style" @click="getCodeClick" id="Code">{{textCode}}</view>
+			<view class="getCode btn_color btn_borderColor" @click="getCodeClick" id="Code">{{textCode}}</view>
 		</view>
-		<button type="warn" @click="bindPhone" class="btnClass">确定</button>
+		<button @click="bindPhone" class="btnClass btn_background btn_fontColor">确定</button>
     </view>
 </template>
 
@@ -47,14 +46,6 @@
 				});
 			},
 			
-			//--------------------------------返回个人中心--------------------------
-			returnClick:function(){		
-				uni.switchTab({
-					// url:'/pages/GRZX/user',
-					url:theSelf.$GrzxInter.Route.user.url,
-				})
-			},
-			
 			//--------------------------------只能输入数字--------------------------
 			judgeNum:function(val){  
 				var regPos = /^\d+(\.\d+)?$/; //非负浮点数
@@ -69,9 +60,7 @@
 			//--------------------------------输入手机号时触发--------------------------
 			inputChange1:function(e){
 				var num=e.detail.value;
-				if(this.judgeNum(num)){
-					
-				}else{
+				if(!this.judgeNum(num)){
 					uni.showToast({
 						title : '请输入正确的手机号码',
 						icon : 'none',
@@ -84,9 +73,7 @@
 			//--------------------------------输入验证码时触发--------------------------
 			inputChange2:function(e){
 				var num=e.detail.value;
-				if(this.judgeNum(num)){
-					
-				}else{
+				if(!this.judgeNum(num)){
 					uni.showToast({
 						title : '请输入正确的验证码',
 						icon : 'none',
@@ -196,18 +183,18 @@
 						var user = new Object();
 						if(type=='appWxLogin'){
 							user={
-								userId:data.userId,
+								userId:data.UserId,
 								phoneNumber:phone,
 								nickname:userInfo.nickName,//微信昵称
 								address:userInfo.province+userInfo.city,//微信地址
-								openId_wx:data.openId_wx,
+								openId_wx:data.OpenId_wx,
 								gender:userInfo.gender,//微信性别
-								openId_qq:data.openId_qq,
-								openId_xcx:data.openId_xcx,
-								openId_ios:data.openId_ios,
+								openId_qq:data.OpenId_qq,
+								openId_xcx:data.OpenId_xcx,
+								openId_ios:data.OpenId_ios,
 								openId_app:userInfo.openId, //微信 oenid
-								birthday:data.birthday,
-								autograph:data.autograph,
+								birthday:data.Birthday,
+								autograph:data.Autograph,
 								portrait:userInfo.avatarUrl,//微信头像
 							}
 						}else if(type=='appQQLogin'){
@@ -218,34 +205,34 @@
 								gender=2;
 							}
 							user={
-								userId:data.userId,
+								userId:data.UserId,
 								phoneNumber:phone,
 								nickname:userInfo.nickName,//qq昵称
 								address:userInfo.province+userInfo.city,//qq地址
-								openId_wx:data.openId_wx,
+								openId_wx:data.OpenId_wx,
 								gender:gender,//qq性别
 								openId_qq:userInfo.openId, //qq openid
-								openId_xcx:data.openId_xcx,
-								openId_ios:data.openId_ios,
-								openId_app:data.openId_app, 
-								birthday:data.birthday,
-								autograph:data.autograph,
+								openId_xcx:data.OpenId_xcx,
+								openId_ios:data.OpenId_ios,
+								openId_app:data.OpenId_app, 
+								birthday:data.Birthday,
+								autograph:data.Autograph,
 								portrait:userInfo.figureurl_2,//微信头像
 							}
 						}else if(type=='H5'){
 							user={
-								userId:data.userId,
+								userId:data.UserId,
 								phoneNumber:phone,
 								nickname:userInfo.nickname,
 								address:userInfo.province+userInfo.city,
 								openId_wx:userInfo.openid,//H5 openid
-								gender:data.gender,
-								openId_qq:data.openId_qq,
-								openId_xcx:data.openId_xcx,
-								openId_ios:data.openId_ios,
-								openId_app:data.openId_app, 
-								birthday:data.birthday,
-								autograph:data.autograph,
+								gender:data.Gender,
+								openId_qq:data.OpenId_qq,
+								openId_xcx:data.OpenId_xcx,
+								openId_ios:data.OpenId_ios,
+								openId_app:data.OpenId_app, 
+								birthday:data.Birthday,
+								autograph:data.Autograph,
 								portrait:userInfo.headimgurl,//微信头像
 							}
 						}else if(type=="appleLogin"){
@@ -342,31 +329,31 @@
 				if(self.judgeNum(self.phoneNumber)){
 					var timer=null,second=59; //倒计时的时间
 					if(self.textCode == "获取验证码"){
-					  self.textCode = second+"秒后重发";
-					  if(self.textCode == "59秒后重发"){
-						  timer=setInterval(function(){
-						  second--;
-						  if(second<=0){	
-						  	self.textCode = "获取验证码";
-						  	clearInterval(timer);
-						  	second=59;	
-						  }
-						  else{			
-						  	self.textCode = second+"秒后重发";
-						  }},1000)
-						 uni.request({
+						self.textCode = second+"秒后重发";
+						if(self.textCode == "59秒后重发"){
+							timer=setInterval(function(){
+							second--;
+							if(second<=0){	
+								self.textCode = "获取验证码";
+								clearInterval(timer);
+								second=59;	
+							}
+							else{			
+								self.textCode = second+"秒后重发";
+							}
+						  },1000)
+						uni.request({
 							url:self.$GrzxInter.Interface.getLoginCode.value,
 							data:{
 								phoneNumber:self.phoneNumber,
 							},
 							method:self.$GrzxInter.Interface.getLoginCode.method,
-							
 							success:(res)=>{
 						 		console.log(res.data.data,'158');
 								var listCode={
-										phone:self.phoneNumber,
-										code:res.data.data,
-									};
+									phone:self.phoneNumber,
+									code:res.data.data,
+								};
 								uni.setStorageSync('captchaCode',listCode)
 								uni.showToast({
 									title:"验证码已发送，仅在5分钟内有效!",
@@ -448,14 +435,8 @@
 		line-height: 64upx;
 		height: 64upx;
 	}
-	.style{
-		border:1px solid #ED1C24;
-		color: #ED1C24;
-	}
+	
 	.btnClass{
-		// position: absolute;
-		// top:495upx;
-		// left: 5%;
 		margin-top: 50upx;
 		margin-left: 5%;
 		width: 90%;
@@ -474,10 +455,12 @@
 		height: 350upx;
 	}
 	.titleClass{
-		color: #FC4646;
 		font-size: 48upx;
-		margin-top:10upx;
+		margin-top:30upx;
 		margin-left: 6%;
+		/* #ifndef H5 */
+		margin-top:140upx;
+		/* #endif */
 	}
 </style>
 

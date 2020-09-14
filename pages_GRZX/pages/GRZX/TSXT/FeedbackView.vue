@@ -1,61 +1,42 @@
 <template>
 	<view>
-		<!-- 搜索框 -->
-		<view class="search-view">
-			<image src="../../../../static/Home/Search.png" class="search-image"></image>
-			<input type="text" placeholder="请输入问题" class="search-input" />
-		</view>
-		<!-- 猜你想问 -->
-		<view class="guess-view">
+		<!-- 用户反馈 -->
+		<view class="user-talk" v-if="show">
 			<view class="top-text">
-				猜你想问
+				用户反馈
 			</view>
-			<view class="guess-middle">
-				<view v-for="(item,index) in Typetext" :key="index" class="text-list">
-					<view v-if="item.check" class="itemClass">{{item.text}}</view>
-				</view>
-				<view v-if="!openType" class="btnClass" @click="openList">
-					<image src="../../../static/GRZX/shangjiantou.png" class="jiantou"></image>
-				</view>
-				<view v-if="openType" class="btnClass" @click="closeList">
-					<image src="../../../static/GRZX/xiajiantou.png" class="jiantou"></image>
-				</view>
-			</view>
-		</view>
-		<!-- 插图 -->
-		<view class="chatu">
-			<!-- <image src="../../static/npzhcx.png" class="npzhcx-image"></image> -->
-		</view>
-		<!-- 用户评论 -->
-		<view class="user-talk">
-			<view class="top-text">
-				用户评论
-			</view>
-			<!-- 到时v-for判断写这个地方 -->
-			<view>
+			<view v-for="(item,index) in feedList" :key="index" :class="index==0?'':'bt'" class="mb">
 				<view class="user-talkinfo">
-					<!-- <image src="../../static/10053092_111926377363_2.jpg" class="user-topimage"></image> -->
-					<text class="user-name">叮当猫</text>
-					<text class="user-time">21:10</text>
+					<image :src="headImg" class="user-topimage"></image>
+					<text class="user-name">{{userName}}</text>
+					<text class="user-time">{{formateTime(item.SuggestionTime)}}</text>
 				</view>
 				<view class="talkinfo">
-					漳州也是依托旅游拓展经济,希望不要再出什么30天无理由退货了
+					{{item.Suggestion}}
 				</view>
-				<view class="user-image-view">
-					<!-- <image src="../../static/10053092_111926377363_2.jpg" class="user-image"></image> -->
-					<!-- <image src="../../static/qq.png" class="user-image"></image> -->
-				</view>
-				<view class="huifu">
+				<view class="huifu" v-if="item.IsReply">
 					<view class="huifu-view">
-						<text class="huifu-user">漳州达达通小弟:</text>
-						<text class="huifu-info">您好!感谢您的意见和建议，同时感谢您的支持，在今后的使用过程中有任何疑问，可随时拨打400-88-96301向我们进行详细反馈，我们将竭诚24小时为您服务。</text>
-						<!-- 评论图片 -->
-						<view class="pinglun-image-view" @click="gotoFeedback">
-							<!-- <image src="../../static/pinlun.png" class="pinglun-image"></image> -->
-						</view>
+						<text class="huifu-user">{{item.Responder}}:</text>
+						<text class="huifu-info">{{item.ReplyContent}}</text>
+					</view>
+					<view class="huifu-time">
+						{{formateTime(item.ReplyTime)}}
 					</view>
 				</view>
+				<!-- <view class="typeInfo">
+					<view class="itemClass" v-for="(item1,index1) in item.typeList" :key="index1">
+						{{item1}}
+					</view>
+				</view> -->
 			</view>
+		</view>
+		
+		<view class="noneData" v-if="!show">
+			您当前暂无反馈
+		</view>
+		
+		<view class="boxClass">
+			<button class="feedClass btn_background" @click="feedClick">前往反馈</button>
 		</view>
 	</view>
 </template>
@@ -64,54 +45,72 @@
 	export default {
 		data() {
 			return {
-				openType:false,//默认关闭
-				Typetext: [{
-						text: '什么是助力车套餐?',
-						check:true
-					},
-					{
-						text: '功能不全,会闪退',
-						check:true
-					},
-					{
-						text: '无法按时退款,退款时间延迟?',
-						check:true
-					},
-					{
-						text: '优惠力度不大,免单金额怎么处理!',
-						check:false
-					},
-					{
-						text: '用户体验不顺畅,提升功能!',
-						check:false
-					},
-					{
-						text: '如何自动续费?',
-						check:false
-					}],
+				show:false,		//是否显示
+				feedList:[],	//反馈列表	
+				userName:'',	//用户昵称
+				headImg:'',		//用户头像
+				userId:'',		//用户id
 			}
 		},
+		onLoad() {
+			uni.setNavigationBarTitle({
+				title:'反馈列表',
+			})
+			const userInfo = uni.getStorageSync('userInfo') || '';
+			if(userInfo == ""){
+				uni.showToast({
+					title: '您当前暂未登录',
+					icon:'none',
+				});
+			}else{
+				this.userName = userInfo.nickname;
+				this.headImg = userInfo.portrait;
+				this.userId = userInfo.userId;
+			}
+		},
+		onShow() {
+			this.loadFeedList();
+		},
 		methods: {
-			gotoFeedback:function(){
+			//----------------------------加载反馈列表----------------------------
+			loadFeedList(){
+				uni.showLoading({
+					title:'加载中...'
+				})
+				uni.request({
+					url: this.$GrzxInter.Interface.GetMySuggestionList.value,
+					method: this.$GrzxInter.Interface.GetMySuggestionList.method,
+					data: {
+						userID : this.userId,
+					},
+					success: res => {
+						console.log(res);
+						if(res.data.data.length > 0){
+							this.show = true;
+						}
+						this.feedList = res.data.data;
+					},
+					fail: () => {},
+					complete: () => {
+						uni.hideLoading();
+					}
+				});
+				
+			},
+			
+			//---------------------------------前往反馈---------------------------------
+			feedClick(){
 				uni.navigateTo({
-					url:'Feedback'
+					url:'./Feedback'
 				})
 			},
-			openList:function(){
-				for(var i=0;i<this.Typetext.length;i++){
-					this.Typetext[i].check=true;
-				}
-				this.openType=true;
+			
+			//---------------------------------格式化时间---------------------------------
+			formateTime(time){
+				let date=time.replace('T',' ');
+				return date.substring(0,16);
 			},
-			closeList:function(){
-				for(var i=0;i<this.Typetext.length;i++){
-				if(i>1){
-					this.Typetext[i].check=false;
-				}
-				this.openType=false;
-			}
 		}
-	},
 }
 </script>
 
@@ -187,9 +186,10 @@
 
 	.user-talk {
 		background-color: #FFFFFF;
-		height: 949upx;
 		border-radius: 20upx;
-		margin: 0 30upx 30upx 30upx;
+		margin: 25upx;
+		padding-bottom: 15upx;
+		margin-bottom: 140upx;
 	}
 
 	.user-topimage {
@@ -200,8 +200,8 @@
 	}
 
 	.user-talkinfo {
-		margin-left: 30upx;
-		margin-top: 30upx;
+		padding-left: 30upx;
+		padding-top: 30upx;
 		display: flex;
 	}
 
@@ -209,36 +209,28 @@
 		font-size: 32upx;
 		color: #333333;
 		padding-left: 20upx;
-		/* position: absolute;
-	left: 154upx;
-	top: 1181upx; */
+		width: 40%;
+		display: block;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 	}
 
 	.user-time {
 		font-size: 28upx;
 		color: #999999;
-		margin-left: 353upx;
 		margin-top: 3upx;
-		/* 	position: absolute;
-	left: 610upx;
-	top: 1181upx; */
+		margin-left: 10upx;
 	}
 
 	.talkinfo {
 		width: 544upx;
-		height: 83upx;
 		margin-left: 124upx;
 		font-size: 34upx;
 		color: #9F9C9F;
-		/* 	position: absolute;
-	left: 154upx;
-	font-size: 30upx; */
 	}
 
 	.user-image-view {
-		/* 	position: absolute;
-	left: 134upx;
-	top: 1379upx; */
 		margin-left: 108upx;
 		margin-top: 40upx;
 	}
@@ -250,18 +242,15 @@
 	}
 
 	.huifu {
-		width: 539upx;
-		height: 295upx;
+		width: 77%;
 		background-color: #F5F9FC;
 		margin-left: 124upx;
 		margin-top: 25upx;
-		/* 	position: absolute;
-	left: 154upx;
-	top: 1631upx; */
+		border-radius: 20upx;
 	}
 
 	.huifu-view {
-		padding: 27upx 42upx 25upx 25upx;
+		padding: 27upx 27upx 10upx 27upx;
 		text-align: justify;
 	}
 
@@ -274,11 +263,14 @@
 		font-size: 30upx;
 		color: #999999;
 	}
+	
+	.huifu-time{
+		font-size: 30upx;
+		color: #999999;
+		padding:0 0 10upx 27upx;
+	}
 
 	.pinglun-image-view {
-/* 		position: absolute;
-		left: 579upx;
-		top: 1869upx; */
 		margin-left: 420upx;
 	}
 
@@ -286,7 +278,45 @@
 		width: 129upx;
 		height: 129upx;
 	}
-	.itemClass{
+	.fontSize{
 		font-size: 30upx;
+	}
+	
+	.typeInfo{
+		display: flex;
+		flex-direction: row;
+		margin: 20upx 0 10upx 15%;
+	}
+	.itemClass{
+		font-size: 24upx;
+		padding: 10upx 20upx;
+		background-color: #e7e7e7;
+		border-radius: 30upx;
+		margin-left: 20upx;
+	}
+	.mb{
+		margin-bottom: 25upx;
+	}
+	.bt{
+		border-top: 1upx solid #e6e6e6;
+	}
+	
+	.boxClass{
+		width: 100%;
+		position: fixed;
+		bottom: 0upx;
+		left: 0%;
+		background-color: #F4F6F8;
+	}
+	.feedClass{
+		width: 90%;
+		margin: 20upx 5%;
+		color: #FFFFFF;
+	}
+	.noneData{
+		color: #5a5a5b;
+		display: flex; 
+		justify-content: center;
+		margin-top: 400upx;
 	}
 </style>

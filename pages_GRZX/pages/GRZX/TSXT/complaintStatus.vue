@@ -8,28 +8,40 @@
 				<uni-steps :options="options" direction="column" :active='active'></uni-steps>
 			</view>
 		</view>
+		
 		<view class="type">
 			<view class="top-text">
 				类别
 			</view>
 			<view class="type-text">
-				包车
+				{{cm_Detail.ProjectType}}
 			</view>
 		</view>
+		
 		<view class="complaintinfo">
 			<view class="top-text">
 				投诉内容
 			</view>
 			<view class="complaintinfo-text">
-				用着不舒服，很卡～希望改善功能和用户体验，要不然用户会被吓跑，狠心卸载～多考虑一下用户的意见。
+				{{cm_Detail.ComplaintContent}}
 			</view>
 		</view>
-		<view class="backinfo" v-if="active==2">
+		
+		<view class="backinfo" v-if="cm_Detail.IsReply">
 			<view class="top-text">
 				回复内容 
 			</view>
 			<view class="complaintinfo-text">
-				感谢您的意见，我们衷心为您服务，如有不妥当的地方请多包涵，谢谢您的支持和理解，我们正在完善软件的用户体验。 </view>
+				{{cm_Detail.ReplyContent}} 
+			</view>
+		</view>
+		<view class="backinfo" v-if="cm_Detail.IsReply">
+			<view class="top-text">
+				回复时间 
+			</view>
+			<view class="complaintinfo-text">
+				{{formateTime(cm_Detail.ReplyTime)}} 
+			</view>
 		</view>
 	</view>
 </template>
@@ -39,39 +51,53 @@
 	export default {
 		data() {
 			return {
-				status:0,
-				active: 1,
+				active:0,//控制审核状态的显示
 				options: [{
-						title: '已提交',
-						
-					},
-					{
-						title: '审核中',
-					
-					},
-					{
-						title: '投诉结果',
-					}
-				]
+					title: '已提交',
+				},
+				{
+					title: '审核中',
+				},
+				{
+					title: '投诉结果',
+				}],
+				cm_Detail:'', //投诉详情
 			}
 		},
 		components: {
 			uniSteps
 		},
-		onShow(e) {
-			console.log(e)
-			this.load();
+		onLoad() {
+			uni.setNavigationBarTitle({
+				title:'投诉详情',
+			})
+			uni.getStorage({
+				key:'complaintDetail',
+				success:res=>{
+					this.cm_Detail = res.data;
+					this.load();
+					uni.removeStorageSync('complaintDetail');
+				},
+				fail: () => {
+					uni.showToast({
+						title: '获取投诉详情失败',
+						icon:'none'
+					});
+				}
+			})
 		},
 		methods: {
 			load(){
-				if(this.status==1){
+				if(this.cm_Detail.IsReply){
 					this.options[2].title="投诉成功";
 					this.active=2;
 				}
-				if(this.status==2){
-					this.options[2].title="投诉失败";
-					this.active=2;
-				}
+			},
+			
+			//---------------------------------格式化时间---------------------------------
+			formateTime(time){
+				let date=time.replace('T',' ');
+				return date.substring(0,16);
 			},
 		}
 	}
