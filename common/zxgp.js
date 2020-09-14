@@ -9,6 +9,7 @@ import $oSit from '@/common/overallSituation.js'
 
 //接口域名
 const Url=$oSit.Interface.address.Url;
+const Url2=$oSit.Interface.address.Url2;
 
 //接口对象
 const KyInterface = {
@@ -24,6 +25,20 @@ const KyInterface = {
 	Cs_getByTitle:{
 		Url: Url + '/api/ky/getByTitle',
 		name:'购票须知',
+		method:'POST',
+	},
+	
+	//--------------------------------------线路查询--------------------------------------
+	GetAllLine:{
+		Url: Url2 + '/api/CustomizedBus/GetAllLine',
+		name:'线路查询',
+		method:'POST',
+	},
+	
+	//--------------------------------------查询班次--------------------------------------
+	GetSellableScheduleByLineName:{
+		Url: Url2 + '/api/CustomizedBus/GetSellableScheduleByLineName',
+		name:'查询班次',
 		method:'POST',
 	},
 }

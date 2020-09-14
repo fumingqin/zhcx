@@ -521,7 +521,7 @@
 					// companyid: '南平综合出行',//公司名
 					},
 					success(res) {
-						console.log(res)
+						console.log('11111111',res)
 						if (res.data.status == true) {
 							that.noDataImage = res.data.data.imageUrl
 						} else {
