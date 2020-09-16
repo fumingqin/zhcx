@@ -92,6 +92,7 @@
 	import $KyInterface from "@/common/Ctky.js"
 	import MxDatePicker from "@/pages_CTKY/components/CTKY/mx-datepicker/mx-datepicker.vue";
 	import utils from "@/pages_CTKY/components/CTKY/shoyu-date/utils.filter.js";
+	import $Zxgp from "@/common/zxgp.js"
 	export default {
 		components: {
 			MxDatePicker
@@ -116,6 +117,7 @@
 				endorescompanyCode: '',
 				scheduleDetailNum: '', //班次
 				allTicketsList: [], //所有的班次信息（客运+定制巴士）
+				lineName:'',//线路名
 			}
 		},
 		onLoad(param) {
@@ -144,6 +146,7 @@
 				that.startStation = param.startStation;
 				that.endStation = param.endStation;
 				that.isNormal = param.isNormal;
+				that.lineName = that.startStation + '-' + that.endStation;
 				console.log('起点', that.startStation)
 				console.log('终点', that.endStation)
 				console.log('状态', that.isNormal)
@@ -267,6 +270,36 @@
 						uni.hideLoading();
 					}
 				});
+				console.log('时间：',that.date)
+				uni.request({
+					url: $Zxgp.KyInterface.GetSellableScheduleByLineName.Url,
+					method: $Zxgp.KyInterface.GetSellableScheduleByLineName.method,
+					data: {
+						LineName: that.lineName,
+						executeDate:that.date
+					},
+					success: (res) => {
+						console.log('请求接口的数据1111111：', res)
+						if(res.data.status == true){
+							if(res.data.data){
+								that.departureData = res.data.data;
+								let i = 0;
+								for (i; i < res.data.data.length; i++) {
+									that.allTicketsList.push(res.data.data[i])
+								}
+								console.log('请求接口的数据22222：', that.allTicketsList)
+								uni.hideLoading();
+							}else if(res.data.data.length == 0){
+								uni.showToast({
+									title: '暂无班次信息',
+									icon: 'none'
+								})
+								uni.hideLoading();
+							}
+							
+						}
+					},
+				})
 			},
 			//-------------------------------加载定制巴士班次列表数据-------------------------------
 			getSpecialBusTicketInfo: function(date) {
@@ -309,7 +342,7 @@
 									uni.showToast({
 										title: '暂无班次信息',
 										icon: 'none'
-									})
+									})	
 								}
 							}
 						} else if (res.data.Successed == false) {

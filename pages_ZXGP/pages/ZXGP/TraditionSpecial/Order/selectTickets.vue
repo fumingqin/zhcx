@@ -84,6 +84,7 @@
 	import $KyInterface from "@/common/Ctky.js"
 	import MxDatePicker from "@/pages_ZXGP/components/ZXGP/mx-datepicker/mx-datepicker.vue";
 	import utils from "@/pages_ZXGP/components/ZXGP/shoyu-date/utils.filter.js";
+	import $Zxgp from "@/common/zxgp.js"
 	export default {
 		components: {
 			MxDatePicker

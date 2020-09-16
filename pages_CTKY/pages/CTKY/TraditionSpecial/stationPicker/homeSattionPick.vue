@@ -19,7 +19,7 @@
 			<!-- 左边的列表 -->
 			<view class="left">
 				<scroll-view scroll-y="true" :style="{ 'height':scrollHeight }">
-					<view class="item" style="background-color: #FFFFFF;color: #42b983;">南平</view>
+					<view class="item" style="background-color: #FFFFFF;color: #42b983;">泉州</view>
 		        </scroll-view>
 			</view>
 			<!-- 右边的列表 -->
@@ -79,10 +79,10 @@
 			//-------------------------获取车站列表数据-------------------------
 			getBusStationList() {
 				uni.showLoading();
-				console.log($Zxgp.KyInterface.Cs_GetInsuranceCheckState.Url)
+				// console.log($Zxgp.KyInterface.Cs_GetInsuranceCheckState.Url)
 				uni.request({
-					url: $Zxgp.KyInterface.Cs_GetInsuranceCheckState.Url,
-					method: $Zxgp.KyInterface.Cs_GetInsuranceCheckState.method,
+					url: $Zxgp.KyInterface.GetAllLine.Url,
+					method: $Zxgp.KyInterface.GetAllLine.method,
 					data: {
 						systemname: this.applyName
 					},
@@ -127,7 +127,7 @@
 						uni.hideLoading();
 					}
 				})
-			
+				
 				// var systemName = '';
 				// // #ifdef H5
 				// systemName = '南平旅游H5';
