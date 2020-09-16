@@ -775,21 +775,21 @@
 							let openid = uni.getStorageSync('scenicSpotOpenId') || '';
 							console.log(openid, "openid")
 							if (openid != "" && openid != null && openid != undefined) {
-								console.log("访问地址",that.$GrzxInter.Interface.GetUserInfoByOpenId_wx.value)
+								console.log("访问地址",that.$GrzxInter.Interface.GetUserInfoByOpenId.value)
 								console.log("应用名称",that.$GrzxInter.systemConfig.appName)
 								console.log("应用类型",that.$GrzxInter.systemConfig.openidtype)
 								uni.request({
-									url: that.$GrzxInter.Interface.GetUserInfoByOpenId_wx.value,
+									url: that.$GrzxInter.Interface.GetUserInfoByOpenId.value,
 									data: {
 										openid: openid,
 										systemname:that.$GrzxInter.systemConfig.appName,//应用名称
 										openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 									},
-									method: that.$GrzxInter.Interface.GetUserInfoByOpenId_wx.method,
+									method: that.$GrzxInter.Interface.GetUserInfoByOpenId.method,
 									success(res1) {
 										console.log(res1, 'res1')
 										//判断是否有绑定手机号
-										if (res1.data.msg == "获取用户信息失败,不存在该openID用户信息") {
+										if (!res1.data.status) {
 											uni.showModal({
 												content: '您暂未绑定手机号，是否绑定',
 												confirmText: '去绑定',
@@ -808,10 +808,25 @@
 													}
 												}
 											})
-										}
-										console.log(openid, 'openid1')
-										if (openid == res1.data.data.openId_wx && openid != ""&&res1.data.status) {
-											uni.setStorageSync('userInfo', res1.data.data)
+										}else{
+											var data = res.data.data;
+											var user = new Object();
+											user = {
+												address : data.Address,
+												autograph : data.Autograph,
+												birthday : data.Birthday,
+												gender : data.Gender,
+												openId_app : data.OpenId_app,
+												openId_ios : data.OpenId_ios,
+												openId_qq : data.OpenId_qq,
+												openId_wx : data.OpenId_wx,
+												openId_xcx : data.OpenId_xcx,
+												phoneNumber : data.PhoneNumber,
+												portrait : data.Portrait,
+												userId : data.UserId,
+												nickname : data.Nickname,
+											};
+											uni.setStorageSync('userInfo', user);
 										}
 									}
 								})

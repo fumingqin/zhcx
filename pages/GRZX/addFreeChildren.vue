@@ -171,24 +171,25 @@
 						console.log(res,'res')
 						var data=res.data.data;
 						for(var i=0;i<data.length;i++){
-							if(data[i].userType!="半票儿童"&&data[i].userType!="免票儿童"){
+							if(data[i].UserType!="半票儿童"&&data[i].UserType!="免票儿童"){
 								that.list.push(data[i]);
-								if(data[i].userDefault){
-									that.accompanyPeople=data[i].userName+" >";
-									that.user.userPhoneNum=data[i].userPhoneNum;
+								if(data[i].IsUserDefault){
+									that.accompanyPeople=data[i].UserName+" >";
+									that.user.userPhoneNum=data[i].UserPhoneNum;
 								}
 							}
 						}
 						console.log(that.list,"list")
 						for(var n=0;n<that.list.length;n++){
-							if(that.list[n].userDefault==true){
-								that.accompanyList.unshift(that.list[n].userName);
-								that.phoneList.unshift(that.list[n].userPhoneNum)
+							if(that.list[n].IsUserDefault==true){
+								that.accompanyList.unshift(that.list[n].UserName);
+								that.phoneList.unshift(that.list[n].UserPhoneNum)
 							}else{
-								that.accompanyList.push(that.list[n].userName);
-								that.phoneList.push(that.list[n].userPhoneNum);
+								that.accompanyList.push(that.list[n].UserName);
+								that.phoneList.push(that.list[n].UserPhoneNum);
 							}
 						}
+						that.accompanyPeople = that.accompanyList[0] + " >";
 					}
 				})
 			},
@@ -221,7 +222,7 @@
 				// -------证件类型----------
 				data1.userType = "免票儿童";
 				data1.userauditState=that.codeType;
-				data1.userPhoneNum=that.user.userPhoneNum;
+				data1.userPhoneNum=that.user.userPhoneNum || that.phoneList[0];
 				console.log(that.userId)
 				console.log(data1.userType)
 				console.log(data1.userName)
@@ -290,16 +291,11 @@
 						method:that.$GrzxInter.Interface.changeUserInfo.method,
 						success(res) {
 							console.log(res,"370")
-							if(res.data.msg!=""&&res.data.msg!=null){
-								uni.showToast({
-									icon:'none',
-									title:res.data.msg
-								})
-							}else{
-								uni.showToast({
-									icon:'success',
-									title:'完成'
-								})
+							uni.showToast({
+								icon:'none',
+								title:res.data.msg
+							})
+							if(res.data.status){
 								uni.getStorage({
 									key:'passengerList',
 									success(list){
@@ -314,14 +310,14 @@
 											res.data.data.userSex="女";
 										}
 										var list1={
-											passengerId:res.data.data.passengerId, //乘车人id
-											userType:res.data.data.userType,   //用户类别 成人/儿童 
-											userName:res.data.data.userName,   //用户姓名   
-											userSex:res.data.data.userSex,   //用户性别   
-										  	userCodeNum:res.data.data.userCodeNum,   //用户身份证   
-										  	userPhoneNum:res.data.data.userPhoneNum,   //用户手机号   
-										  	userDefault:res.data.data.userDefault,   //用户是否本人 true/false 
-										  	userEmergencyContact:res.data.data.userEmergencyContact, //是否设置为紧急联系人 true/false
+											passengerId:res.data.data.PassengerId, //乘车人id
+											userType:res.data.data.UserType,   //用户类别 成人/儿童 
+											userName:res.data.data.UserName,   //用户姓名   
+											userSex:res.data.data.UserSex,   //用户性别   
+										  	userCodeNum:res.data.data.UserCodeNum,   //用户身份证   
+										  	userPhoneNum:res.data.data.UserPhoneNum,   //用户手机号   
+										  	userDefault:res.data.data.IsUserDefault,   //用户是否本人 true/false 
+										  	userEmergencyContact:res.data.data.IsUserEmergencyContact, //是否设置为紧急联系人 true/false
 											hiddenIndex:1,  //1代表选中
 										}
 										passList.push(list1);

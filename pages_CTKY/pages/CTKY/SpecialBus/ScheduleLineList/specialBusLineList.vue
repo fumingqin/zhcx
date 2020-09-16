@@ -339,16 +339,17 @@
 							console.log(openid, "openid")
 							if (openid != "" && openid != null && openid != undefined) {
 								uni.request({
-									//url:'http://zntc.145u.net/api/person/changeInfo',
-									url: that.$GrzxInter.Interface.GetUserInfoByOpenId_wx.value,
+									url: that.$GrzxInter.Interface.GetUserInfoByOpenId.value,
 									data: {
-										openId_wx: openid,
+										openid: openid,
+										systemname:that.$GrzxInter.systemConfig.appName,//应用名称
+										openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 									},
-									method: that.$GrzxInter.Interface.GetUserInfoByOpenId_wx.method,
+									method: that.$GrzxInter.Interface.GetUserInfoByOpenId.method,
 									success(res1) {
 										console.log(res1, 'res1')
 										//判断是否有绑定手机号
-										if (res1.data.msg == "获取用户信息失败,不存在该openID用户信息") {
+										if (!res1.data.status) {
 											uni.showToast({
 												title: '您未绑定手机号，请绑定手机号！',
 												icon: 'none',
@@ -358,10 +359,25 @@
 													url: '/pages/GRZX/wxLogin'
 												})
 											}, 1000);
-										}
-										console.log(openid, 'openid1')
-										if (openid == res1.data.data.openId_wx && openid != "") {
-											uni.setStorageSync('userInfo', res1.data.data)
+										}else{
+											var data = res.data.data;
+											var user = new Object();
+											user = {
+												address : data.Address,
+												autograph : data.Autograph,
+												birthday : data.Birthday,
+												gender : data.Gender,
+												openId_app : data.OpenId_app,
+												openId_ios : data.OpenId_ios,
+												openId_qq : data.OpenId_qq,
+												openId_wx : data.OpenId_wx,
+												openId_xcx : data.OpenId_xcx,
+												phoneNumber : data.PhoneNumber,
+												portrait : data.Portrait,
+												userId : data.UserId,
+												nickname : data.Nickname,
+											};
+											uni.setStorageSync('userInfo', user);
 										}
 									}
 								})

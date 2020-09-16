@@ -269,6 +269,24 @@
 					method:that.$GrzxInter.Interface.changeInfo.method,
 					success(res) {
 						console.log(res,"res")
+						let data = res.data.data;
+						var user = new Object();
+						user = {
+							address : data.Address,
+							autograph : data.Autograph,
+							birthday : data.Birthday,
+							gender : data.Gender,
+							openId_app : data.OpenId_app,
+							openId_ios : data.OpenId_ios,
+							openId_qq : data.OpenId_qq,
+							openId_wx : data.OpenId_wx,
+							openId_xcx : data.OpenId_xcx,
+							phoneNumber : data.PhoneNumber,
+							portrait : data.Portrait,
+							userId : data.UserId,
+							nickname : data.Nickname,
+						};
+						uni.setStorageSync('userInfo', user);
 						uni.request({
 							url:that.$GrzxInter.Interface.changeInfoPortrait.value,
 							data:{
@@ -278,7 +296,7 @@
 							method:that.$GrzxInter.Interface.changeInfoPortrait.method,
 							success(res3) {
 								console.log(res3);
-								uni.setStorageSync('userInfo',res3.data.data)
+								// uni.setStorageSync('userInfo',res3.data.data)
 								uni.hideLoading();
 								uni.showToast({
 									title:'绑定成功！',

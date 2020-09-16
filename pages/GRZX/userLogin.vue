@@ -324,9 +324,9 @@
 						mask:true,
 					})
 					uni.getProvider({
-					    service: 'oauth',
-					    success: function(oauthRes) {
-					        console.log(oauthRes,"授权1");
+					    service: 'oauth',
+					    success: function(oauthRes) {
+					        console.log(oauthRes,"授权1");
 							if(~oauthRes.provider.indexOf('weixin')){
 								uni.login({
 									provider: 'weixin',
@@ -367,23 +367,40 @@
 				var that=this;
 				if(type=="wx"){ //微信授权登录
 					uni.request({
-						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.value,
+						url:that.$GrzxInter.Interface.GetUserInfoByOpenId.value,
 						data:{
 							openid:userInfo.openId,
 							systemname:that.$GrzxInter.systemConfig.appName,//应用名称
 							openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 						},
-						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.method,
+						method:that.$GrzxInter.Interface.GetUserInfoByOpenId.method,
 						success(res) {
 							uni.hideLoading();
 							console.log(res,"提示！！！！");
-							if(!res.data.status&&res.data.msg=="获取用户信息失败,不存在该openID用户信息"){
+							if(!res.data.status){
 								uni.setStorageSync('appUserInfo',userInfo);
 								uni.navigateTo({
 									url: '/pages/GRZX/wxLogin?type=appWxLogin&&urlData='+that.urlData,
 								})
 							}else if(res.data.status){
-								uni.setStorageSync('userInfo',res.data.data);
+								var data = res.data.data;
+								var user = new Object();
+								user = {
+									address : data.Address,
+									autograph : data.Autograph,
+									birthday : data.Birthday,
+									gender : data.Gender,
+									openId_app : data.OpenId_app,
+									openId_ios : data.OpenId_ios,
+									openId_qq : data.OpenId_qq,
+									openId_wx : data.OpenId_wx,
+									openId_xcx : data.OpenId_xcx,
+									phoneNumber : data.PhoneNumber,
+									portrait : data.Portrait,
+									userId : data.UserId,
+									nickname : data.Nickname,
+								};
+								uni.setStorageSync('userInfo', user);
 								setTimeout(function(){
 									that.successReturn(); //登陆成功后返回
 								},500);
@@ -395,22 +412,39 @@
 					})
 				}else if(type=="qq"){  //QQ授权登录
 					uni.request({
-						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.value,
+						url:that.$GrzxInter.Interface.GetUserInfoByOpenId.value,
 						data:{
 							openid:userInfo.openId,
 							systemname:that.$GrzxInter.systemConfig.appName,//应用名称
 							openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 						},
-						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.method,
+						method:that.$GrzxInter.Interface.GetUserInfoByOpenId.method,
 						success(res) {
 							uni.hideLoading();
-							if(!res.data.status&&res.data.msg=="获取用户信息失败,不存在该openID用户信息"){
+							if(!res.data.status){
 								uni.setStorageSync('appUserInfo',userInfo);
 								uni.navigateTo({
 									url: '/pages/GRZX/wxLogin?type=appQQLogin&&urlData='+that.urlData,
 								})
 							}else if(res.data.status){
-								uni.setStorageSync('userInfo',res.data.data);
+								var data = res.data.data;
+								var user = new Object();
+								user = {
+									address : data.Address,
+									autograph : data.Autograph,
+									birthday : data.Birthday,
+									gender : data.Gender,
+									openId_app : data.OpenId_app,
+									openId_ios : data.OpenId_ios,
+									openId_qq : data.OpenId_qq,
+									openId_wx : data.OpenId_wx,
+									openId_xcx : data.OpenId_xcx,
+									phoneNumber : data.PhoneNumber,
+									portrait : data.Portrait,
+									userId : data.UserId,
+									nickname : data.Nickname,
+								};
+								uni.setStorageSync('userInfo', user);
 								that.successReturn(); //登陆成功后返回
 							}
 						},
@@ -420,22 +454,39 @@
 					})
 				}else if(type=="apple"){  //苹果授权登录
 					uni.request({
-						url:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.value,
+						url:that.$GrzxInter.Interface.GetUserInfoByOpenId.value,
 						data:{
 							openid:userInfo.openId,
 							systemname:that.$GrzxInter.systemConfig.appName,//应用名称
 							openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 						},
-						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.method,
+						method:that.$GrzxInter.Interface.GetUserInfoByOpenId.method,
 						success(res) {
 							uni.hideLoading();
-							if(!res.data.status&&res.data.msg=="获取用户信息失败,不存在该openID用户信息"){
+							if(!res.data.status){
 								uni.setStorageSync('appUserInfo',userInfo);
 								uni.navigateTo({
 									url: '/pages/GRZX/wxLogin?type=appleLogin&&urlData='+that.urlData,
 								})
 							}else if(res.data.status){
-								uni.setStorageSync('userInfo',res.data.data);
+								var data = res.data.data;
+								var user = new Object();
+								user = {
+									address : data.Address,
+									autograph : data.Autograph,
+									birthday : data.Birthday,
+									gender : data.Gender,
+									openId_app : data.OpenId_app,
+									openId_ios : data.OpenId_ios,
+									openId_qq : data.OpenId_qq,
+									openId_wx : data.OpenId_wx,
+									openId_xcx : data.OpenId_xcx,
+									phoneNumber : data.PhoneNumber,
+									portrait : data.Portrait,
+									userId : data.UserId,
+									nickname : data.Nickname,
+								};
+								uni.setStorageSync('userInfo', user);
 								that.successReturn(); //登陆成功后返回
 							}
 						},

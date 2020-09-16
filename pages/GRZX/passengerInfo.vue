@@ -105,21 +105,24 @@
 								method:that.$GrzxInter.Interface.userInfoList.method,
 								success(res1) {
 									console.log(res1,'乘车人列表')
-									for(var i=0;i<res1.data.data.length;i++){
-										if(res1.data.data[i].userSex==0){
-											res1.data.data[i].userSex="男";
-										}else{
-											res1.data.data[i].userSex="女";
-										}
-										var data1=res1.data.data[i];
-										data1.hiddenIndex=0;
-										for(var q=0;q<list.length;q++){
-											if(data1.passengerId==list[q]){
-												data1.hiddenIndex=1;
+									if(res1.data.status){
+										var  obj = new Object();
+										for (let item of res1.data.data){
+											var index = list.indexOf(item.PassengerId);
+											obj = {
+												userName:item.UserName,
+												userDefault:item.IsuserDefault,
+												passengerId:item.PassengerId,
+												userCodeNum:item.UserCodeNum,
+												userPhoneNum:item.UserPhoneNum,
+												userSex:item.UserSex == 0?'男':'女',
+												userType:item.UserType,
+												userauditState:item.UserauditState,
+												deleteIndex:0,
+												hiddenIndex:index>-1?1:0,
 											}
+											array.push(obj);
 										}
-										array.push(data1);
-										uni.stopPullDownRefresh();
 									}
 									var defaultList=[];
 									for(var n=0;n<array.length;n++){
