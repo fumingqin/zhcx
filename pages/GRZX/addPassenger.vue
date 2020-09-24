@@ -419,7 +419,13 @@
 						title:'请选择购票类型',
 						icon:'none',
 					})
-				}else{
+				}else if((data1.userType=="免票儿童 >"||data1.userType=="半票儿童 >") && data1.userDefault == true){
+					uni.showToast({
+						title:'儿童不允许设置为本人',
+						icon:'none',
+					})
+				}
+				else{
 					data1.userType = data1.userType.substring(0,data1.userType.length-2);
 					data1.userauditState = data1.userauditState.substring(0,data1.userauditState.length-2);
 					uni.showLoading({
@@ -499,16 +505,11 @@
 					method:that.$GrzxInter.Interface.changeUserInfo.method,
 					success(res) {
 						console.log(res,"370")
-						if(res.data.msg!=""&&res.data.msg!=null){
-							uni.showToast({
-								icon:'none',
-								title:res.data.msg
-							})
-						}else{
-							uni.showToast({
-								icon:'success',
-								title:'完成'
-							})
+						uni.showToast({
+							icon:'none',
+							title:res.data.msg
+						})
+						if(res.data.status){
 							if(that.type=="add"){
 								uni.getStorage({
 									key:'passengerList',
@@ -524,14 +525,14 @@
 											res.data.data.userSex="女";
 										}
 										var list1={
-											passengerId:res.data.data.passengerId, //乘车人id
-											userType:res.data.data.userType,   //用户类别 成人/儿童 
-											userName:res.data.data.userName,   //用户姓名   
-											userSex:res.data.data.userSex,   //用户性别   
-										  	userCodeNum:res.data.data.userCodeNum,   //用户身份证   
-										  	userPhoneNum:res.data.data.userPhoneNum,   //用户手机号   
-										  	userDefault:res.data.data.userDefault,   //用户是否本人 true/false 
-										  	userEmergencyContact:res.data.data.userEmergencyContact, //是否设置为紧急联系人 true/false
+											passengerId:res.data.data.PassengerId, //乘车人id
+											userType:res.data.data.UserType,   //用户类别 成人/儿童 
+											userName:res.data.data.UserName,   //用户姓名   
+											userSex:res.data.data.UserSex,   //用户性别   
+										  	userCodeNum:res.data.data.UserCodeNum,   //用户身份证   
+										  	userPhoneNum:res.data.data.UserPhoneNum,   //用户手机号   
+										  	userDefault:res.data.data.IsuserDefault,   //用户是否本人 true/false 
+										  	userEmergencyContact:res.data.data.IsuserEmergencyContact, //是否设置为紧急联系人 true/false
 											hiddenIndex:1,  //1代表选中
 										}
 										passList.push(list1);

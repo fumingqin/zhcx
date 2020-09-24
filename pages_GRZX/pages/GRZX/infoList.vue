@@ -1,7 +1,7 @@
 <template>
 	<view>	
 		<!-- 常用乘车人 -->
-		<view v-if="type==1 && state==1" class="mt">
+		<view v-if="state==1" class="mt">
 			<view class="boxClass" v-for="(item, index) in passengerList" :key="index" @click="editPassenger(item)">  <!--个人中心页面进入 -->
 				<view class="nameClass">{{item.userName}}</view>
 				<view class="sexClass">{{item.userSex}}</view>
@@ -19,11 +19,11 @@
 				</view>
 			</view>
 		</view>
-		<view v-if="type==1 && state==1" class="btnBox">
+		<view v-if="state==1" class="btnBox">
 			<button @click="addPassenger" class="btnAdd btn_background btn_fontColor">+添加乘客</button>
 		</view>	
 		
-		<view v-if="type==1 && state==2" class="mt">
+		<view v-if="state==2" class="mt">
 			<view class="boxClass" v-for="(item, index) in passengerList" :key="index" @click="selete(item)">  <!--个人中心页面进入 -->
 				<view class="nameClass">{{item.userName}}</view>
 				<view class="sexClass">{{item.userSex}}</view>
@@ -44,69 +44,10 @@
 				</view>
 			</view>
 		</view>
-		<view v-if="type==1 && state==2" class="btnBox">
+		<view v-if="state==2" class="btnBox">
 			<button @click="deletePassenger" class="btnAdd btn_background btn_fontColor">删除</button>
 		</view>
 		
-		<!-- <view v-if="type==1" class="navClass" >
-			<view class="passengerClass1" @click="passengerClick">
-				<text class="textClass">常用出行人</text>
-				<view class="lineClass"></view>
-			</view>
-			<view class="addressClass1" @click="addressClick"><text class="textClass">常用地址</text></view>
-		</view> -->
-		
-		<!-- 常用地址 -->
-		
-		<view v-if="type==2 && state==1" class="m-l">
-			<view class="boxClass1" v-for="(item, index) in addressList" :key="index" @click="editAddress(item)">  <!--非个人中心页面进入 -->
-				<view class="nameClass1">{{item.receiver}}</view>
-				<view class="postalCodeClass">{{item.postalCode}}</view>
-				<view class="fontStyle1" style="top:101upx;">手机号码：{{item.phoneNum}}</view>
-				<view class="fontStyle1" style="top:158upx;">所在地区：{{item.district}}</view>
-				<view class="fontStyle1" style="top:216upx;">详细地址：{{item.detailAddress}}</view>
-				<view class="editClass">
-					<image src="../../static/GRZX/btnRight.png" class="btnRight1"></image>
-				</view>
-				
-				<view v-if="item.default">
-					<image src="../../static/GRZX/defaultAddress.png" class="defaultClass"></image>
-				</view>
-			</view>
-		</view>	
-		<view v-if="type==2 && state==1" class="btnBox"> 
-			<button @click="addAddress" class="btnAdd btn_background btn_fontColor">+添加邮寄地址</button>
-		</view>	
-		
-		<view v-if="type==2 && state==2" class="m-l">
-			<view class="boxClass1" v-for="(item, index) in addressList" :key="index" @click="selete(item)">  <!--非个人中心页面进入 -->
-				<view class="nameClass1">{{item.receiver}}</view>
-				<view class="postalCodeClass">{{item.postalCode}}</view>
-				<view class="fontStyle1" style="top:101upx;">手机号码：{{item.phoneNum}}</view>
-				<view class="fontStyle1" style="top:158upx;">所在地区：{{item.district}}</view>
-				<view class="fontStyle1" style="top:216upx;">详细地址：{{item.detailAddress}}</view>
-				<view v-if="item.deleteIndex==0" class="btnCheck1">
-					<image src="../../static/GRZX/btnUncheck.png" style="width: 100%;height: 100%;"></image>
-				</view>
-				<view v-if="item.deleteIndex==1" class="btnCheck1"> 
-					<image src="../../static/GRZX/btnCheck.png" style="width: 100%;height: 100%;"></image>
-				</view>
-				
-				<view v-if="item.default">
-					<image src="../../static/GRZX/defaultAddress.png" class="defaultClass"></image>
-				</view>
-			</view>
-		</view>	
-		<view v-if="type==2 && state==2" class="btnBox">
-			<button @click="deleteAddress" class="btnAdd btn_background btn_fontColor">删除</button>
-		</view>
-		<view v-if="type==2" class="navClass" >
-			<view class="passengerClass2" @click="passengerClick"><text class="textClass">常用出行人</text></view>
-			<view class="addressClass2" @click="addressClick">
-				<text class="textClass">常用地址</text>
-				<view class="lineClass"></view>
-			</view>
-		</view>
 		<view class="topClass">
 			<!-- #ifndef MP-WEIXIN -->
 			<text class="titleClass">常用信息设置</text>
@@ -127,7 +68,6 @@
 	        return {
 				applyName:'',   //应用名称
 				
-				type:1,  		//切换tab
 				state:1,		 //1管理， 2完成
 				passengerList:[], 	//乘客列表
 				addressList:[],		//地址列表
@@ -175,8 +115,8 @@
 			// --------------------------------加载数据--------------------------------
 			loadData(){
 				var array=[];
-				var list=[];
 				var that=this;
+				var list=[];
 				uni.getStorage({
 					key:"passengerList",
 					success(res2) {
@@ -201,41 +141,44 @@
 							method:that.$GrzxInter.Interface.userInfoList.method,
 							success(res1) {
 								console.log(res1,'111')
-								for(var i=0;i<res1.data.data.length;i++){
-									if(res1.data.data[i].userSex==0){
-										res1.data.data[i].userSex="男";
-									}else{
-										res1.data.data[i].userSex="女";
+								uni.showToast({
+									title: res1.data.msg,
+									icon:'none',
+								});
+								if(res1.data.status){
+									var  obj = new Object();
+									for (let item of res1.data.data){
+										var index = list.indexOf(item.PassengerId);
+										obj = {
+											userName:item.UserName,
+											userDefault:item.IsuserDefault,
+											passengerId:item.PassengerId,
+											userCodeNum:item.UserCodeNum,
+											userPhoneNum:item.UserPhoneNum,
+											userSex:item.UserSex == 0?'男':'女',
+											userType:item.UserType,
+											userauditState:item.UserauditState,
+											deleteIndex:0,
+											hiddenIndex:index>-1?1:0,
+										}
+										array.push(obj);
 									}
-									res1.data.data[i].deleteIndex=0;
-									var data1=res1.data.data[i];
-									data1.hiddenIndex=0;
-									for(var q=0;q<list.length;q++){
-										if(data1.passengerId==list[q]){
-											data1.hiddenIndex=1;
+									var list1=[];
+									var defaultList=[];
+									for(var i=0;i<array.length;i++){
+										if(array[i].hiddenIndex==1){
+											list1.push(array[i]);
+										}
+										if(array[i].userDefault==true){
+											defaultList.unshift(array[i]);//置顶
+										}else{
+											defaultList.push(array[i]);
 										}
 									}
-									array.push(data1);
+									that.passengerList=defaultList;
+									uni.stopPullDownRefresh();
+									uni.setStorageSync('passengerList',list1);
 								}
-								var list1=[];
-								var defaultList=[];
-								for(var i=0;i<array.length;i++){
-									if(array[i].hiddenIndex==1){
-										list1.push(array[i]);
-									}
-									if(array[i].userDefault==true){
-										defaultList.unshift(array[i]);//置顶
-									}else{
-										defaultList.push(array[i]);
-									}
-								}
-								that.passengerList=defaultList;
-								uni.stopPullDownRefresh();
-								uni.setStorage({
-									key:'passengerList',
-									data:list1,
-								})
-								uni.hideLoading();
 							},
 							fail() {
 								uni.hideLoading();
@@ -243,6 +186,9 @@
 									icon:'none',
 									title:'网络请求失败'
 								})
+							},
+							complete() {
+								uni.hideLoading();
 							}
 						})
 					},
@@ -253,15 +199,6 @@
 						})
 					}
 				})
-			},
-			
-			//--------------------------------乘车人管理--------------------------------
-			passengerClick(){
-				this.type=1;
-			},
-			
-			addressClick(){
-				this.type=2;
 			},
 			
 			// --------------------------------编辑乘车人--------------------------------
@@ -292,28 +229,6 @@
 							url:that.$GrzxInter.Route.addPassenger.url+'?type=ad',
 						})
 					}
-				})
-			},
-			
-			// --------------------------------地址管理--------------------------------
-			addAddress(){
-				uni.redirectTo({
-					url:this.$GrzxInter.Route.addAddress.url+'?type=add',
-				})
-			},
-			
-			// --------------------------------选择地址--------------------------------
-			chooseAddress(e){
-			},
-			
-			// --------------------------------编辑地址--------------------------------
-			editAddress(e){   
-				uni.setStorage({
-					key:'editAddress',
-					data:e
-				})
-				uni.redirectTo({
-					url:this.$GrzxInter.Route.addAddress.url+'?type=edit',
 				})
 			},
 			
@@ -378,32 +293,6 @@
 						}
 					})	
 				}
-			},
-			
-			// --------------------------------删除地址--------------------------------
-			deleteAddress(){  //
-				var data=this.addressList;
-				var array=[];
-				for(var i=0;i<data.length;i++){
-					if(data[i].deleteIndex==0){
-						array.push(data[i]);
-					}
-				}
-				if(array.length==0){
-					uni.showToast({
-						title: '请选择',
-						icon:"none"
-					})
-				}else{
-					uni.setStorage({
-						key:"addressList",
-						data:array
-					})	
-				}
-				this.state=1;
-				uni.redirectTo({
-					url:this.$GrzxInter.Route.infoList.url,
-				})
 			},
 			
 			// --------------------------------选中--------------------------------

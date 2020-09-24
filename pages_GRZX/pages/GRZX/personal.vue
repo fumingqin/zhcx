@@ -252,6 +252,16 @@
 			
 			// --------------------------------------7.提交数据------------------------------------
 			formSubmit: function(e) {
+				var openid = '';
+				// #ifdef MP-WEIXIN
+					openid = this.openId_xcx;
+				//#endif
+				// #ifdef H5
+					openid = this.openId_wx;
+				//#endif
+				// #ifdef APP-PLUS
+					openid = this.openId_app;
+				//#endif
 				uni.showLoading({
 					title:'保存中...'
 				})
@@ -284,11 +294,12 @@
 						data:{
 							userId:that.userId,
 							gender:that.gender,
-							openId_qq:that.openId_qq,
-							openId_wx:that.openId_wx,
-							openId_xcx:that.openId_xcx,
-							openId_app:that.openId_app,
-							openId_ios:that.openId_ios,
+							openId:openid,
+							// openId_qq:that.openId_qq,
+							// openId_wx:that.openId_wx,
+							// openId_xcx:that.openId_xcx,
+							// openId_app:that.openId_app,
+							// openId_ios:that.openId_ios,
 							address:that.address,
 							nickname:that.nickname,
 							birthday:that.birthday,

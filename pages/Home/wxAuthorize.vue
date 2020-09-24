@@ -85,7 +85,7 @@ export default{
 		},
 		getOpenID:function(code){
 			var that = this;
-			console.log("访问地址",that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.value)
+			console.log("访问地址",that.$GrzxInter.Interface.GetUserInfoByOpenId.value)
 			console.log("应用名称",that.$GrzxInter.systemConfig.appName)
 			console.log("应用类型",that.$GrzxInter.systemConfig.openidtype)
 			uni.request({
@@ -103,13 +103,13 @@ export default{
 					that.sessionKey=logRes.data.data.session_key;
 					that.openId_xcx=logRes.data.data.openid;
 					uni.request({
-						url: that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.value,
+						url: that.$GrzxInter.Interface.GetUserInfoByOpenId.value,
 						data:{
 							openid:openid,
 							systemname:that.$GrzxInter.systemConfig.appName,//应用名称
 							openidtype:that.$GrzxInter.systemConfig.openidtype,//应用类型
 						},
-						method:that.$GrzxInter.Interface.GetUserInfoByOpenId_xcx.method,
+						method:that.$GrzxInter.Interface.GetUserInfoByOpenId.method,
 						success(res){
 							setTimeout(function(){
 								uni.hideLoading();
@@ -126,7 +126,24 @@ export default{
 									that.bindState=true;
 								}
 							}else{
-								uni.setStorageSync('userInfo',res.data.data)
+								var data = res.data.data;
+								var user = new Object();
+								user = {
+									address : data.Address,
+									autograph : data.Autograph,
+									birthday : data.Birthday,
+									gender : data.Gender,
+									openId_app : data.OpenId_app,
+									openId_ios : data.OpenId_ios,
+									openId_qq : data.OpenId_qq,
+									openId_wx : data.OpenId_wx,
+									openId_xcx : data.OpenId_xcx,
+									phoneNumber : data.PhoneNumber,
+									portrait : data.Portrait,
+									userId : data.UserId,
+									nickname : data.Nickname,
+								};
+								uni.setStorageSync('userInfo', user);
 								uni.showToast({
 									title:'登录成功！',
 									icon:'success',
@@ -193,6 +210,24 @@ export default{
 							method:that.$GrzxInter.Interface.changeInfo.method,
 							success(res2){
 								console.log('修改用户信息', res2)
+								let data = res2.data.data;
+								var user = new Object();
+								user = {
+									address : data.Address,
+									autograph : data.Autograph,
+									birthday : data.Birthday,
+									gender : data.Gender,
+									openId_app : data.OpenId_app,
+									openId_ios : data.OpenId_ios,
+									openId_qq : data.OpenId_qq,
+									openId_wx : data.OpenId_wx,
+									openId_xcx : data.OpenId_xcx,
+									phoneNumber : data.PhoneNumber,
+									portrait : data.Portrait,
+									userId : data.UserId,
+									nickname : data.Nickname,
+								};
+								uni.setStorageSync('userInfo', user);
 								uni.request({
 									url:that.$GrzxInter.Interface.changeInfoPortrait.value,
 									data:{
@@ -207,7 +242,7 @@ export default{
 												title:'绑定成功！',
 												icon:'success',
 											})
-											uni.setStorageSync('userInfo',res3.data.data)
+											// uni.setStorageSync('userInfo',res3.data.data)
 											setTimeout(function(){
 												uni.navigateBack();
 											},500);

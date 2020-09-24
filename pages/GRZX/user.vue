@@ -267,11 +267,11 @@
 									var base64 = user.portrait;
 									if (that.isBase64(base64)) {
 										base64ToPath(base64)
-											.then(path => {
-												that.port = path;
-											})
-											.catch(error => {												
-											})
+										.then(path => {
+											that.port = path;
+										})
+										.catch(error => {												
+										})
 									} else {
 										that.port = base64;
 									}

@@ -55,25 +55,25 @@ const Interface={
 		pages: [],
 	},
 	changeInfo:{
-		value:Url+'/api/person/changeInfo',
+		value:Url1+'/api/person/changeInfo',
 		name:'修改个人信息（除头像外）',
 		method:'POST',
 		pages: [],
 	},
 	userInfoList:{
-		value:Url+'/api/person/userInfoList',
+		value:Url1+'/api/person/userInfoList',
 		name:'获取乘车人信息',
 		method:'POST',
 		pages: [],
 	},
 	changeUserInfo:{
-		value:Url+'/api/person/changeUserInfo',
+		value:Url1+'/api/person/changeUserInfo',
 		name:'修改乘车人信息',
 		method:'POST',
 		pages: [],
 	},
 	deletuserInfoList:{
-		value:Url+'/api/person/deletuserInfoList',
+		value:Url1+'/api/person/deletuserInfoList',
 		name:'删除乘车人信息',
 		method:'POST',
 		pages: [],
@@ -84,12 +84,12 @@ const Interface={
 		method:'POST',
 		pages: [],
 	},
-	userInfoListDetail:{
-		value:Url+'/api/person/userInfoListDetail',
-		name:'获取详细信息',
-		method:'POST',
-		pages: [],
-	},
+	// userInfoListDetail:{
+	// 	value:Url+'/api/person/userInfoListDetail',
+	// 	name:'获取详细信息',
+	// 	method:'POST',
+	// 	pages: [],
+	// },
 	// BindPersonInfoOpenID_wxAndPhoneNumber:{
 	// 	value:Url+'/api/person/BindPersonInfoOpenID_wxAndPhoneNumber',
 	// 	name:'微信openid，绑定手机号',
@@ -102,30 +102,12 @@ const Interface={
 		method:'POST',
 		pages: [],
 	},
-	GetUserInfoByOpenId_xcx:{
-		value:Url+'/api/person/GetUserInfoByOpenId_xcx',
-		name:'传什么openid就返回什么openid以及相应的用户信息',
+	GetUserInfoByOpenId:{
+		value:Url+'/api/person/GetUserInfoByOpenId',
+		name:'根据openid获取相应的用户信息',
 		method:'POST',
 		pages: [],
 	 },
-	// GetUserInfoByOpenId_wx:{
-	// 	value:Url+'/api/person/GetUserInfoByOpenId_wx',
-	// 	name:'通过微信的openid获取用户信息',
-	// 	method:'POST',
-	// 	pages: [],
-	// },
-	// GetUserInfoByOpenId_qq:{
-	// 	value:Url+'/api/person/GetUserInfoByOpenId_qq',
-	// 	name:'通过qq的openid获取用户信息',
-	// 	method:'POST',
-	// 	pages: [],
-	// }, 
-	// GetUserInfoByOpenId_app:{
-	// 	value:Url+'/api/person/GetUserInfoByOpenId_app',
-	// 	name:'App微信授权和ios苹果登录',
-	// 	method:'POST',
-	// 	pages: [],
-	// }, 
 	SearchVersion:{
 		value:Url+'/api/person/SearchVersion',
 		name:'获取版本号',
