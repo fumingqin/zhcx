@@ -8,7 +8,7 @@
 				</swiper-item>
 			</swiper>
 			<!-- app -->
-			<!-- #ifdef APP-PLUS -->
+			<!-- #ifdef APP-PLUS  -->
 			<swiper class="zl_swi " circular @change="swiperChange">
 				<swiper-item class="swiItem" style="display: flex;align-items: center;" v-for="(item,index) in swiperItem" :key="index">
 					<!-- 	<swiper-item class="swiItem" style="display: flex;align-items: center;">
